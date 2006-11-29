@@ -3,8 +3,13 @@
 <body onload="rcache_it()">
 {% endblock %}
 {% block content %}
+<div id="nav">
+  <ul>
+    <li><a href="recent">Recently Cached</a></li>
+    <li><a href="logout">Logout</a></li>
+  </ul>
+</div>
 <div id="url_submitted">
-  
   <div class="instruct_label">Fetching URI:
     <a href="{{ u }}" target="_new">{{ u }}</a>
     </div>
