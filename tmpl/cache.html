@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<body onload="rcache_it()">
+{% endblock %}
+{% block content %}
+<div id="url_submitted">
+  
+  <div class="instruct_label">Fetching URI:
+    <a href="{{ u }}" target="_new">{{ u }}</a>
+    </div>
+</div>
+<div id="caching_status">
+  <img src="/media/img/loading_ani2.gif" />
+</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+{% block title %}
+<title>rCache.com</title>
+{% endblock %}
+<LINK HREF="/media/css/base.css" REL="stylesheet">
+
+{% block js %}
+<SCRIPT SRC="/media/js/rcachelib.js"></SCRIPT>
+    {% block mochi %}
+    <SCRIPT SRC="/media/js/MochiKit/MochiKit.js"></SCRIPT>
+    {% endblock %}
+    {% block dojo %}
+    <SCRIPT SRC="/media/js/dojo/dojo.js"></SCRIPT>
+    {% endblock %}
+    {% block yui %}
+     <script type="text/javascript" src="/media/js/yui/yahoo/yahoo-min.js"></script>
+    <script type="text/javascript" src="/media/js/yui/dom/dom-min.js"></script>
+    <script type="text/javascript" src="/media/js/yui/event/event-min.js"></script>
+     <script type="text/javascript" src="/media/js/yui/connection/connection-min.js"></script>
+    <script type="text/javascript" src="/media/js/yui/animation/animation-min.js"></script>
+    {% endblock %}
+{% endblock %}
+{% block js_app %}
+{% endblock %}
+
+
+</head>
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+<h1>rCache.com</h1>
+{% endblock %}
+</body>
+</html>
