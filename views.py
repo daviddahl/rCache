@@ -33,7 +33,11 @@ def cache(request):
     else:
         return render_to_response('cache.html',{'u':"Bad Input: No Url Transmitted"})
 
-    
+def recent(request):
+    u = User.objects.get(id=1)
+    e = Entry.objects.filter(user=u).order_by('-id')[:50]
+    return render_to_response('recent.html',
+                              {'entries':e})
 
 def spider(request):
     #check login first
