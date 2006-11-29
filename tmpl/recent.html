@@ -12,10 +12,12 @@
 <div id="recently_cached">
   <table>
     <th>Title</th>
+    <th>URL</th>
     <th>Date</th>
     {% for e in entries %}
     <tr>
-      <td>{{ e.entry_name }}</td>
+      <td><a href="/detail/{{ e.id }}/">{{ e.entry_name }}</a></td>
+      <td><a href="{{ e._url }}" title="{{ e._url }}">Go</a></td>
       <td>{{ e.date_created }}</td>
     </tr>
     {% endfor %}

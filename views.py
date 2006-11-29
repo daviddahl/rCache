@@ -38,7 +38,11 @@ def recent(request):
     e = Entry.objects.filter(user=u).order_by('-id')[:50]
     return render_to_response('recent.html',
                               {'entries':e})
-
+def detail(request,entry_id):
+    u = User.objects.get(id=1)
+    e = Entry.objects.filter(user=u,id__exact=entry_id)
+    return render_to_response('detail.html',
+                              {'entry':e})
 def spider(request):
     #check login first
     if request.GET.has_key('url'):

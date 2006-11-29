@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+<div id="nav">
+  <ul>
+    <li><a href="/recent">Recently Cached</a></li>
+    <li><a href="/logout">Logout</a></li>
+  </ul>
+</div>
+<div id="entry_detail">
+<div id="entry_detail_id">ID: {{ entry.id }}</div>    
+<div id="entry_detail_title">{{ entry.entry_name }}</div>
+<div id="entry_detail_content"><pre>{{ entry.text_content }}</pre></div>
+</div>
+{% endblock %}
