@@ -63,7 +63,7 @@ ROOT_URLCONF = 'rcache.urls'
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
-    '/Users/dahl/Code/rcache_django/rcache/tmpl',
+    '/home/david/code/rcache_django/rcache/tmpl',
 )
 
 INSTALLED_APPS = (
