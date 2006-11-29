@@ -111,7 +111,7 @@ var spiderCallBk = {
  failure: function(o){
     alert('Your rCache request is being processed, please check your entries list in a few minutes');
   },
- timeout: 10000
+ timeout: 15000
 }
 
 /////////////////////////////////////

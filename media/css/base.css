@@ -753,13 +753,13 @@ textarea{
     width: 580px;
 
 }
-.recent_tr{
+#recent_grid tr{
     padding: 0px 0px 0px 0px;
 }
-.recent_td{
+#recent_grid td{
     padding: 2px 0px 0px 2px;
 }
-.recent_td:hover{
+#recent_grid td:hover{
     padding: 2px 0px 0px 2px;
     cursor: help;
 }
