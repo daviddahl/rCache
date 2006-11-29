@@ -15,8 +15,8 @@
     <th>Date</th>
     {% for e in entries %}
     <tr>
-      <td>{ e.entry_name }</td>
-      <td>{ e.date_created }</td>
+      <td>{{ e.entry_name }}</td>
+      <td>{{ e.date_created }}</td>
     </tr>
     {% endfor %}
   </table>
