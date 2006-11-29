@@ -17,7 +17,7 @@
     {% for e in entries %}
     <tr>
       <td><a href="/detail/{{ e.id }}/">{{ e.entry_name }}</a></td>
-      <td><a href="{{ e._url }}" title="{{ e._url }}">Go</a></td>
+      <td><a href="{{ e.entry_url }}" title="{{ e.entry_url }}">Go</a></td>
       <td>{{ e.date_created }}</td>
     </tr>
     {% endfor %}
