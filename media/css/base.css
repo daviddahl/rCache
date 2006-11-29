@@ -749,7 +749,7 @@ textarea{
 #recent_grid{
     padding: 0px;
     border-top:  1px solid #EEE;
-    width: 580px;
+    width: 620px;
 }
 #recent_grid tr{
     padding: 0px 0px 0px 0px;
@@ -763,7 +763,7 @@ textarea{
 }
 #search_results_grid{
     padding: 3px;
-    width:575px;
+    width:620px;
     height: 580px;
     overflow: auto;
 }
