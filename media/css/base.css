@@ -751,6 +751,7 @@ textarea{
     border-top:  1px solid #EEE;
     overflow: auto;
     width: 580px;
+    height: 580px;
 
 }
 #recent_grid tr{
