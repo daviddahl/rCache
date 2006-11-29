@@ -8,7 +8,7 @@ urlpatterns = patterns('rcache.views',
                        (r'^bookmarklet/$', 'bookmarklet'),
                        (r'^spider/$', 'spider'),
                        (r'^recent/$','recent'),
-                       (r'^detail/P<entry_id>\d/$','detail'),
+                       (r'^detail/P<entry_id>/$','detail'),
                        )
 urlpatterns += patterns('',
                         (r'^media/(.*)$',
