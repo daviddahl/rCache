@@ -56,7 +56,7 @@ class Tag(models.Model):
     
 class Entry(models.Model):
     user = models.ForeignKey(User)
-    _url = models.CharField(blank=True, maxlength=765)#alter db on turbogears side
+    entry_url = models.CharField(blank=True, maxlength=765)#alter db on turbogears side
     entry_name = models.CharField(blank=True, maxlength=765)
     description = models.CharField(blank=True, maxlength=765)
     text_content = models.TextField(blank=True)
@@ -72,7 +72,7 @@ class Entry(models.Model):
     class Meta:
         db_table = 'entry'
     class Admin:
-        list_display = ('_url','user','entry_name','description')  
+        list_display = ('entry_url','user','entry_name','description')  
 
 class EntryUrl(models.Model):
     url = models.CharField(maxlength=765)

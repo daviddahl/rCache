@@ -70,7 +70,7 @@ def spider(request):
             #insert into database here
             u = User.objects.get(id=1)
             e = Entry(user=u,
-                      _url=request.GET['url'],
+                      entry_url=request.GET['url'],
                       entry_name=title,
                       description=title,
                       text_content=txt,
