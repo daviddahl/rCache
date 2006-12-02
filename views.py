@@ -133,6 +133,21 @@ def login(request):
         #error: no username
         pass
 
+def postcache(request):
+    if request.POST:
+        if request.POST['body']:
+            json_dict = dict(body=request.POST['body'])
+        else:
+            json_dict = dict(body="WHOOPS, something blew up")
+            
+        return HttpResponse(simplejson.dumps(json_dict),
+                            mimetype='application/javascript')
+    else:
+        return HttpResponse(simplejson.dumps(dict(body="Not POST Method")),
+                            mimetype='application/javascript')
+
+
 def toXHTML(html):   
     options = dict(output_xhtml=1, add_xml_decl=1, indent=1, tidy_mark=0)   
     return tidy.parseString(html, **options)
+
