@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://rcache/content/rcache.css"?>
+<overlay id="rcache" 
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript" src="chrome://rcache/content/rcache.js"/>
+<script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
+ <statusbar id="status-bar">
+  <statusbarpanel id="rcache-panel" label="rCache Page"
+		  onmousedown="rcache.run()"
+		  tooltip="Process page with rCache">
+  </statusbarpanel>
+  <statusbarpanel id="rcache-panel-sel" label="rCache Selected"
+		  onmousedown="rcache.postit()"
+		  tooltip="Process page with rCache">
+  </statusbarpanel>
+ </statusbar>
+</overlay>
