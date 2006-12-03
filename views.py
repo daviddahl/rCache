@@ -144,10 +144,12 @@ def postcache(request):
             print text_content
             #create entry object here
             try:
+                user = User.objects.get(pk=1)
                 entry = Entry(text_content=text_content,
                               entry_name=entry_name,
                               description=description,
-                              entry_url=entry_url)
+                              entry_url=entry_url,
+                              user=user)
                 entry.save()
                 print "entry id: %s" % entry.id
             except Exception,e:
