@@ -142,14 +142,16 @@ def postcache(request):
             description = urllib.unquote_plus(request.POST['description'])
             entry_url = urllib.unquote_plus(request.POST['entry_url'])
             print text_content
-            entry_dict = dict(text_content=text_content,
+            #create entry object here
+            try:
+                entry = Entry(text_content=text_content,
                               entry_name=entry_name,
                               description=description,
                               entry_url=entry_url)
-            #create entry object here
-            entry = Entry(entry_dict)
-            entry.save()
-            print "entry id: %s" % entry.id
+                entry.save()
+                print "entry id: %s" % entry.id
+            except Exception,e:
+                print e
             #deal with tags
             
         else:
