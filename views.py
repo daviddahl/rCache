@@ -138,8 +138,19 @@ def postcache(request):
         import urllib
         if request.POST['text_content']:
             text_content = urllib.unquote_plus(request.POST['text_content'])
+            entry_name = urllib.unquote_plus(request.POST['entry_name'])
+            description = urllib.unquote_plus(request.POST['description'])
+            entry_url = urllib.unquote_plus(request.POST['entry_url'])
             print text_content
-            json_dict = dict(body=text_content)
+            entry_dict = dict(text_content=text_content,
+                              entry_name=entry_name,
+                              description=description,
+                              entry_url=entry_url)
+            #create entry object here
+            entry = Entry(entry_dict)
+            entry.save()
+            print "entry id: %s" % entry.id
+            #deal with tags
             
         else:
             json_dict = dict(body="WHOOPS, something blew up")
