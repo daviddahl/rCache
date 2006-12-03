@@ -135,8 +135,12 @@ def login(request):
 
 def postcache(request):
     if request.POST:
-        if request.POST['body']:
-            json_dict = dict(body=request.POST['body'])
+        import urllib
+        if request.POST['text_content']:
+            text_content = urllib.unquote_plus(request.POST['text_content'])
+            print text_content
+            json_dict = dict(body=text_content)
+            
         else:
             json_dict = dict(body="WHOOPS, something blew up")
             
