@@ -152,17 +152,22 @@ def postcache(request):
                               user=user)
                 entry.save()
                 print "entry id: %s" % entry.id
+                json_dict=dict(status="success",entry_id=entry.id,
+                               msg="Congrats")
+                return HttpResponse(simplejson.dumps(json_dict),
+                                    mimetype='application/javascript')
             except Exception,e:
-                print e
-            #deal with tags
-            
+                json_dict=dict(status="error",entry_id=None,
+                               msg="Something Blew Up!: " + str(e))
+                return HttpResponse(simplejson.dumps(json_dict),
+                                    mimetype='application/javascript')
         else:
-            json_dict = dict(body="WHOOPS, something blew up")
-            
-        return HttpResponse(simplejson.dumps(json_dict),
-                            mimetype='application/javascript')
+            json_dict = dict(status="error",msg="No TEXT sent")
+            return HttpResponse(simplejson.dumps(json_dict),
+                                mimetype='application/javascript')
     else:
-        return HttpResponse(simplejson.dumps(dict(body="Not POST Method")),
+        return HttpResponse(simplejson.dumps(dict(status="error",
+                                                  msg="Not POST Method")),
                             mimetype='application/javascript')
 
 
