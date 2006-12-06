@@ -13,5 +13,9 @@
 		  onmousedown="rcache.postit()"
 		  tooltip="Process page with rCache">
   </statusbarpanel>
+  <statusbarpanel id="rcache-panel-sel" label="rCache Dev"
+		  onmousedown="rcache.confirm()"
+		  tooltip="Process page with rCache">
+  </statusbarpanel>
  </statusbar>
 </overlay>

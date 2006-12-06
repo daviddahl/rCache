@@ -1,11 +1,13 @@
 var rcache = {
 
  urlRegex: new RegExp("([^:]*):(//)?([^/]*)"),
- 
- brWin: function getBrowserWindowObj(){
-    var _fs=Components.classes["@mozilla.org/appshell/window-mediator;1"]
-    .getService(Components.interfaces.nsIWindowMediator);
-    var win=_fs.getMostRecentWindow("navigator:browser");
+
+ collector_win: function(){
+    var ww = Components.classes["@mozilla.org/embedcomp/window-watcher;1"]
+    .getService(Components.interfaces.nsIWindowWatcher);
+    var win = ww.openWindow(null,"chrome://rcache/content/rcache_status.xul", 
+			    "status", 
+			    "chrome,width=500,height=230,modal=no", null);
     return win;
   },
 
@@ -27,10 +29,15 @@ var rcache = {
  selection: function(){
     var wndw=document.commandDispatcher.focusedWindow;
     var selected_txt=wndw.getSelection();
-    var title=wndw.document.title;
     return selected_txt;
   },
  
+ imgs: function(){
+    var wndw=document.commandDispatcher.focusedWindow;
+    var images=wndw.document.getElementsByTagName("IMG");
+    return images;
+  },
+
  thetitle: function(){
     var wndw=document.commandDispatcher.focusedWindow;
     var title=wndw.document.title;
@@ -56,9 +63,9 @@ var rcache = {
     var txt = rcache.selection();
     if (txt !=""){
       title = rcache.thetitle();
-      var confirmwin = window.open("chrome://rcache/content/rcache_status.xul", 
-				   "status", 
-				   "chrome,width=500,height=170,modal=no" );
+      var confirmwin = rcache.collector_win();
+      //var progress = confirmwin.document.getElementById('progress');
+      //progress.hidden = false;
       var loadFunction = function() {
 	selTex =
 	confirmwin.document.getElementById('selectedtext');
@@ -72,11 +79,19 @@ var rcache = {
       };
       confirmwin.addEventListener("load", loadFunction, false); 
     } else {
+      //paste the clipboard into txt
       alert("No Text is Selected");
     }
   },
-
+ 
  post_after_confirm: function(){
+    var bCompleted = false;
+    setInterval(rcache.evalComplete, 100);
+    rcache.http_collector();
+    //window.close() +xmlhttprequest - google query
+  },
+ 
+ http_collector: function(){
     //tags not supported on server yet
     if (document.getElementById('selectedtext').value !=""){
       var serverurl = 'http://zinn.ddahl.com:8000/postcache/';
@@ -101,9 +116,18 @@ var rcache = {
 
       http.onreadystatechange = function() {
 	//Call a function when the state changes.
-	if(http.readyState == 4 && http.status == 200) {
-	  alert(http.responseText);
-	  window.close();
+	if(http.status == 200) {
+	  if(http.readyState == 4){
+	    bCompleted = true;
+	    var res = eval(http.responseText);
+	    alert(res);
+	    if (res.status == 'success'){
+	      //var wintext = document.getElementById('progress').hidden = true;
+	      bCompleted = true;
+	    } else {
+	      bCompleted = false;
+	    }
+	  }
 	}
       }
       http.open("POST", serverurl, true);
@@ -114,7 +138,24 @@ var rcache = {
       http.send(params);
     } else {
       alert("No Text is Selected");
+      return false;
     }
+  },
+ 
+ statusMsg: function(){
+    window.document.getElementById('statusmsg').value = "Sucessful rCache.";
+  },
+
+ evalComplete: function(){
+    if (bCompleted == true) {
+      bCompleted = false;
+      window.setInterval(rcache.statusMsg, 100);
+      window.setInterval(window.close, 1500);
+    }
+  },
+
+ winclose: function(){
+    self.close();
   },
 
  post_url: function(url,post_data){
@@ -158,14 +199,9 @@ var rcache = {
  view_img_test: function(){
     var itms = browser.contentWindow.document.getElementsByTagName('td');
     alert(itms[0].toString());
-  },
- 
- status: function(){
-    window.open("chrome://rcache/content/rcache_status.xul", "bmarks", "chrome,width=300,height=200");
   }
+
  //============> TODO <==============\\
- // 0. Open new tab after async http call to detail screen of 
- //    new rcache entry
  // 1. get list of links in selected text or list of links in document
  //    for upload to entry_urls
  // 2. get list of images on page, any image over THRESHOLD xy gets pushed up to media table for entry
