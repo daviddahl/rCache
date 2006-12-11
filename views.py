@@ -254,8 +254,9 @@ def postcache(request):
                                                       msg="Not POST Method")),
                             mimetype='application/javascript')
     else:
-        return HttpResponseRedirect("/login_required/")
-
+        return HttpResponse(simplejson.dumps(dict(status="error",
+                                                  msg="Login Required")),
+                            mimetype='application/javascript')
 
 def toXHTML(html):   
     options = dict(output_xhtml=1, add_xml_decl=1, indent=1, tidy_mark=0)   
