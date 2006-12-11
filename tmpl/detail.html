@@ -12,7 +12,7 @@
 {% for e in entry %}
 <div id="detail">
 <div id="entry_detail_id">ID: <strong>{{ e.id }}</strong></div>    
-<div id="entry_detail_title">{{ e.entry_name }}</div>
+<div id="entry_detail_title"><strong>{{ e.entry_name }}</strong></div>
 <div id="text_content_boundry"><pre class="font_read_bigger">{{ e.text_content }}</pre></div>
 </div>
 {% endfor %}
