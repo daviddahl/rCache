@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+<div id="nav">
+  <ul>
+    <li><a href="/new">New Entry</a></li>
+    <li><a href="/recent">Recent Entries</a></li>
+    <li><a href="/logout">Logout</a></li>
+    <li>{{ user.first_name }} {{ user.last_name }}'s rCache</li>
+  </ul>
+</div>
+<div id="new_entry">
+  New Entry Form goes here.
+</div>
+
+{% endblock %}
