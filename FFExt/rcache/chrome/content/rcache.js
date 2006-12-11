@@ -119,6 +119,8 @@ var rcache = {
 	if(http.status == 200) {
 	  if(http.readyState == 4){
 	    bCompleted = true;
+	    //fixme: responsText is never evaluated correctly here
+	    //collector always returns a successful rcache
 	    var res = eval(http.responseText);
 	    alert(res);
 	    if (res.status == 'success'){

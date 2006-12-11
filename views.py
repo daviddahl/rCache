@@ -161,15 +161,12 @@ def login(request):
                 if loggedin:
                     return HttpResponseRedirect("/recent/")
                 else:
-                    #raise LoginError("Login Failed: Undetermined Login Error")
                     return HttpResponseRedirect("/login_err/?err=unknown")
             else:
                 #error no password
-                #raise LoginError("Login Failed: Please enter your password.")
                 return HttpResponseRedirect("/login_err/?err=passwd")
         else:
             #error: no username
-            #raise LoginError("Login Failed: Please enter your login.")
             return HttpResponseRedirect("/login_err/?err=login")
     else:
         #GET
