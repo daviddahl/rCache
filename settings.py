@@ -64,6 +64,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
     '/home/david/code/rcache_django/rcache/tmpl',
+    '/Users/dahl/Code/rcache_django/tmpl',
 )
 
 INSTALLED_APPS = (

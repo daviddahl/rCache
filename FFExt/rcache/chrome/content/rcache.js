@@ -206,7 +206,15 @@ var rcache = {
  //    for upload to entry_urls
  // 2. get list of images on page, any image over THRESHOLD xy gets pushed up to media table for entry
  // 3. Collect other data in html source: Metatags, etc...
- // 
+ // 4. Tag support on server
+ // 5. clipboard support in client
+ // 6. HTML clipboard support in client - also how do you store that? are the images inline?
+ // 7. parser for HTML clipboard stuff - parse all tags, links, etc
+ // 8. Authentication on server
+ //    Replicate TG rcache tools/interfaces    
+ // 9. prefs.js!!! Prefs interface
+ // 10. download and cache PDF, Word, Excel???
+
 
 
  //end of object

@@ -7,47 +7,48 @@
    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 <script src="rcache.js"/>
 <script src="rclip.js"/>
+<hbox style="margin:5px;">
 <vbox>
   <label id="urllabel" 
 	 value="Url" 
 	 crop="right" 
-	 style="min-height:1em; 
-		max-height:1em; 
+	 style="min-height:2em; 
+		max-height:2em; 
 		min-width: 20em;
 		max-width: 20em;
-		margin:5px;"/>
+		margin:2px;"/>
   <spacer style="height: 2px;"/>
   <textbox id="url" flex="1" 
-	 style="min-width: 20em; min-height: 1.5em;
-		max-width: 20em; max-height: 1.5em; margin:5px;"
+	 style="min-width: 20em; min-height: 2.0em;
+		max-width: 20em; max-height: 2.0em; margin:2px;"
 	 multiline="false"/>
   <spacer style="height: 2px;"/>
   <label id="pgtitlelabel" 
 	 value="Title" 
 	 crop="right" 
-	 style="min-height:1.5em; 
-		max-height:1.5em; 
+	 style="min-height:2.0em; 
+		max-height:2.5em; 
 		min-width: 20em;
 		max-width: 20em;
-		margin:5px;"/>
+		margin:2px;"/>
 
   <textbox id="pagetitle" flex="1" 
-	 style="min-width: 20em; min-height: 1.5em;
-		max-width: 20em; max-height: 1.5em; margin:5px;"
+	 style="min-width: 20em; min-height: 2.0em;
+		max-width: 20em; max-height: 2.0em; margin:2px;"
 	 multiline="false"/>
   <spacer style="height: 2px;"/>
   <label id="taglabel" 
 	 value="Tags (comma-delimit)" 
 	 crop="right" 
-	 style="min-height:1.5em; 
-		max-height:1.5em; 
+	 style="min-height:2.0em; 
+		max-height:2.0em; 
 		min-width: 20em;
 		max-width: 20em;"/>
   <textbox id="tags" flex="1" 
-	 style="min-width: 20em; min-height: 1.5em;
-		max-width: 20em; max-height: 1.5em; margin:5px;"
+	 style="min-width: 20em; min-height: 2.0em;
+		max-width: 20em; max-height: 2.0em; margin:2px;"
 	 multiline="false"/>
-  <spacer style="height: 2px;"/>
+  <spacer style="height: 7px;"/>
   <button
      onclick="rcache.post_after_confirm();"
      crop="right"
@@ -56,19 +57,19 @@
      disabled="false"
      accesskey="r"
      flex="1"
-     style="min-height:10px; 
-	    max-height:10px; 
+     style="min-height:2em; 
+	    max-height:2em; 
 	    min-width: 220px;
 	    max-width: 220px;
-	    margin:5px;"/>
+	    margin:2px;"/>
 </vbox>
 <hbox>
 <spacer style="width: 10px;"/>
 <vbox>
-  <spacer style="height: 15px;"/>
+  <spacer style="height: 20px;"/>
   <textbox id="selectedtext" flex="1" 
 	   style="min-width: 20em; min-height: 15em;
-		  max-width: 20em; max-height: 15em; margin:5px;"
+		  max-width: 20em; max-height: 15em; margin:2px;"
 	   multiline="true"/>
   <spacer style="height: 5px;"/>
   <progressmeter id="progress" style="margin: 5px;" mode="undetermined" hidden="true"/>
@@ -80,9 +81,10 @@
 		max-height:2em; 
 		min-width: 20em;
 		max-width: 20em;
-		margin:5px;
+		margin:2px;
 		color:#00F;
 		font-size:1.1em;"/>
 </vbox>
+</hbox>
 </hbox>
 </window>
