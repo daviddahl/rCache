@@ -49,16 +49,24 @@ def cache(request):
 def recent(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
-        e = Entry.objects.filter(user=u).order_by('-id')[:50]
+        e = Entry.objects.filter(user=u).order_by('-id')[:100]
         return render_to_response('recent.html',
                                   {'entries':e,
                                    'user':u})
+    else:
+        return HttpResponseRedirect("/login_required/")
+    
+    
 def detail(request,entry_id):
     if login_check(request):
         u = User.objects.get(id=1)
         e = Entry.objects.filter(user=u,id__exact=entry_id)
         return render_to_response('detail.html',
                                   {'entry':e})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+    
 def spider(request):
     if login_check(request):
         if request.GET.has_key('url'):
@@ -106,12 +114,21 @@ def spider(request):
                                  error=str(e))
         else:
             json_dict = dict(success=False,
-                         error="No Url Provided")
+                         error="No Url Provided")   
         
-        
-    return HttpResponse(simplejson.dumps(json_dict),
+        return HttpResponse(simplejson.dumps(json_dict),
                         mimetype='application/javascript')
+    else:
+        return HttpResponseRedirect("/login_required/")
 
+def new_entry(request):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        return render_to_response('new_entry.html',
+                                  {'user':u})
+    else:
+        return HttpResponseRedirect("/login_required/")
+        
 
 def spider_tags(request):
     #parse tags
@@ -123,6 +140,7 @@ def spider_tags(request):
     json_dict=dict(tags=tag_list)
     return HttpResponse(simplejson.dumps(json_dict),
                         mimetype='application/javascript')
+
 
 def login_check(request):
     #fixme: check for logged in cookie!
@@ -168,6 +186,11 @@ def login_err(request):
             
     return render_to_response('login_err.html',
                               {'e':error})
+
+
+def login_required(request):
+    return render_to_response('login_required.html',
+                              {})
     
 def authenticate(login,passwd,session):
     pw_sha = sha.new(unicode(passwd))
@@ -179,7 +202,16 @@ def authenticate(login,passwd,session):
         session['userid'] = user[0].id
         return True
     return False
-    
+
+
+def logout(request):
+    try:
+        request.session['loggedin'] = False
+        return render_to_response('logout.html',
+                                  {})
+    except:
+        return render_to_response('logout.html',
+                                  {})
 
 def postcache(request):
     if login_check(request):
@@ -194,7 +226,8 @@ def postcache(request):
                 #fixme: get links, media
                 #create entry object here
                 try:
-                    user = User.objects.get(pk=1)
+                    #user = User.objects.get(pk=1)
+                    user = User.objects.get(id=request.session['userid'])
                     entry = Entry(text_content=text_content,
                                   entry_name=entry_name,
                                   description=description,
@@ -220,6 +253,8 @@ def postcache(request):
             return HttpResponse(simplejson.dumps(dict(status="error",
                                                       msg="Not POST Method")),
                             mimetype='application/javascript')
+    else:
+        return HttpResponseRedirect("/login_required/")
 
 
 def toXHTML(html):   
