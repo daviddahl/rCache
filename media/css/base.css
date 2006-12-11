@@ -340,7 +340,9 @@ pre {
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
-
+#entry_detail_title{
+    font: bolder;
+}
 #text_content_boundry {
     padding: 10px 50px 50px 50px;
     width: 500px;
