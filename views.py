@@ -257,9 +257,9 @@ def postcache(request):
                                   entry_name=entry_name,
                                   description=description,
                                   entry_url=entry_url,
-                                  user=_user,
-                                  tag=tags)
+                                  user=_user)
                     entry.save()
+                    add_tags(tags,_user,entry)
                     #fixme: add tags, links, media, etc...
                     print "entry id: %s" % entry.id
                     json_dict=dict(status="success",entry_id=entry.id,
@@ -310,6 +310,12 @@ def login_check_svc(request):
     return HttpResponse(simplejson.dumps(json_dict),
                         mimetype='application/javascript')
 
+
+def add_tags(tags,_user,entry):
+    for t in tags:
+        tg = Tag(user=_user,tag=t)
+        tg.save()
+        entry.tag.add(tg)
 
 def prune_tags(tags):
     newtags = []
