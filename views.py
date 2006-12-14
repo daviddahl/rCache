@@ -247,6 +247,7 @@ def postcache(request):
                 print text_content
                 #fixme: get tags - validate
                 tags = manage_tags(the_tags)
+                print tags
                 #fixme: get links, media
                 #create entry object here
                 try:
@@ -266,6 +267,7 @@ def postcache(request):
                     return HttpResponse(simplejson.dumps(json_dict),
                                         mimetype='application/javascript')
                 except Exception,e:
+                    print e
                     json_dict=dict(status="error",entry_id=None,
                                    msg="Something Blew Up!: " + str(e))
                     return HttpResponse(simplejson.dumps(json_dict),
