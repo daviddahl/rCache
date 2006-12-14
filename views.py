@@ -313,9 +313,17 @@ def login_check_svc(request):
 
 def add_tags(tags,_user,entry):
     for t in tags:
-        tg = Tag(user=_user,tag=t)
-        tg.save()
-        entry.tag.add(tg)
+        texists = Tag.objects.filter(tag__iexact=t,user=_user)
+        tagcnt = len(texists)
+        if tagcnt == 0:
+            tg = Tag(user=_user,tag=t,tag_count=1)
+            tg.save()
+            entry.tag.add(tg)
+        else:
+            for existtag in texists:
+                existtag.tag_count = tagcnt
+                existtag.save()
+                
 
 def prune_tags(tags):
     newtags = []
