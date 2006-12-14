@@ -1,0 +1,20 @@
+### TODO ###
+
+*HOT
+[] authenticate redirect in FFExt
+[] rCache via Paste form clipboard
+[] detail screen cleanup - follow design from rcache.com
+[] recent grid - use JSON/Paging/AJAX
+
+*MILD
+[] migration script from old rcache.com
+
+*SPARE TIME
+[] review todo in old rcache codebase: pick 3 features to implement in near term
+
+### BUGS ###
+
+*HOT
+[] rcache.js: evaluaiton of rcache caching success message seems broken
+
+*MILD

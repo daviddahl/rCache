@@ -55,6 +55,31 @@ def recent(request):
                                    'user':u})
     else:
         return HttpResponseRedirect("/login_required/")
+
+def recent_xhr(request):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.GET['offset'] is None:
+            e = Entry.objects.filter(user=u).order_by('-id')[:100]
+        else:
+            if request.GET['offset']:
+                start = int(request.GET['offset']) + 1
+                end = start + 20
+                e = Entry.objects.filter(user=u).order_by('-id')[start:end]
+            else:
+                e = Entry.objects.filter(user=u).order_by('-id')[:100]
+
+        json_lst = []
+        #cols: id,name,url,date
+        for entry in e:
+            lst = [entry.id,entry.entry_name,entry.entry_url,
+                   entry.date_created.__str__()]
+            json_lst.append(lst)
+        
+        return HttpResponse(simplejson.dumps(json_lst),
+                        mimetype='application/javascript')
+    else:
+        return HttpResponseRedirect("/login_required/")
     
     
 def detail(request,entry_id):
@@ -218,18 +243,21 @@ def postcache(request):
                 entry_name = urllib.unquote_plus(request.POST['entry_name'])
                 description = urllib.unquote_plus(request.POST['description'])
                 entry_url = urllib.unquote_plus(request.POST['entry_url'])
+                the_tags = urllib.unquote_plus(request.POST['tags'])
                 print text_content
                 #fixme: get tags - validate
+                tags = manage_tags(the_tags)
                 #fixme: get links, media
                 #create entry object here
                 try:
                     #user = User.objects.get(pk=1)
-                    user = User.objects.get(id=request.session['userid'])
+                    _user = User.objects.get(id=request.session['userid'])
                     entry = Entry(text_content=text_content,
                                   entry_name=entry_name,
                                   description=description,
                                   entry_url=entry_url,
-                                  user=user)
+                                  user=_user,
+                                  tag=tags)
                     entry.save()
                     #fixme: add tags, links, media, etc...
                     print "entry id: %s" % entry.id
@@ -255,6 +283,19 @@ def postcache(request):
                                                   msg="Login Required")),
                             mimetype='application/javascript')
 
+
+def update_tags(_user,tags):
+    """move this into a utils module to be run by cron every hour..."""
+    if tags is not None:
+        for tg in tags:
+            tc = Tag.objects.filter(user=_user,tag__iexact=tg)
+            cnt = len(tc) +1
+            for t in tc:
+                t.tag_count = cnt
+                t.save()
+            t = Tag(tag=tg,user=_user,tag_count=cnt)
+            
+
 def toXHTML(html):   
     options = dict(output_xhtml=1, add_xml_decl=1, indent=1, tidy_mark=0)   
     return tidy.parseString(html, **options)
@@ -266,3 +307,30 @@ def login_check_svc(request):
         json_dict = dict(loggedin=0)
     return HttpResponse(simplejson.dumps(json_dict),
                         mimetype='application/javascript')
+
+
+def prune_tags(tags):
+    newtags = []
+    for t in tags:
+        if t == "":
+            pass
+        else:
+            newtags.append(t)
+    return newtags
+    
+    
+def manage_tags(tagList):
+    if len(tagList)>0:
+        if isinstance(tagList,basestring):
+            tagList = "," + tagList
+            tags = tagList.split(",")
+            tags = prune_tags(tags)
+            return tags
+        elif isinstance(tagList,ListType):
+            tags = tagList
+            tags = prune_tags(tags)
+            return tags
+        else:
+            return None
+    else:
+        return None
