@@ -1,13 +1,27 @@
 var rcache = {
 
+ open: function(){
+    rcache_window = document.getElementById('rCacheToolbar');
+    rcache_window.hidden = false;
+    //fixme: set pref to not run the load routine if so desired by user
+    rcache.toolbarLoad();
+  },
+ close: function(){
+    rcache_window = document.getElementById('rCacheToolbar');
+    //fixme: check for un-cached data b4 closing??
+    rcache_window.hidden = true;
+  },
  urlRegex: new RegExp("([^:]*):(//)?([^/]*)"),
 
  collector_win: function(){
     var ww = Components.classes["@mozilla.org/embedcomp/window-watcher;1"]
     .getService(Components.interfaces.nsIWindowWatcher);
+    //var win = ww.openWindow(null,"chrome://rcache/content/rcache_status.xul", 
+    //			    "status", 
+    //			    "chrome,width=500,height=230,modal=no", null);
     var win = ww.openWindow(null,"chrome://rcache/content/rcache_status.xul", 
-			    "status", 
-			    "chrome,width=500,height=230,modal=no", null);
+    			    "status", 
+    			    "chrome,resizable", null);
     return win;
   },
 
@@ -31,7 +45,13 @@ var rcache = {
     var selected_txt=wndw.getSelection();
     return selected_txt;
   },
- 
+
+ paste_selected: function(){
+    //
+    //txt = rcache.selection();
+    
+  },
+
  imgs: function(){
     var wndw=document.commandDispatcher.focusedWindow;
     var images=wndw.document.getElementsByTagName("IMG");
@@ -56,6 +76,28 @@ var rcache = {
       var result = rcache.post_url('http://zinn.ddahl.com:8000/postcache/',txt);      //fixme: need callback to notify when done... 
     } else {
       alert("No Text is Selected");
+    }
+  },
+
+ toolbarLoad: function(){
+    var txt = rcache.selection();
+    if (txt !=""){
+      title = rcache.thetitle();
+      var win=window.content;
+      //var txt=win.document.getElementById('CommandTxt').value; 
+      var collectwin = win.document.getElementById('rCacheToolbar');
+      var loadFunction = function() {
+	var selTex =
+	win.document.getElementById('selectedtext');
+	selTex.setAttribute("value",txt);
+	var pgTitle =
+	win.document.getElementById('pagetitle');
+              pgTitle.setAttribute("value",rcache.thetitle());
+	var pgUrl =
+	win.document.getElementById('url');
+              pgUrl.setAttribute("value",rcache.currentURL());
+      };
+      win.addEventListener("load", loadFunction, false); 
     }
   },
 

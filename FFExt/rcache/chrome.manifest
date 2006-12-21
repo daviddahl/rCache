@@ -1,2 +1,2 @@
 content     rcache    chrome/content/
-overlay chrome://browser/content/browser.xul chrome://rcache/content/rcache.xul
+overlay chrome://browser/content/browser.xul chrome://rcache/content/rcacheOverlay.xul

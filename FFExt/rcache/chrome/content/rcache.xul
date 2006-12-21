@@ -7,15 +7,11 @@
  <statusbar id="status-bar">
   <statusbarpanel id="rcache-panel" label="rCache Page"
 		  onmousedown="rcache.run()"
-		  tooltip="Process page with rCache">
+		  tooltip="Process page with rCache Server">
   </statusbarpanel>
-  <statusbarpanel id="rcache-panel-sel" label="rCache Selected"
-		  onmousedown="rcache.postit()"
-		  tooltip="Process page with rCache">
-  </statusbarpanel>
-  <statusbarpanel id="rcache-panel-sel" label="rCache Dev"
+  <statusbarpanel id="rcache-panel-sel" label="rCache"
 		  onmousedown="rcache.confirm()"
-		  tooltip="Process page with rCache">
+		  tooltiptext="Save Selected Text to rCache">
   </statusbarpanel>
  </statusbar>
 </overlay>
