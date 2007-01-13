@@ -4,7 +4,7 @@
 
 var fragmentMiner = {
  
- makefrag: function(selection){
+ makeFrag: function(selection){
     var rng = selection.getRangeAt(0);
     var clone = rng.cloneContents();
     return clone;
@@ -22,8 +22,8 @@ var fragmentMiner = {
 	  }
 	  for (z=0;z<y[i].childNodes.length;z++){
 	    if (y[i].childNodes[z].nodeType!=3){
-	      if (y[i]childNodes[z].nodeName == 'A'){
-		result.push(y[i]childNodes[z].href);
+	      if (y[i].childNodes[z].nodeName == 'A'){
+		result.push(y[i].childNodes[z].href);
 	      }
 	    }
 	  }
@@ -46,8 +46,8 @@ var fragmentMiner = {
 	  }
 	  for (z=0;z<y[i].childNodes.length;z++){
 	    if (y[i].childNodes[z].nodeType!=3){
-	      if (y[i]childNodes[z].nodeName == 'IMG'){
-		result.push(y[i]childNodes[z].src);
+	      if (y[i].childNodes[z].nodeName == 'IMG'){
+		result.push(y[i].childNodes[z].src);
 	      }
 	    }
 	  }

@@ -8,8 +8,8 @@
   xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
-<script src="rcache.js"/>
-<script src="rclip.js"/>
+<script src="chrome://rcache/content/rcache.js"/>
+<script src="chrome://rcache/content/rclip.js"/>
 
 <commandset>
   <command id="cmd_close" oncommand="rcache.close()"/>
@@ -20,18 +20,19 @@
 </keyset>
 
  <statusbar id="status-bar">
-  <statusbarpanel id="rcache-panel-old" label="rC Page"
+  <!-- <statusbarpanel id="rcache-panel-old" label="rC Page"
 		  onmousedown="rcache.run()"
 		  tooltip="Process page with rCache Server">
-  </statusbarpanel>
+  </statusbarpanel> -->
   <statusbarpanel id="rcache-panel" 
 		  onmousedown="rcache.open()">
-    <image id="rcache-status-icon" src="chrome://rcache/content/skin/database_add.png" tooltiptext="rCache Toolbar::Save Selected Text to rCache"/>
+    <image id="rcache-status-icon" src="chrome://rcache/content/skin/database_add.png" tooltiptext="rCache Collector::Save data to rCache database"/>
     <label id="rcache-status-label" value=""/>
   </statusbarpanel>
-  <statusbarpanel id="rcache-panel-sel" label="rC Popup"
+  <statusbarpanel id="rcache-panel-sel"
 		  onmousedown="rcache.confirm()"
 		  tooltiptext="Save Selected Text to rCache">
+    <image id="rcache-status-sel-icon" src="chrome://rcache/content/skin/database_save.png" tooltiptext="rCache Collector::Save data to rCache database"/>
   </statusbarpanel>
  </statusbar>
 
@@ -45,7 +46,7 @@
 	      fullscreentoolbar="true"
 	      insertbefore="status-bar">
        
-       <hbox style="margin:5px;"> <!-- start main hbox -->
+       <hbox id="main-hbox" style="margin:5px;" flex="1"> <!-- start main hbox -->
 	 <vbox id="button_menu">  <!-- start button_menu vbox -->
 	   <label id="rcache_button_menu"
 		  class="rcache_button_menu"
@@ -54,7 +55,7 @@
 		  class="rcache_button"
 		  value="Close"
 		  tooltip="Close rCache toolbar"
-		  onmousedown="rcache.close();"/>
+		  onmousedown ="rcache.close();"/>
 	   <label id="rcache_paste"
 		  class="rcache_button"
 		  value="Paste Selected"
@@ -65,104 +66,26 @@
 		  value="Paste Clipboard"
 		  tooltip="Paste clipboard data into entry text field"
 		  onmousedown="rcache.paste_clipboard();"/>
+	   <label id="rcache_update_recent"
+		  class="rcache_button"
+		  value="Update Recent Entries"
+		  onmousedown="rcache.append_list_items();"/>
+	   <label id="rcache_test_button"
+		  class="rcache_button"
+		  value="test browser"
+		  onmousedown="rcache.test_browser();"/>
 	 </vbox> <!-- end button menu vbox -->
 
 
        <spacer style="width: 0.4em;"/>
-	 
-
-       <hbox  id="entry"> <!-- start entry hbox -->
-	 <vbox> <!-- start entry vbox -->
-	   <label id="urllabel" 
-		  value="Url" 
-		  crop="right" 
-		  style="min-height:2em; 
-			 max-height:2em; 
-			 min-width: 20em;
-			 max-width: 20em;
-			 margin:2px;"/>
-	   
-	   <textbox id="url" flex="1" 
-		    style="min-width: 20em; min-height: 2.0em;
-			   max-width: 20em; max-height: 2.0em; margin:2px;"
-		    multiline="false"/>
-
-	   <label id="pgtitlelabel" 
-		  value="Title" 
-		  crop="right" 
-		  style="min-height:2.0em; 
-			 max-height:2.5em; 
-			 min-width: 20em;
-			 max-width: 20em;
-			 margin:2px;"/>
-	   <textbox id="pagetitle" flex="1" 
-		    style="min-width: 20em; min-height: 2.0em;
-			   max-width: 20em; max-height: 2.0em; margin:2px;"
-		    multiline="false"/>
-
-	   <label id="taglabel" 
-		  value="Tags (comma-delimited)" 
-		  crop="right" 
-		  style="min-height:2.0em; 
-			 max-height:2.0em; 
-			 min-width: 20em;
-			 max-width: 20em;"/>
-	   <textbox id="tags" flex="1" 
-		    style="min-width: 20em; min-height: 2.0em;
-			   max-width: 20em; max-height: 2.0em; margin:2px;"
-		    multiline="false"/>
-
-	   <spacer style="height: 7px;"/>
-	   
-	   <hbox> <!-- start button hbox -->
-
-	   <button
-	       onclick="rcache.post_after_confirm();"
-	       crop="right"
-	       id="cache-button"
-	       label="Continue"
-	       disabled="false"
-	       accesskey="r"
-	       flex="1"
-	       style="min-height:2em; 
-		      max-height:2em; 
-		      min-width: 10em;
-		      max-width: 10em;
-		      margin:2px;"/>
-	   
-	 </hbox> <!-- end button hbox -->
-	     </vbox>	   
-	   
-	   <vbox style="max-width: 20em;"> <!-- start selectedtext vbox -->
-	     <label id="selected-text-label" 
-		  value="Text to Save" 
-		  crop="right" 
-		  style="min-height:2.0em; 
-			 max-height:2.5em; 
-			 min-width: 20em;
-			 max-width: 20em;
-			 margin:2px;"/>
-	     <textbox id="selectedtext" flex="1" 
-		      style="min-width: 20em; min-height: 15em;
-			     max-width: 20em; max-height: 15em; margin:2px;"
-		      multiline="true"/>
-	     <spacer style="height: 5px;"/>
-	     <label id="statusmsg" 
-		    value="" 
-		    crop="right" 
-		    style="min-height:2em; 
-			   max-height:2em; 
-			   min-width: 20em;
-			   max-width: 20em;
-			   margin:2px;
-			   color:#00F;
-			   font-size:1.1em;"/>
-	     	 </vbox>
-		 
-	   <!--  </vbox>end selectedtext vbox -->
-	   </hbox> <!-- end entry hbox -->
-
-	   <hbox>
+       <hbox>
+       <iframe id="collector-iframe" 
+		src="chrome://rcache/content/collector.xul" 
+		flex="1" 
+		style="min-height: 18em; max-height: 18em; 
+		       min-width: 45em; max-width: 45em;"/>   
+       </hbox>
+        <hbox>
 	   <vbox id="recent"> <!-- start recent vbox -->
 	     
 	     <label id="recent-entries-label" 
@@ -170,34 +93,22 @@
 		  crop="right"/>
 	     <spacer style="height: 7px;"/>
 		     
-	     <listbox style="min-height: 15em; max-height: 15em; min-width: 25em; max-width: 25em;"
+	     <listbox id="recent-listbox" style="min-height: 12em; max-height: 12em; min-width: 25em; max-width: 25em;"
 		      rows="5">
 	       <listhead>
-		 <listheader label="Entry Date"/>
 		 <listheader label="Title"/>
 	       </listhead>
 	       
 	       <listcols>
-		 <listcol/>
 		 <listcol flex="1"/>
 	       </listcols>
 	       
-	       <listitem>
-		 <listcell label="2006-12-20"/>
-		 <listcell label="Foo "/>
-	       </listitem>
-	       <listitem>
-		 <listcell label="2006-12-20"/>
-		 <listcell label="Bar"/>
-	       </listitem>
-	       <listitem>
-		 <listcell label="2006-12-20"/>
-		 <listcell label="Baz"/>
-	       </listitem>
 
 	     </listbox>
 	   </vbox> <!-- end recent vbox -->
-	   </hbox>
+    </hbox>
+       
+	   
 	 </hbox>
 	 
      </toolbar>

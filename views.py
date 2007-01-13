@@ -59,15 +59,15 @@ def recent(request):
 def recent_xhr(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
-        if request.GET['offset'] is None:
-            e = Entry.objects.filter(user=u).order_by('-id')[:100]
+        if request.GET.has_key('offset'):
+            e = Entry.objects.filter(user=u).order_by('-id')[:3]
         else:
-            if request.GET['offset']:
+            if request.GET.has_key('offset'):
                 start = int(request.GET['offset']) + 1
                 end = start + 20
                 e = Entry.objects.filter(user=u).order_by('-id')[start:end]
             else:
-                e = Entry.objects.filter(user=u).order_by('-id')[:100]
+                e = Entry.objects.filter(user=u).order_by('-id')[:3]
 
         json_lst = []
         #cols: id,name,url,date

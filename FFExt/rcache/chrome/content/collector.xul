@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://rcache/content/rcache.css" type="text/css"?>
+
+<window id="rcache-collector"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript" 
+	  src="chrome://global/content/XPCNativeWrapper.js"/>
+  <script src="chrome://rcache/content/rcache.js"/>
+  <script src="chrome://rcache/content/rclip.js"/>
+  <hbox  id="entry-hbox"> <!-- start entry hbox -->
+    <vbox id="entry-vbox"> <!-- start entry vbox -->
+      <label id="urllabel" 
+	     value="Url" 
+	     crop="right" 
+	     style="min-height:2em; 
+		    max-height:2em; 
+		    min-width: 20em;
+		    max-width: 20em;
+		    margin:2px;"/>
+	   
+      <textbox id="url" flex="1" 
+	       style="min-width: 20em; min-height: 2.0em;
+		      max-width: 20em; max-height: 2.0em; margin:2px;"
+	       multiline="false"/>
+      
+      <label id="pgtitlelabel" 
+	     value="Title" 
+	     crop="right" 
+	     style="min-height:2.0em; 
+		    max-height:2.5em; 
+		    min-width: 20em;
+		    max-width: 20em;
+		    margin:2px;"/>
+      <textbox id="pagetitle" flex="1" 
+	       style="min-width: 20em; min-height: 2.0em;
+		      max-width: 20em; max-height: 2.0em; margin:2px;"
+	       multiline="false"/>
+      
+      <label id="taglabel" 
+	     value="Tags (comma-delimited)" 
+	     crop="right" 
+	     style="min-height:2.0em; 
+		    max-height:2.0em; 
+		    min-width: 20em;
+		    max-width: 20em;"/>
+      <textbox id="tags" flex="1" 
+	       style="min-width: 20em; min-height: 2.0em;
+		      max-width: 20em; max-height: 2.0em; margin:2px;"
+	       multiline="false"/>
+      
+      <spacer style="height: 7px;"/>
+      
+      <hbox> <!-- start button hbox -->
+	
+	<button
+	   onclick="rcache.post_after_confirm();"
+	   crop="right"
+	   id="cache-button"
+	   label="Continue"
+	   disabled="false"
+	   accesskey="r"
+	   flex="1"
+	   style="min-height:2em; 
+		  max-height:2em; 
+		  min-width: 12em;
+		  max-width: 12em;
+		  margin:2px;"/>
+	
+      </hbox> <!-- end button hbox -->
+    </vbox>	   
+    
+    <vbox style="max-width: 20em;"> <!-- start selectedtext vbox -->
+      <label id="selected-text-label" 
+	     value="Text to Save" 
+	     crop="right" 
+	     style="min-height:2.0em; 
+		    max-height:2.5em; 
+		    min-width: 20em;
+		    max-width: 20em;
+		    margin:2px;"/>
+      <textbox id="selectedtext" flex="1" 
+	       style="min-width: 24em; min-height: 11.3em;
+		      max-width: 24em; max-height: 11.3em; margin:2px;"
+	       multiline="true"/>
+      <spacer style="height: 5px;"/>
+      <label id="statusmsg" 
+	     value="" 
+	     crop="right" 
+	     style="min-height:2em; 
+		    max-height:2em; 
+		    min-width: 20em;
+		    max-width: 20em;
+		    margin:2px;
+		    color:#00F;
+		    font-size:1.1em;"/>
+    </vbox>
+    
+    <!--  </vbox>end selectedtext vbox -->
+
+
+
+
+   
+
+
+
+  </hbox> <!-- end entry hbox -->
+</window>

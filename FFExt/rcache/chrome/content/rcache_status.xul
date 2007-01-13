@@ -14,8 +14,9 @@
 	   flex="0.2"
 	   fullscreentoolbar="true"
 	   insertafter="FindToolbar">
-<script src="rcache.js"/>
-<script src="rclip.js"/>
+<script src="chrome://rcache/content/rcache.js"/>
+<script src="chrome://rcache/content/rclip.js"/>
+<script src="chrome://rcache/content/utils.js"/>
 <hbox style="margin:5px;">
 <vbox>
   <label id="urllabel" 

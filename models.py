@@ -146,3 +146,7 @@ class TagGroup(models.Model):
     class Admin:
         pass
 
+class EntryDictionary(models.Model):
+    #need to add all stemmed words here
+    #need to look up exisitng dictionary entry b4 adding a new one, perhaps also have an index that ties fk user to stemmed_word??
+    pass

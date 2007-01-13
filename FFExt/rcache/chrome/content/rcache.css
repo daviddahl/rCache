@@ -19,7 +19,6 @@
 #rcache-toolbox{
     
     font:1em color:#999; 'trebuchet ms', verdana, sans-serif;
-    
 }
 #rcache-toolbox vbox{
     /*border: 1px #00F solid;*/
@@ -28,19 +27,30 @@
 #rcache-toolbox hbox{
     /*border: 1px #F00 solid;*/
 }
+#main-hbox{
+}
+#rcache-collector{
+    font:1em color:#999; 'trebuchet ms', verdana, sans-serif;
+}
+#entry-hbox{
+    
+}
+#entry-vbox{
+    display: -moz-box;
+}
 .rcache_button {
     cursor: pointer;
     color: black;
     font-weight: bold;
     font-size: 0.9em;
     border: 1px solid #BBB;
-    padding: 1px;
+    padding: 0.3em;
 }
 .rcache_button:hover {
     border: 1px solid #999;
 }
 #button_menu {
-    padding: 0.6em;
+    padding: 0.7em;
     border: 1px solid #AAA;
 }
 #rcache_button_menu{
@@ -49,7 +59,6 @@
 }
 #entry {
     padding: 0.6em;
-    border: 1px solid #AAA;
 }
 #recent {
     padding: 0.6em;

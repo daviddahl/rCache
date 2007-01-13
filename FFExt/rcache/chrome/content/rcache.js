@@ -1,4 +1,6 @@
 var rcache = {
+  // postUrl: 'http://zinn.ddahl.com:8000/postcache/',
+ postUrl: 'https://collect.rcache.com/postcache/',
 
  open: function(){
     rcache_window = document.getElementById('rCacheToolbar');
@@ -25,6 +27,8 @@ var rcache = {
     return win;
   },
 
+ current_selection: null,
+
  currentURL: function(){
     return getBrowser().currentURI.spec;
   },
@@ -43,13 +47,15 @@ var rcache = {
  selection: function(){
     var wndw=document.commandDispatcher.focusedWindow;
     var selected_txt=wndw.getSelection();
+    rcache.current_selection = window.getSelection();
     return selected_txt;
+
   },
 
  paste_selected: function(){
-    //
-    //txt = rcache.selection();
-    
+    var txt = rcache.selection();
+    var selTex = document.getElementById('selectedtext');
+    selTex.setAttribute("value",txt);
   },
 
  imgs: function(){
@@ -73,7 +79,7 @@ var rcache = {
     var txt = rcache.selection();
     //alert(txt);
     if (txt !=""){
-      var result = rcache.post_url('http://zinn.ddahl.com:8000/postcache/',txt);      //fixme: need callback to notify when done... 
+      var result = rcache.post_url(rcache.postUrl,txt);      //fixme: need callback to notify when done... 
     } else {
       alert("No Text is Selected");
     }
@@ -81,28 +87,25 @@ var rcache = {
 
  toolbarLoad: function(){
     var txt = rcache.selection();
-    if (txt !=""){
+    //if (txt !=""){
       title = rcache.thetitle();
-      var win=window.content;
-      //var txt=win.document.getElementById('CommandTxt').value; 
-      var collectwin = win.document.getElementById('rCacheToolbar');
-      var loadFunction = function() {
-	var selTex =
-	win.document.getElementById('selectedtext');
-	selTex.setAttribute("value",txt);
-	var pgTitle =
-	win.document.getElementById('pagetitle');
-              pgTitle.setAttribute("value",rcache.thetitle());
-	var pgUrl =
-	win.document.getElementById('url');
-              pgUrl.setAttribute("value",rcache.currentURL());
-      };
-      win.addEventListener("load", loadFunction, false); 
-    }
+      var selTex = document.getElementById('selectedtext');
+      selTex.setAttribute("value",txt);
+      var pgTitle = document.getElementById('pagetitle');
+      pgTitle.setAttribute("value",rcache.thetitle());
+      var pgUrl = document.getElementById('url');
+      pgUrl.setAttribute("value",rcache.currentURL());
+    //}
   },
 
  confirm: function(){
     var txt = rcache.selection();
+    var frag = fragmentMiner.makeFrag(txt);
+    var links = fragmentMiner.getAnchors(frag);
+    var imgs = fragmentMiner.getImgSrc(frag);
+    //alert(links);
+    //alert(imgs);
+    
     if (txt !=""){
       title = rcache.thetitle();
       var confirmwin = rcache.collector_win();
@@ -130,13 +133,11 @@ var rcache = {
     var bCompleted = false;
     setInterval(rcache.evalComplete, 100);
     rcache.http_collector();
-    //window.close() +xmlhttprequest - google query
   },
  
  http_collector: function(){
-    //tags not supported on server yet
     if (document.getElementById('selectedtext').value !=""){
-      var serverurl = 'http://zinn.ddahl.com:8000/postcache/';
+      var serverurl = rcache.postUrl;
       var http = new XMLHttpRequest();
 
       var winurl = document.getElementById('url').value;
@@ -155,7 +156,7 @@ var rcache = {
       var tags = 'tags=' + escape(wintags)
 
       var params = link + name + desc + text + tags;
-
+      
       http.onreadystatechange = function() {
 	//Call a function when the state changes.
 	if(http.status == 200) {
@@ -164,7 +165,7 @@ var rcache = {
 	    //fixme: responsText is never evaluated correctly here
 	    //collector always returns a successful rcache
 	    var res = eval(http.responseText);
-	    alert(res);
+	    //alert(res);
 	    if (res.status == 'success'){
 	      //var wintext = document.getElementById('progress').hidden = true;
 	      bCompleted = true;
@@ -243,7 +244,67 @@ var rcache = {
  view_img_test: function(){
     var itms = browser.contentWindow.document.getElementsByTagName('td');
     alert(itms[0].toString());
+  },
+
+ append_list_item: function(item){
+    var listbx = document.getElementById('recent-listbox');
+    listbx.appendItem(item);
+    //listbx.appendItem(thetitle);
+    
+  },
+ 
+append_list_items: function(){
+
+    var items = ["test me indeed","test2 indeed","test3 is the best","test4 totally rocks"];
+    //    for (itm in items){
+    //  rcache.append_list_item(itm);
+    //}
+
+    for (var i = 0; i < items.length; i++){
+      rcache.append_list_item(items[i]);
+    }
+    //var item ="A title of an entry";
+    //create a for loop here to populate listbox with most recent 10 entries
+    
+  },
+ 
+ get_latest_entries: function(){
+    //read http://rcache.com/ten_latest/
+    //var tenlatest = eval(text);
+    //return tenlatest
+  },
+
+ latest_entries: function(url){
+    var http = new XMLHttpRequest();
+    http.open("GET", "http://127.0.0.1:8000/recent_xhr/", true);
+    http.onreadystatechange = function() {
+	//Call a function when the state changes.
+	if(http.status == 200) {
+	  if(http.readyState == 4){
+	    bCompleted = true;
+	    //fixme: responsText is never evaluated correctly here
+	    var res = eval(http.responseText);
+	    alert(res);
+	    if (res.status == 'success'){
+	      bCompleted = true;
+	    } else {
+	      bCompleted = false;
+	    }
+	  }
+	}
+      }
+    http.send(null);
+  },
+
+ test_browser: function(){
+    var rBrsr = window.document.getElementById('collector-iframe');
+    alert(rBrsr);
+    var rcClltr = rBrsr.rcache-collector;
+    alert(rcClltr);
+    alert(rcClltr.url.value);
   }
+
+
 
  //============> TODO <==============\\
  // 1. get list of links in selected text or list of links in document
@@ -264,3 +325,92 @@ var rcache = {
  //end of object
 };
 
+//utilities for DOM extraction, etc...
+
+//string = document.referrer 
+
+var fragmentMiner = {
+ 
+ makeFrag: function(selection){
+    var rng = selection.getRangeAt(0);
+    var clone = rng.cloneContents();
+    return clone;
+  },
+
+ getAnchors: function(fragment){
+    //pass a fragment and tag to traverse to return an array of wanted tag data
+    if (fragment.hasChildNodes() == true){
+      var y = fragment.childNodes;
+      var result = [];
+      for (i=0;i<y.length;i++){
+	if (y[i].nodeType!=3){
+	  if (y[i].nodeName == 'A'){
+	    result.push(y[i].href);
+	  }
+	  for (z=0;z<y[i].childNodes.length;z++){
+	    if (y[i].childNodes[z].nodeType!=3){
+	      if (y[i].childNodes[z].nodeName == 'A'){
+		result.push(y[i].childNodes[z].href);
+	      }
+	    }
+	  }
+	}
+      }
+      //fixme: need to make all href's absolute
+      return result;
+    }
+  }, 
+    
+ getImgSrc: function(fragment){
+    //pass a fragment to traverse to return an array of wanted tag data
+    if (fragment.hasChildNodes() == true){
+      var y = fragment.childNodes;
+      var result = [];
+      for (i=0;i<y.length;i++){
+	if (y[i].nodeType!=3){
+	  if (y[i].nodeName == 'IMG'){
+	    result.push(y[i].src);
+	  }
+	  for (z=0;z<y[i].childNodes.length;z++){
+	    if (y[i].childNodes[z].nodeType!=3){
+	      if (y[i].childNodes[z].nodeName == 'IMG'){
+		result.push(y[i].childNodes[z].src);
+	      }
+	    }
+	  }
+	}
+      }
+      //fixme: need to make all src's absolute
+      return result;
+    }
+  },
+
+ fetchImg: function(url){
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+      //Call a function when the state changes.
+      if(http.status == 200) {
+	//might have to get img data here
+
+	fragmentMiner.imgStore.push(http.responseText);
+
+	if(http.readyState == 4){
+	  var res = http.responseText;
+	}
+      }
+    }
+    http.open("GET", url, false);
+    http.send(null);
+  },
+ 
+ imgStore: new Array(),
+
+ fetchImgs: function(img_arr){
+    for (i=0; i < img_arr.length; i++){
+      //get img data via XMLHttpRequest
+      var img = fragmentMiner.fetchImg(img_arr[i]);
+     }
+    return fragmentMiner.imgStore;
+  }
+
+};
