@@ -18,8 +18,8 @@ urlpatterns = patterns('rcache.views',
                        (r'^login_required/$','login_required'),
                        (r'^detail/(?P<entry_id>\d+)/$','detail'),
                        )
-urlpatterns += patterns('',
-                        (r'^media/(.*)$',
-                        'django.views.static.serve',
-                        {'document_root': os.environ['RCACHE_DJANGO_MEDIA_ROOT'], 'show_indexes': True}),
-                        )
+## urlpatterns += patterns('',
+##                         (r'^media/(.*)$',
+##                         'django.views.static.serve',
+##                         {'document_root': os.environ['RCACHE_DJANGO_MEDIA_ROOT'], 'show_indexes': True}),
+##                         )

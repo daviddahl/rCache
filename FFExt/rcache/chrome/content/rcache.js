@@ -99,33 +99,45 @@ var rcache = {
   },
 
  confirm: function(){
-    var txt = rcache.selection();
+    txt = rcache.selection();
     var frag = fragmentMiner.makeFrag(txt);
-    var links = fragmentMiner.getAnchors(frag);
-    var imgs = fragmentMiner.getImgSrc(frag);
+    var frag2 = fragmentMiner.makeFrag(txt);
+    links = fragmentMiner.getAnchors(frag);
+    imgs = fragmentMiner.getImgSrc(frag2);
+    
     //alert(links);
     //alert(imgs);
     
     if (txt !=""){
-      title = rcache.thetitle();
+      var title = rcache.thetitle();
       var confirmwin = rcache.collector_win();
       //var progress = confirmwin.document.getElementById('progress');
       //progress.hidden = false;
       var loadFunction = function() {
-	selTex =
+	var selTex =
 	confirmwin.document.getElementById('selectedtext');
 	selTex.setAttribute("value",txt);
-	pgTitle =
+	var pgTitle =
 	confirmwin.document.getElementById('pagetitle');
-              pgTitle.setAttribute("value",rcache.thetitle());
-	pgUrl =
+	pgTitle.setAttribute("value",rcache.thetitle());
+	var pgUrl =
 	confirmwin.document.getElementById('url');
-              pgUrl.setAttribute("value",rcache.currentURL());
+	pgUrl.setAttribute("value",rcache.currentURL());
+	var linksLst = confirmwin.document.getElementById('linkbox');
+	//alert(links);
+	for (var i = 0; i < links.length; i++){
+	  linksLst.appendItem(links[i]);	
+	}
+	var imgLst = confirmwin.document.getElementById('imgbox');
+	//alert(links);
+	for (var i = 0; i < imgs.length; i++){
+	  imgLst.appendItem(imgs[i]);	
+	}
       };
       confirmwin.addEventListener("load", loadFunction, false); 
     } else {
       //paste the clipboard into txt
-      alert("No Text is Selected");
+      alert("rCache: Please highlight a portion of this page.");
     }
   },
  
@@ -153,9 +165,20 @@ var rcache = {
       var text = 'text_content=' + escape(wintext) + '&';
 
       var wintags = document.getElementById('tags').value;
-      var tags = 'tags=' + escape(wintags)
+      var tags = 'tags=' + escape(wintags) + '&';
 
-      var params = link + name + desc + text + tags;
+      var lnkBx = document.getElementById('linkbox');
+      lnkBx.selectAll();
+      var count = lnkBx.selectedCount;
+      var links = new Array();
+
+      for(var i=0;i < lnkBx.selectedCount; i++){
+ 	var item = lnkBx.selectedItems[i].label;
+	links.push(item);
+      }
+      var links_qs = links.join("||sep||");
+      //alert(links); //alert() seems to kill the xmlhttprequest
+      var params = link + name + desc + text + tags + links_qs;
       
       http.onreadystatechange = function() {
 	//Call a function when the state changes.
@@ -253,7 +276,7 @@ var rcache = {
     
   },
  
-append_list_items: function(){
+ append_list_items: function(){
 
     var items = ["test me indeed","test2 indeed","test3 is the best","test4 totally rocks"];
     //    for (itm in items){
@@ -274,6 +297,12 @@ append_list_items: function(){
     //return tenlatest
   },
 
+ append_links: function(links,linksLst){
+    //alert(links);
+    linksLst.appendItem("this is a test");
+    //}
+  },
+
  latest_entries: function(url){
     var http = new XMLHttpRequest();
     http.open("GET", "http://127.0.0.1:8000/recent_xhr/", true);
@@ -284,7 +313,7 @@ append_list_items: function(){
 	    bCompleted = true;
 	    //fixme: responsText is never evaluated correctly here
 	    var res = eval(http.responseText);
-	    alert(res);
+	    //alert(res);
 	    if (res.status == 'success'){
 	      bCompleted = true;
 	    } else {
@@ -298,10 +327,10 @@ append_list_items: function(){
 
  test_browser: function(){
     var rBrsr = window.document.getElementById('collector-iframe');
-    alert(rBrsr);
+    //alert(rBrsr);
     var rcClltr = rBrsr.rcache-collector;
-    alert(rcClltr);
-    alert(rcClltr.url.value);
+    //alert(rcClltr);
+    //alert(rcClltr.url.value);
   }
 
 
@@ -337,16 +366,51 @@ var fragmentMiner = {
     return clone;
   },
 
- getAnchors: function(fragment){
+ getAnchorsOrig: function(fragment){
+    var result = new Array();
+    //result[0] = "http://test.com";
     //pass a fragment and tag to traverse to return an array of wanted tag data
     if (fragment.hasChildNodes() == true){
+      //alert("child nodes");
       var y = fragment.childNodes;
-      var result = [];
       for (i=0;i<y.length;i++){
 	if (y[i].nodeType!=3){
 	  if (y[i].nodeName == 'A'){
 	    result.push(y[i].href);
+	    //alert(y[i].href);
 	  }
+	  for (z=0;z<y[i].childNodes.length;z++){
+	    if (y[i].childNodes[z].nodeType!=3){
+	      if (y[i].childNodes[z].nodeName == 'A'){
+		result.push(y[i].childNodes[z].href);
+		//alert(y[i].childNodes[z].href);
+	      }
+	    }
+	  }
+	}
+      }
+      //fixme: need to make all href's absolute
+      return result;
+    } else {
+      if (fragment.nodeType!=3){
+	if (fragment.nodeName == 'A'){
+	    result.push(fragment.href);
+	    return result;
+	}
+      }
+    }
+  }, 
+
+ getAnchors: function(fragment){
+    var result = new Array();
+    //pass a fragment and tag to traverse to return an array of wanted tag data
+    var y = fragment.childNodes;
+    for (i=0;i<y.length;i++){
+      if (y[i].nodeType!=3){
+	if (y[i].nodeName == 'A'){
+	  result.push(y[i].href);
+	}
+	if (y[i].hasChildNodes() == true){
 	  for (z=0;z<y[i].childNodes.length;z++){
 	    if (y[i].childNodes[z].nodeType!=3){
 	      if (y[i].childNodes[z].nodeName == 'A'){
@@ -356,31 +420,27 @@ var fragmentMiner = {
 	  }
 	}
       }
-      //fixme: need to make all href's absolute
-      return result;
     }
+    return result;    
   }, 
-    
+
  getImgSrc: function(fragment){
     //pass a fragment to traverse to return an array of wanted tag data
-    if (fragment.hasChildNodes() == true){
-      var y = fragment.childNodes;
-      var result = [];
-      for (i=0;i<y.length;i++){
-	if (y[i].nodeType!=3){
-	  if (y[i].nodeName == 'IMG'){
-	    result.push(y[i].src);
-	  }
-	  for (z=0;z<y[i].childNodes.length;z++){
-	    if (y[i].childNodes[z].nodeType!=3){
-	      if (y[i].childNodes[z].nodeName == 'IMG'){
-		result.push(y[i].childNodes[z].src);
-	      }
+    var y = fragment.childNodes;
+    var result = [];
+    for (i=0;i<y.length;i++){
+      if (y[i].nodeType!=3){
+	if (y[i].nodeName == 'IMG'){
+	  result.push(y[i].src);
+	}
+	for (z=0;z<y[i].childNodes.length;z++){
+	  if (y[i].childNodes[z].nodeType!=3){
+	    if (y[i].childNodes[z].nodeName == 'IMG'){
+	      result.push(y[i].childNodes[z].src);
 	    }
 	  }
 	}
       }
-      //fixme: need to make all src's absolute
       return result;
     }
   },

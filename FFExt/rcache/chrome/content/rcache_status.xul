@@ -9,11 +9,7 @@
    id="rcachestatus"
    title="rCache Collector 0.1"
    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <toolbar id="rCacheToolbar" 
-	   hidden="false" 
-	   flex="0.2"
-	   fullscreentoolbar="true"
-	   insertafter="FindToolbar">
+
 <script src="chrome://rcache/content/rcache.js"/>
 <script src="chrome://rcache/content/rclip.js"/>
 <script src="chrome://rcache/content/utils.js"/>
@@ -97,6 +93,42 @@
 </vbox>
 </hbox>
 </hbox>
-  </toolbar>
+
+
+<hbox>
+<vbox>
+  <listbox id="linkbox" 
+	   style="min-height: 12em; max-height: 12em;
+		  min-width: 42em; max-width: 42em;" 
+	   rows="5"
+	   seltype="multiple">
+    <listhead>
+      <listheader label="Captured Links"/>
+    </listhead>
+    
+    <listcols>
+      <listcol flex="1"/>
+    </listcols>    
+  </listbox>
+
+<listbox id="imgbox" 
+	 style="min-height: 12em; max-height: 12em; 
+		min-width: 42em; max-width: 42em;" 
+	 rows="5"
+	 seltype="multiple">
+    <listhead>
+      <listheader label="Captured Images"/>
+    </listhead>
+    
+    <listcols>
+      <listcol flex="1"/>
+    </listcols>    
+  </listbox>
+
+</vbox>
+</hbox>
+
+<spacer style="height: 10px;"/>
+
 </window>
 </overlay>

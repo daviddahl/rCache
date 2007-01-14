@@ -20,10 +20,6 @@
 </keyset>
 
  <statusbar id="status-bar">
-  <!-- <statusbarpanel id="rcache-panel-old" label="rC Page"
-		  onmousedown="rcache.run()"
-		  tooltip="Process page with rCache Server">
-  </statusbarpanel> -->
   <statusbarpanel id="rcache-panel" 
 		  onmousedown="rcache.open()">
     <image id="rcache-status-icon" src="chrome://rcache/content/skin/database_add.png" tooltiptext="rCache Collector::Save data to rCache database"/>
