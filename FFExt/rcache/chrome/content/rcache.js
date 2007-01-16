@@ -47,9 +47,12 @@ var rcache = {
  selection: function(){
     var wndw=document.commandDispatcher.focusedWindow;
     var selected_txt=wndw.getSelection();
-    rcache.current_selection = window.getSelection();
     return selected_txt;
+  },
 
+ getdoc: function(){
+    var doc = document.commandDispatcher.focusedWindow;
+    return doc;
   },
 
  paste_selected: function(){
@@ -98,16 +101,44 @@ var rcache = {
     //}
   },
 
+ images: new Array(),
+
  confirm: function(){
-    txt = rcache.selection();
-    var frag = fragmentMiner.makeFrag(txt);
-    var frag2 = fragmentMiner.makeFrag(txt);
-    links = fragmentMiner.getAnchors(frag);
-    imgs = fragmentMiner.getImgSrc(frag2);
-    
-    //alert(links);
-    //alert(imgs);
-    
+    var links = new Array();
+    var imgs = new Array();
+    //get a hrefs
+    try{
+      var txt = rcache.selection();
+      var rng = txt.getRangeAt(0);
+      var frag = rng.cloneContents();
+      var element = content.document.createElement("DIV");    
+      element.id = "rcache-tmp-div";
+      element.appendChild(frag);
+      var linkObjs = element.getElementsByTagName("A");
+      for (var i = 0; i < linkObjs.length; i++){
+	links.push(linkObjs[i].href);
+      }
+    } catch(e){
+      //alert(e);
+      //silently pass
+    }
+    //get img src strings
+    try{
+      var txt = rcache.selection();
+      var rng = txt.getRangeAt(0);
+      var frag = rng.cloneContents();
+      var element = content.document.createElement("DIV");    
+      element.id = "rcache-tmp-div-img";
+      element.appendChild(frag);
+      var imgObjs = element.getElementsByTagName("IMG");
+      for (var i = 0; i < imgObjs.length; i++){
+	imgs.push(imgObjs[i].src);
+      }
+    } catch(e){
+      //alert(e);
+      //silently pass
+    }
+
     if (txt !=""){
       var title = rcache.thetitle();
       var confirmwin = rcache.collector_win();
@@ -123,13 +154,13 @@ var rcache = {
 	var pgUrl =
 	confirmwin.document.getElementById('url');
 	pgUrl.setAttribute("value",rcache.currentURL());
+
 	var linksLst = confirmwin.document.getElementById('linkbox');
-	//alert(links);
+
 	for (var i = 0; i < links.length; i++){
 	  linksLst.appendItem(links[i]);	
 	}
 	var imgLst = confirmwin.document.getElementById('imgbox');
-	//alert(links);
 	for (var i = 0; i < imgs.length; i++){
 	  imgLst.appendItem(imgs[i]);	
 	}
@@ -167,18 +198,44 @@ var rcache = {
       var wintags = document.getElementById('tags').value;
       var tags = 'tags=' + escape(wintags) + '&';
 
-      var lnkBx = document.getElementById('linkbox');
-      lnkBx.selectAll();
-      var count = lnkBx.selectedCount;
-      var links = new Array();
-
-      for(var i=0;i < lnkBx.selectedCount; i++){
- 	var item = lnkBx.selectedItems[i].label;
-	links.push(item);
+      //deal with listbox that holds the links and imgs...
+      var links_qs = 'links_qs' + "=";
+      try {
+	var lnkBx = document.getElementById('linkbox');
+	lnkBx.selectAll();
+	if (lnkBx.selectedCount > 0){
+	    var links = new Array();
+	    for (var i=0;i < lnkBx.selectedCount; i++){
+	      var item = lnkBx.selectedItems[i].label;
+	      links.push(item);
+	    }
+	    var links_qs = links_qs + links.join("||sep||");
+	} 	  
+      } catch(e) {
+	//alert(e);
       }
-      var links_qs = links.join("||sep||");
-      //alert(links); //alert() seems to kill the xmlhttprequest
-      var params = link + name + desc + text + tags + links_qs;
+      
+      var imgs_qs = 'imgs_qs' + "=";
+      try {
+	var imgBx = document.getElementById('imgbox');
+	imgBx.selectAll();
+	if (imgBx.selectedCount > 0){
+	  var imgs = new Array();
+	  for (var i=0;i < imgBx.selectedCount; i++){
+	    var item = imgBx.selectedItems[i].label;
+	    imgs.push(item);
+	  }
+	  imgs_qs = imgs_qs + imgs.join("||sep||");
+	}	  
+      } catch(e) {
+	//alert(e);
+      }
+      
+      links_qs = links_qs + '&';
+      //alert(links_qs);
+      
+      //make query string for POST request
+      var params = link + name + desc + text + tags + links_qs + imgs_qs;
       
       http.onreadystatechange = function() {
 	//Call a function when the state changes.
@@ -233,7 +290,7 @@ var rcache = {
     var desc = 'description=' + escape(rcache.thetitle()) + '&';
     var text = 'text_content=' + escape(post_data);
     var params = link + name + desc + text; 
-    alert(params);
+    //alert(params);
     http.open("POST", url, true);
     //Send the proper header infomation along with the request
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -355,96 +412,60 @@ var rcache = {
 };
 
 //utilities for DOM extraction, etc...
-
-//string = document.referrer 
-
 var fragmentMiner = {
  
+  //get images and links from a Selection Object
+
+ processLinks: function(selection){
+    //public interface to get 'a hrefs' from selection as array
+    var frag = fragmentMiner.makeFrag(selection);
+    var element = fragmentMiner.makeElement(frag);
+    var links = fragmentMiner.getLinks(element);
+    return links;
+  },
+
+ processImageSrc: function(selection){
+    //public interface to get img src from selection as array
+    var frag = fragmentMiner.makeFrag(selection);
+    var element = fragmentMiner.makeElement(frag);
+    var imgs = fragmentMiner.getImgs(element);
+    return imgs;
+    //still need to get each image via XMLHttpRequest: see fetchImg()
+  },
+
  makeFrag: function(selection){
     var rng = selection.getRangeAt(0);
     var clone = rng.cloneContents();
     return clone;
   },
-
- getAnchorsOrig: function(fragment){
-    var result = new Array();
-    //result[0] = "http://test.com";
-    //pass a fragment and tag to traverse to return an array of wanted tag data
-    if (fragment.hasChildNodes() == true){
-      //alert("child nodes");
-      var y = fragment.childNodes;
-      for (i=0;i<y.length;i++){
-	if (y[i].nodeType!=3){
-	  if (y[i].nodeName == 'A'){
-	    result.push(y[i].href);
-	    //alert(y[i].href);
-	  }
-	  for (z=0;z<y[i].childNodes.length;z++){
-	    if (y[i].childNodes[z].nodeType!=3){
-	      if (y[i].childNodes[z].nodeName == 'A'){
-		result.push(y[i].childNodes[z].href);
-		//alert(y[i].childNodes[z].href);
-	      }
-	    }
-	  }
-	}
-      }
-      //fixme: need to make all href's absolute
-      return result;
-    } else {
-      if (fragment.nodeType!=3){
-	if (fragment.nodeName == 'A'){
-	    result.push(fragment.href);
-	    return result;
-	}
-      }
-    }
-  }, 
-
- getAnchors: function(fragment){
-    var result = new Array();
-    //pass a fragment and tag to traverse to return an array of wanted tag data
-    var y = fragment.childNodes;
-    for (i=0;i<y.length;i++){
-      if (y[i].nodeType!=3){
-	if (y[i].nodeName == 'A'){
-	  result.push(y[i].href);
-	}
-	if (y[i].hasChildNodes() == true){
-	  for (z=0;z<y[i].childNodes.length;z++){
-	    if (y[i].childNodes[z].nodeType!=3){
-	      if (y[i].childNodes[z].nodeName == 'A'){
-		result.push(y[i].childNodes[z].href);
-	      }
-	    }
-	  }
-	}
-      }
-    }
-    return result;    
-  }, 
-
- getImgSrc: function(fragment){
-    //pass a fragment to traverse to return an array of wanted tag data
-    var y = fragment.childNodes;
-    var result = [];
-    for (i=0;i<y.length;i++){
-      if (y[i].nodeType!=3){
-	if (y[i].nodeName == 'IMG'){
-	  result.push(y[i].src);
-	}
-	for (z=0;z<y[i].childNodes.length;z++){
-	  if (y[i].childNodes[z].nodeType!=3){
-	    if (y[i].childNodes[z].nodeName == 'IMG'){
-	      result.push(y[i].childNodes[z].src);
-	    }
-	  }
-	}
-      }
-      return result;
-    }
+ 
+ makeElement: function(fragment){
+    //wrap the fragment object in a Div to use HTMLElement methods on it!
+    var d = document.createElement("DIV");
+    d.appendChild(fragment);
+    return d;
   },
 
+ getLinks: function(element){
+    var lnkArr = new Array();
+    var links = element.getElementsByTagName("A");
+    for (var i = 0; i < links.length; i++){
+	lnkArr.push(links[i].href);
+    }
+    return lnkArr;
+  },
+ 
+ getImgs: function(element){
+    var imgArr = new Array();
+    var imgs = element.getElementsByTagName("IMG");
+    for (var i = 0; i < imgs.length; i++){
+      if (imgs[i].src){
+	imgArr.push(links[i].src);
+      }
+    }
+    return imgArr;
+  },
+ 
  fetchImg: function(url){
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {

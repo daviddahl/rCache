@@ -117,7 +117,7 @@
 	 rows="5"
 	 seltype="multiple">
     <listhead>
-      <listheader label="Captured Images"/>
+      <listheader label="Captured Image URLs"/>
     </listhead>
     
     <listcols>
