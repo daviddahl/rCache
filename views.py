@@ -88,10 +88,13 @@ def detail(request,entry_id):
         e = Entry.objects.filter(user=u,id__exact=entry_id)
         imgs = Media.objects.filter(entry__exact=e[0])
         links = EntryUrl.objects.filter(entry__exact=e[0])
+        tags = Tag.objects.filter(entry__exact=e[0])
         return render_to_response('detail.html',
                                   {'entry':e,
                                    'imgs':imgs,
-                                   'links':links})
+                                   'links':links,
+                                   'tags':tags,
+                                   'user':u})
     else:
         return HttpResponseRedirect("/login_required/")
 

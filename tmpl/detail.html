@@ -5,8 +5,9 @@
 {% block content %}
 <div id="nav">
   <ul>
-    <li><a href="/recent">Recently Cached</a></li>
+    <li><a href="/recent">Recent Entries</a></li>
     <li><a href="/logout">Logout</a></li>
+    <li>{{ user.first_name }} {{ user.last_name }}'s rCache</li>
   </ul>
 </div>
 {% for e in entry %}
@@ -15,6 +16,9 @@
 <span class="entry_detail_title"><a href="{{ e.entry_url }}" target="_new">
   {{ e.entry_name }}</a></span>
 <br />
+</div>
+<div id="detail_tags">
+{% for tag in tags %} <span class="detail_tag">{{ tag.tag }}</span> {% endfor %}
 </div>
 <div id="detail">
 <div id="text_content_boundry"><pre>{{ e.text_content }}</pre></div>

@@ -345,10 +345,19 @@ pre {
     background: #FFF;
     width: 583px;
 }
+#detail_tags{
+    padding: 1em;
+    background: #FFF;
+    width: 583px;
+}
 .detail_link_list{
     padding 5px;
 }
 .entry_detail_title{
+    font: bolder;
+    padding: 1em;
+}
+.detail_tag{
     font: bolder;
     padding: 1em;
 }
