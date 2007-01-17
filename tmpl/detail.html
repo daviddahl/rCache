@@ -24,15 +24,20 @@
 <div id="text_content_boundry"><pre>{{ e.text_content }}</pre></div>
 </div>
 <div id="detail_links">
-  {% for link in links %}
-  <span class="detail_link_list"><a href="{{ link.url }}" title="a link scraped from this entry's page" target="_new">{{ link.url }}</a></span><br />
-  {% endfor %}
+  <table id="link_table">
+    <tr class="{% cycle tr-light,tr-dark %}">
+      {% for link in links %}
+      <td class="detail_link_list">
+	<a href="{{ link.url }}" title="a link scraped from this entry's page" target="_new">{{ link.url }}</a>
+      </td>
+      {% endfor %}
+    </tr>
+  </table>
 </div>
 <div id="detail_imgs">
 {% for img in imgs %}
   <img src="{{ img.path }}" title="an image scraped from this entry's page"/><br />
   {% endfor %}
 </div>
-
 {% endfor %}
 {% endblock %}
