@@ -84,10 +84,14 @@ def recent_xhr(request):
     
 def detail(request,entry_id):
     if login_check(request):
-        u = User.objects.get(id=1)
+        u = User.objects.get(id=request.session['userid'])
         e = Entry.objects.filter(user=u,id__exact=entry_id)
+        imgs = Media.objects.filter(entry__exact=e[0])
+        links = EntryUrl.objects.filter(entry__exact=e[0])
         return render_to_response('detail.html',
-                                  {'entry':e})
+                                  {'entry':e,
+                                   'imgs':imgs,
+                                   'links':links})
     else:
         return HttpResponseRedirect("/login_required/")
 

@@ -1,6 +1,6 @@
 var rcache = {
-  //postUrl: 'https://collect.rcache.com/postcache/',
- postUrl: 'http://127.0.0.1:8000/postcache/',
+  postUrl: 'https://collect.rcache.com/postcache/',
+  //postUrl: 'http://127.0.0.1:8000/postcache/',
 
  open: function(){
     rcache_window = document.getElementById('rCacheToolbar');

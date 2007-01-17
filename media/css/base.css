@@ -316,7 +316,7 @@ textarea:active {
 #boundry {
     border-width: 0px;
     padding: 5px;
-    height: 520px;
+    height: 640px;
     width: 640px;
     background-color:#FFF;
     border-right: 1px solid #BBB;
@@ -333,15 +333,28 @@ textarea:active {
     overflow: auto;
 }
 pre {
-    font:11px 'trebuchet ms', verdana, sans-serif;
+    font:12px 'trebuchet ms', verdana, sans-serif;
     white-space: pre-wrap;       /* css-3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
     white-space: -pre-wrap;      /* Opera 4-6 */
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
-#entry_detail_title{
+#detail_header{
+    padding: 1em;
+    background: #FFF;
+    width: 583px;
+}
+.detail_link_list{
+    padding 1em;;
+}
+.entry_detail_title{
     font: bolder;
+    padding: 1em;
+}
+.entry_detail_id{
+    font: bolder;
+    padding: 1em;
 }
 #text_content_boundry {
     padding: 10px 50px 50px 50px;
@@ -349,8 +362,8 @@ pre {
     height:650px;
     background-color:#FFF;
     overflow: visible;
-    line-height:135%;
-    font-size:1.7em;
+    line-height:145%;
+    font-size:1.6em;
 }
 #cache_link_tags{
     padding: 20px;
@@ -545,7 +558,23 @@ pre {
     padding: 2px;
     background-color:#FFF;
     overflow: scroll;
-    height: 400px;
+    height: 300px;
+    width: 600px;
+}
+#detail_imgs {
+    border: 1px solid #DDD;
+    padding: 2px;
+    background-color:#FFF;
+    overflow: scroll;
+    height: 200px;
+    width: 600px;
+}
+#detail_links {
+    border: 1px solid #DDD;
+    padding: 2px;
+    background-color:#FFF;
+    overflow: scroll;
+    height: 200px;
     width: 600px;
 }
 #results_detail {
@@ -636,7 +665,7 @@ textarea{
 }
 #nav{
     font-size:12px;
-    padding: 0px 10px 3px 0px;
+    padding: 0px 0px 0px 0px;
     margin: 0px 0px 0px 0px;
     list-style: none;
     width: 600px;
