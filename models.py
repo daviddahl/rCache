@@ -106,19 +106,20 @@ class Url(models.Model):
 ##     class Meta:
 ##         db_table = 'entry_tag'
 
-class EntryUrl(models.Model):
-    user = models.ForeignKey(User)
-    url = models.CharField(blank=True, maxlength=765)
-    date_created = models.DateTimeField(null=True, blank=True)
-    entry = models.ForeignKey(Entry)
-    class Meta:
-        db_table = 'entry_url'
+## class EntryUrl(models.Model):
+##     user = models.ForeignKey(User)
+##     url = models.CharField(blank=True, maxlength=765)
+##     date_created = models.DateTimeField(null=True, blank=True)
+##     entry = models.ForeignKey(Entry)
+##     class Meta:
+##         db_table = 'entry_url'
 
 class Media(models.Model):
     entry = models.ForeignKey(Entry)
     path = models.CharField(blank=True, maxlength=765)
-    date_created = models.DateTimeField(null=True, blank=True)
+    date_created = models.DateTimeField(null=True, blank=True,auto_now_add=True)
     last_access = models.DateTimeField(null=True, blank=True)
+    #fixme: need to download and encode - store string here 
     original_file = models.TextField(blank=True)
     class Meta:
         db_table = 'media'

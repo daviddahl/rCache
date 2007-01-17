@@ -244,7 +244,11 @@ def postcache(request):
                 description = urllib.unquote_plus(request.POST['description'])
                 entry_url = urllib.unquote_plus(request.POST['entry_url'])
                 the_tags = urllib.unquote_plus(request.POST['tags'])
-                print text_content
+                the_links = urllib.unquote_plus(request.POST['links_qs'])
+                the_imgs = urllib.unquote_plus(request.POST['imgs_qs'])
+                #print text_content
+                print the_links
+                print the_imgs
                 #fixme: get tags - validate
                 tags = manage_tags(the_tags)
                 print tags
@@ -260,6 +264,8 @@ def postcache(request):
                                   user=_user)
                     entry.save()
                     add_tags(tags,_user,entry)
+                    entry_urls(the_links,entry,_user)
+                    process_media(the_imgs,entry)
                     #fixme: add tags, links, media, etc...
                     print "entry id: %s" % entry.id
                     json_dict=dict(status="success",entry_id=entry.id,
@@ -284,6 +290,33 @@ def postcache(request):
         return HttpResponse(simplejson.dumps(dict(status="error",
                                                   msg="Login Required")),
                             mimetype='application/javascript')
+
+
+def entry_urls(links,e,u):
+    """take links and make EntryUrls..."""
+    if links:
+        try:
+            #break links on '||sep||'
+            hrefs = links.split('||sep||')
+            for hrf in hrefs:
+                if hrf:
+                    eu = EntryUrl(url=hrf,entry=e,user=u)
+                    eu.save()
+        except Exception, e:
+            #need to log this:
+            print e
+
+def process_media(imgsrcs,e):
+    """store url to images scraped from the pages"""
+    if imgsrcs:
+        try:
+            imgs = imgsrcs.split('||sep||')
+            for img in imgs:
+                if img:
+                    m = Media(entry=e,path=img)
+                    m.save()
+        except Exception,e:
+            print e
 
 
 def update_tags(_user,tags):

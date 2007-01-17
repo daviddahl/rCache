@@ -1,6 +1,6 @@
 var rcache = {
-  // postUrl: 'http://zinn.ddahl.com:8000/postcache/',
- postUrl: 'https://collect.rcache.com/postcache/',
+  //postUrl: 'https://collect.rcache.com/postcache/',
+ postUrl: 'http://127.0.0.1:8000/postcache/',
 
  open: function(){
     rcache_window = document.getElementById('rCacheToolbar');
@@ -18,9 +18,6 @@ var rcache = {
  collector_win: function(){
     var ww = Components.classes["@mozilla.org/embedcomp/window-watcher;1"]
     .getService(Components.interfaces.nsIWindowWatcher);
-    //var win = ww.openWindow(null,"chrome://rcache/content/rcache_status.xul", 
-    //			    "status", 
-    //			    "chrome,width=500,height=230,modal=no", null);
     var win = ww.openWindow(null,"chrome://rcache/content/rcache_status.xul", 
     			    "status", 
     			    "chrome,resizable", null);
@@ -35,7 +32,7 @@ var rcache = {
 
  run: function(){
     var u = rcache.currentURL();
-    var url = 'http://zinn.ddahl.com:8000/cache?url='+ u;
+    var url = 'https://collect.rcache.com/cache?url='+ u;
     rcache.loadtab(url);
   },
 
@@ -82,7 +79,8 @@ var rcache = {
     var txt = rcache.selection();
     //alert(txt);
     if (txt !=""){
-      var result = rcache.post_url(rcache.postUrl,txt);      //fixme: need callback to notify when done... 
+      var result = rcache.post_url(rcache.postUrl,txt);
+      //fixme: need callback to notify when done... 
     } else {
       alert("No Text is Selected");
     }
@@ -90,15 +88,13 @@ var rcache = {
 
  toolbarLoad: function(){
     var txt = rcache.selection();
-    //if (txt !=""){
-      title = rcache.thetitle();
-      var selTex = document.getElementById('selectedtext');
-      selTex.setAttribute("value",txt);
-      var pgTitle = document.getElementById('pagetitle');
-      pgTitle.setAttribute("value",rcache.thetitle());
-      var pgUrl = document.getElementById('url');
-      pgUrl.setAttribute("value",rcache.currentURL());
-    //}
+    title = rcache.thetitle();
+    var selTex = document.getElementById('selectedtext');
+    selTex.setAttribute("value",txt);
+    var pgTitle = document.getElementById('pagetitle');
+    pgTitle.setAttribute("value",rcache.thetitle());
+    var pgUrl = document.getElementById('url');
+    pgUrl.setAttribute("value",rcache.currentURL());
   },
 
  images: new Array(),
@@ -226,6 +222,7 @@ var rcache = {
 	    imgs.push(item);
 	  }
 	  imgs_qs = imgs_qs + imgs.join("||sep||");
+	  //alert(imgs_qs);
 	}	  
       } catch(e) {
 	//alert(e);
@@ -336,14 +333,10 @@ var rcache = {
  append_list_items: function(){
 
     var items = ["test me indeed","test2 indeed","test3 is the best","test4 totally rocks"];
-    //    for (itm in items){
-    //  rcache.append_list_item(itm);
-    //}
 
     for (var i = 0; i < items.length; i++){
       rcache.append_list_item(items[i]);
     }
-    //var item ="A title of an entry";
     //create a for loop here to populate listbox with most recent 10 entries
     
   },
@@ -355,9 +348,7 @@ var rcache = {
   },
 
  append_links: function(links,linksLst){
-    //alert(links);
     linksLst.appendItem("this is a test");
-    //}
   },
 
  latest_entries: function(url){
