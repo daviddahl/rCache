@@ -12,12 +12,14 @@
   </ul>
 </div>
 <div id="search_results_grid">
-  <table id="recent_grid">
-    <th>Title</th>
-    <th>URL</th>
-    <th>Date</th>
+  <table id="recent_grid" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tr-dark">
+      <td><strong>Title</strong></td>
+      <td><strong>URL</strong></td>
+      <td><strong>Date</strong></td>
+    </tr>
     {% for e in entries %}
-    <tr>
+    <tr class="{% cycle tr-light,tr-dark %}">
       <td><a href="/detail/{{ e.id }}/">{{ e.entry_name }}</a></td>
       <td><a href="{{ e.entry_url }}" title="{{ e.entry_url }}">Go</a></td>
       <td>{{ e.date_created }}</td>
@@ -25,5 +27,4 @@
     {% endfor %}
   </table>
 </div>
-
 {% endblock %}

@@ -10,6 +10,7 @@
     <li>{{ user.first_name }} {{ user.last_name }}'s rCache</li>
   </ul>
 </div>
+<div id="detail_wrapper">
 {% for e in entry %}
 <div id="detail_header">
 <span class="entry_detail_id"># {{ e.id }}</span>    
@@ -24,7 +25,7 @@
 <div id="text_content_boundry"><pre>{{ e.text_content }}</pre></div>
 </div>
 <div id="detail_links">
-  <table id="link_table">
+  <table id="link_table" cellspacing="0" cellpadding="0" border="0">
     {% for link in links %}
     <tr class="{% cycle tr-light,tr-dark %}">
       <td class="detail_link_list">
@@ -40,4 +41,5 @@
   {% endfor %}
 </div>
 {% endfor %}
+</div>
 {% endblock %}

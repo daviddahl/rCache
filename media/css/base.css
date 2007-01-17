@@ -94,6 +94,15 @@ select:focus{
     padding:2px;
     border: 1px #DDD solid;
 }
+#wrapper{
+    padding:0px;
+    margin: 0px;
+}
+#detail_wrapper{
+    padding:0px;
+    margin: 0px;
+    border: 1px solid #AAA; 
+}
 #font_control{
     padding: 5px;
     margin: 5px;
@@ -366,10 +375,10 @@ pre {
     padding: 1em;
 }
 .tr-light{
-    background: #EEE;
+    background: #FFF;
 }
 .tr-dark{
-    background: #CCC;
+    background: #EEE;
 }
 #link_table {
     width:583px;
@@ -569,15 +578,18 @@ pre {
     height: 500px;
 }
 #detail {
-    border-top: 1px solid #DDD;
-    border-left:1px solid #DDD;
-    border-right: 1px solid #DDD;
-    border-bottom: 1px solid #DDD;
+    border: none;
     padding: 2px;
     background-color:#FFF;
     overflow: scroll;
     height: 300px;
     width: 600px;
+}
+#detail_wrapper {
+    border: 1px solid #AAA;
+    padding: 0px;
+    margin:0px;
+    width: 605px;
 }
 #detail_imgs {
     border: 1px solid #DDD;
@@ -683,12 +695,15 @@ textarea{
 }
 #nav{
     font-size:12px;
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    margin: 0px;
     list-style: none;
     width: 600px;
     display: block;
-    background-attachment:fixed;
+}
+#nav ul{
+    margin: 0px 0px 6px 10px;
+    padding: 0px 0px 0px 0px;
 }
 #nav li {
     display: inline; 
@@ -799,29 +814,29 @@ textarea{
 #recent_grid{
     padding: 0px;
     border-top:  1px solid #EEE;
-    width: 620px;
+    width: 606px;
 }
 #recent_grid tr{
     padding: 0px 0px 0px 0px;
 }
 #recent_grid td{
-    padding: 2px 0px 0px 2px;
+    padding: 4px;
 }
 #recent_grid td:hover{
-    padding: 2px 0px 0px 2px;
-    cursor: help;
+    color: #000 ;
 }
 #search_results_grid{
-    padding: 3px;
+    padding: 0px;
     width:620px;
     height: 580px;
     overflow: auto;
+    border: 1px solid #EEE;
 }
 .bold_header{
     font-weight:bolder;
 }
 
-.button{
+.button{g
     background: #EEE;
     border: 1px solid #CCC;
     padding: 2px;
