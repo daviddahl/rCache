@@ -25,13 +25,13 @@
 </div>
 <div id="detail_links">
   <table id="link_table">
+    {% for link in links %}
     <tr class="{% cycle tr-light,tr-dark %}">
-      {% for link in links %}
       <td class="detail_link_list">
 	<a href="{{ link.url }}" title="a link scraped from this entry's page" target="_new">{{ link.url }}</a>
       </td>
-      {% endfor %}
     </tr>
+    {% endfor %}
   </table>
 </div>
 <div id="detail_imgs">
