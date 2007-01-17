@@ -358,6 +358,7 @@ pre {
     padding: 1em;
     background: #FFF;
     width: 583px;
+    border-bottom: 1px solid #EEE;
 }
 .detail_link_list{
     padding: 5px;
@@ -941,3 +942,9 @@ textarea{
     visibility:hidden;
 }
 
+.message{
+    background: #FFC;
+    padding: 10px;
+    margin: 10px;
+    border: 1px dashed #DDD;
+}
