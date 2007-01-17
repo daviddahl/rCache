@@ -19,15 +19,16 @@
 <div id="detail">
 <div id="text_content_boundry"><pre>{{ e.text_content }}</pre></div>
 </div>
+<div id="detail_links">
+  {% for link in links %}
+  <span class="detail_link_list"><a href="{{ link.url }}" title="a link scraped from this entry's page" target="_new">{{ link.url }}</a></span><br />
+  {% endfor %}
+</div>
 <div id="detail_imgs">
 {% for img in imgs %}
   <img src="{{ img.path }}" title="an image scraped from this entry's page"/><br />
   {% endfor %}
 </div>
-<div id="detail_links">
-  {% for link in links %}
-  <a href="{{ link.url }}" title="a link scraped from this entry's page" target="_new" class="detail_link_list">{{ link.url }}</a><br />
-  {% endfor %}
-</div>
+
 {% endfor %}
 {% endblock %}
