@@ -46,6 +46,14 @@ def cache(request):
     else:
         return render_to_response('cache.html',{'u':"Bad Input: No Url Transmitted"})
 
+def not_found(request):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        return render_to_response('404.html',
+                                  {'user':u})
+    else:
+        return HttpResponseRedirect("/login_required/")
+    
 def recent(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
@@ -84,17 +92,22 @@ def recent_xhr(request):
     
 def detail(request,entry_id):
     if login_check(request):
-        u = User.objects.get(id=request.session['userid'])
-        e = Entry.objects.filter(user=u,id__exact=entry_id)
-        imgs = Media.objects.filter(entry__exact=e[0])
-        links = EntryUrl.objects.filter(entry__exact=e[0])
-        tags = Tag.objects.filter(entry__exact=e[0])
-        return render_to_response('detail.html',
-                                  {'entry':e,
-                                   'imgs':imgs,
-                                   'links':links,
-                                   'tags':tags,
-                                   'user':u})
+        try:
+            u = User.objects.get(id=request.session['userid'])
+            e = Entry.objects.filter(user=u,id__exact=entry_id)
+            imgs = Media.objects.filter(entry__exact=e[0])
+            links = EntryUrl.objects.filter(entry__exact=e[0])
+            tags = Tag.objects.filter(entry__exact=e[0])
+            return render_to_response('detail.html',
+                                      {'entry':e,
+                                       'imgs':imgs,
+                                       'links':links,
+                                       'tags':tags,
+                                       'user':u})
+        except Exception,e:
+            #need to log exception
+            #send 404!
+            return HttpResponseRedirect("/404/")
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -397,3 +410,33 @@ def manage_tags(tagList):
             return None
     else:
         return None
+
+#fixme: need to write these functions and supporting classes/modules
+
+def upload(request):
+    """handle uploaded file no bigger than $threshold"""
+    pass
+
+def handle_word_doc(path):
+    """pass word doc through antiword, save output text to entry, save original file in database"""
+    pass
+
+def handle_pdf_doc(path):
+    """scrape text from PDF, store as an entry and Media record"""
+    pass
+
+def search_engine(request):
+    """pass search request to database fulltext query or Nutch or PyLucene, not sure which one yet."""
+    pass
+
+def tag(request):
+    """filter entries by tag"""
+    pass
+
+def account(request):
+    """Tweak existing account"""
+    pass
+
+def account_new(request):
+    """Sign up for new rCache account"""
+    pass
