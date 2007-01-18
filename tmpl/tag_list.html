@@ -1,0 +1,13 @@
+{% extends "search.html" %}
+{% block search_content %}
+<div class="message">
+<h3>Tag List</h3>
+
+{% for tag in tags %}
+<a href="/tag/?tg={{ tag }}" title="{{ tag.tag_count }} Occurances">{{ tag }}</a> &nbsp;
+{% endfor %}
+<br/><br/>
+<a class="op_link" href="/taglist/?op=all">Show All Tags...</a> &nbsp;
+  <a class="op_link" href="/taglist/?op=alpha">Show Tags Alphabetically...</a>
+</div>
+{% endblock %}

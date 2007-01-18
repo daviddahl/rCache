@@ -431,7 +431,51 @@ def search_engine(request):
 
 def tag(request):
     """filter entries by tag"""
-    pass
+    if login_check(request):
+        #try:
+        if request.GET['tg']:
+            u = User.objects.get(id=request.session['userid'])
+            tg = urllib.unquote_plus(request.GET['tg'])
+            #search user's records for all entrys that have this tag:
+            tags = Tag.objects.filter(tag__iexact=tg,user=u)
+            entries = []
+            for t in tags:
+                e = Entry.objects.filter(tag=t,user=u).order_by('-id')
+                entries.extend(e)
+            #tagg = Tag.objects.filter(tag__iexact=tg)[0]
+            #e = Entry.objects.filter(tag=tagg)
+            return render_to_response('tag_results.html',
+                                      {'user':u,
+                                       'the_tag':tg,
+                                       'entries':entries})
+        #except Exception,e:
+
+        #    return HttpResponseRedirect("/404/")
+        else:
+            return HttpResponseRedirect("/404/")
+    else:
+        return HttpResponseRedirect("/login_required/")
+    
+def tag_list(request):
+    """get most popular tags by user"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.GET.has_key('op'):
+            if request.GET['op'] == 'all':
+                tags = Tag.objects.filter(user=u).order_by('-tag_count')
+            elif request.GET['op'] == 'alpha':
+                tags = Tag.objects.filter(user=u).order_by('tag')
+            else:
+                tags = Tag.objects.filter(user=u).order_by('tag')[:200]
+        else:
+            tags = Tag.objects.filter(user=u).order_by('-tag_count')[:200]
+                                
+        return render_to_response('tag_list.html',
+                                  {'user':u,
+                                   'tags':tags})
+    else:
+        return HttpResponseRedirect("/login_required/")
+    
 
 def account(request):
     """Tweak existing account"""

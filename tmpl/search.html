@@ -3,20 +3,17 @@
 <body>
 {% endblock %}
 {% block content %}
-<div id="nav">
-  <ul>
-    <li><a href="/new">New</a></li>
-    <li><a href="/recent">Recent</a></li>
-    <li><a href="/search">Search</a></li>
-    <li><a href="/logout">Logout</a></li>
-    <li>{{ user.first_name }} {{ user.last_name }}</li>
-  </ul>
-</div>
-<div id="detail">
-  <p class="message">Search Functionality is being worked on.
+{% include "nav.html" %}
+<div id="detail_wrapper">
+<div id="detail_search">
+  {% block search_content %}
+  <p class="message">
+  Search Functionality is being worked on.
+  <br/>
+  In the meantime, please use the <a href="/taglist/">Tag List</a>
   <br/><br/>
-
   </p>
+  {% endblock %}
 </div>
-
+</div>
 {% endblock %}

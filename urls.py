@@ -19,6 +19,8 @@ urlpatterns = patterns('rcache.views',
                        (r'^login_err/$','login_err'),
                        (r'^login_required/$','login_required'),
                        (r'^detail/(?P<entry_id>\d+)/$','detail'),
+                       (r'^tag/$','tag'),
+                       (r'^taglist/$','tag_list'),
                        )
 urlpatterns += patterns('',
                         (r'^media/(.*)$',
