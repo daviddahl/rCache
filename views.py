@@ -160,7 +160,15 @@ def new_entry(request):
                                   {'user':u})
     else:
         return HttpResponseRedirect("/login_required/")
-        
+
+def search(request):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        return render_to_response('search.html',
+                                  {'user':u})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
 
 def spider_tags(request):
     #parse tags
@@ -253,16 +261,11 @@ def postcache(request):
                 the_tags = urllib.unquote_plus(request.POST['tags'])
                 the_links = urllib.unquote_plus(request.POST['links_qs'])
                 the_imgs = urllib.unquote_plus(request.POST['imgs_qs'])
-                #print text_content
                 print the_links
                 print the_imgs
-                #fixme: get tags - validate
                 tags = manage_tags(the_tags)
                 print tags
-                #fixme: get links, media
-                #create entry object here
                 try:
-                    #user = User.objects.get(pk=1)
                     _user = User.objects.get(id=request.session['userid'])
                     entry = Entry(text_content=text_content,
                                   entry_name=entry_name,
@@ -273,8 +276,9 @@ def postcache(request):
                     add_tags(tags,_user,entry)
                     entry_urls(the_links,entry,_user)
                     process_media(the_imgs,entry)
-                    #fixme: add tags, links, media, etc...
+
                     print "entry id: %s" % entry.id
+
                     json_dict=dict(status="success",entry_id=entry.id,
                                    msg="Congrats")
                     return HttpResponse(simplejson.dumps(json_dict),
@@ -312,6 +316,7 @@ def entry_urls(links,e,u):
         except Exception, e:
             #need to log this:
             print e
+
 
 def process_media(imgsrcs,e):
     """store url to images scraped from the pages"""

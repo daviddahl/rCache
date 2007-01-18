@@ -6,28 +6,25 @@
 <title>rCache.com</title>
 {% endblock %}
 <LINK HREF="/media/css/base.css" REL="stylesheet"></LINK>
-
 {% block js %}
 <SCRIPT SRC="/media/js/rcachelib.js"></SCRIPT>
-    {% block mochi %}
+{% block mochi %}
 <SCRIPT SRC="/media/js/MochiKit/MochiKit.js"></SCRIPT>
-    {% endblock %}
-    {% block dojo %}
+{% endblock %}
+{% block dojo %}
 <SCRIPT SRC="/media/js/dojo/dojo.js"></SCRIPT>
-    {% endblock %}
-    {% block yui %}
+{% endblock %}
+{% block yui %}
 <script type="text/javascript" src="/media/js/yui/yahoo/yahoo-min.js"></script>
 <script type="text/javascript" src="/media/js/yui/dom/dom-min.js"></script>
 <script type="text/javascript" src="/media/js/yui/event/event-min.js"></script>
 <script type="text/javascript" src="/media/js/yui/connection/connection-min.js"></script>
 <script type="text/javascript" src="/media/js/yui/animation/animation-min.js"></script>
 <script type="text/javascript" src="/media/js/yui-ext.js"></script>
-    {% endblock %}
+{% endblock %}
 {% endblock %}
 {% block js_app %}
 {% endblock %}
-
-
 </head>
 {% block body %}
 <body>
@@ -37,5 +34,6 @@
 <h1>rCache.com</h1>
 {% endblock %}
 </div>
+<div id="copyright">&copy; 2005, 2006, 2007 rCache.com</div>
 </body>
 </html>

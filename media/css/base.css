@@ -605,7 +605,7 @@ pre {
     padding: 2px;
     background-color:#FFF;
     overflow: scroll;
-    height: 200px;
+    height: 100px;
     width: 600px;
 }
 #results_detail {
