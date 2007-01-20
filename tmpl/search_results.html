@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+  <div id="recent_header">
+    {% block func_title %}
+   <div class="results_title">Search Results for '<i>{{ params }}</i>'</div>
+    {% endblock %}
+  </div>
+<div id="search_results_grid">
+  <table id="recent_grid" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tr-light">
+      <td><strong>Title</strong></td>
+      <td><strong>URL</strong></td>
+      <td><strong>Date Saved</strong></td>
+    </tr>
+    {% for e in entries %}
+    <tr class="{% cycle tr-dark,tr-light %}">
+      <td><a href="/detail/{{ e.id }}/">
+	{% if e.entry_name %}
+	{{ e.entry_name|truncatewords:10 }}
+	{% else %}
+	No Title
+	{% endif %}
+	</a></td>
+      <td><a href="{{ e.entry_url }}" title="{{ e.entry_url }}" target="_new">Go</a></td>
+      <td>{{ e.date_created|timesince }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+</div>
+{% endblock %}

@@ -98,11 +98,14 @@ def detail(request,entry_id):
             imgs = Media.objects.filter(entry__exact=e[0])
             links = EntryUrl.objects.filter(entry__exact=e[0])
             tags = Tag.objects.filter(entry__exact=e[0])
+            tags_clean = []
+            for t in tags:
+                tags_clean.append(t)
             return render_to_response('detail.html',
                                       {'entry':e,
                                        'imgs':imgs,
                                        'links':links,
-                                       'tags':tags,
+                                       'tags':tags_clean,
                                        'user':u})
         except Exception,e:
             #need to log exception
@@ -177,8 +180,24 @@ def new_entry(request):
 def search(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
-        return render_to_response('search.html',
-                                  {'user':u})
+        
+        if request.POST:
+            if request.POST['search_str']:
+                params = request.POST['search_str']
+                
+                entries = Entry.objects.filter(text_content__search=params)
+                return render_to_response('search_results.html',
+                                          {'user':u,
+                                           'params':params,
+                                           'entries':entries})
+            else:
+                return render_to_response('search.html',
+                                          {'user':u,
+                                           'errormsg':True
+                                           })
+        else:
+            return render_to_response('search.html',
+                                      {'user':u})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -383,7 +402,7 @@ def add_tags(tags,_user,entry):
                 for existtag in texists:
                     existtag.tag_count = tagcnt
                     existtag.save()
-                    #fixme: remove?? # entry.tag.add(existtag)
+                    entry.tag.add(existtag)
 
 def prune_tags(tags):
     newtags = []
@@ -443,8 +462,6 @@ def tag(request):
             for t in tags:
                 e = Entry.objects.filter(tag=t,user=u).order_by('-id')
                 entries.extend(e)
-            #tagg = Tag.objects.filter(tag__iexact=tg)[0]
-            #e = Entry.objects.filter(tag=tagg)
             return render_to_response('tag_results.html',
                                       {'user':u,
                                        'the_tag':tg,
@@ -463,13 +480,13 @@ def tag_list(request):
         u = User.objects.get(id=request.session['userid'])
         if request.GET.has_key('op'):
             if request.GET['op'] == 'all':
-                tags = Tag.objects.filter(user=u).order_by('-tag_count').distinct()
+                tags = Tag.objects.filter(user=u).order_by('-tag_count')
             elif request.GET['op'] == 'alpha':
-                tags = Tag.objects.filter(user=u).order_by('tag').distinct()
+                tags = Tag.objects.filter(user=u).order_by('tag')
             else:
-                tags = Tag.objects.filter(user=u).order_by('tag').distinct()[:200]
+                tags = Tag.objects.filter(user=u).order_by('tag')[:200]
         else:
-            tags = Tag.objects.filter(user=u).order_by('-tag_count').distinct()[:200]
+            tags = Tag.objects.filter(user=u).order_by('-tag_count')[:200]
                                 
         return render_to_response('tag_list.html',
                                   {'user':u,
