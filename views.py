@@ -372,7 +372,7 @@ def login_check_svc(request):
 def add_tags(tags,_user,entry):
     if tags is not None:
         for t in tags:
-            texists = Tag.objects.filter(tag__iexact=t,user=_user)
+            texists = Tag.objects.filter(tag__iexact=t,user=_user).order_by('id')
             #fixme: get tag count from join table 
             tagcnt = len(texists)
             if tagcnt == 0:
@@ -383,7 +383,7 @@ def add_tags(tags,_user,entry):
                 for existtag in texists:
                     existtag.tag_count = tagcnt
                     existtag.save()
-                    entry.tag.add(existtag)
+                    #fixme: remove?? # entry.tag.add(existtag)
 
 def prune_tags(tags):
     newtags = []
@@ -439,6 +439,7 @@ def tag(request):
             #search user's records for all entrys that have this tag:
             tags = Tag.objects.filter(tag__iexact=tg,user=u)
             entries = []
+            #fixme: duplicate entries are added to theis list!
             for t in tags:
                 e = Entry.objects.filter(tag=t,user=u).order_by('-id')
                 entries.extend(e)
@@ -462,13 +463,13 @@ def tag_list(request):
         u = User.objects.get(id=request.session['userid'])
         if request.GET.has_key('op'):
             if request.GET['op'] == 'all':
-                tags = Tag.objects.filter(user=u).order_by('-tag_count')
+                tags = Tag.objects.filter(user=u).order_by('-tag_count').distinct()
             elif request.GET['op'] == 'alpha':
-                tags = Tag.objects.filter(user=u).order_by('tag')
+                tags = Tag.objects.filter(user=u).order_by('tag').distinct()
             else:
-                tags = Tag.objects.filter(user=u).order_by('tag')[:200]
+                tags = Tag.objects.filter(user=u).order_by('tag').distinct()[:200]
         else:
-            tags = Tag.objects.filter(user=u).order_by('-tag_count')[:200]
+            tags = Tag.objects.filter(user=u).order_by('-tag_count').distinct()[:200]
                                 
         return render_to_response('tag_list.html',
                                   {'user':u,

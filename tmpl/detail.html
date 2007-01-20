@@ -7,7 +7,7 @@
 <div id="detail_wrapper">
 {% for e in entry %}
 <div id="detail_header">
-<span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago</span> <br />
+<span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span> <br />
 <span class="entry_detail_title"><a href="{{ e.entry_url }}" target="_new">
   {{ e.entry_name }}</a></span>
 <br />
