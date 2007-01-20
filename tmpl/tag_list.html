@@ -1,4 +1,7 @@
 {% extends "search.html" %}
+{% block title %}
+rCache.com - Tag List
+{% endblock %}
 {% block search_content %}
 <div class="message">
 <h3>Tag List</h3>
@@ -10,4 +13,6 @@
 <a class="op_link" href="/taglist/?op=all">Show All Tags...</a> &nbsp;
   <a class="op_link" href="/taglist/?op=alpha">Show Tags Alphabetically...</a>
 </div>
+{% block search_slow_msg%}
+{% endblock %}
 {% endblock %}

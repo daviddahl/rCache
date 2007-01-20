@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block title %}
+rCache.com - Search
+{% endblock %}
 {% block body %}
 <body>
 {% endblock %}
@@ -23,9 +26,11 @@
     </p>
     <br />
   {% endblock %}
-  <p class="message">
+    {% block search_slow_msg%}
+    <p class="message">
   Search Functionality is experimental at this time. Some queries may be a little bit slow.
   </p>
+    {% endblock %}
   </div>
 </div>
 </div>
