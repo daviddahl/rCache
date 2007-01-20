@@ -100,7 +100,8 @@ def detail(request,entry_id):
             tags = Tag.objects.filter(entry__exact=e[0])
             tags_clean = []
             for t in tags:
-                tags_clean.append(t)
+                tags_clean.append(t.tag)
+            tags_clean = dict.fromkeys(tags_clean).keys()
             return render_to_response('detail.html',
                                       {'entry':e,
                                        'imgs':imgs,

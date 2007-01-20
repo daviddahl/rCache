@@ -14,7 +14,7 @@
 </div>
 <div id="detail_tags">
 {% for tag in tags %}
-<span class="detail_tag"><a href="/tag/?tg={{ tag.tag|urlencode }}">{{ tag.tag }}</a></span>
+<span class="detail_tag"><a href="/tag/?tg={{ tag|urlencode }}">{{ tag }}</a></span>
 {% endfor %}
 </div>
 <div id="detail">
