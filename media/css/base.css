@@ -26,15 +26,24 @@ td {
 }
 
 h1 {
-    font-size:14px;
+    font-size:16px;
     line-height: 1em;
     font-weight: 900;
+}
+h1 a{
+    text-decoration:none;
 }
 
 h3{
     font-weight: 900;
     padding: 3px;
     margin:0px;
+}
+h3 a{
+    text-decoration:none;
+}
+h2 a{
+    text-decoration:none;
 }
 select{
     font:11px 'trebuchet ms', verdana, sans-serif;
@@ -590,6 +599,9 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 500px;
+}
+.search_box{
+    padding: 20px;
 }
 #detail {
     border: none;

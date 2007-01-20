@@ -6,21 +6,27 @@
 {% include "nav.html" %}
 <div id="detail_wrapper">
 <div id="detail_search">
+  <div class="search_box">
   {% block search_content %}
-  <p class="message">
-  Search Functionality is experimental at this time. Some queries may be a little bit slow.
-  </p>
   {% if errormsg %}
   <p class="message">
   <strong><i>Please Enter a Search Term.</i></stong>
   </p>
   {% endif %}
+    <p>
+    <h4>Keyword Search</h4>
   <form action="." method="POST">
   <label for="search_str">&nbsp;</label>
   <input type="text" name="search_str" maxlength="40" size="40"/>
   <input type="submit" name="search_btn" value="Search"/>
   </form>
+    </p>
+    <br />
   {% endblock %}
+  <p class="message">
+  Search Functionality is experimental at this time. Some queries may be a little bit slow.
+  </p>
+  </div>
 </div>
 </div>
 {% endblock %}
