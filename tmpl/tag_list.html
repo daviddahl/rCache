@@ -7,7 +7,7 @@ rCache.com - Tag List
 <h3>Tag List</h3>
 
 {% for tag in tags %}
-<a href="/tag/?tg={{ tag }}" title="{{ tag.tag_count }} Occurances">{{ tag }}</a> &nbsp;
+<a href="/tag/?tg={{ tag.0 }}" title="{{ tag.1 }} Occurances">{{ tag.0 }}</a> &nbsp;
 {% endfor %}
 <br/><br/>
 <a class="op_link" href="/taglist/?op=all">Show All Tags...</a> &nbsp;

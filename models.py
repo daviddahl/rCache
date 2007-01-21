@@ -47,8 +47,27 @@ class Tag(models.Model):
     tag = models.CharField(blank=True, maxlength=300)
     user = models.ForeignKey(User)
     tag_count = models.IntegerField(null=True, blank=True)
+    
     def __str__(self):
         return self.tag
+
+    def tag_list(self,_user,which_q='default'):
+        from django.db import connection
+        cursor = connection.cursor()
+        q = """SELECT DISTINCT tag, tag_count FROM tag WHERE user_id = %s
+        ORDER BY tag_count DESC LIMIT 200"""
+        if which_q == 'alpha':
+            q = """SELECT DISTINCT tag,tag_count FROM tag WHERE user_id = %s
+            ORDER BY tag"""
+        if which_q == 'all':
+            q = """SELECT DISTINCT tag,tag_count FROM tag WHERE user_id = %s
+            ORDER BY tag_count DESC"""
+            
+        cursor.execute(q,[_user.id])
+        rows = cursor.fetchall()
+        return rows
+
+    
     class Meta:
         db_table = 'tag'
     class Admin:
@@ -68,6 +87,21 @@ class Entry(models.Model):
     
     def __str__(self):
         return self.entry_name
+
+    def fulltxt(self,_user,kw):
+        """Fulltext search on Entries sorted by relevence"""
+        from django.db import connection
+        cursor = connection.cursor()
+        
+        q = """SELECT id,entry_url, entry_name, date_created,
+        MATCH(text_content) AGAINST (%s) AS score
+        FROM entry
+        WHERE MATCH (text_content) AGAINST (%s)
+        AND user_id = %s"""
+            
+        cursor.execute(q,[kw,kw,_user.id])
+        rows = cursor.fetchall()
+        return rows
     
     class Meta:
         db_table = 'entry'

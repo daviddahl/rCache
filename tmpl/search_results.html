@@ -17,20 +17,22 @@ rCache.com - Search Results
   <table id="recent_grid" cellspacing="0" cellpadding="0" border="0">
     <tr class="tr-light">
       <td><strong>Title</strong></td>
+      <td><strong>Relevance</strong></td>
       <td><strong>URL</strong></td>
       <td><strong>Date Saved</strong></td>
     </tr>
     {% for e in entries %}
     <tr class="{% cycle tr-dark,tr-light %}">
-      <td><a href="/detail/{{ e.id }}/">
-	{% if e.entry_name %}
-	{{ e.entry_name|truncatewords:10 }}
+      <td><a href="/detail/{{ e.0 }}/">
+	{% if e.2 %}
+	{{ e.2|truncatewords:9 }}
 	{% else %}
 	No Title
 	{% endif %}
 	</a></td>
-      <td><a href="{{ e.entry_url }}" title="{{ e.entry_url }}" target="_new">Go</a></td>
-      <td>{{ e.date_created|timesince }}</td>
+	<td>{{ e.4|floatformat:3 }}</td>
+      <td><a href="{{ e.1 }}" title="{{ e.1 }}" target="_new">Go</a></td>
+      <td>{{ e.3|timesince }}</td>
     </tr>
     {% endfor %}
   </table>

@@ -186,7 +186,9 @@ def search(request):
             if request.POST['search_str']:
                 params = request.POST['search_str']
                 
-                entries = Entry.objects.filter(text_content__search=params)
+                #entries = Entry.objects.filter(text_content__search=params)
+                e = Entry()
+                entries = e.fulltxt(u,params)
                 return render_to_response('search_results.html',
                                           {'user':u,
                                            'params':params,
@@ -479,16 +481,16 @@ def tag_list(request):
     """get most popular tags by user"""
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
+        t = Tag()
         if request.GET.has_key('op'):
             if request.GET['op'] == 'all':
-                tags = Tag.objects.filter(user=u).order_by('-tag_count')
+                tags = t.tag_list(u,which_q='all')
             elif request.GET['op'] == 'alpha':
-                tags = Tag.objects.filter(user=u).order_by('tag')
+                tags = t.tag_list(u,which_q='alpha')
             else:
-                tags = Tag.objects.filter(user=u).order_by('tag')[:200]
+                tags = t.tag_list(u)
         else:
-            tags = Tag.objects.filter(user=u).order_by('-tag_count')[:200]
-                                
+            tags = t.tag_list(u)
         return render_to_response('tag_list.html',
                                   {'user':u,
                                    'tags':tags})
