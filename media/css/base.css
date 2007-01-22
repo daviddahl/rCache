@@ -989,3 +989,30 @@ textarea{
     border: 1px dashed #DDD;
     line-height: 1.7em;
 }
+
+.the_lists{
+    background: #FFC;
+    padding: 10px;
+    margin: 10px;
+    border: 1px dashed #DDD;
+    line-height: 1.7em;
+    font-size:1.2em;
+}
+
+#filter-menu{
+    padding: 0.4em;
+}
+#filter-menu .selected{
+    font-weight: bolder;
+}
+#filter-menu span{
+    font-weight: bolder;
+    font-size: 1.1em;
+}
+#filter-menu ul{
+    display: inline;   
+}
+#filter-menu li{
+    padding: 0.5em;
+    display: inline;
+}

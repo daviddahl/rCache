@@ -1,18 +1,19 @@
 ### TODO ###
 
 *HOT
+[] reading screen for articles - bigger fonts
 [X] authenticate redirect in FFExt
 [] rCache via Paste form clipboard - partially done
-[] detail screen cleanup - follow design from rcache.com
-[] recent grid - use JSON/Paging/AJAX
+[X] detail screen cleanup - follow design from rcache.com
+[x.1] recent grid - use JSON/Paging/AJAX
 
 [] Server side: stem each word in each entry. 
    * M2M connectivity to "dictionary" table
    * make a "dictionary cloud" from the stemmed entries
-[] get fragment links as absolute URLs - enter in DB
-[] get fragment images as blob entries to store in db as well
+[X] get fragment links as absolute URLs - enter in DB
+[x.1] get fragment images as blob entries to store in db as well
    * set size threshold to ignore smaller images
- 
+   * ignore gifs preference
 
 *MILD
 [] migration script from old rcache.com

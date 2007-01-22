@@ -1,17 +1,26 @@
 {% extends "search.html" %}
 {% block title %}
-rCache.com - Tag List
+rCache.com - Filter Entries
 {% endblock %}
 {% block search_content %}
-<div class="message">
-<h3>Tag List</h3>
-
+<div id="filter-menu">
+  <span>Filter by: </span>
+  <ul>
+    {% block filter_menu %}
+    <li class="selected">Tags</li>
+    <li><a href="/filter/domains/">Domains</a></li>
+    {% endblock %}
+  </ul>
+</div>
+<div class="the_lists">
+{% block the_list %}
 {% for tag in tags %}
 <a href="/tag/?tg={{ tag.0 }}" title="{{ tag.1 }} Occurances">{{ tag.0 }}</a> &nbsp;
 {% endfor %}
 <br/><br/>
 <a class="op_link" href="/taglist/?op=all">Show All Tags...</a> &nbsp;
   <a class="op_link" href="/taglist/?op=alpha">Show Tags Alphabetically...</a>
+{% endblock %}
 </div>
 {% block search_slow_msg%}
 {% endblock %}

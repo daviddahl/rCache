@@ -4,6 +4,7 @@ import os
 import sys
 import re
 import urllib
+from urlparse import urlparse
 
 from django.http import Http404,HttpResponse,HttpResponseRedirect
 from django.template import Context, loader
@@ -296,6 +297,12 @@ def postcache(request):
                 the_tags = urllib.unquote_plus(request.POST['tags'])
                 the_links = urllib.unquote_plus(request.POST['links_qs'])
                 the_imgs = urllib.unquote_plus(request.POST['imgs_qs'])
+                try:
+                    parsed_url = urlparse(entry_url)
+                    edomain = parsed_url[1]
+                except:
+                    edomain = ""
+                    
                 print the_links
                 print the_imgs
                 tags = manage_tags(the_tags)
@@ -306,7 +313,8 @@ def postcache(request):
                                   entry_name=entry_name,
                                   description=description,
                                   entry_url=entry_url,
-                                  user=_user)
+                                  user=_user,
+                                  entry_domain=edomain)
                     entry.save()
                     add_tags(tags,_user,entry)
                     entry_urls(the_links,entry,_user)
@@ -476,6 +484,7 @@ def tag(request):
             return HttpResponseRedirect("/404/")
     else:
         return HttpResponseRedirect("/login_required/")
+
     
 def tag_list(request):
     """get most popular tags by user"""
@@ -496,7 +505,42 @@ def tag_list(request):
                                    'tags':tags})
     else:
         return HttpResponseRedirect("/login_required/")
-    
+
+def domain_list(request):
+    """get domains alphabetically for domain list"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        e = Entry()
+        
+        domains = e.domain_list(u)
+        return render_to_response('domain_list.html',
+                                  {'user':u,
+                                   'domains':domains})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def domain_filter(request):
+    """filter entries by domain"""
+    if login_check(request):
+        #try:
+        if request.GET['domain']:
+            u = User.objects.get(id=request.session['userid'])
+            tg = urllib.unquote_plus(request.GET['domain'])
+            #search user's records for all entrys that were scraped from this domain
+
+            entries = Entry.objects.filter(entry_domain__iexact=request.GET['domain'],user=u)
+            
+            return render_to_response('domain_results.html',
+                                      {'user':u,
+                                       'the_domain':request.GET['domain'],
+                                       'entries':entries})
+        #except Exception,e:
+
+        #    return HttpResponseRedirect("/404/")
+        else:
+            return HttpResponseRedirect("/404/")
+    else:
+        return HttpResponseRedirect("/login_required/")
 
 def account(request):
     """Tweak existing account"""

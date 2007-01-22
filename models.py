@@ -67,7 +67,10 @@ class Tag(models.Model):
         rows = cursor.fetchall()
         return rows
 
-    
+    def normalize_tags(_user):
+        """get all tags loop through them sorted by tag, tag_count"""
+        pass
+        
     class Meta:
         db_table = 'tag'
     class Admin:
@@ -75,7 +78,9 @@ class Tag(models.Model):
     
 class Entry(models.Model):
     user = models.ForeignKey(User)
-    entry_url = models.CharField(blank=True, maxlength=765)#alter db on turbogears side
+    entry_url = models.CharField(blank=True, maxlength=765)
+    #alter db on turbogears side
+    entry_domain = models.CharField(blank=True, maxlength=200)
     entry_name = models.CharField(blank=True, maxlength=765)
     description = models.CharField(blank=True, maxlength=765)
     text_content = models.TextField(blank=True)
@@ -100,6 +105,16 @@ class Entry(models.Model):
         AND user_id = %s"""
             
         cursor.execute(q,[kw,kw,_user.id])
+        rows = cursor.fetchall()
+        return rows
+
+    def domain_list(self,_user):
+        from django.db import connection
+        cursor = connection.cursor()
+        q = """SELECT DISTINCT entry_domain FROM entry WHERE user_id = %s
+        ORDER BY entry_domain"""
+            
+        cursor.execute(q,[_user.id])
         rows = cursor.fetchall()
         return rows
     
