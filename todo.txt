@@ -6,6 +6,8 @@
 [] rCache via Paste form clipboard - partially done
 [X] detail screen cleanup - follow design from rcache.com
 [x.1] recent grid - use JSON/Paging/AJAX
+[X] Word and PDF scraping via New entry Tab
+[] Word and PDF scraping from link in Links div - server side download stack: Add item to stack have a cron job run downloads/inserts: get oldest item in stack, download, scrape, insert
 
 [] Server side: stem each word in each entry. 
    * M2M connectivity to "dictionary" table
@@ -18,6 +20,14 @@
 *MILD
 [] migration script from old rcache.com
 [] start using unit testing tools in JS
+[] YouTube EMBED TAG extraction:
+You Tube Sample:
+<object width="425" height="350">
+<param name="movie" value="http://www.youtube.com/v/jnYZVNVqBgU"></param>
+<param name="wmode" value="transparent"></param>
+<embed src="http://www.youtube.com/v/jnYZVNVqBgU" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
+</object>
+parse out OBJECT/PARAM/EMBED as an array to pass to "media" table. mark media as online flash movie, save this scrap of markup to embed the movies right in rCache.
 
 *SPARE TIME
 [] review todo in old rcache codebase: pick 3 features to implement in near term
