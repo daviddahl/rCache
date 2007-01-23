@@ -76,3 +76,6 @@ INSTALLED_APPS = (
     'rcache.rcache_spider',
     'rcache',
 )
+
+ANTIWORD = '/usr/bin/antiword'
+PDFTOTEXT = '/usr/bin/pdftotext'

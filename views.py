@@ -12,6 +12,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django import forms
 from django.utils import simplejson
 
+import antiword
+import pdf
 import html2text
 from twill import get_browser
 from twill.commands import go as tw_go
@@ -174,8 +176,47 @@ def spider(request):
 def new_entry(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
-        return render_to_response('new_entry.html',
-                                  {'user':u})
+        if request.POST:
+            url = "Manual entry"
+            #handle form data
+            url = request.POST['url']
+            ttl = request.POST['title']
+            tgs = request.POST['tags']
+            etext = request.POST['entry_text']
+            if request.FILES['the_file']:
+                #handle upload
+                file_data = request.FILES['the_file']['content']
+                file_name = request.FILES['the_file']['filename']
+
+                #if ttl == '':
+                ttl = ttl + ' ** From file: %s ** ' % file_name 
+
+                content_type = request.FILES['the_file']['content-type']
+                file_txt = '***Error sccraping document: %s ***' % file_name
+                
+                if content_type == 'application/msword':
+                    file_txt = process_word(file_data,file_name)
+                elif content_type == 'application/pdf':
+                    file_txt = process_pdf(file_data,file_name)
+                #elif content_type == 'text/plain':
+                #    file_txt = process_txt(file_data)
+                else:
+                    pass
+                etext = etext + "\n------Scraped Text------\n" + file_txt
+                
+            entry = Entry(entry_url=url,
+                          entry_name=ttl,
+                          text_content=etext,
+                          user=u)
+            entry.save()
+            #handle tags here!
+            taglist = manage_tags(tgs)
+            add_tags(taglist,u,entry)
+            detail_url = "/detail/%s/" % entry.id
+            return HttpResponseRedirect(detail_url)
+        else:            
+            return render_to_response('new_entry.html',
+                                      {'user':u})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -202,6 +243,16 @@ def search(request):
         else:
             return render_to_response('search.html',
                                       {'user':u})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+
+def firefox(request):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        
+        return render_to_response('firefox.html',
+                                  {'user':u})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -447,13 +498,24 @@ def upload(request):
     """handle uploaded file no bigger than $threshold"""
     pass
 
-def handle_word_doc(path):
+def process_word(data,filename):
     """pass word doc through antiword, save output text to entry, save original file in database"""
-    pass
+    tmp_name = antiword.save_tmp(data)
+    try:
+        the_text = antiword.extractText(tmp_name)
+        return the_text
+    except:
+        return "Error processing Word doc: %s" % filename
 
-def handle_pdf_doc(path):
+def process_pdf(data,filename):
     """scrape text from PDF, store as an entry and Media record"""
-    pass
+    tmp_name = pdf.save_tmp(data)
+    try:
+        the_text = pdf.extractPDFText(tmp_name)
+        return the_text
+    except:
+        return "Error processing PDF file: %s" % filename
+    
 
 def search_engine(request):
     """pass search request to database fulltext query or Nutch or PyLucene, not sure which one yet."""

@@ -25,6 +25,7 @@ urlpatterns = patterns('rcache.views',
                        (r'^filter/tags/$','tag_list'),
                        (r'^filter/domains/$','domain_list'),
                        (r'^filter/domain_results/$','domain_filter'),
+                       (r'^firefox/$','firefox'),
                        )
 urlpatterns += patterns('',
                         (r'^media/(.*)$',

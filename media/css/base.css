@@ -339,6 +339,23 @@ textarea:active {
     height:300px;
     background-color:#FFF;
 }
+#firefox_boundry {
+    border-width: 0px;
+    border: 1px solid #AAA;
+    padding: 10px;
+    width:600px;
+    height:700px;
+    background-color:#FFF;
+}
+#firefox_boundry ul{
+ list-style-type: decimal;   
+}
+#firefox_boundry img{
+    border: none;
+}
+.imgbrdr{
+    border: 1px solid #AAA;
+}
 #boundry {
     border-width: 0px;
     padding: 5px;
@@ -609,6 +626,14 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 400px;
+    width: 600px;
+}
+#detail_new_entry {
+    border: none;
+    padding: 2px;
+    background-color:#FFF;
+    overflow: auto;
+    height: 550px;
     width: 600px;
 }
 #detail_search {

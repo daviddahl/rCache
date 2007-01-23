@@ -1,7 +1,7 @@
 ### TODO ###
 
 *HOT
-[] reading screen for articles - bigger fonts
+[] reading screen for articles - bigger fonts, open in new window? Layer?
 [X] authenticate redirect in FFExt
 [] rCache via Paste form clipboard - partially done
 [X] detail screen cleanup - follow design from rcache.com
