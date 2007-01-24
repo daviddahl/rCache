@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://rcache/locale/rcache_status.dtd">
-<overlay id="rcache-browser-overlay" 
-  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-  xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-
 <window
    id="rcachestatus"
    title="rCache Collector 0.1"
@@ -128,8 +124,5 @@
 
 </vbox>
 </hbox>
-
 <spacer style="height: 10px;"/>
-
 </window>
-</overlay>

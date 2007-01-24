@@ -20,11 +20,7 @@
 </keyset>
 
  <statusbar id="status-bar">
-  <statusbarpanel id="rcache-panel" 
-		  onmousedown="rcache.open()">
-    <image id="rcache-status-icon" src="chrome://rcache/content/skin/database_add.png" tooltiptext="rCache Collector::Save data to rCache database"/>
-    <label id="rcache-status-label" value=""/>
-  </statusbarpanel>
+   
   <statusbarpanel id="rcache-panel-sel"
 		  onmousedown="rcache.confirm()"
 		  tooltiptext="Save Selected Text to rCache">
