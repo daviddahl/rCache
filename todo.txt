@@ -40,7 +40,7 @@ parse out OBJECT/PARAM/EMBED as an array to pass to "media" table. mark media as
 ### BUGS ###
 
 *HOT
-[] fix these encoding issues: "reassure Gulf allies%u2014including "
+[X] fix these encoding issues: "reassure Gulf allies%u2014including " used encodeURIComponent()
 [X] rcache.js: evaluaiton of rcache caching success message seems broken
 
 *MILD

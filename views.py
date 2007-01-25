@@ -609,3 +609,6 @@ def account(request):
 def account_new(request):
     """Sign up for new rCache account"""
     pass
+
+def about(request):
+    return render_to_response('about.html',{})
