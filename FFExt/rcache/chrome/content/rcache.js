@@ -242,10 +242,13 @@ var rcache = {
 	    if(eval(http.responseText)=='done'){
 	      bCompleted = true;
 	    }
-	    if (eval(http.responseText) == 'login_error'){
+	    else if(eval(http.responseText) == 'login_error'){
 	      //var wintext = document.getElementById('progress').hidden = true;
 	      alert("Login Required.\n\nIn your browser, go to https://rcache.com/login/ \n\nLogin to rCache, and you'll be all set.");
 	      bCompleted = false;
+	    } else {
+	      //no idea what is what??
+	      alert(http.responseText);
 	    }
 	  }
 	} else {
@@ -273,7 +276,7 @@ var rcache = {
     if (bCompleted == true) {
       bCompleted = false;
       window.setInterval(rcache.statusMsg, 100);
-      window.setInterval(window.close, 1500);
+      window.setInterval(window.close, 1200);
     }
   },
 
