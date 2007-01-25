@@ -180,19 +180,19 @@ var rcache = {
       var http = new XMLHttpRequest();
 
       var winurl = document.getElementById('url').value;
-      var link = 'entry_url=' + escape(winurl) + '&';
+      var link = 'entry_url=' + encodeURIComponent(winurl) + '&';
       
       var wintitle = document.getElementById('pagetitle').value;
-      var name = 'entry_name=' + escape(wintitle) + '&';
+      var name = 'entry_name=' + encodeURIComponent(wintitle) + '&';
 
       var windesc = document.getElementById('pagetitle').value;
-      var desc = 'description=' + escape(windesc) + '&';
+      var desc = 'description=' + encodeURIComponent(windesc) + '&';
 
       var wintext = document.getElementById('selectedtext').value;
-      var text = 'text_content=' + escape(wintext) + '&';
+      var text = 'text_content=' + encodeURIComponent(wintext) + '&';
 
       var wintags = document.getElementById('tags').value;
-      var tags = 'tags=' + escape(wintags) + '&';
+      var tags = 'tags=' + encodeURIComponent(wintags) + '&';
 
       //deal with listbox that holds the links and imgs...
       var links_qs = 'links_qs' + "=";
@@ -286,10 +286,10 @@ var rcache = {
 
  post_url: function(url,post_data){
     var http = new XMLHttpRequest();
-    var link = 'entry_url=' + escape(rcache.currentURL()) + '&';
-    var name = 'entry_name=' + escape(rcache.thetitle()) + '&';
-    var desc = 'description=' + escape(rcache.thetitle()) + '&';
-    var text = 'text_content=' + escape(post_data);
+    var link = 'entry_url=' + encodeURIComponent(rcache.currentURL()) + '&';
+    var name = 'entry_name=' + encodeURIComponent(rcache.thetitle()) + '&';
+    var desc = 'description=' + encodeURIComponent(rcache.thetitle()) + '&';
+    var text = 'text_content=' + encodeURIComponent(post_data);
     var params = link + name + desc + text; 
     //alert(params);
     http.open("POST", url, true);

@@ -1,6 +1,8 @@
 ### TODO ###
 
 *HOT
+[] Page that encourages Firefox use, discourage IE use, mentiom that we will not really worry if the CSS for IE looks good
+[] ACCOUNT Management: New Account, Edit Account, Change Passwd Email, etc...
 [] separate Mac, Win, Linux CSS for platform diffs
    * Mac: #nav ul{ margin: 0px 0px 6px 10px }
    * Win: #nav ul{ margin: 0px 0px 8px 10px }  
@@ -39,6 +41,6 @@ parse out OBJECT/PARAM/EMBED as an array to pass to "media" table. mark media as
 
 *HOT
 [] fix these encoding issues: "reassure Gulf allies%u2014including "
-[] rcache.js: evaluaiton of rcache caching success message seems broken
+[X] rcache.js: evaluaiton of rcache caching success message seems broken
 
 *MILD
