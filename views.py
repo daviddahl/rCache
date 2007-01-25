@@ -373,9 +373,7 @@ def postcache(request):
 
                     print "entry id: %s" % entry.id
 
-                    json_dict=dict(status="success",entry_id=entry.id,
-                                   msg="Congrats")
-                    return HttpResponse(simplejson.dumps(json_dict),
+                    return HttpResponse(simplejson.dumps('done'),
                                         mimetype='application/javascript')
                 except Exception,e:
                     print e
@@ -392,8 +390,8 @@ def postcache(request):
                                                       msg="Not POST Method")),
                             mimetype='application/javascript')
     else:
-        return HttpResponse(simplejson.dumps(dict(status="error",
-                                                  msg="Login Required")),
+        #dict(status="error",msg="Login Required: In your browser, go to https://rcache.com/login/")
+        return HttpResponse(simplejson.dumps('login_error'),
                             mimetype='application/javascript')
 
 

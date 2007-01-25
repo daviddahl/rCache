@@ -238,18 +238,19 @@ var rcache = {
 	//Call a function when the state changes.
 	if(http.status == 200) {
 	  if(http.readyState == 4){
-	    bCompleted = true;
-	    //fixme: responsText is never evaluated correctly here
-	    //collector always returns a successful rcache
-	    var res = eval(http.responseText);
-	    //alert(res);
-	    if (res.status == 'success'){
-	      //var wintext = document.getElementById('progress').hidden = true;
+	    // weird response handling
+	    if(eval(http.responseText)=='done'){
 	      bCompleted = true;
-	    } else {
+	    }
+	    if (eval(http.responseText) == 'login_error'){
+	      //var wintext = document.getElementById('progress').hidden = true;
+	      alert("Login Required.\n\nIn your browser, go to https://rcache.com/login/ \n\nLogin to rCache, and you'll be all set.");
 	      bCompleted = false;
 	    }
 	  }
+	} else {
+	  bCompleted = false;
+	  alert(http.responseText);
 	}
       }
       http.open("POST", serverurl, true);
@@ -384,11 +385,8 @@ var rcache = {
 
 
  //============> TODO <==============\\
- // 1. get list of links in selected text or list of links in document
- //    for upload to entry_urls
  // 2. get list of images on page, any image over THRESHOLD xy gets pushed up to media table for entry
  // 3. Collect other data in html source: Metatags, etc...
- // 4. Tag support on server
  // 5. clipboard support in client
  // 6. HTML clipboard support in client - also how do you store that? are the images inline?
  // 7. parser for HTML clipboard stuff - parse all tags, links, etc
@@ -396,8 +394,6 @@ var rcache = {
  //    Replicate TG rcache tools/interfaces    
  // 9. prefs.js!!! Prefs interface
  // 10. download and cache PDF, Word, Excel???
-
-
 
  //end of object
 };
