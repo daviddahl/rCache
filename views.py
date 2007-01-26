@@ -602,12 +602,12 @@ def domain_filter(request):
     else:
         return HttpResponseRedirect("/login_required/")
 
-def account(request):
-    """Tweak existing account"""
-    pass
-
 def account_new(request):
-    """Sign up for new rCache account"""
+    """Create new account"""
+    return render_to_response('account.html',{})
+
+def myaccount(request):
+    """Tweak existing account"""
     pass
 
 def about(request):
