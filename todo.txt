@@ -1,7 +1,14 @@
 ### TODO ###
 
 *HOT
-[] Page that encourages Firefox use, discourage IE use, mentiom that we will not really worry if the CSS for IE looks good
+[] Folios: create Named Folios that include a list of tags. 
+[] RSS feed for each Folio
+[] ColleagueGroups - send out a note to a group of colleagues
+[] FF searchengine plugin
+[] colleagues: create subuser accounts for colleague access to your folios
+[] Notation: allow colleagues to make notations that reference your own notes or entries
+
+[X] Page that encourages Firefox use, discourage IE use, mentiom that we will not really worry if the CSS for IE looks good
 [] ACCOUNT Management: New Account, Edit Account, Change Passwd Email, etc...
 [] separate Mac, Win, Linux CSS for platform diffs
    * Mac: #nav ul{ margin: 0px 0px 6px 10px }

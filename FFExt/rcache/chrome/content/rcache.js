@@ -240,22 +240,28 @@ var rcache = {
 	  if(http.readyState == 4){
 	    // weird response handling
 	    if(eval(http.responseText)=='done'){
+	      document.getElementById('progress').hidden = true;
 	      bCompleted = true;
 	    }
 	    else if(eval(http.responseText) == 'login_error'){
-	      //var wintext = document.getElementById('progress').hidden = true;
+	      document.getElementById('cache-button').disabled = false;
+	      document.getElementById('progress').hidden = true;
 	      alert("Login Required.\n\nIn your browser, go to https://rcache.com/login/ \n\nLogin to rCache, and you'll be all set.");
 	      bCompleted = false;
 	    } else {
 	      //no idea what is what??
+	      document.getElementById('cache-button').disabled = false;
 	      alert(http.responseText);
 	    }
 	  }
 	} else {
 	  bCompleted = false;
+	  document.getElementById('cache-button').disabled = false;
 	  alert(http.responseText);
 	}
       }
+      document.getElementById('progress').hidden = false;
+      document.getElementById('cache-button').disabled = true;
       http.open("POST", serverurl, true);
       //Send the proper header infomation along with the request
       http.setRequestHeader("Content-type","application/x-www-form-urlencoded");

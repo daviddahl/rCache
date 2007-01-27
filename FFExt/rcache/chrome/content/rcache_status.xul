@@ -65,6 +65,8 @@
 	    min-width: 220px;
 	    max-width: 220px;
 	    margin:2px;"/>
+  <spacer style="height: 3px;"/>
+  <progressmeter id="progress" style="margin: 5px;" mode="undetermined" hidden="true"/>
 </vbox>
 <hbox>
 <spacer style="width: 10px;"/>
@@ -75,8 +77,7 @@
 		  max-width: 20em; max-height: 15em; margin:2px;"
 	   multiline="true"/>
   <spacer style="height: 5px;"/>
-  <progressmeter id="progress" style="margin: 5px;" mode="undetermined" hidden="true"/>
-  <spacer style="height: 3px;"/>
+  
   <label id="statusmsg" 
 	 value="" 
 	 crop="right" 

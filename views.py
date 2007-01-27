@@ -279,13 +279,22 @@ def login_check(request):
     except:
         return False
 
-            
+def loginxul(request):
+    logged_in = False
+    if request.GET.has_key('logged_in'):
+        logged_in = True
+    return render_to_response('loginxul.html',
+                              {'logged_in':logged_in})
+
+    
 def login(request):
     if request.POST:
         if request.POST.has_key('login'):
             if request.POST.has_key('passwd'):            
                 loggedin = authenticate(request.POST['login'],request.POST['passwd'],request.session)
                 if loggedin:
+                    if request.GET.has_key('xul'):
+                        return HttpResponseRedirect("/loginxul/?logged_in=1")
                     return HttpResponseRedirect("/recent/")
                 else:
                     return HttpResponseRedirect("/login_err/?err=unknown")
