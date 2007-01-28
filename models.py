@@ -20,7 +20,7 @@ class User(models.Model):
     website = models.CharField(blank=True, maxlength=300)
     blogurl = models.CharField(blank=True, maxlength=300)
     login = models.CharField(unique=True, maxlength=60)
-    password = models.CharField(blank=True, maxlength=120)
+    password = models.CharField(maxlength=12)
     date_created = models.DateTimeField(null=True, blank=True)
     last_contact = models.DateTimeField(null=True, blank=True)
     active = models.IntegerField(null=True, blank=True)

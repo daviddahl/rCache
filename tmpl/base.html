@@ -7,6 +7,7 @@
 rCache.com - personal internet search cache and research tools
 {% endblock %}
 </title>
+<link rel="shortcut icon" href="/media/img/favicon.ico" type="image/x-icon" />
 <LINK HREF="/media/css/base.css" REL="stylesheet"></LINK>
 {% block js %}
 <SCRIPT SRC="/media/js/rcachelib.js"></SCRIPT>
@@ -41,5 +42,6 @@ rCache.com - personal internet search cache and research tools
 <br />
  <a href="http://getfirefox.com/" title="Get Firefox - The Browser, Reloaded."><img src="http://www.mozilla.org/products/firefox/buttons/firefox_80x15.png" width="80" height="15" border="0" target="_new" alt="Get Firefox"></a>
 {% endblock %}
+{% include "rcache_version.html" %}
 </body>
 </html>

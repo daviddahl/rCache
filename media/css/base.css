@@ -1022,6 +1022,15 @@ textarea{
     line-height: 1.7em;
 }
 
+#account_update{
+    background: #FFC;
+    padding: 20px;
+    margin: 10px;
+    border: 1px dashed #DDD;
+    line-height: 1.7em;
+    height: 400px;
+}
+
 .the_lists{
     background: #FFC;
     padding: 10px;

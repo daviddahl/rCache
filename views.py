@@ -11,6 +11,8 @@ from django.template import Context, loader
 from django.shortcuts import render_to_response, get_object_or_404
 from django import forms
 from django.utils import simplejson
+from django.core.validators import isValidEmail
+from django.core.mail import send_mail
 
 import antiword
 import pdf
@@ -280,12 +282,19 @@ def login_check(request):
         return False
 
 def loginxul(request):
-    logged_in = False
-    if request.GET.has_key('logged_in'):
-        logged_in = True
+    loggedin = False
+    request.session['loggedin'] = False
+    if request.POST:
+        loggedin = authenticate(request.POST['login'],request.POST['passwd'],request.session)
+        if loggedin:
+            message = 'Success'
+        else:
+            message = 'Login Failed'
+    else:
+        message = None
     return render_to_response('loginxul.html',
-                              {'logged_in':logged_in})
-
+                              {'logged_in':loggedin,
+                               'message':message})
     
 def login(request):
     if request.POST:
@@ -293,8 +302,6 @@ def login(request):
             if request.POST.has_key('passwd'):            
                 loggedin = authenticate(request.POST['login'],request.POST['passwd'],request.session)
                 if loggedin:
-                    if request.GET.has_key('xul'):
-                        return HttpResponseRedirect("/loginxul/?logged_in=1")
                     return HttpResponseRedirect("/recent/")
                 else:
                     return HttpResponseRedirect("/login_err/?err=unknown")
@@ -617,7 +624,41 @@ def account_new(request):
 
 def myaccount(request):
     """Tweak existing account"""
-    pass
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.POST:
+            err = []
+            if request.POST['password'] and request.POST['password_conf']:
+                if request.POST['password'] == request.POST['password_conf']:
+                    pw_sha = sha.new(unicode(request.POST['password']))
+                    password_enc = pw_sha.hexdigest()
+                    u.password = password_enc
+                else:
+                    #passwords do not match
+                    err.append("Password and Password Confirm do not match.")
+                    render_to_response('myaccount.html',{'user':u,
+                                                         'err':err})
+            if request.POST['email']:
+                try:
+                    if isValidEmail(request.POST['email'],None):
+                        u.email = request.POST['email']
+                except:
+                    err.append("Email Address is not valid.")
+                    render_to_response('myaccount.html',{'user':u,
+                                                         'err':err})
+                u.blogurl = request.POST['blogurl']
+                u.website = request.POST['website']
+                u.first_name = request.POST['first_name']
+                u.first_name = request.POST['last_name']
+                u.save()
+                return render_to_response('myaccount.html',{'user':u})
+            else:
+                #email required
+                pass
+        else:
+            return render_to_response('myaccount.html',{'user':u})
+    else:
+        return HttpResponseRedirect("/login_required/")
 
 def about(request):
     return render_to_response('about.html',{})
