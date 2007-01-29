@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
 <div id="detail">
-<div>
-  <h1><a href="/">rCache.com</a></h1>
+<div class="logo">
+  {% include "pub-menu.html" %}
 </div>
 <div>
-<UL>
+<UL style="list-style-type:square;">
     <LI CLASS="info_list">rCache is a powerful tool that lets you archive data from disparate sources.</LI>
+
     <LI CLASS="info_list">It is a web scraper, a bookmarking tool and more.</LI>
     <LI CLASS="info_list">Tag-based lookups as well as keyword searches can be performed on your data.</LI>
     <LI CLASS="info_list">Not a social site: rCache is for the serious researcher.</LI>
-    <LI CLASS="info_list">rCache is that always-there place to store data, notate, and refer back to.</LI>
-
+    <LI CLASS="info_list">rCache is that always-there place to store data that you want to refer back to.</LI>
+    <LI CLASS="info_list">rCache works hand in glove with the best of breed web browser, Firefox&trade;</LI>
   </UL>
 </div>
 <div>
-  &nbsp; <a href="/login/">Login</a>
 </div>
 </div>
 {% endblock %}

@@ -1,17 +1,26 @@
 {% extends "firefox.html" %}
+{% block js %}
+{% endblock %}
 {% block content %}
 <div id="firefox_boundry">
+    {% include "pub-menu.html" %}
  <div class="message">
-    <h1>rCache.com - Create Account</h1>
+   {% block account_title %}
+    <h1>Create Account</h1>
+   {% endblock %}
+   {% block account_content%}
    <p>
    rCache is free and easy to use. We are accepting applications for a Beta Test period. We only have a few slots available, so if you are a serious researcher, and think you will benefit from rCache, apply today.
    <br />
-   <a href="http://getfirefox.com/" target="_new">Firefox</a> is highly recommended for rCache use, in fact we have not really tested rCache on other browsers due to a lack of cross-platform extensibility.
+   <a href="http://getfirefox.com/" target="_new">Firefox</a> is highly recommended for rCache use, in fact we have not really tested rCache on other browsers due to a lack of cross-platform extensibility. Take a look at the incredible <a href="http://www.mozilla.com/en-US/firefox/features.html#experience" target="_new">feature set</a> of Firefox.
    <br />
    </p>
 
    <h1>Step 1:</h1>
    <p>
+   {% if message %}
+   <div class="error_message">ERROR: {{ message }}</div>
+   {% endif %}
    <h4>Enter your email address here to apply.</h4>
    <form action="." method="POST">
    <label for="id_email"><strong>Email Address</strong></label>
@@ -19,7 +28,7 @@
    <br />
    <p>*rCache will not disclose your email address to any other entity.
    <br /><br />
-   Before using rCache, you will have to accept the <a href="/agreement/" target="_new">rCache User Agreement</a>
+   Before using rCache, you will have to accept the <a href="/agreement/" target="_new">rCache End User License Agreement</a>
    </p>
    <br />
    <label for="research_type">What kind of research are you doing?</label>
@@ -40,6 +49,8 @@
    <br />
    <h4>Thank you for your interest.</h4>
    </p>
+   {% endblock %}
+
  </div>
 
 </div>

@@ -11,7 +11,7 @@ from django.template import Context, loader
 from django.shortcuts import render_to_response, get_object_or_404
 from django import forms
 from django.utils import simplejson
-from django.core.validators import isValidEmail
+from django.core.validators import email_re
 from django.core.mail import send_mail
 
 import antiword
@@ -50,6 +50,12 @@ def cache(request):
         return render_to_response('cache.html',{'u':request.GET['url']})
     else:
         return render_to_response('cache.html',{'u':"Bad Input: No Url Transmitted"})
+
+def contact(request):
+    return render_to_response('contact.html',{})
+
+def agreement(request):
+    return render_to_response('agreement.html',{})
 
 def not_found(request):
     if login_check(request):
@@ -620,45 +626,68 @@ def domain_filter(request):
 
 def account_new(request):
     """Create new account"""
-    return render_to_response('account.html',{})
+    m = None
+    if request.POST:
+        if request.POST['email']:
+            try:
+                if email_re.search(request.POST['email']):
+                    comp = Company.objects.get(pk=1)
+                    u = User(email=request.POST['email'],
+                             company=comp,login=request.POST['email'])
+                    u.save()
+
+                    m = ""
+                    return render_to_response('account_pending.html',{'message':m})
+                else:
+                    m = "Email address is not valid."
+                return render_to_response('account.html',{'message':m})
+                
+            except Exception,e:
+                m = e
+                return render_to_response('account.html',{'message':m})
+        else:
+            m = "Please Enter your email address"
+            return render_to_response('account.html',{'message':m})
+    else:
+        return render_to_response('account.html',{'message':m})
 
 def myaccount(request):
-    """Tweak existing account"""
-    if login_check(request):
-        u = User.objects.get(id=request.session['userid'])
-        if request.POST:
-            err = []
-            if request.POST['password'] and request.POST['password_conf']:
-                if request.POST['password'] == request.POST['password_conf']:
-                    pw_sha = sha.new(unicode(request.POST['password']))
-                    password_enc = pw_sha.hexdigest()
-                    u.password = password_enc
-                else:
-                    #passwords do not match
-                    err.append("Password and Password Confirm do not match.")
-                    render_to_response('myaccount.html',{'user':u,
+  """Tweak existing account"""
+  if login_check(request):
+      u = User.objects.get(id=request.session['userid'])
+      if request.POST:
+          err = []
+          if request.POST['password'] and request.POST['password_conf']:
+              if request.POST['password'] == request.POST['password_conf']:
+                  pw_sha = sha.new(unicode(request.POST['password']))
+                  password_enc = pw_sha.hexdigest()
+                  u.password = password_enc
+              else:
+                  #passwords do not match
+                  err.append("Password and Password Confirm do not match.")
+                  render_to_response('myaccount.html',{'user':u,
+                                                       'err':err})
+          if request.POST['email']:
+              try:
+                  if isValidEmail(request.POST['email'],None):
+                      u.email = request.POST['email']
+              except:
+                  err.append("Email Address is not valid.")
+                  render_to_response('myaccount.html',{'user':u,
                                                          'err':err})
-            if request.POST['email']:
-                try:
-                    if isValidEmail(request.POST['email'],None):
-                        u.email = request.POST['email']
-                except:
-                    err.append("Email Address is not valid.")
-                    render_to_response('myaccount.html',{'user':u,
-                                                         'err':err})
-                u.blogurl = request.POST['blogurl']
-                u.website = request.POST['website']
-                u.first_name = request.POST['first_name']
-                u.first_name = request.POST['last_name']
-                u.save()
-                return render_to_response('myaccount.html',{'user':u})
-            else:
-                #email required
-                pass
-        else:
-            return render_to_response('myaccount.html',{'user':u})
-    else:
-        return HttpResponseRedirect("/login_required/")
+              u.blogurl = request.POST['blogurl']
+              u.website = request.POST['website']
+              u.first_name = request.POST['first_name']
+              u.first_name = request.POST['last_name']
+              u.save()
+              return render_to_response('myaccount.html',{'user':u})
+          else:
+              #email required
+              pass
+      else:
+          return render_to_response('myaccount.html',{'user':u})
+  else:
+      return HttpResponseRedirect("/login_required/")
 
 def about(request):
     return render_to_response('about.html',{})

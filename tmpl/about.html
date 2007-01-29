@@ -1,7 +1,11 @@
 {% extends "firefox.html" %}
+{% block js %}
+{% endblock %}
 {% block content %}
+<a name="top"></a>
 <div id="firefox_boundry">
-   <a name="top"></a>
+  {% include "pub-menu.html" %}
+  
   <div class="message">
     <h1>About rCache</h1>
     <UL style="list-style-type:square;">
@@ -20,6 +24,7 @@ width="178" height="60" border="0" alt="Get Firefox" target="_new"></a>
   <br />
   <h3><a href="#rcache">rCache Screenshots</a></h3>
   <br/>
+  <a name="collector"></a>
     The <strong>rCache Collector</strong> Firefox extension makes entering data into your rCache database fast and trivial.
     <br />
     <a href="/media/rcache.xpi"><strong>Install</strong></a> the rCache Collector extension.

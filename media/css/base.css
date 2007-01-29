@@ -255,6 +255,17 @@ input{
     margin:5px;
     
 }
+.error_message {
+    /*font-family: monospace;*/
+    font:11px 'trebuchet ms', verdana, sans-serif;
+    border: 1px solid #F00;
+    font-size: 11px;
+    padding: 5px;
+    color: #000;
+    width:500px;
+    margin:5px;
+    
+}
 .instructions {
     /*font-family: monospace;*/
     font:11px 'trebuchet ms', verdana, sans-serif;
@@ -303,19 +314,19 @@ input{
     width:450px;
     overflow:auto;
 }
-input:focus {
-    border: 1px solid #BBB;
-    background-color:#DDD;
+input: {
+    border: 1px solid #AAA;
+    background-color:#FFF;
     color: #000;
 }
 textarea:focus {
-    border: 1px solid #BBB;
-    background-color:#DDD;
+    border: 1px solid #AAA;
+    background-color:#FFF;
     color: #000;
 }
 input:active {
-    border: 1px solid #BBB;
-    background-color:#DDD;
+    border: 1px solid #AAA;
+    background-color:#FFF;
     color: #000;
 }
 
@@ -329,7 +340,8 @@ textarea {
     color: #000;
 }
 textarea:active {
-    background-color:#DDD;
+    background-color:#FFF;
+    border: 1px solid #AAA;
 }
 #login_boundry {
     border-width: 0px;
@@ -1056,4 +1068,7 @@ textarea{
 #filter-menu li{
     padding: 0.5em;
     display: inline;
+}
+.logo{
+    padding:1.2em;
 }

@@ -246,7 +246,10 @@ var rcache = {
 	    else if(eval(http.responseText) == 'login_error'){
 	      document.getElementById('cache-button').disabled = false;
 	      document.getElementById('progress').hidden = true;
-	      alert("Login Required.\n\nIn your browser, go to https://rcache.com/login/ \n\nLogin to rCache, and you'll be all set.");
+	      //alert("Login Required.\n\nIn your browser, go to https://rcache.com/login/ \n\nLogin to rCache, and you'll be all set.");
+	      window.open("https://collect.rcache.com/loginxul/",
+			  "rcache-loginxul",
+			  "menubar=no,location=no,resizable=no,scrollbars=yes,status=yes,width=348,height=195");
 	      bCompleted = false;
 	    } else {
 	      //no idea what is what??
