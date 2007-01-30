@@ -7,7 +7,20 @@
 [] FF searchengine plugin
 [] colleagues: create subuser accounts for colleague access to your folios
 [] Notation: allow colleagues to make notations that reference your own notes or entries
-
+[] Quote and Annotation of Entries:
+   copy an Entry into a EditEntry object
+   break the text on sentance or paragraph
+   create EditEntryLines objects for each line
+   create Annotation objects for any of the EditEntryLines
+   flow the new EditEntry via the line items - 
+   colleagues can read the entry or pieces thereof fully annotated by you.
+   allow Colleagues to create "Rebuttal" snippits for the whole entry or an individual line.
+   color code the whole thread so a user can not go blind reading it
+   make a Key that identifies each user's color.
+   publish "discussion" to HTML or PDF
+[] create WhitePaper:
+   write a document referencing entry snippits and create bibliogrphy automatically
+[] add Book attributes for entries if the entry comes form a published work.
 [X] Page that encourages Firefox use, discourage IE use, mentiom that we will not really worry if the CSS for IE looks good
 [] ACCOUNT Management: New Account, Edit Account, Change Passwd Email, etc...
 [] separate Mac, Win, Linux CSS for platform diffs
