@@ -1,6 +1,10 @@
 ### TODO ###
 
 *HOT
+[] Account Creation / Deletion mini-app: 
+   login via Django Users table
+   pick rCache User, create unique string/link to send as email so user can 
+   create a password. Use captcha of some kind!
 [] Folios: create Named Folios that include a list of tags. 
 [] RSS feed for each Folio
 [] ColleagueGroups - send out a note to a group of colleagues

@@ -330,6 +330,12 @@ input:active {
     color: #000;
 }
 
+input:focus {
+    border: 1px solid #AAA;
+    background-color:#FFF;
+    color: #000;
+}
+
 textarea {
     font:11px 'trebuchet ms', verdana, sans-serif;
     border: 1px solid #BBB;

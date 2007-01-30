@@ -380,10 +380,7 @@ def postcache(request):
                 except:
                     edomain = ""
                     
-                print the_links
-                print the_imgs
                 tags = manage_tags(the_tags)
-                print tags
                 try:
                     _user = User.objects.get(id=request.session['userid'])
                     entry = Entry(text_content=text_content,
@@ -396,8 +393,6 @@ def postcache(request):
                     add_tags(tags,_user,entry)
                     entry_urls(the_links,entry,_user)
                     process_media(the_imgs,entry)
-
-                    print "entry id: %s" % entry.id
 
                     return HttpResponse(simplejson.dumps('done'),
                                         mimetype='application/javascript')
@@ -642,8 +637,10 @@ def account_new(request):
 
                     m = ""
                     #send email
+                    msg = message_new_account % (u.email,
+                                                 request.POST['research_type'],)
                     send_mail('rCache.com Account Application',
-                              message_new_account,
+                              msg,
                               'admin@rcache.com',
                               [u.email,'admin@rcache.com'],
                               fail_silently=False)
@@ -660,6 +657,7 @@ def account_new(request):
             return render_to_response('account.html',{'message':m})
     else:
         return render_to_response('account.html',{'message':m})
+
 
 def myaccount(request):
   """Tweak existing account"""
