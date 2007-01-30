@@ -20,13 +20,13 @@ class User(models.Model):
     website = models.CharField(blank=True, maxlength=300)
     blogurl = models.CharField(blank=True, maxlength=300)
     login = models.CharField(unique=True, maxlength=64)
-    password = models.CharField(maxlength=12)
+    password = models.CharField(maxlength=64)
     date_created = models.DateTimeField(auto_now_add=True)
     last_contact = models.DateTimeField(auto_now_add=True)
     active = models.IntegerField(default=0)
     user_url = models.CharField(blank=True, maxlength=255)
     def __str__(self):
-        return "%s %s %s" %(self.login, self.first_name, self.last_name)
+        return "%s : %s %s %s" %(self.id,self.login, self.first_name, self.last_name)
     class Meta:
         db_table = '_user'
     class Admin:

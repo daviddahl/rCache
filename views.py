@@ -699,3 +699,16 @@ def myaccount(request):
 
 def about(request):
     return render_to_response('about.html',{})
+
+def approve_user(user_id,passwd):
+    try:
+        u = User.objects.get(pk=user_id)
+        pw_sha = sha.new(unicode(passwd))
+        password_enc = pw_sha.hexdigest()
+        u.password = password_enc
+        u.active = 1
+        u.save()
+        print "User %s password created!" % u.login
+    except Exception, e:
+        print e
+    
