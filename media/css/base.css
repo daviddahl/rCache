@@ -264,7 +264,7 @@ input{
     color: #000;
     width:500px;
     margin:5px;
-    
+    background:#FFF;
 }
 .instructions {
     /*font-family: monospace;*/
