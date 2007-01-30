@@ -17,6 +17,7 @@ from django.core.mail import send_mail
 import antiword
 import pdf
 import html2text
+from email_messages import *
 from twill import get_browser
 from twill.commands import go as tw_go
 from BeautifulSoup import BeautifulSoup
@@ -56,6 +57,9 @@ def contact(request):
 
 def agreement(request):
     return render_to_response('agreement.html',{})
+
+def privacy(request):
+    return render_to_response('privacy.html',{})
 
 def not_found(request):
     if login_check(request):
@@ -637,6 +641,12 @@ def account_new(request):
                     u.save()
 
                     m = ""
+                    #send email
+                    send_mail('rCache.com Account Application',
+                              message_new_account,
+                              'admin@rcache.com',
+                              [u.email,'admin@rcache.com'],
+                              fail_silently=False)
                     return render_to_response('account_pending.html',{'message':m})
                 else:
                     m = "Email address is not valid."
