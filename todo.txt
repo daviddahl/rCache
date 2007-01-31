@@ -1,6 +1,7 @@
 ### TODO ###
 
 *HOT
+[] demo user - delete all entries daily via cron...
 [] Account Creation / Deletion mini-app: 
    login via Django Users table
    pick rCache User, create unique string/link to send as email so user can 

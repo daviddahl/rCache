@@ -687,7 +687,11 @@ def myaccount(request):
               u.website = request.POST['website']
               u.first_name = request.POST['first_name']
               u.first_name = request.POST['last_name']
-              u.save()
+              if u.email == 'demo@rcache.com':
+                  #do not allow updates to demo account!
+                  pass
+              else:
+                  u.save()
               return render_to_response('myaccount.html',{'user':u})
           else:
               #email required
