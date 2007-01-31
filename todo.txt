@@ -27,7 +27,7 @@
    write a document referencing entry snippits and create bibliogrphy automatically
 [] add Book attributes for entries if the entry comes form a published work.
 [X] Page that encourages Firefox use, discourage IE use, mentiom that we will not really worry if the CSS for IE looks good
-[] ACCOUNT Management: New Account, Edit Account, Change Passwd Email, etc...
+[X] ACCOUNT Management: New Account, Edit Account, Change Passwd Email, etc...
 [] separate Mac, Win, Linux CSS for platform diffs
    * Mac: #nav ul{ margin: 0px 0px 6px 10px }
    * Win: #nav ul{ margin: 0px 0px 8px 10px }  
@@ -58,7 +58,7 @@ You Tube Sample:
 </object>
 parse out OBJECT/PARAM/EMBED as an array to pass to "media" table. mark media as online flash movie, save this scrap of markup to embed the movies right in rCache.
 [] rCache via Paste form clipboard - partially done
-
+[] use Js-min.py in dploy process to compress all javascript - also may want to do this to my extension js code
 *SPARE TIME
 [] review todo in old rcache codebase: pick 3 features to implement in near term
 

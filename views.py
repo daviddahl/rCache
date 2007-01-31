@@ -195,25 +195,26 @@ def new_entry(request):
             ttl = request.POST['title']
             tgs = request.POST['tags']
             etext = request.POST['entry_text']
-            if request.FILES['the_file']:
-                #handle upload
-                file_data = request.FILES['the_file']['content']
-                file_name = request.FILES['the_file']['filename']
+            if request.FILES.has_key('the_file'):
+                if request.FILES['the_file']:
+                    #handle upload
+                    file_data = request.FILES['the_file']['content']
+                    file_name = request.FILES['the_file']['filename']
 
-                #if ttl == '':
-                ttl = ttl + ' ** From file: %s ** ' % file_name 
+                    #if ttl == '':
+                    ttl = ttl + ' ** From file: %s ** ' % file_name 
 
-                content_type = request.FILES['the_file']['content-type']
-                file_txt = '***Error sccraping document: %s ***' % file_name
-                
-                if content_type == 'application/msword':
-                    file_txt = process_word(file_data,file_name)
-                elif content_type == 'application/pdf':
-                    file_txt = process_pdf(file_data,file_name)
-                #elif content_type == 'text/plain':
-                #    file_txt = process_txt(file_data)
-                else:
-                    pass
+                    content_type = request.FILES['the_file']['content-type']
+                    file_txt = '***Error sccraping document: %s ***' % file_name
+
+                    if content_type == 'application/msword':
+                        file_txt = process_word(file_data,file_name)
+                    elif content_type == 'application/pdf':
+                        file_txt = process_pdf(file_data,file_name)
+                    #elif content_type == 'text/plain':
+                    #    file_txt = process_txt(file_data)
+                    else:
+                        pass
                 etext = etext + "\n------Scraped Text------\n" + file_txt
                 
             entry = Entry(entry_url=url,
