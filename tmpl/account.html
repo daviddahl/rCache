@@ -22,7 +22,7 @@
    <div class="error_message">ERROR: {{ message }}</div>
    {% endif %}
    <h4>Enter your email address here to apply.</h4>
-   <form action="." method="POST">
+   <form action="https://collect.rcache.com/account/" method="POST">
    <label for="id_email"><strong>Email Address</strong></label>
    <input id="id_email" type="text" name="email" size="32" maxlength="32" />
    <br />
@@ -55,4 +55,6 @@
  </div>
 
 </div>
+{% endblock %}
+{% block getfirefox %}
 {% endblock %}
