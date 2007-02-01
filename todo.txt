@@ -1,6 +1,7 @@
 ### TODO ###
 
 *HOT
+[] login url should be an ENV VAR passed to the tmpl at runtime...
 [] Market speil for homepage: "stale bookmarks", "google cache empty"
 [] edit and delete screens for entries
 [] demo user - delete all entries daily via cron...
