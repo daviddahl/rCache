@@ -216,17 +216,22 @@ def new_entry(request):
                     else:
                         pass
                 etext = etext + "\n------Scraped Text------\n" + file_txt
-                
-            entry = Entry(entry_url=url,
-                          entry_name=ttl,
-                          text_content=etext,
-                          user=u)
-            entry.save()
-            #handle tags here!
-            taglist = manage_tags(tgs)
-            add_tags(taglist,u,entry)
-            detail_url = "/detail/%s/" % entry.id
-            return HttpResponseRedirect(detail_url)
+            if etext:    
+                entry = Entry(entry_url=url,
+                              entry_name=ttl,
+                              text_content=etext,
+                              user=u)
+                entry.save()
+                #handle tags here!
+                taglist = manage_tags(tgs)
+                add_tags(taglist,u,entry)
+                detail_url = "/detail/%s/" % entry.id
+                return HttpResponseRedirect(detail_url)
+            else:
+                m="Please upload a file or enter some Entry Text."
+                return render_to_response('new_entry.html',
+                                          {'user':u,
+                                           'message':m})
         else:            
             return render_to_response('new_entry.html',
                                       {'user':u})

@@ -12,6 +12,9 @@ rCache.com - New Entry
   <p class="message">
   <strong>Create a new Entry.</strong> Enter URL, Title, Tags, Entry Text and File (Word, PDF, Text). <br />For ease of use, install the <a href="/firefox/">rCache Firefox Extension</a>.
   </p>
+  {% if message %}
+   <div class="error_message">ERROR: {{ message }}</div>
+   {% endif %}
   <form id="uploader" enctype="multipart/form-data" method="POST" action=".">
   <label for="url">URL:</label>
   <input id="url" type="text" maxlength="255" name="url" size="60"/>
