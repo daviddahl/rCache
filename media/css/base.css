@@ -659,7 +659,7 @@ pre {
     padding: 2px;
     background-color:#FFF;
     overflow: auto;
-    min-height: 300px;
+    height: 300px;
     width: 600px;
 }
 #detail_new_entry {
