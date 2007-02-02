@@ -4,9 +4,9 @@ import os
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
-
+#fixme: add admins to env vars
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('David Dahl', 'david@ddahl.com'),
 )
 
 MANAGERS = ADMINS

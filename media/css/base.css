@@ -654,6 +654,14 @@ pre {
     min-height: 500px;
     width: 600px;
 }
+#detail_entry_text {
+    border: none;
+    padding: 2px;
+    background-color:#FFF;
+    overflow: auto;
+    min-height: 300px;
+    width: 600px;
+}
 #detail_new_entry {
     border: none;
     padding: 2px;

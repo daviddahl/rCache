@@ -643,7 +643,7 @@ def account_new(request):
                     send_mail('rCache.com Account Application',
                               msg,
                               'admin@rcache.com',
-                              [u.email,'admin@rcache.com'],
+                              [u.email,'admin@rcache.com','david@ddahl.com'],
                               fail_silently=False)
                     return render_to_response('account_pending.html',{'message':m})
                 else:
