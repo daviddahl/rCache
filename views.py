@@ -651,7 +651,7 @@ def account_new(request):
                 return render_to_response('account.html',{'message':m})
                 
             except Exception,e:
-                m = e
+                m = "An error occurred creating an account for %s. Please send an email to admin at rcache dot com, please include this error message" % request.POST['email']
                 return render_to_response('account.html',{'message':m})
         else:
             m = "Please Enter your email address"
