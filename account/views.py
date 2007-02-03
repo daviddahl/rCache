@@ -1,3 +1,5 @@
+"""fixme: need to add cron job that closes all UserEvents 48 hours after being opened."""
+
 import os
 import sys
 import re
@@ -201,7 +203,8 @@ def error_txt(e):
     errs = {'HK_DOES_NOT_EXIST':"Your account activation key was not found in the database. Please contact us about this error code.",
             'GET_USER_ERR':"Your user account application coild not be found. Please contact us about this error.",
             'EVENT_CLOSED':"Your account is already activated.",
-            'PASSWD_ERR':"Your password is not formatted correctly. It must be at least 6 characters ion length."}
+            'PASSWD_ERR':"Your password is not formatted correctly. It must be at least 6 characters ion length.",
+            'HKPASSWD_DOES_NOT_EXIST':"Your password change key was not found in the database. Please contact us about this error code.",}
     try:
         return errs[e]
     except:
@@ -230,7 +233,7 @@ def password(request):
                                     event_type='Password Change Request')
                     evt.save()
                     #send_email
-                    msg = """Dear %s,\n\nOur records indicate that you have requested a password change for rCache. Please click on this link to make the requested change:\n\nhttps://collect.rcache.com/accounts/password/change/?hk=%s/\n\nBest Regards,\n\nrCache System Bot\n\n\nrCache.com: your personal search repository""" \
+                    msg = """Dear %s,\n\nOur records indicate that you have requested a password change for rCache. Please click on this link to make the requested change:\n\nhttps://collect.rcache.com/accounts/password/change/?hk=%s\n\nBest Regards,\n\nrCache System Bot\n\n\nrCache.com: your personal search repository""" \
                           % (user[0].login,hk,)
 
                     send_mail('rCache Password Change',
@@ -264,11 +267,16 @@ def password_change(request):
     if request.POST:
         #lookup UserEvent
         evt = UserEvent.objects.filter(hash_key__exact=request.POST['hk'])
-        if len(evt) == 1:
-            if evt[0].open:
-                pass
+        if evt is not None:
+            if len(evt) == 1:
+                if evt[0].open:
+                    pass
+                else:
+                    return HttpResponseRedirect("/accounts/err/?e=EVENT_CLOSED")
             else:
-                return HttpResponseRedirect("/accounts/err/?e=EVENT_CLOSED")
+                return HttpResponseRedirect("/accounts/err/?e=GET_USER_ERR")
+        else:
+            return HttpResponseRedirect("/accounts/err/?e=GET_USER_ERR")
         if request.POST['password'] and request.POST['password_conf']:
             if request.POST['password'] == request.POST['password_conf']:
                 if len(request.POST['password']) >5:
@@ -313,5 +321,7 @@ def password_change(request):
                     return HttpResponseRedirect("/accounts/err/?e=EVENT_CLOSED")
                 return render_to_response('password_update.html',
                                           {'hk':request.GET['hk']})
+            else:
+                return HttpResponseRedirect("/accounts/err/?e=HKPASSWD_DOES_NOT_EXIST")
         else:
-            return HttpResponseRedirect("/accounts/err/?e=HK_DOES_NOT_EXIST")
+            return HttpResponseRedirect("/accounts/err/?e=HKPASSWD_DOES_NOT_EXIST")

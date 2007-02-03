@@ -645,7 +645,7 @@ def account_new(request):
                     #send email
                     msg = message_new_account % (u.email,
                                                  request.POST['research_type'],)
-                    send_mail('rCache.com Account Application',
+                    send_mail('rCache Account Application',
                               msg,
                               'admin@rcache.com',
                               [u.email,'admin@rcache.com',],
