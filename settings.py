@@ -2,7 +2,7 @@ import os
 
 # Django settings for rcache project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 #fixme: add admins to env vars
 ADMINS = (
@@ -65,6 +65,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     '/home/david/code/rcache_django/rcache/tmpl',
     '/Users/dahl/Code/rcache_django/tmpl',
+    '/home/rcachedev/code/dev/rcache/tmpl',
 )
 
 INSTALLED_APPS = (
@@ -73,7 +74,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'rcache.rcache_spider',
+    'rcache.account',
     'rcache',
 )
 

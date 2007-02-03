@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}
+rCache - Accounts - User Detail
+{% endblock %}
+{% block content %}
+<div id="dashboard_wrapper">
+  <div>
+    {% block func_title %}
+   <div><h1>User Detail</h1></div>
+    {% endblock %}
+  </div>
+<div>
+  <div><h1>{{ user.login }}</h1></div>
+  <table id="new_users" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tr-light">
+      <td><strong>Login</strong></td>
+      <td><strong>Application Date</strong></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr class="tr-light">
+      <td>{{ user.login }}</td>
+      <td>{{ user.date_created|timesince }}</td>
+      <td><a href="/accounts/dashboard/">Dashboard</a></td>
+    </tr>
+    <tr class="tr-light">
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.email }}</td>
+    </tr>
+  </table>
+</div>
+{% endblock %}

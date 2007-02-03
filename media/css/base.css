@@ -255,6 +255,9 @@ input{
     margin:5px;
     
 }
+.hideme{
+    display:none;
+}
 .error_message {
     /*font-family: monospace;*/
     font:11px 'trebuchet ms', verdana, sans-serif;
@@ -670,6 +673,14 @@ pre {
     height: 550px;
     width: 600px;
 }
+#detail_activation {
+    border: none;
+    padding: 10px;
+    background-color:#FFF;
+    overflow: auto;
+    height: 550px;
+    width: 600px;
+}
 #detail_search {
     border: none;
     padding: 2px;
@@ -933,14 +944,22 @@ textarea{
     font-weight:bolder;
 }
 
-.button{g
+.button{
     background: #EEE;
-    border: 1px solid #CCC;
-    padding: 2px;
-    margin:3px;
+    border: 1px solid #AAA;
+    padding: 4px;
+    margin:5px;
     float: left;
     text-decoration:none;
-    
+    min-width: 3em;
+}
+.button a{
+    text-align:center;
+}
+.button:hover{
+    color: #000;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
 }
 .op_link{
     color:#000;
@@ -967,9 +986,7 @@ textarea{
     float: left;
     display: block;
 }
-.button:hover{
-    background: #FFF;
-}
+
 .button_l:hover{
     background: #FFF;
 }
@@ -1086,4 +1103,11 @@ textarea{
 }
 .logo{
     padding:1.2em;
+}
+#dashboard_wrapper td{
+    padding: .3em;
+}
+#dashboard_wrapper table{
+    width: 600px;
+    border: 1px solid #AAA;
 }

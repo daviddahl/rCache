@@ -200,3 +200,23 @@ class EntryDictionary(models.Model):
     #need to add all stemmed words here
     #need to look up exisitng dictionary entry b4 adding a new one, perhaps also have an index that ties fk user to stemmed_word??
     pass
+
+class UserEvent(models.Model):
+    """keep track of user signup, password change events, other events"""
+    user = models.ForeignKey(User)
+    hash_key = models.CharField(maxlength=120)
+    event_date = models.DateTimeField(auto_now_add=True)
+    event_type = models.CharField(maxlength=100)
+    open = models.BooleanField(default=True)
+    EVENT_CHOICES = ('Create Account','Accept Account',
+                     'Password Change Request',
+                     'Password Changed',
+                     'Data Dump Request',
+                     'Close Account',
+                     'Create Colleague',
+                     'Remove Colleague',
+                     'Tech Support',)
+    
+    class Admin:
+        list_display = ('user','hash_key','event_type','event_date','open',)
+    

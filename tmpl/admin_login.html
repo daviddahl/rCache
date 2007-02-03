@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block js %}
+{% endblock %}
+{% block title %}
+rCache Admin
+{% endblock %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+
+<div id="login_boundry">  
+<h1>Admin Login</h1>
+  <form action="/accounts/" method="POST">
+  <label for="login">Login </label>
+  <input type="text" name="username" maxlength="60" size="20"/>
+  <br/>
+  <label for="passwd">Password </label>  
+  <input type="password" name="password" maxlength="60" size="20"/>
+  <br/>
+  <label for="loginbutton">&nbsp;</label>  
+  <input type="submit" name="loginbutton" value="Login"/>
+  </form>
+</div>
+
+{% endblock %}
+{% block getfirefox %}
+{% endblock %}
