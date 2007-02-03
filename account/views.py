@@ -89,7 +89,7 @@ def activation_yes(request,user_id):
                             event_type='Accept Account')
             evt.save()
             #send_email
-            msg = """Dear %s,\n\nThank you for applying for an rCache account. It is ready to use. Please click on this link to activate:\n\nhttps://collect.rcache.com/accounts/activate/?hk=%s/\n\nBest Regards,\n\nrCache Activation Bot\n\n\nrCache.com: your personal search repository""" \
+            msg = """Dear %s,\n\nThank you for applying for an rCache account. It is ready to use. Please click on this link to activate:\n\nhttps://collect.rcache.com/accounts/activate/?hk=%s\n\nBest Regards,\n\nrCache Activation Bot\n\n\nrCache.com: your personal search repository""" \
                   % (user.login,hk,)
 
             send_mail('rCache Account Activation',
