@@ -479,8 +479,8 @@ def add_tags(tags,_user,entry):
     if tags is not None:
         for t in tags:
             texists = Tag.objects.filter(tag__iexact=t,user=_user).order_by('id')
-            #fixme: get tag count from join table 
-            tagcnt = len(texists)
+            #tagcnt = len(texists)
+            tagcnt = tag_count_recurse(t,_user)
             if tagcnt == 0:
                 tg = Tag(user=_user,tag=t,tag_count=1)
                 tg.save()
@@ -491,13 +491,23 @@ def add_tags(tags,_user,entry):
                     existtag.save()
                     entry.tag.add(existtag)
 
+def tag_count_recurse(tag,_user):
+    texists = Tag.objects.filter(tag__iexact=tag,user=_user).order_by('id')
+    tcount = 0
+    if len(texists)> 0:
+        for tg in texists:
+            tcount += tg.tag_count
+    return tcount
+            
+
 def prune_tags(tags):
     newtags = []
     for t in tags:
         if t == "":
             pass
         else:
-            newtags.append(t)
+            tag = t.strip()
+            newtags.append(tag)
     return newtags
     
     
