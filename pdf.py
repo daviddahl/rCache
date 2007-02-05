@@ -1,5 +1,5 @@
 import os, sys
-
+import re
 """this program requires xpdf
 Author: David Dahl
 Date: 2/21/2006
@@ -17,12 +17,19 @@ the_text = extractPDFText(file)
 """
 from rcache.settings import PDFTOTEXT as pdftotext
 
+
 def extractPDFText(pdf_filename):
     """Given an pdf file name, returns a new file object of the
     text of that PDF.  Uses the 'pdftotext' utility."""
     os.popen("%s %s" % (pdftotext,pdf_filename,))
+    
     txtfile = pdf_filename + ".txt"
-    return getTextFromFile(txtfile).encode("utf8")
+    txt = getTextFromFile(txtfile)
+    try:
+        encoded = txt.encode("utf8")
+        return encoded
+    except:
+        return txt
     
 
 def save_tmp(data):
