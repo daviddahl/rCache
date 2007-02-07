@@ -130,6 +130,40 @@ def detail(request,entry_id):
     else:
         return HttpResponseRedirect("/login_required/")
 
+def edit_entry(request,entry_id):
+    if login_check(request):
+        if request.POST:
+            #do update here
+            #update Entry data
+            #get existing tag objects
+            #compare existing to POSTED tag list
+            #delete tags that are not in POSTED list
+            #save tags
+            #do the same for links and imgs
+            pass
+        else:
+            try:
+                u = User.objects.get(id=request.session['userid'])
+                e = Entry.objects.filter(user=u,id__exact=entry_id)
+                imgs = Media.objects.filter(entry__exact=e[0])
+                links = EntryUrl.objects.filter(entry__exact=e[0])
+                tags = Tag.objects.filter(entry__exact=e[0])
+                tags_clean = []
+                for t in tags:
+                    tags_clean.append(t.tag)
+                tags_clean = dict.fromkeys(tags_clean).keys()
+                entry_tags = ",".join(tags_clean)
+                return render_to_response('edit_entry.html',
+                                          {'entry':e,
+                                           'imgs':imgs,
+                                           'links':links,
+                                           'tags':tags_clean,
+                                           'entry_tags':entry_tags,
+                                           'user':u})
+            except Exception,e:
+                return HttpResponseRedirect("/error/?e=EDIT_ERROR")
+    else:
+        return HttpResponseRedirect("/login_required/")
     
 def spider(request):
     if login_check(request):
@@ -421,6 +455,52 @@ def postcache(request):
         return HttpResponse(simplejson.dumps('login_error'),
                             mimetype='application/javascript')
 
+def remove_entry(request,entry_id):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        entry = Entry.objects.filter(id=entry_id,user=u)
+        if len(entry) == 1:
+            e = entry[0]
+            return render_to_response('remove_entry.html',
+                                      {'entry':e,
+                                       'user':u})
+        else:
+            #error! too many objects found or no objects found
+                return HttpResponseRedirect("/error/?e=UNKNOWN")
+    else:
+        #not logged in
+        return HttpResponseRedirect("/login_required/")
+
+def removeit(request,entry_id):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        entry = Entry.objects.filter(id=entry_id,user=u)
+        if len(entry) == 1:
+            title = entry[0].entry_name
+            entry[0].delete()
+            
+            return render_to_response('removed.html',
+                                      {'entry_name':title,
+                                       'user':u})
+        else:
+            #error! too many objects found or no objects found
+                return HttpResponseRedirect("/error/?e=ERR_REMOVE_ENTRY")
+    else:
+        #not logged in
+        return HttpResponseRedirect("/login_required/")
+
+def err_unknown(request):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.GET.has_key('e'):
+            err = request.GET['e']
+        else:
+            err = 'Unknown'
+        return render_to_response('err_unknown.html',
+                                  {'err':err,
+                                   'user':u})
+    else:
+        return HttpResponseRedirect("/login_required/")
 
 def entry_urls(links,e,u):
     """take links and make EntryUrls..."""

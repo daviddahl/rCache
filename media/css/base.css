@@ -355,10 +355,13 @@ textarea:active {
 #login_boundry {
     border-width: 0px;
     border: 1px solid #AAA;
-    padding: 25px;
+    padding: 1em;
     width:600px;
     min-height:500px;
     background-color:#FFF;
+}
+#login_boundry .message{
+    min-height:300px;
 }
 #loginxul_boundry {
     border-width: 0px;
@@ -371,7 +374,7 @@ textarea:active {
 #firefox_boundry {
     border-width: 0px;
     border: 1px solid #AAA;
-    padding: 10px;
+    padding: 1em;
     width:600px;
     min-height:500px;
     background-color:#FFF;
@@ -381,6 +384,9 @@ textarea:active {
 }
 #firefox_boundry img{
     border: none;
+}
+#firefox_boundry .message{
+    min-height:300px;
 }
 .imgbrdr{
     border: 1px solid #AAA;
@@ -413,7 +419,7 @@ pre {
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 #detail_header{
-    padding: 0.5em;
+    padding: 0.8em;
     background: #FFF;
     width: 583px;
     line-height: 1.5em;
@@ -431,7 +437,7 @@ pre {
 .detail_link_list{
     padding: 5px;
 }
-.entry_detail_title{
+.entry_detail_title a{
     font: bolder;
     padding: 1em;
 }
@@ -460,6 +466,9 @@ pre {
     overflow: visible;
     line-height:1.5em;
     font-size:1em;
+}
+#text_content_boundry label {
+    font-weight:bold;
 }
 #cache_link_tags{
     padding: 20px;
@@ -651,7 +660,7 @@ pre {
 }
 #detail {
     border: none;
-    padding: 2px;
+    padding: 1em;
     background-color:#FFF;
     overflow: auto;
     min-height: 500px;
@@ -947,11 +956,11 @@ textarea{
 .button{
     background: #EEE;
     border: 1px solid #AAA;
-    padding: 4px;
+    padding: 3px;
     margin:5px;
-    float: left;
+/*    float: left; */
     text-decoration:none;
-    min-width: 3em;
+    min-width: 6em;
 }
 .button a{
     text-align:center;
@@ -1110,4 +1119,19 @@ textarea{
 #dashboard_wrapper table{
     width: 600px;
     border: 1px solid #AAA;
+}
+#text_content{
+    max-width:40em; 
+    max-height:15em;
+    min-width:40em;
+    min-height:15em;
+    padding:2px;
+    background:#EEE;
+}
+#text_content:focus{
+    background:#fff;
+    max-width:40em; 
+    max-height:30em;
+    min-width:40em;
+    min-height:30em;
 }

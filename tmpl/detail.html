@@ -10,11 +10,11 @@ rCache.com - Detail
 <div id="detail_wrapper">
 {% for e in entry %}
 <div id="detail_header">
-<span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span> <br />
-<span class="entry_detail_title">
-  <a href="{{ e.entry_url }}" title="Original URL: {{ e.entry_url }}" target="_new">
-  <strong>{{ e.entry_name }}</strong></a></span>
-<br />
+  <span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span>
+ <a href="/edit/{{ e.id }}/" title="Edit this entry" class="button">Edit</a>
+ <a href="/remove/{{ e.id }}/" title="Remove this entry permanently" class="button">Remove</a>
+<h2>
+  &nbsp; &nbsp;<a href="{{ e.entry_url }}" title="Original URL: {{ e.entry_url }}" target="_new">{{ e.entry_name }}</a></h2>
 </div>
 <div id="detail_tags">
 {% for tag in tags %}

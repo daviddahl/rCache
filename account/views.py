@@ -227,6 +227,7 @@ def password(request):
             if len(user) == 1:
                 if user[0].login == request.POST['login']:
                     #create userevent
+                    #fixme: wrap this in a try!!!
                     hk = hash_key(user[0])
                     evt = UserEvent(user=user[0],
                                     hash_key=hk,
