@@ -411,12 +411,13 @@ textarea:active {
     overflow: auto;
 }
 pre {
-    font:12px 'trebuchet ms', verdana, sans-serif;
+    font:1.2em Tahoma,Arial,Helvetica,sans-serif;
     white-space: pre-wrap;       /* css-3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
     white-space: -pre-wrap;      /* Opera 4-6 */
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    line-height:130%;
 }
 #detail_header{
     padding: 0.8em;
@@ -467,6 +468,7 @@ pre {
     line-height:1.5em;
     font-size:1em;
 }
+
 #text_content_boundry label {
     font-weight:bold;
 }
