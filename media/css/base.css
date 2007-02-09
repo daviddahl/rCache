@@ -461,7 +461,7 @@ pre {
 #text_content_boundry {
     padding: 10px 50px 50px 50px;
     width: 400px;
-    height:650px;
+    min-height:500px;
     background-color:#FFF;
     overflow: visible;
     line-height:1.5em;

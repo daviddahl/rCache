@@ -235,6 +235,8 @@ class UserEvent(models.Model):
 class Colleague(models.Model):
     """a user who is granted access to an rCache user's data"""
     user = models.ForeignKey(User)
+    created = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
     class Admin:
         pass
 
