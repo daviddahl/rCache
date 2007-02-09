@@ -15,6 +15,9 @@ rCache.com -
 </div>
 <div id="detail_entry_text" style="min-height:650px;">
 <div id="text_content_boundry">
+  {% if message %}
+  <p class="error_message">{{ message }}</p>
+  {% endif %}
   <form action="." method="post">
   <label for="entry_url">Entry URL</label>
   <input type="text" name="entry_url" size="65" id="entry_url" value="{{ e.entry_url }}">
@@ -27,21 +30,7 @@ rCache.com -
   <br />
   <label for="text_content">Entry Text</label>
   <textarea name="text_content" id="text_content">{{ e.text_content }}</textarea>
-  <br />
-  <label for="entry_links">Entry Links</label>
-  <select name="entry_links" id="entry_links" size="4">
-    {% for link in links %}
-    <option value="{{ link.url }}">{{ link.url }}
-    {% endfor %}
-  </select>
-  <br />
-  <label for="entry_imgs">Entry Images</label>
-  <select name="entry_imgs" id="entry_imgs" size="4">
-    {% for img in imgs %}
-    <option value="{{ img.path }}">{{ img.path }}
-    {% endfor %}
-  </select>
-  <br />
+ 
   <label for="id_submit">&nbsp;</label>
   <input type="submit" value="Save"/>
   </form>

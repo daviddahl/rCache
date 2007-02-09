@@ -60,16 +60,6 @@ def dashboard(request):
         # Do something for anonymous users.
         return HttpResponseRedirect("/accounts/login_required/")
 
-
-def new_account(request):
-    """send an email to user to accept account and create password
-    create UserEvent and send email for new user"""
-    pass
-
-def approve_password(password):
-    """check password with regex or whatever"""
-    pass
-
 def activation(request,user_id):
     if request.POST:
         pass
@@ -96,7 +86,7 @@ def activation_yes(request,user_id):
                       msg,
                       'donotreply@rcache.com',
                       [user.email,'admin@rcache.com',],
-                      fail_silently=False)
+                      fail_silently=True)
             message ="Activation Successful."
             return render_to_response('activation_yes.html',
                                       {'user':user})
@@ -183,6 +173,7 @@ def activate(request):
                 return HttpResponseRedirect("/accounts/err/?e=HK_DOES_NOT_EXIST")
         else:
             return HttpResponseRedirect("/accounts/err/?e=HK_DOES_NOT_EXIST")
+
             
 def detail(request,user_id):
     if request.user.is_authenticated():
@@ -219,6 +210,7 @@ def acct_err(request):
     return render_to_response('acct_err.html',
                               {'message':err})
 
+
 def password(request):
     if request.POST:
         if request.POST['login']:
@@ -236,12 +228,12 @@ def password(request):
                     #send_email
                     msg = """Dear %s,\n\nOur records indicate that you have requested a password change for rCache. Please click on this link to make the requested change:\n\nhttps://collect.rcache.com/accounts/password/change/?hk=%s\n\nBest Regards,\n\nrCache System Bot\n\n\nrCache.com: your personal search repository""" \
                           % (user[0].login,hk,)
-
+                    
                     send_mail('rCache Password Change',
                               msg,
                               'donotreply@rcache.com',
                               [user[0].email,'admin@rcache.com',],
-                              fail_silently=False)
+                              fail_silently=True)
                     message ="An Email has been sent to you with directions to change your password"
                     return render_to_response('password_reset.html',
                                               {'message':message,

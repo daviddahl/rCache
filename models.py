@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.db import connection
 
 class Company(models.Model):
     company_name = models.CharField(blank=True, maxlength=300)
@@ -52,7 +52,6 @@ class Tag(models.Model):
         return self.tag
 
     def tag_list(self,_user,which_q='default'):
-        from django.db import connection
         cursor = connection.cursor()
         q = """SELECT DISTINCT tag, tag_count FROM tag WHERE user_id = %s
         ORDER BY tag_count DESC LIMIT 200"""
@@ -67,10 +66,36 @@ class Tag(models.Model):
         rows = cursor.fetchall()
         return rows
 
-    def normalize_tags(_user):
+    def normalize_tags(self,_user):
         """get all tags loop through them sorted by tag, tag_count"""
         pass
+
+    def existing_tags(self,entry_id):
+        cursor = connection.cursor()
+        q = """SELECT et.id,et.tag_id,et.entry_id,t.tag
+        FROM entry_tag et, tag t where et.entry_id = %s
+        AND t.id = et.tag_id"""
+        cursor.execute(q,[entry_id,])
+        rows = cursor.fetchall()
+        return rows
+
+    def remove_tag(self,tag_id):
+        try:
+            cursor = connection.cursor()
+            q = """DELETE FROM entry_tag WHERE id = %s"""
+            cursor.execute(q,[tag_id,])
+            return True
+        except:
+            return False
+
+    def add_a_tag(self,entry,tag):
+        try:
+            entry.tag.add(tag)
+            return True
+        except:
+            return False
         
+
     class Meta:
         db_table = 'tag'
     class Admin:
@@ -149,20 +174,6 @@ class Url(models.Model):
     class Admin:
         list_display = ('url','user','tags','date_attempted') 
 
-## class EntryTag(models.Model):
-##     entry_id = models.IntegerField()
-##     tag_id = models.IntegerField()
-##     class Meta:
-##         db_table = 'entry_tag'
-
-## class EntryUrl(models.Model):
-##     user = models.ForeignKey(User)
-##     url = models.CharField(blank=True, maxlength=765)
-##     date_created = models.DateTimeField(null=True, blank=True)
-##     entry = models.ForeignKey(Entry)
-##     class Meta:
-##         db_table = 'entry_url'
-
 class Media(models.Model):
     entry = models.ForeignKey(Entry)
     path = models.CharField(blank=True, maxlength=765)
@@ -220,3 +231,25 @@ class UserEvent(models.Model):
     class Admin:
         list_display = ('user','hash_key','event_type','event_date','open',)
     
+
+class Colleague(models.Model):
+    """a user who is granted access to an rCache user's data"""
+    user = models.ForeignKey(User)
+    class Admin:
+        pass
+
+class ColleaguePrivilege(models.Model):
+    """a colleague's privilege"""
+    colleague = models.ForeignKey(Colleague)
+    priv_type = models.CharField(maxlength=32)
+    #priv_types: read, write
+    function = models.CharField(maxlength=32)
+    #function: READ: tag, search
+    #function: WRITE: comment, entry, tag
+    content = models.CharField(maxlength=64)
+    #content: for READ:TAG: 'economy' can look at entries tagged with 'economy'
+    #content: for READ:SEARCH 'dollar' can perform canned keyword searches on 'dollar'
+    approved = models.DateTimeField(auto_now_add=True)
+    
+    class Admin:
+        pass 

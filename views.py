@@ -4,6 +4,7 @@ import os
 import sys
 import re
 import urllib
+import copy
 from urlparse import urlparse
 
 from django.http import Http404,HttpResponse,HttpResponseRedirect
@@ -130,17 +131,43 @@ def detail(request,entry_id):
     else:
         return HttpResponseRedirect("/login_required/")
 
+def entry_validate(POST):
+    try:
+        if POST['text_content']:
+            return True
+        else:
+            return False
+    except:
+        return False
+
 def edit_entry(request,entry_id):
     if login_check(request):
         if request.POST:
-            #do update here
-            #update Entry data
-            #get existing tag objects
-            #compare existing to POSTED tag list
-            #delete tags that are not in POSTED list
-            #save tags
-            #do the same for links and imgs
-            pass
+            if entry_validate(request.POST):
+                
+                u = User.objects.get(id=request.session['userid'])
+                #do update here
+                #update Entry data
+                etry = Entry.objects.filter(id=entry_id,user=u)
+                entry = etry[0]
+                entry.entry_url = request.POST['entry_url']
+                entry.entry_name = request.POST['entry_name']
+                entry.text_content = request.POST['text_content']
+
+                etags = Tag()
+                existing_tags = etags.existing_tags(entry_id)
+                for tag in existing_tags:
+                    etags.remove_tag(tag[0])
+                    
+                taglist = manage_tags(request.POST['entry_tags'])
+                add_tags(taglist,u,entry)
+
+                entry.save()
+                url = "/detail/%s/" % entry.id
+                return HttpResponseRedirect(url)
+            else:
+                #need to render_to_response the same as below with an error msg
+                return HttpResponseRedirect("/edit/%s/"% entry_id)
         else:
             try:
                 u = User.objects.get(id=request.session['userid'])
@@ -153,13 +180,15 @@ def edit_entry(request,entry_id):
                     tags_clean.append(t.tag)
                 tags_clean = dict.fromkeys(tags_clean).keys()
                 entry_tags = ",".join(tags_clean)
+                message = None
                 return render_to_response('edit_entry.html',
                                           {'entry':e,
                                            'imgs':imgs,
                                            'links':links,
                                            'tags':tags_clean,
                                            'entry_tags':entry_tags,
-                                           'user':u})
+                                           'user':u,
+                                           'message':message})
             except Exception,e:
                 return HttpResponseRedirect("/error/?e=EDIT_ERROR")
     else:
@@ -555,6 +584,11 @@ def login_check_svc(request):
                         mimetype='application/javascript')
 
 
+def update_tags(new_tags,entry):
+    """passed a list of tags, and an entry: find existing tags, compare to
+    new_tags and remove the differnce or add new tags"""
+    pass
+
 def add_tags(tags,_user,entry):
     if tags is not None:
         for t in tags:
@@ -607,12 +641,6 @@ def manage_tags(tagList):
     else:
         return None
 
-#fixme: need to write these functions and supporting classes/modules
-
-def upload(request):
-    """handle uploaded file no bigger than $threshold"""
-    pass
-
 def process_word(data,filename):
     """pass word doc through antiword, save output text to entry, save original file in database"""
     tmp_name = antiword.save_tmp(data)
@@ -621,6 +649,7 @@ def process_word(data,filename):
         return the_text
     except:
         return "Error processing Word doc: %s" % filename
+
 
 def process_pdf(data,filename):
     """scrape text from PDF, store as an entry and Media record"""
