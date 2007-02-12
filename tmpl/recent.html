@@ -10,7 +10,7 @@ rCache.com - Recent Entries
 <div id="detail_wrapper">
   <div id="recent_header">
     {% block func_title %}
-   <div class="results_title">Recent Entries</div>
+   <h3>Recent Entries</h3>
     {% endblock %}
   </div>
 <div id="search_results_grid">
@@ -20,9 +20,11 @@ rCache.com - Recent Entries
       <td><strong>URL</strong></td>
       <td><strong>Date Saved</strong></td>
     </tr>
+    {% block entries %}
     {% for e in entries %}
     <tr class="{% cycle tr-dark,tr-light %}">
-      <td><a href="/detail/{{ e.id }}/">
+      <td>
+	<a href="/detail/{{ e.id }}/">
 	{% if e.entry_name %}
 	{{ e.entry_name|truncatewords:10 }}
 	{% else %}
@@ -33,6 +35,7 @@ rCache.com - Recent Entries
       <td>{{ e.date_created|timesince }}</td>
     </tr>
     {% endfor %}
+    {% endblock %}
   </table>
 </div>
 </div>

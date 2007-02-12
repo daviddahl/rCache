@@ -5,6 +5,7 @@ import sys
 import re
 import urllib
 import copy
+import time
 from urlparse import urlparse
 
 from django.http import Http404,HttpResponse,HttpResponseRedirect
@@ -15,6 +16,7 @@ from django.utils import simplejson
 from django.core.validators import email_re
 from django.core.mail import send_mail
 
+from account.views import hash_key
 import antiword
 import pdf
 import html2text
@@ -69,11 +71,476 @@ def not_found(request):
                                   {'user':u})
     else:
         return HttpResponseRedirect("/login_required/")
+
+
+def colleagues(request):
+    """find existing colleagues, display options to create a new colleague
+    and edit coll. privs"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        c = Colleague.objects.filter(user_id__exact=request.session['userid']).order_by('-id')
+        
+        return render_to_response('colleagues.html',
+                                  {'colleagues':c,
+                                   'colleagues_cnt':len(c),
+                                   'user':u})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def colleague_detail(request,coll_id):
+    """edit colleague's detail data"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.POST:
+            POST = request.POST
+            try:
+                #get collague
+                c = Colleague.objects.filter(id=coll_id,user_id=u.id)
+                print c[0]
+                coll = c[0]
+                #validate posted colleague data
+                if POST.has_key("active"):
+                    coll.active = True
+                else:
+                    coll.active = False
+                if POST.has_key("search_restrictions"):
+                    coll.search_restrictions = True
+                else:
+                    coll.search_restrictions = False
+                if POST.has_key("tag_restrictions"):
+                    coll.tag_restrictions = True
+                else:
+                    coll.tag_restrictions = False
+                if POST.has_key("search_keywords_approved"):
+                    coll.search_keywords_approved = POST["search_keywords_approved"]
+                if POST.has_key("tags_approved"):
+                    coll.tags_approved = POST["tags_approved"]
+                if POST.has_key("commentary"):
+                    coll.commentary = True
+                else:
+                    coll.commentary = False
+                coll.save()
+                #return HttpResponseRedirect("/colleague/%s/?updated" % coll.id)
+                return render_to_response('colleague_detail.html',
+                                          {'user':u,
+                                           'colleague':coll,
+                                           'updated':True})
+            except Exception,e:
+                m= "Error: Cannot Update Colleague. %s" % e
+                return render_to_response('colleague_err.html',
+                                          {'user':u,
+                                           'message':m})
+            
+        else:
+            try:
+                c = Colleague.objects.filter(id__exact=coll_id,user_id=request.session['userid'])
+                return render_to_response('colleague_detail.html',
+                                          {'colleague':c[0],
+                                           'user':u})
+            except Exception,e:
+                m= "Error: Cannot fetch Colleague record. Perhaps your Colleague has not accepted the account offer"
+                return render_to_response('colleague_err.html',
+                                          {'user':u,
+                                           'message':m})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+
+def new_colleague(request):
+    """create a new colleague object"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.POST:
+            #check if you are adding the same coll. twice
+            cols = Colleague.objects.filter(user_id__exact=u.id)
+            for col in cols:
+                if col.colleague.login == request.POST["colleague_email"]:
+                    #err: need to return with "you already have that colleague"
+                    m = "That email address is already used by one of your colleagues."
+                    return render_to_response('new_colleague.html',
+                                              {'user':u,
+                                               'message':m,
+                                               'posted':request.POST})
+            #validate posted data...
+            valid = validate_new_colleague(request.POST)
+            if valid is not None:
+                #valid!
+                #fixme: try...
+                #create User object
+                comp = Company.objects.get(pk=1)
+                coll_user,created = User.objects.get_or_create(email=valid['email'],
+                                                               company=comp,
+                                                               login=valid['email'])
+                coll_user.save()
+                
+                #create colleague object
+                coll = Colleague(colleague=coll_user,
+                                 user_id=request.session['userid'],
+                                 active=valid['active'],
+                                 tag_restrictions=valid['tag_restrictions'],
+                                 tags_approved=valid['tags_approved'],
+                                 search_restrictions=valid['search_restrictions'],
+                                 search_keywords_approved=valid['search_keywords_approved'],
+                                 commentary=valid['commentary'])
+
+                coll.save()
+                
+                #create colleage for coll_user
+                new_user_coll = Colleague(colleague=u,
+                                 user_id=coll_user.id,
+                                 active=True,
+                                 tag_restrictions=True,
+                                 tags_approved="",
+                                 search_restrictions=True,
+                                 search_keywords_approved="",
+                                 commentary=False)
+                new_user_coll.save()
+                
+                #create hash_key:
+                hk = hash_key(coll_user)
+                evt_invite = UserEvent(user=u,
+                                       hash_key=hk,
+                                       event_type='Invite Colleague')
+                evt_invite.save()
+                
+                evt_invited = UserEvent(user=coll_user,
+                                        hash_key=hk,
+                                        event_type='invited colleague')
+                evt_invited.save()
+                
+                subject = "rCache.com: Collaborative Research Request"
+                mesg = """Dear %s,\n\nyour colleague, %s, would like to share some research with you via rcache.com, a collaborative online research tool. you can read about rcache's functionality here: http://www.rcache.com/about/.\n\nIf you would like to accept %s's offer to become an online rCache colleague, click here: https://collect.rcache.com/accounts/activate/?hk=%s\n\nYou will be granted a full rCache account which you can use to collect and store data from the web and elsewhere. rCache is free and easy to use.\n\nBest Regards,\n\nrCache Account Bot""" % (coll_user.email,u.email,u.email,hk,)
+                send_mail(subject,
+                          mesg,
+                          'admin@rcache.com',
+                          [coll_user.email,'admin@rcache.com',],
+                          fail_silently=True)
+                m = ""
+                c = Colleague.objects.filter(user_id__exact=request.session['userid']).order_by("-id")
+                return render_to_response('colleague_pending.html',
+                                          {'message':m,
+                                           'user':u,
+                                           'colleagues':c,
+                                           'colleagues_cnt':len(c)})
+            else:
+                m = "Please make sure the email address is correct, and you have entered the email in 'Confirm Email'"
+                return render_to_response('new_colleague.html',
+                                          {'user':u,
+                                           'message':m,
+                                           'posted':request.POST})
+        else:
+            return render_to_response('new_colleague.html',
+                                      {'user':u})
+    
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def validate_new_colleague(POST):
+    #create a default set of restrictons... pretty open
+    active = True
+    search_restrictions = False
+    tag_restrictions = False
+    search_keywords_approved = ""
+    tags_approved = ""
+    commentary = False
+    if POST.has_key("colleague_email") and \
+           POST.has_key("colleague_email_conf"):
+        if POST["colleague_email"] == POST["colleague_email_conf"] and \
+               email_re.search(POST['colleague_email']):
+            #need to lookup this email to see if the
+            #colleague is a user already for this user
+            
+            if POST.has_key("active"):
+                active = True
+            if POST.has_key("search_restrictions"):
+                search_restrictions = True
+            if POST.has_key("tag_restrictions"):
+                tag_restrictions = True
+            if POST.has_key("search_keywords_approved"):
+                search_keywords_approved = POST["search_keywords_approved"]
+            if POST.has_key("tags_approved"):
+                tags_approved = POST["tags_approved"]
+            if POST.has_key("commentary"):
+                commentary = True
+                
+            coll_dict = {'email':POST["colleague_email"],
+                         'active':active,
+                         'search_restrictions':search_restrictions,
+                         'tag_restrictions':tag_restrictions,
+                         'search_keywords_approved':search_keywords_approved,
+                         'tags_approved':tags_approved,
+                         'commentary':commentary}
+            return coll_dict
+        else:
+            return None
+    else:
+        return None
+
+def colleague_research(request,coll_id):
+    """View your colleague's research if they have given you access..."""
+    """need to load up all tags and search keywords into a dictionary with
+    2 lists. one for tags one for keywords.
+    before issuing one of these searches, check the session for the
+    keyword or tag, then issue the search. reload them each time you hit
+    a colleague research detail screen. The dict will be like this:
+
+    coll_research = [{ colleague_user_id:id,
+                      tags:[foo,bar,baz,],
+                      kw:[foo,bar,baz,]},]
+
+    """
+    if login_check(request):
+        try:
+            u = User.objects.get(id=request.session['userid'])
+            #current user is the colleague, user_id is owner of colleague
+            c = Colleague.objects.filter(user_id=coll_id,colleague=u)
+            colleague = User.objects.get(id=coll_id)
+
+            if c[0].active:
+                active_txt = "Active"
+            else:
+                active_txt = "Not Active"
+                m = "Your Colleague Status with %s is Inactive." % colleague.login
+                return render_to_response('colleague_err.html',
+                                          {'user':u,
+                                           'err':True,
+                                           'message':m})
+        except Exception,e:
+            m = "Colleague Not Found."
+            return render_to_response('colleague_err.html',
+                                      {'user':u,
+                                       'err':True,
+                                       'message':m})
+            
+        if c[0].tag_restrictions and \
+           c[0].search_restrictions and \
+           c[0].tags_approved == "" and \
+           c[0].search_keywords_approved == "":
+            initial_state_txt = "Your colleague account with %s has not been configured yet" % colleague.login
+        else:
+            initial_state_txt = None
+
+        tgs = manage_tags(c[0].tags_approved)
+        srch = manage_tags(c[0].search_keywords_approved)
+        
+        return render_to_response('colleague_research.html',
+                                  {'user_colleague_record':c[0],
+                                   'colleague':colleague,
+                                   'user':u,
+                                   'active_txt':active_txt,
+                                   'initial_state_txt':initial_state_txt,
+                                   'tags':tgs,
+                                   'search_kw':srch,
+                                   'err':None})
+
+        ## m = "You are not listed as a colleague, or they may have just revoked your privileges."
+##         return render_to_response('colleague_research.html',
+##                                   {'colleague':None,
+##                                    'user':u,
+##                                    'err':True})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def colleague_research_tag(request,coll_id):
+    """use colleague's tag to do a tagsearch on their entries"""
+    if login_check(request):
+        try:
+            u = User.objects.get(id=request.session['userid'])
+            c = Colleague.objects.filter(user_id=coll_id,colleague=u)
+            colleague = User.objects.get(id=coll_id)
+            can_search = colleague_check(request,coll_id)
+
+            if can_search is True:
+                tg = urllib.unquote_plus(request.GET['tag'])
+                tags = Tag.objects.filter(tag__iexact=tg,user=colleague)
+                entries = []
+                #fixme: duplicate entries are added to this list!
+                for t in tags:
+                    e = Entry.objects.filter(tag=t,user=colleague).order_by('-id')
+                    entries.extend(e)
+                
+                back_lnk = "/colleague/%s/research/" % coll_id
+                return render_to_response('tag_results.html',
+                                          {'user':u,
+                                           'the_tag':tg,
+                                           'entries':entries,
+                                           'coll_id':coll_id,
+                                           'coll_login':colleague.login,
+                                           'back_lnk':back_lnk,
+                                           'coll_render':True})
+            else:
+                #return error message
+                m= "You do not have permission to search %s's entries tagged: %s" %(colleague.login,urllib.unquote_plus(request.GET['tag']),)
+                return render_to_response('colleague_err.html',
+                                          {'user':u,
+                                           'err':True,
+                                           'message':m})
+        except Exception,e:
+            m= "An error occurred trying to lookup your colleague's research. %s" % e
+            return render_to_response('colleague_err.html',
+                                      {'user':u,
+                                       'err':True,
+                                       'message':m})
+    else:
+        return HttpResponseRedirect("/login_required/")
+    
+def colleague_research_keywords(request,coll_id):
+    """allow searching of colleague's entries via a list of keywords"""
+    if login_check(request):
+        try:
+            u = User.objects.get(id=request.session['userid'])
+            c = Colleague.objects.filter(user_id=coll_id,colleague=u)
+            colleague = User.objects.get(id=coll_id)
+            can_search = colleague_check(request,coll_id,query_type="search")
+
+            if can_search is True:
+                kw = urllib.unquote_plus(request.GET['kw'])
+                e = Entry()
+                entries = e.fulltxt(colleague,kw)
+                
+                back_lnk = "/colleague/%s/research/" % coll_id
+                return render_to_response('search_results.html',
+                                          {'user':u,
+                                           'the_kw':kw,
+                                           'entries':entries,
+                                           'coll_id':coll_id,
+                                           'coll_login':colleague.login,
+                                           'back_lnk':back_lnk,
+                                           'coll_render':True})
+            else:
+                #return error message
+                m= "You do not have permission to search %s's entries with the keyword: %s" %(colleague.login,urllib.unquote_plus(request.GET['search']),)
+                return render_to_response('colleague_err.html',
+                                          {'user':u,
+                                           'err':True,
+                                           'message':m})
+        except Exception,e:
+            m= "An error occurred trying to lookup your colleague's research. %s" % e
+            return render_to_response('colleague_err.html',
+                                      {'user':u,
+                                       'err':True,
+                                       'message':m})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+
+def colleague_check(request,coll_id,query_type="tag"):
+    """check if colleague is your colleague and you can do the search that is attempted"""
+    print "query_type %s" % query_type
+    u = User.objects.get(id=request.session['userid'])
+    #current user is the colleague, user_id is owner of colleague
+    c = Colleague.objects.filter(user_id=coll_id,colleague=u)
+    colleague = User.objects.get(id=coll_id)
+    
+    if c[0].active:
+        active_txt = "Active"
+    else:
+        active_txt = "Not Active"
+        
+    if c[0].tag_restrictions and \
+           c[0].search_restrictions and \
+           c[0].tags_approved == "" and \
+           c[0].search_keywords_approved == "":
+        initial_state_txt = "Your colleague account with %s has not been configured yet" % colleague.login
+        #return error as you do not have access yet
+        return False
+    else:
+        initial_state_txt = None
+        
+    tgs = manage_tags(c[0].tags_approved)
+    srch = manage_tags(c[0].search_keywords_approved)
+
+    if query_type == 'tag':
+        the_tag = urllib.unquote_plus(request.GET['tag']).lower()
+        if tgs.index(the_tag) > -1:
+            return True
+        else:
+            return False
+    elif query_type == 'search':
+        try:
+            the_kw = urllib.unquote_plus(request.GET['kw']).lower()
+        except:
+            the_kw = urllib.unquote_plus(request.GET['search']).lower()
+        if srch.index(the_kw) > -1:
+            return True
+        else:
+            return False
+    else:
+        return False
+
+def colleague_check_detail(request,coll_id,query_type):
+    """lookup colleague's entry - check either it's tags or
+    keywords against colleague record"""
+    try:
+        coll_chk = colleague_check(request,coll_id,query_type=query_type)
+    except Exception,e:
+        return False
+    if coll_chk is True:
+        return True
+    else:
+        return False
+        
+def internal_request(domain,referer):
+    return referer is not None and re.match("^https?://%s/" % re.escape(domain), referer)
+    
+def colleague_research_detail(request,coll_id,entry_id):
+    """Display entry detail for an entry compiled by a colleague"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.GET.has_key('search'):
+            query_type = 'search'
+        elif request.GET.has_key('tag'):
+            query_type = 'tag'
+        else:
+            m = "Error fetching entry. Could not determine Query Type."
+            return render_to_response('colleague_err.html',
+                                      {'user':u,
+                                       'err':True,
+                                       'message':m})
+        
+        if colleague_check_detail(request,coll_id,query_type):
+            #so far so good
+            colleague = User.objects.get(id=coll_id)
+            e = Entry.objects.filter(user=colleague,id__exact=entry_id)
+            imgs = Media.objects.filter(entry__exact=e[0])
+            links = EntryUrl.objects.filter(entry__exact=e[0])
+            tags = Tag.objects.filter(entry__exact=e[0])
+            tags_clean = []
+            for t in tags:
+                tags_clean.append(t.tag)
+            tags_clean = dict.fromkeys(tags_clean).keys()
+
+            from django import http
+            domain = http.get_host(request)
+            referer = request.META.get('HTTP_REFERER', None)
+            is_internal = internal_request(domain, referer)
+            if is_internal:
+                back_lnk = referer
+            else:
+                back_lnk = None
+            return render_to_response('detail.html',
+                                      {'entry':e,
+                                       'imgs':imgs,
+                                       'links':links,
+                                       'tags':tags_clean,
+                                       'user':u,
+                                       'colleague':colleague,
+                                       'coll_render':True,
+                                       'back_lnk':back_lnk})
+        else:
+            m = "Error fetching entry. Could not determine Query Type."
+            return render_to_response('colleague_err.html',
+                                      {'user':u,
+                                       'err':True,
+                                       'message':m})
+            
+    else:
+        return HttpResponseRedirect("/login_required/")
     
 def recent(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
-        e = Entry.objects.filter(user=u).order_by('-id')[:100]
+        e = Entry.objects.filter(user=u).order_by('-id')[:50]
         return render_to_response('recent.html',
                                   {'entries':e,
                                    'user':u})
@@ -308,8 +775,6 @@ def search(request):
         if request.POST:
             if request.POST['search_str']:
                 params = request.POST['search_str']
-                
-                #entries = Entry.objects.filter(text_content__search=params)
                 e = Entry()
                 entries = e.fulltxt(u,params)
                 return render_to_response('search_results.html',
@@ -621,6 +1086,7 @@ def prune_tags(tags):
             pass
         else:
             tag = t.strip()
+            tag = tag.lower()
             newtags.append(tag)
     return newtags
     
@@ -768,7 +1234,7 @@ def account_new(request):
                               msg,
                               'admin@rcache.com',
                               [u.email,'admin@rcache.com',],
-                              fail_silently=False)
+                              fail_silently=True)
                     return render_to_response('account_pending.html',{'message':m})
                 else:
                     m = "Email address is not valid."

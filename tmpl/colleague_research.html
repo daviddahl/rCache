@@ -1,0 +1,50 @@
+{% extends "new_entry.html" %}
+{% block title %}
+rCache - Colleague Research
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+<div id="detail_new_entry">
+  <div id="colleague_list">
+    {% if err %}
+    <h1>You are not a colleague of {{ colleague.login }}</h1>
+    {% else %}
+    <h3>Colleague Research: {{ colleague.login }}</h3>
+    <h4>Your status as a colleague of {{ colleague.login }} is {{ active_txt }}</h4>
+    {% endif %}
+    {% if initial_state_txt %}
+    <div id="message">{{ initial_state_txt }}</div>
+    {% endif %}
+  <div id="colleague_commentary">
+    <h4>Commentary</h4>
+    Commentary - Coming soon.
+    <br />
+    You will be able to extract snippits of your colleague's entries and annotate them with commentary.
+  </div>
+  {% if user_colleague_record.tag_restrictions %}
+  <div id="colleague_research_tags">
+    <h4>Tags</h4>
+    {% for tag in tags %}
+    <a href="/colleague/{{ colleague.id }}/research/tag/?tag={{ tag|urlencode }}">{{ tag }}</a> &nbsp;
+    {% endfor %}
+  </div>
+  {% else %}
+  <div id="colleague_research_tags">Coming soon: Your Colleague's Full Tag List</div>	
+  {% endif %}
+  {% if user_colleague_record.search_restrictions %}
+  <div id="colleague_research_search">
+    <h4>Search Keywords</h4>
+    {% for kw in search_kw %}
+    <a href="/colleague/{{ colleague.id }}/research/search/?kw={{ kw|urlencode }}">{{ kw }}</a> &nbsp;
+    {% endfor %}
+  </div>
+  {% else %}
+  <div id="colleague_research_search">Coming Soon: Search Your Colleague's Entries in Full. </div>
+  {% endif %}
+  </div>
+  </div>
+
+</div>
+</div>
+{% endblock %}

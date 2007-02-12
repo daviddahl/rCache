@@ -1,0 +1,44 @@
+{% extends "new_entry.html" %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+<div id="detail_new_entry">
+  <div id="colleague_list">
+    <h3>Add a New Colleague</h3>
+    <div>
+      {% if message %}
+      <div class="error_message">{{ message }}</div>
+      {% endif %}
+      <br />      
+    <form action="/colleague/new/" method="post">
+      <label for="colleague_email">Email Address</label>
+    <input type="text" name="colleague_email" maxlength="64" size="40">
+      <br />
+      <label for="colleague_email_conf">Confirm Email</label>
+    <input type="text" name="colleague_email_conf" maxlength="64" size="40">
+      <br />
+      <label for="active" title="Active Colleagues have access to your Entries, with the restrictions below.">Active?</label>
+      <input type="checkbox" name="active" value="1" checked/>
+      <br />
+      <label for="tag_restrictions">Search Restrictions?</label>
+      <input type="checkbox" name="search_restrictions" value="1" checked/>
+      <br />
+    <label for="priv_type" title="Approved Search Keywords is a list of tags: economics,Warsaw Pact, etc...">Approved Search Keywords</label>
+    <textarea name="search_keywords_approved" value="" cols="40" rows="2" maxlength="1024" title="Approved Search Keywords is a list of keywords: economics,Warsaw Pact, etc... that you allow your colleague to search by."></textarea>
+      <br />
+      <label for="tag_restrictions">Tag Restrictions?</label>
+      <input type="checkbox" name="tag_restrictions" value="1" checked/>
+      <br />
+    <label for="priv_type" title="Approved Tags is a list of tags: economics,Warsaw Pact, etc...">Approved Tags</label>
+    <textarea name="tags_approved" value="" cols="40" rows="2" maxlength="1024" title="Approved Tags is a list of tags: economics,Warsaw Pact, etc..."></textarea>
+      <br />
+      <label for="commentary">Allow Commentary and Annotation?</label>
+      <input type="checkbox" name="commentary" value="1" checked/>
+      <br />
+    <input type="submit" value="Save"/>
+    </form>
+    </div>   
+  </div>
+</div>
+</div>
+{% endblock %}

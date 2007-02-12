@@ -1137,3 +1137,46 @@ textarea{
     min-width:40em;
     min-height:30em;
 }
+#colleague_list{
+    padding:1em;
+}
+#colleague-table{
+    border:1px #AAA solid;
+    width: 400px;
+}
+#colleague-table td{
+    padding:0.5em;
+}
+#colleague-table tr{
+    border:1px #AAA solid;
+}
+#colleague_research_tags{
+    border: 1px solid #BBB;
+    margin: 0.5em;
+    padding: 0em 1em 1em 1em;
+    min-height:100px;
+    max-width: 530px;
+    max-height: 200px;
+    overflow: auto;
+    line-height:1.4em;
+}
+#colleague_research_search{
+    border: 1px solid #BBB;
+    margin: 0.5em;
+    padding: 0em 1em 1em 1em;
+    min-height:100px;
+    max-width: 530px;
+    max-height: 200px;
+    overflow: auto;
+    line-height:1.4em;
+}
+#colleague_commentary{
+    border: 1px solid #BBB;
+    margin: 0.5em;
+    padding: 0em 1em 1em 1em;
+    min-height:100px;
+    max-width: 530px;
+    max-height: 200px;
+    overflow: auto;
+    line-height:1.4em;
+}

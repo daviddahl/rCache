@@ -8,7 +8,7 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     ('David Dahl', 'david@ddahl.com'),
 )
-
+DEV_ENV = os.environ['RCACHE_SERVER_ENV']
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql', 'mysql', 'sqlite3' or 'ado_mssql'.
@@ -63,9 +63,10 @@ ROOT_URLCONF = 'rcache.urls'
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
-    '/home/david/code/rcache_django/rcache/tmpl',
-    '/Users/dahl/Code/rcache_django/tmpl',
-    '/home/rcachedev/code/dev/rcache/tmpl',
+    os.environ['RCACHE_DJANGO_TMPL_DIR'],
+#    '/home/david/code/rcache_django/rcache/tmpl',
+#    '/Users/dahl/Code/rcache_django/tmpl',
+#    '/home/rcachedev/code/dev/rcache/tmpl',
 )
 
 INSTALLED_APPS = (

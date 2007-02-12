@@ -10,7 +10,13 @@ rCache.com - Search Results
 <div id="detail_wrapper">
   <div id="recent_header">
     {% block func_title %}
-   <div class="results_title"><h3>Search Results for '<i>{{ params }}</i>'</h3></div>
+    {% if coll_render %}
+    <div class="results_title"><h3>Search Results for '<i>{{ the_kw }}</i>' from Colleague <i>{{ coll_login }}'s</i> Research </h3>
+      <h4><a href="{{ back_lnk }}" title="{{ coll_login }}'s Research">Back</a></h4>
+    </div>
+    {% else %}
+    <div class="results_title"><h3>Search Results for '<i>{{ params }}</i>'</h3></div>
+    {% endif %}
     {% endblock %}
   </div>
 <div id="search_results_grid">
@@ -23,7 +29,12 @@ rCache.com - Search Results
     </tr>
     {% for e in entries %}
     <tr class="{% cycle tr-dark,tr-light %}">
-      <td><a href="/detail/{{ e.0 }}/">
+      <td>
+	{% if coll_render %}
+	<a href="/colleague/{{ coll_id }}/detail/{{ e.0 }}/?search={{ the_kw }}">
+	{% else %}
+	<a href="/detail/{{ e.0 }}/">
+	{% endif %}
 	{% if e.2 %}
 	{{ e.2|truncatewords:9 }}
 	{% else %}

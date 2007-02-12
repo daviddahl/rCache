@@ -10,15 +10,26 @@ rCache.com - Detail
 <div id="detail_wrapper">
 {% for e in entry %}
 <div id="detail_header">
+  {% if coll_render %}
+  <h4>This Entry is from your Colleague {{ colleague.login }}'s Research</h4>
+  {% endif %}
+  
   <span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span>
+  {% if back_lnk %}
+  <a class="button" href="{{ back_lnk }}">Back to Results</a>
+  {% endif %}
+  {% if coll_render %}
+  
+  {% else %}
  <a href="/edit/{{ e.id }}/" title="Edit this entry" class="button">Edit</a>
  <a href="/remove/{{ e.id }}/" title="Remove this entry permanently" class="button">Remove</a>
+  {% endif %}
 <h2>
   &nbsp; &nbsp;<a href="{{ e.entry_url }}" title="Original URL: {{ e.entry_url }}" target="_new">{{ e.entry_name }}</a></h2>
 </div>
 <div id="detail_tags">
 {% for tag in tags %}
-<span class="detail_tag"><a href="/tag/?tg={{ tag|urlencode }}">{{ tag }}</a></span>
+<span class="detail_tag"><a href="/tag/?tg={{ tag|urlencode }}" title="Filter your research by tag: {{ tag }}">{{ tag }}</a></span>
 {% endfor %}
 </div>
 <div id="detail_entry_text">

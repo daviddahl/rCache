@@ -234,24 +234,34 @@ class UserEvent(models.Model):
 
 class Colleague(models.Model):
     """a user who is granted access to an rCache user's data"""
-    user = models.ForeignKey(User)
+    colleague = models.ForeignKey(User) #currently logged-in user
+    user_id = models.IntegerField()     #owner user id of the colleague
     created = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
+    tag_restrictions = models.BooleanField(default=True)
+    tags_approved = models.TextField()
+    search_restrictions = models.BooleanField(default=True)
+    search_keywords_approved = models.TextField()
+    commentary = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.colleague.login
+    
     class Admin:
         pass
 
-class ColleaguePrivilege(models.Model):
-    """a colleague's privilege"""
-    colleague = models.ForeignKey(Colleague)
-    priv_type = models.CharField(maxlength=32)
-    #priv_types: read, write
-    function = models.CharField(maxlength=32)
-    #function: READ: tag, search
-    #function: WRITE: comment, entry, tag
-    content = models.CharField(maxlength=64)
-    #content: for READ:TAG: 'economy' can look at entries tagged with 'economy'
-    #content: for READ:SEARCH 'dollar' can perform canned keyword searches on 'dollar'
-    approved = models.DateTimeField(auto_now_add=True)
+## class ColleaguePrivilege(models.Model):
+##     """a colleague's privilege"""
+##     colleague = models.ForeignKey(Colleague)
+##     priv_type = models.CharField(maxlength=32)
+##     #priv_types: read, write
+##     function = models.CharField(maxlength=32)
+##     #function: READ: tag, search
+##     #function: WRITE: comment, entry, tag
+##     content = models.CharField(maxlength=64)
+##     #content: for READ:TAG: 'economy' can look at entries tagged with 'economy'
+##     #content: for READ:SEARCH 'dollar' can perform canned keyword searches on 'dollar'
+##     approved = models.DateTimeField(auto_now_add=True)
     
-    class Admin:
-        pass 
+##     class Admin:
+##         pass 
