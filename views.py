@@ -203,8 +203,8 @@ def new_colleague(request):
                                        event_type='Invite Colleague')
                 evt_invite.save()
                 
-                hk2 = hash_key(coll_user)
-                evt_invited = UserEvent(user=coll_user,
+                hk2 = hash_key(u)
+                evt_invited = UserEvent(user=u,
                                         hash_key=hk2,
                                         event_type='Invited Colleague')
                 evt_invited.save()
