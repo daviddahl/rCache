@@ -161,6 +161,7 @@ def activate(request):
         if request.GET.has_key('hk'):
             #lookup event
             event = UserEvent.objects.filter(hash_key__exact=request.GET['hk'])
+            print event
             if len(event) == 1:
                 if event[0].open:
                     pass
