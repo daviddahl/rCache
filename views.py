@@ -210,7 +210,11 @@ def new_colleague(request):
                 evt_invited.save()
                 
                 subject = "rCache.com: Collaborative Research Request"
-                mesg = """Dear %s,\n\nyour colleague, %s, would like to share some research with you via rcache.com, a collaborative online research tool. you can read about rcache's functionality here: http://www.rcache.com/about/.\n\nIf you would like to accept %s's offer to become an online rCache colleague, click here: https://collect.rcache.com/accounts/activate/?hk=%s\n\nYou will be granted a full rCache account (if you do not already have one) which you can use to collect and store data from the web and elsewhere. rCache is free and easy to use.\n\nBest Regards,\n\nrCache Account Bot""" % (coll_user.email,u.email,u.email,hk,)
+                if created:
+                    mesg = """Dear %s,\n\nyour colleague, %s, would like to share some research with you via rcache.com, a collaborative online research tool. you can read about rcache's functionality here: http://www.rcache.com/about/.\n\nIf you would like to accept %s's offer to become an online rCache colleague, click here: https://collect.rcache.com/accounts/activate/?hk=%s\n\nYou will be granted a full rCache account (if you do not already have one) which you can use to collect and store data from the web and elsewhere. rCache is free and easy to use.\n\nBest Regards,\n\nrCache Account Bot""" % (coll_user.email,u.email,u.email,hk2,)
+                else:
+                    mesg = """Dear %s,\n\nyour colleague, %s, would like to share some research with you via your rcache.com account.\n\nClick here to login and configure your Colleague Settings: https://collect.rcache.com/accounts/activate/?hk=%s\n\nBest Regards,\n\nrCache Account Bot""" % (coll_user.email,u.email,hk2,)
+                
                 send_mail(subject,
                           mesg,
                           'admin@rcache.com',
