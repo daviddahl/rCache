@@ -7,11 +7,13 @@
     <h3>Colleagues*</h3>
     <h4><a class="button" href="/colleague/new/">Add a New Colleague</a></h4>
     <h5>You have {{ colleagues_cnt }} Colleague{{ colleagues_cnt|pluralize }}</h5>
+    {% if colleagues %}
     <table cellpadding="0" cellspacing="0" id="colleague-table">
       <tr>
 	<td><strong>Email</strong></td>
 	<td colspan="3">&nbsp;</td>
       </tr>
+    {% endif %}
     {% for colleague in colleagues %}
       <tr class="{% cycle tr-dark,tr-light %}">
 	<td>{{ colleague.colleague.email }}</td>
@@ -25,7 +27,9 @@
 	<td><a class="button" href="/colleague/{{ colleague.id }}/" title="Edit {{ colleague.colleague.email }}'s Privileges">Edit</a></td>
       </tr>
     {% endfor %}
+      {% if colleagues %}
       </table>
+      {% endif %}
   </div>
   <div class="message"><h4>* The Colleagues Area on rCache is a bit experimental yet.</h4></div>
 </div>
