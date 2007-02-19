@@ -53,9 +53,11 @@ def dashboard(request):
         # Do something for authenticated users.
         new_users = User.objects.filter(password__exact='')
         users = User.objects.filter(active__exact=1)
+        users_in_limbo = User.objects.filter(password__exact='no passwd yet')
         return render_to_response('dashboard.html',
                                   {'users':users,
-                                   'new_users':new_users})
+                                   'new_users':new_users,
+                                   'users_in_limbo':users_in_limbo})
     else:
         # Do something for anonymous users.
         return HttpResponseRedirect("/accounts/login_required/")
@@ -72,6 +74,7 @@ def activation_yes(request,user_id):
     if request.user.is_authenticated():
         try:
             user = User.objects.get(id=user_id)
+            
             hk = hash_key(user)
 
             evt = UserEvent(user=user,
@@ -87,6 +90,8 @@ def activation_yes(request,user_id):
                       'donotreply@rcache.com',
                       [user.email,'admin@rcache.com',],
                       fail_silently=True)
+            user.password = "no passwd yet"
+            user.save()
             message ="Activation Successful."
             return render_to_response('activation_yes.html',
                                       {'user':user})

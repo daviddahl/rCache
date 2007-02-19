@@ -26,6 +26,26 @@ rCache - Accounts - Dashboard
   </table>
 </div>
 
+ <div><h1>Users in Limbo</h1></div>
+
+<div>
+  <table id="users_in_limbo" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tr-light">
+      <td><strong>Login</strong></td>
+      <td colspan="2"><strong>Name</strong></td>
+      <td><strong>Date</strong></td>
+    </tr>
+    {% for user in users_in_limbo %}
+    <tr class="{% cycle tr-dark,tr-light %}">
+      <td>{{ user.login }}</td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.date_created|timesince }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
  <div><h1>Existing Users</h1></div>
 
 <div>
