@@ -25,6 +25,7 @@ class User(models.Model):
     last_contact = models.DateTimeField(auto_now_add=True)
     active = models.IntegerField(default=0)
     user_url = models.CharField(blank=True, maxlength=255)
+    
     def __str__(self):
         return "%s : %s %s %s" %(self.id,self.login, self.first_name, self.last_name)
     class Meta:
@@ -114,6 +115,13 @@ class Entry(models.Model):
     last_access = models.DateTimeField(null=True, blank=True,auto_now=True)
     summary = models.TextField(blank=True)
     tag = models.ManyToManyField(Tag)
+
+    def entry_count(self,user_id):
+        cursor = connection.cursor()
+        q = """SELECT COUNT(id) FROM entry WHERE user_id = %s"""
+        cursor.execute(q,[user_id,])
+        row = cursor.fetchone()
+        return row[0]
     
     def __str__(self):
         return self.entry_name

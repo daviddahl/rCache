@@ -184,11 +184,15 @@ def activate(request):
 def detail(request,user_id):
     if request.user.is_authenticated():
         try:
-            user = User.objects.get(id=user_id)
-            events = UserEvent.objects.get(id=user_id)
+            user = User.objects.get(pk=user_id)
+            events = UserEvent.objects.filter(user=user)
+            entry = Entry()
+            count = entry.entry_count(user_id)
+            print user
             return render_to_response('user_detail.html',
                                       {'user':user,
-                                       'events':events})
+                                       'events':events,
+                                       'entry_count':count})
         except Exception, e:
             return render_to_response('user_detail.html',
                                       {'message':e})
