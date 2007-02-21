@@ -63,15 +63,16 @@ if __name__ == '__main__':
     #oldfiles = old_backup_list('/Users/dahl/Desktop/tmp')
     #for old in oldfiles:
     #    print old
-    backup_path = "/var/backups"
+    backup_path = "/var/backups/rcache/"
     if os.path.exists(backup_path):
         pass
     else:
         os.mkdir(backup_path)
-    
+    #fixme: use env vars here!
     db = 'rcache_dev'
     passwd = 'uh_yeah'
     print "starting backup..."
+    #fixme start timer
     this_backup = back_up_pth(backup_path)
     print "saving to %s" % this_backup
     b = make_backup(db,passwd,this_backup)
