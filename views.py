@@ -67,10 +67,11 @@ def privacy(request):
 def not_found(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
-        return render_to_response('404.html',
+        return render_to_response('404logged_in.html',
                                   {'user':u})
     else:
-        return HttpResponseRedirect("/login_required/")
+        return render_to_response('404.html',
+                                  {'user':None})
 
 
 def colleagues(request):

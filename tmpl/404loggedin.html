@@ -7,12 +7,7 @@ rCache.com - Error: 404 - Cannot locate that resource
 {% endblock %}
 {% block content %}
 <div id="firefox_boundry">
-{% if user.first_name %}
 {% include "nav.html" %}
-{% else %}
-{% include "pub-menu.html" %}
-{% endif %}
-
   <p class="message">Error: 404, Resource could not be found.
   <br/><br/>
 
