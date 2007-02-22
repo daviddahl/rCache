@@ -1283,7 +1283,7 @@ def myaccount(request):
               u.blogurl = request.POST['blogurl']
               u.website = request.POST['website']
               u.first_name = request.POST['first_name']
-              u.first_name = request.POST['last_name']
+              u.last_name = request.POST['last_name']
               if u.email == 'demo@rcache.com':
                   #do not allow updates to demo account!
                   pass
