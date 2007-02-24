@@ -165,8 +165,13 @@ select:focus{
 
 
 h2 {
-    color: #CCC;
-    font-size:14px;
+    color: #AAA;
+    font-size:1.2em;
+    padding:0;
+    margin-top:0.3em;
+    margin-bottom:0;
+    margin-right:0.1em;
+    margin-left:0;
 }
 
 .text {
@@ -428,8 +433,12 @@ pre {
 #detail_tags{
     padding: 0.5em;
     background: #FFF;
-    width: 583px;
-    border-bottom: 1px solid #EEE;
+    width: 594px;
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+}
+#detail_tags span{
+    font-style:bold;
 }
 #detail_tags tags{
     padding: 0em 1.5em 0.5em 1.5em;
@@ -676,6 +685,14 @@ pre {
     height: 300px;
     width: 600px;
 }
+#detail_entry_text_long {
+    border: none;
+    padding: 2px;
+    background-color:#FFF;
+    overflow: auto;
+    height: 500px;
+    width: 600px;
+}
 #detail_new_entry {
     border: none;
     padding: 2px;
@@ -721,6 +738,35 @@ pre {
     overflow: scroll;
     height: 100px;
     width: 600px;
+}
+#detail_links_header {
+    border-top: 1px solid #DDD;
+    padding: 1px;
+    background-color:#FFF;
+    overflow: none;
+    min-height: 1.9em;
+    max-height: 1.9em;
+    min-width: 600px;
+}
+#detail_links_header ul {
+    padding-bottom:0;
+    padding-right:0;
+    padding-left:0;
+    padding-top:2px;
+    margin:0;
+}
+#detail_links_header li {
+    display: inline;
+    padding-right:200px;
+}
+#detail_imgs_header {
+    border-top: 1px solid #DDD;
+    padding: 1px;
+    background-color:#FFF;
+    overflow: none;
+    min-height: 1.5em;
+    max-height: 1.5em;
+    min-width: 600px;
 }
 #results_detail {
     border-top: 1px solid #DDD;
@@ -959,7 +1005,7 @@ textarea{
     background: #EEE;
     border: 1px solid #AAA;
     padding: 3px;
-    margin:5px;
+    margin:0;
 /*    float: left; */
     text-decoration:none;
     min-width: 6em;

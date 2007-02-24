@@ -591,11 +591,22 @@ def detail(request,entry_id):
             for t in tags:
                 tags_clean.append(t.tag)
             tags_clean = dict.fromkeys(tags_clean).keys()
+            links_len = len(links)
+            imgs_len = len(imgs)
+            if imgs_len == 0 or links_len == 0:
+                 entry_txt_id = 'detail_entry_text_long'
+            else:
+                entry_txt_id = 'detail_entry_text'
+                
             return render_to_response('detail.html',
                                       {'entry':e,
                                        'imgs':imgs,
                                        'links':links,
+                                       'links_len':links_len,
                                        'tags':tags_clean,
+                                       'imgs_len':imgs_len,
+                                       'entry_txt_id':entry_txt_id,
+                                       'edit_buttons':True,
                                        'user':u})
         except Exception,e:
             #need to log exception

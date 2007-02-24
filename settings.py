@@ -2,7 +2,7 @@ import os
 
 # Django settings for rcache project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 #fixme: add admins to env vars
 ADMINS = (
