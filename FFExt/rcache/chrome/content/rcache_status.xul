@@ -3,13 +3,11 @@
 <!DOCTYPE window SYSTEM "chrome://rcache/locale/rcache_status.dtd">
 <window
    id="rcachestatus"
-   title="rCache Collector 0.1"
+   title="rCache Collector 0.1.3"
    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <script src="chrome://rcache/content/rcache_compress.js"/>
-<script src="chrome://rcache/content/rclip.js"/>
-<script src="chrome://rcache/content/utils.js"/>
-
+<script src="chrome://rcache/content/rclip_compress.js"/>
 <hbox style="margin:5px;">
 <vbox>
   <label id="urllabel"

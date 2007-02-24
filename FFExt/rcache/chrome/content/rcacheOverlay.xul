@@ -9,7 +9,7 @@
 
 <script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
 <script src="chrome://rcache/content/rcache_compress.js"/>
-<script src="chrome://rcache/content/rclip.js"/>
+<script src="chrome://rcache/content/rclip_compress.js"/>
 
 <commandset>
   <command id="cmd_close" oncommand="rcache.close()"/>

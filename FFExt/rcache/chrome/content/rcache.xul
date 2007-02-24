@@ -2,7 +2,7 @@
 <?xml-stylesheet href="chrome://rcache/content/rcache.css"?>
 <overlay id="rcache" 
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <script type="application/x-javascript" src="chrome://rcache/content/rcache.js"/>
+  <script type="application/x-javascript" src="chrome://rcache/content/rcache_compress.js"/>
 <script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
  <statusbar id="status-bar">
   <statusbarpanel id="rcache-panel" label="rCache Page"
