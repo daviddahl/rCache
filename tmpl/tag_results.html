@@ -5,10 +5,10 @@ rCache.com - Tag Results
 {% block func_title %}
 <div class="results_title">
   {% if coll_render %}
-  <h3>Results for Tag '<i>{{ the_tag }}</i>' from Colleague <i>{{ coll_login }}'s</i> Research </h3>
+  <strong>Results for Tag</strong> '<i>{{ the_tag }}</i>' from Colleague <i>{{ coll_login }}'s</i> Research 
   <h4><a href="{{ back_lnk }}" title="{{ coll_login }}'s Research">Back</a></h4>
   {% else %}
-  <h3>Results for Tag '<i>{{ the_tag }}</i>'</h3>
+  <strong>Results for Tag</strong> '<i>{{ the_tag }}</i>' &nbsp; &nbsp;<a href="/rss/tag/?tg={{ the_tag|urlencode }}" class="rss">RSS</a>
   {% endif %}
 </div>
 {% endblock %}

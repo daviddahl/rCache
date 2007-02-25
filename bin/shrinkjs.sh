@@ -1,8 +1,8 @@
 #!/bin/bash
-export infile='/Users/dahl/Code/rcache_django/FFExt/rcache/chrome/content/rcache.js'
+export infile='/Users/dahl/Code/rcache_django/FFExt/src/rcache.js'
 export outfile='/Users/dahl/Code/rcache_django/FFExt/rcache/chrome/content/rcache_compress.js'
 
-export infile2='/Users/dahl/Code/rcache_django/FFExt/rcache/chrome/content/rclip.js'
+export infile2='/Users/dahl/Code/rcache_django/FFExt/src/rclip.js'
 export outfile2='/Users/dahl/Code/rcache_django/FFExt/rcache/chrome/content/rclip_compress.js'
 
 

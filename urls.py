@@ -1,5 +1,12 @@
 import os
 from django.conf.urls.defaults import *
+from django.conf.urls.defaults import *
+from rcache.rss import LatestEntries, LatestEntriesByTag
+
+feeds = {
+    'recent': LatestEntries,
+    'tag': LatestEntriesByTag,
+}
 
 urlpatterns = patterns('rcache.views',
                        (r'^admin/', include('django.contrib.admin.urls')),
@@ -17,6 +24,7 @@ urlpatterns = patterns('rcache.views',
                        (r'^bookmarklet/$', 'bookmarklet'),
                        (r'^spider/$', 'spider'),
                        (r'^recent/$','recent'),
+                       (r'^rss/(?P<url>.*)/$', 'feed', {'feed_dict': feeds}),
                        (r'^colleagues/$','colleagues'),
                        (r'^colleague/new/$','new_colleague'),
                        (r'^colleague/(?P<coll_id>\d+)/research/$', 'colleague_research'),

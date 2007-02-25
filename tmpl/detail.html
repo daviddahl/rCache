@@ -4,7 +4,6 @@ rCache.com - Detail
 {% endblock %}
 {% block body %}
 <body>
-<a name="top"></a>
 {% endblock %}
 {% block content %}
 {% include "nav.html" %}
@@ -16,16 +15,14 @@ rCache.com - Detail
   {% endif %}
   
   <span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span>
-  {% if back_lnk %}
-  <a class="button" href="{{ back_lnk }}">Back to Results</a>
-  {% endif %}
 <h2><a href="{{ e.entry_url }}" title="Original URL: {{ e.entry_url }}" target="_new">{{ e.entry_name }}</a></h2>
 </div>
 <div id="detail_tags">
-  <span>Tags</span> &nbsp; 
-{% for tag in tags %}
-<a href="/tag/?tg={{ tag|urlencode }}" title="Filter your research by tag: {{ tag }}">{{ tag }}</a> &nbsp;
-{% endfor %}
+  <strong>Tags</strong> &nbsp; 
+  {% for tag in tags %}
+<a href="/tag/?tg={{ tag|urlencode }}" title="Filter your research by tag: {{ tag }}">{{ tag }}</a> &nbsp; 
+  {% endfor %}
+   &nbsp; &nbsp; &nbsp; 
   {% if coll_render %}
   {% else %}
  <a href="/edit/{{ e.id }}/" title="Edit this entry" class="button">Edit</a>
@@ -33,6 +30,9 @@ rCache.com - Detail
   {% endif %}
   <a href="#links" title="Extracted Links" class="button">Links</a>
   <a href="#imgs" title="Extracted Images" class="button">Images</a>
+  {% if back_lnk %}
+  <a class="button" href="{{ back_lnk }}">Back</a>
+  {% endif %}
 </div>
 
 <div id="detail_entry_text_long">
@@ -41,14 +41,16 @@ rCache.com - Detail
 </div>
 </div>
 
-{% if links_len %}
+
+
+<a name="links"></a>
 <div id="detail_links_header">
-  <a name="links"></a>
   <ul>
-    <li>Extracted Links</li>
-    <li><a href="#top" class="button">Back to Top</a></li>
+    <li><strong>Extracted Links</strong></li>
+    <li><a href="#top">Back to Top</a></li>
   </ul>
 </div>
+{% if links_len %}
 <div id="detail_links">
   <table id="link_table" cellspacing="0" cellpadding="0" border="0">
     {% for link in links %}
@@ -60,14 +62,24 @@ rCache.com - Detail
     {% endfor %}
   </table>
 </div>
+{% else %}
+<div class="notice_message"><h4>No Links Extracted</h4></div>
 {% endif %}
+<a name="imgs"></a>
+<div id="detail_imgs_header">
+  <ul>
+    <li><strong>Extracted Images</strong></li>
+    <li><a href="#top">Back to Top</a></li>
+  </ul>
+</div>
 {% if imgs_len %}
-<div id="detail_imgs_header"><h3>Extracted Images</h3></div>
 <div id="detail_imgs">
 {% for img in imgs %}
   <img src="{{ img.path }}" title="an image scraped from this entry's page"/><br />
   {% endfor %}
 </div>
+{% else %}
+<div class="notice_message"><h4>No Images Extracted</h4></div>
 {% endif %}
 
 

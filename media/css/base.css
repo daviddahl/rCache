@@ -71,10 +71,16 @@ select:focus{
     width: 600px;
     background: #FFF;
     border-bottom: 1px solid #EEE;
-    padding: 0px;
+    padding-top: 1em;
+    padding-right: 0;
+    padding-bottom: 0.5em;
+    padding-left: 0.3em;
 }
 # recent_header span{
     padding:5px;
+}
+#header_cls{
+    padding:0.5em;
 }
 #header h1 {
     padding-top: 20px;
@@ -168,10 +174,7 @@ h2 {
     color: #AAA;
     font-size:1.2em;
     padding:0;
-    margin-top:0.3em;
-    margin-bottom:0;
-    margin-right:0.1em;
-    margin-left:0;
+    margin:0;
 }
 
 .text {
@@ -272,6 +275,15 @@ input{
     color: #000;
     width:500px;
     margin:5px;
+    background:#FFF;
+}
+.notice_message {
+    /*font-family: monospace;*/
+    border: 1px dotted #CC6600;
+    padding: 3px;
+    color: #000;
+    min-width:175px;
+    margin:2px;
     background:#FFF;
 }
 .instructions {
@@ -430,8 +442,14 @@ pre {
     width: 583px;
     line-height: 1.5em;
 }
+#detail_header h2{
+    padding-left: 0;
+}
 #detail_tags{
-    padding: 0.5em;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
     background: #FFF;
     width: 594px;
     border-top: 1px solid #DDD;
@@ -457,7 +475,8 @@ pre {
 }
 .entry_detail_id{
     font: bolder;
-    padding: 1em;
+    padding-top: 1em;
+    padding-left: 0;
 }
 .tr-light{
     background: #FFF;
@@ -727,22 +746,23 @@ pre {
     border: 1px solid #DDD;
     padding: 2px;
     background-color:#FFF;
-    overflow: scroll;
-    height: 200px;
+    overflow: auto;
+    height: 400px;
     width: 600px;
 }
 #detail_links {
     border: 1px solid #DDD;
     padding: 2px;
     background-color:#FFF;
-    overflow: scroll;
+    overflow: auto;
     height: 100px;
     width: 600px;
 }
 #detail_links_header {
-    border-top: 1px solid #DDD;
+    border-top: 1px solid #AAA;
+    border-bottom: 1px solid #AAA;
     padding: 1px;
-    background-color:#FFF;
+    background-color:#EEE;
     overflow: none;
     min-height: 1.9em;
     max-height: 1.9em;
@@ -760,14 +780,32 @@ pre {
     padding-right:200px;
 }
 #detail_imgs_header {
-    border-top: 1px solid #DDD;
+    border-top: 1px solid #AAA;
+    border-bottom: 1px solid #AAA;
     padding: 1px;
-    background-color:#FFF;
+    background-color:#EEE;
     overflow: none;
-    min-height: 1.5em;
-    max-height: 1.5em;
+    min-height: 1.9em;
+    max-height: 1.9em;
     min-width: 600px;
 }
+
+
+#detail_imgs_header ul {
+    padding-bottom:0;
+    padding-right:0;
+    padding-left:0;
+    padding-top:2px;
+    margin:0;
+}
+#detail_imgs_header li {
+    display: inline;
+    padding-right:200px;
+}
+
+
+
+
 #results_detail {
     border-top: 1px solid #DDD;
     border-left:1px solid #DDD;
@@ -1000,7 +1038,23 @@ textarea{
 .bold_header{
     font-weight:bolder;
 }
-
+.rss{
+    background:#FF8000;
+    border:1px solid #555;
+    color: #FFF;
+    font-style:bold;
+    padding-right:0.4em;
+    padding-left:0.4em;
+    padding-top:0.1em;
+    padding-bottom:0.1em;
+    margin:0.5em;
+    text-decoration:none;
+}
+.rss:hover{
+    color:#FFF;
+    border-bottom:1px solid #000;
+    border-right:1px solid #000;
+}
 .button{
     background: #EEE;
     border: 1px solid #AAA;
@@ -1170,10 +1224,10 @@ textarea{
 }
 #text_content{
     max-width:40em; 
-    max-height:15em;
+    max-height:30em;
     min-width:40em;
-    min-height:15em;
-    padding:2px;
+    min-height:30em;
+    padding:3px;
     background:#EEE;
 }
 #text_content:focus{

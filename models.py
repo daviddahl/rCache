@@ -126,6 +126,9 @@ class Entry(models.Model):
     def __str__(self):
         return self.entry_name
 
+    def get_absolute_url(self):
+        return "/detail/%s/" % self.id
+    
     def fulltxt(self,_user,kw):
         """Fulltext search on Entries sorted by relevence"""
         from django.db import connection

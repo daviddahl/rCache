@@ -15,6 +15,7 @@ from django import forms
 from django.utils import simplejson
 from django.core.validators import email_re
 from django.core.mail import send_mail
+from django.contrib.syndication import feeds
 
 from account.views import hash_key
 import antiword
@@ -31,7 +32,7 @@ except:
     pass
 
 from rcache.models import *
-
+search_refer = re.compile("/search/$")
 class LoginError(Exception):
     pass
 
@@ -524,6 +525,10 @@ def colleague_research_detail(request,coll_id,entry_id):
                 back_lnk = referer
             else:
                 back_lnk = None
+                
+            if search_refer.search(referer):
+                back_lnk = None
+                    
             return render_to_response('detail.html',
                                       {'entry':e,
                                        'imgs':imgs,
@@ -547,6 +552,7 @@ def recent(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
         e = Entry.objects.filter(user=u).order_by('-id')[:50]
+        #request.session['back_lnk'] = 
         return render_to_response('recent.html',
                                   {'entries':e,
                                    'user':u})
@@ -597,7 +603,17 @@ def detail(request,entry_id):
                  entry_txt_id = 'detail_entry_text_long'
             else:
                 entry_txt_id = 'detail_entry_text'
+
+            from django import http
+            domain = http.get_host(request)
+            referer = request.META.get('HTTP_REFERER', None)
+            is_internal = internal_request(domain, referer)
+            if is_internal:
+                back_lnk = None
                 
+            else:
+                back_lnk = None    
+
             return render_to_response('detail.html',
                                       {'entry':e,
                                        'imgs':imgs,
@@ -607,6 +623,7 @@ def detail(request,entry_id):
                                        'imgs_len':imgs_len,
                                        'entry_txt_id':entry_txt_id,
                                        'edit_buttons':True,
+                                       'back_lnk':back_lnk,
                                        'user':u})
         except Exception,e:
             #need to log exception
@@ -1323,4 +1340,31 @@ def approve_user(user_id,passwd):
         print "User %s password created!" % u.login
     except Exception, e:
         print e
+
     
+def feed(request, url, feed_dict=None):
+    if login_check(request):
+        if not feed_dict:
+            raise Http404, "No feeds are registered."
+
+        try:
+            slug, param = url.split('/', 1)
+        except ValueError:
+            slug, param = url, ''
+
+        try:
+            f = feed_dict[slug]
+        except KeyError:
+            raise Http404, "Slug %r isn't registered." % slug
+
+        try:
+            feedgen = f(slug, request).get_feed(param)
+        except feeds.FeedDoesNotExist:
+            raise Http404, "Invalid feed parameters. Slug %r is valid, but other parameters, or lack thereof, are not." % slug
+
+        response = HttpResponse(mimetype=feedgen.mime_type)
+        feedgen.write(response, 'utf-8')
+        return response
+    else:
+        #fixme: make this a feed with a url to login
+        return HttpResponseRedirect("/login_required/")

@@ -10,7 +10,7 @@ rCache.com -
 <div id="detail_wrapper">
 {% for e in entry %}
 <div id="detail_header">
-  <span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span>
+  <span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span> &nbsp; &nbsp; &nbsp;
   <a href="/detail/{{ e.id }}/" title="Cancel editing" class="button">Cancel</a>
 </div>
 <div id="detail_entry_text" style="min-height:650px;">
