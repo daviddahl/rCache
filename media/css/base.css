@@ -462,8 +462,8 @@ pre {
 #detail_tags{
     padding-top: 0.7em;
     padding-bottom: 0.7em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
     background: #FFF;
     width: 594px;
     border-top: 1px solid #DDD;
@@ -732,7 +732,7 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 550px;
-    width: 600px;
+    width: 605px;
 }
 #detail_activation {
     border: none;
