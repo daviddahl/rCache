@@ -197,19 +197,6 @@ class Media(models.Model):
     class Admin:
         list_display = ('entry','path','date_created')  
     
-class Snippet(models.Model):
-    user = models.ForeignKey(User)
-    entry = models.ForeignKey(Entry)
-    date_created = models.DateTimeField(null=True, blank=True)
-    active = models.IntegerField(null=True, blank=True)
-    snippet = models.TextField(blank=True)
-    def __str__(self):
-        return self.snippet
-    class Meta:
-        db_table = 'snippet'
-    class Admin:
-        list_display = ('snippet','user','entry')
-    
 class TagGroup(models.Model):
     tag = models.ForeignKey(Tag)
     group_name = models.CharField(blank=True, maxlength=300)
@@ -276,3 +263,28 @@ class Colleague(models.Model):
     
 ##     class Admin:
 ##         pass 
+
+class Snippet(models.Model):
+    user = models.ForeignKey(User)
+    entry = models.ForeignKey(Entry)
+    date_created = models.DateTimeField(null=True, blank=True)
+    active = models.IntegerField(null=True, blank=True)
+    snippet = models.TextField(blank=True)
+    def __str__(self):
+        return self.snippet
+    class Meta:
+        db_table = 'snippet'
+    class Admin:
+        list_display = ('snippet','user','entry') 
+
+class Commentary(models.Model):
+    """Commentary has a one to one relationship with Entry."""
+    pass
+
+class Comment(models.Model):
+    """Comments are related to commentary and Snippits"""
+    pass
+
+class Folio(models.Model):
+    """A Folio is a group of Commentaries you want to share with colleagues or publish out to a web page or blogging software or white paper/research paper"""
+    pass

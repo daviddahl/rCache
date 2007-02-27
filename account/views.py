@@ -14,6 +14,7 @@ from django import forms
 from django.utils import simplejson
 from django.core.validators import email_re
 from django.core.mail import send_mail
+from django.core.mail import send_mass_mail
 
 from rcache.models import *
 
@@ -328,3 +329,20 @@ def password_change(request):
                 return HttpResponseRedirect("/accounts/err/?e=HKPASSWD_DOES_NOT_EXIST")
         else:
             return HttpResponseRedirect("/accounts/err/?e=HKPASSWD_DOES_NOT_EXIST")
+
+def send_update_email(msg):
+    """get all user email addresses and send an update message to them"""
+    #users = User.objects.all()
+    users = [{'login':'david@ddahl.com'},
+             {'login':'deezthugs@gmail.com'}]
+    user_lst =[]
+    for user in users:
+        user_lst.append(user.login)
+        
+    dtup = ("rCache software update message",
+            msg,
+            "admin@rcache.com",
+            user_lst,)
+    
+    send_mass_mail(dtup, fail_silently=False,
+                   auth_user=None, auth_password=None)

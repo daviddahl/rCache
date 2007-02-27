@@ -11,17 +11,11 @@ rCache - Colleague Research
     <h1>You are not a colleague of {{ colleague.login }}</h1>
     {% else %}
     <h3>Colleague Research: {{ colleague.login }}</h3>
-    <h4>Your status as a colleague of {{ colleague.login }} is {{ active_txt }}</h4>
+    <h4 class="notice_message">Your status as a colleague of {{ colleague.login }} is {{ active_txt }}</h4>
     {% endif %}
     {% if initial_state_txt %}
     <div id="message">{{ initial_state_txt }}</div>
     {% endif %}
-  <div id="colleague_commentary">
-    <h4>Commentary</h4>
-    Commentary - Coming soon.
-    <br />
-    You will be able to extract snippits of your colleague's entries and annotate them with commentary.
-  </div>
   {% if user_colleague_record.tag_restrictions %}
   <div id="colleague_research_tags">
     <h4>Tags</h4>

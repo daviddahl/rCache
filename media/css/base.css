@@ -2,9 +2,10 @@ body {
     font:11px 'trebuchet ms', verdana, sans-serif;
     line-height: 1em;
     background-color: #CCC;
-    margin-top: 1em;
-    margin-left: 1em;
-    margin-bottom: 0em;
+    margin:0;
+    padding:0;
+    vertical-align : middle;
+    text-align : center;
 }
 table {
     /*border: 1px solid #CCC;*/
@@ -120,8 +121,21 @@ select:focus{
     border: 1px #DDD solid;
 }
 #wrapper{
-    padding:0px;
-    margin: 0px;
+    text-align:left;
+    padding:0;
+    margin: 2em auto;
+    width:622px;
+}
+.home-title {
+    margin-bottom: 1em;
+    float:left;
+    background:#FFF;
+}
+#footer{
+    text-align:left;
+    padding:0;
+    margin: 0 auto;
+    width:605px;
 }
 #detail_wrapper{
     padding:0px;
@@ -722,7 +736,7 @@ pre {
 }
 #detail_activation {
     border: none;
-    padding: 10px;
+    padding: 0;
     background-color:#FFF;
     overflow: auto;
     height: 550px;
@@ -892,6 +906,42 @@ br {
 textarea{
    /*font-family: monospace; */
 }
+#pub-menu {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    width: 600px;
+    display: block;
+    clear: left;
+}
+#pub-menu ul{
+    margin: 0px 0px 3px 5px;
+    padding: 0px 0px 0px 0px;
+}
+#pub-menu li {
+    display: inline; 
+    padding: 0.1em;
+    background: #FFF;
+    font-size:1em;
+    border-top: 2px solid #FFF;
+    border-right: 2px solid #FFF;
+    border-bottom: 2px solid #FFF;
+}
+
+#pub-menu li:hover {
+    /*border-bottom: 2px solid #CC6600;
+    border-right: 2px solid #CC6600;*/
+}
+#pub-menu li a {
+    text-decoration: none;
+    padding: 0.4em;
+}
+#pub-menu li a:hover {
+    color: #CC6600;
+    text-decoration: underline;
+}
+
+
 #nav{
     padding: 0px;
     margin: 0px;
@@ -1042,7 +1092,8 @@ textarea{
     background:#FF8000;
     border:1px solid #555;
     color: #FFF;
-    font-style:bold;
+    font-style:normal;
+    font-size: 0.9em;
     padding-right:0.4em;
     padding-left:0.4em;
     padding-top:0.1em;
@@ -1214,6 +1265,11 @@ textarea{
 }
 .logo{
     padding:1.2em;
+}
+#dashboard_wrapper{
+    background:#FFF;
+    padding:1em;
+    border: 1px solid #555;
 }
 #dashboard_wrapper td{
     padding: .3em;
