@@ -411,7 +411,7 @@ textarea:active {
     background-color:#FFF;
 }
 #firefox_boundry ul{
- list-style-type: decimal;   
+ list-style-type: square;   
 }
 #firefox_boundry img{
     border: none;

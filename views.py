@@ -1368,3 +1368,6 @@ def feed(request, url, feed_dict=None):
     else:
         #fixme: make this a feed with a url to login
         return HttpResponseRedirect("/login_required/")
+
+def server(request):
+    return render_to_response('server.html',dict())
