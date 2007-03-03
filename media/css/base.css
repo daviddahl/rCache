@@ -69,7 +69,7 @@ select:focus{
     padding:5px;
 }
 #recent_header{
-    width: 600px;
+    width: 700px;
     background: #FFF;
     border-bottom: 1px solid #EEE;
     padding-top: 1em;
@@ -124,7 +124,7 @@ select:focus{
     text-align:left;
     padding:0;
     margin: 2em auto;
-    width:622px;
+    width:722px;
 }
 .home-title {
     margin-bottom: 1em;
@@ -135,7 +135,7 @@ select:focus{
     text-align:left;
     padding:0;
     margin: 0 auto;
-    width:605px;
+    width:705px;
 }
 #detail_wrapper{
     padding:0px;
@@ -166,7 +166,7 @@ select:focus{
     border-top: 1px solid #EEE;
     border-left:1px solid #EEE;
     border-right: 1px solid #EEE;
-    width: 588px;
+    width: 688px;
 }
 #my_account_menu{
     padding: 5px;
@@ -387,7 +387,7 @@ textarea:active {
     border-width: 0px;
     border: 1px solid #AAA;
     padding: 1em;
-    width:600px;
+    width:700px;
     min-height:500px;
     background-color:#FFF;
 }
@@ -414,7 +414,7 @@ textarea:active {
     border-width: 0px;
     border: 1px solid #AAA;
     padding: 1em;
-    width:600px;
+    width:700px;
     min-height:500px;
     background-color:#FFF;
 }
@@ -434,7 +434,7 @@ textarea:active {
     border-width: 0px;
     padding: 5px;
     height: 640px;
-    width: 640px;
+    width: 740px;
     background-color:#FFF;
     border-right: 1px solid #BBB;
     border-left:1px solid #BBB;
@@ -445,7 +445,7 @@ textarea:active {
     border-width: 0px;
     padding: 5px;
     height: 570px;
-    width: 640px;
+    width: 740px;
     background-color:#FFF;
     overflow: auto;
 }
@@ -461,7 +461,7 @@ pre {
 #detail_header{
     padding: 0.8em;
     background: #FFF;
-    width: 583px;
+    width: 683px;
     line-height: 1.5em;
 }
 #detail_header h2{
@@ -473,7 +473,7 @@ pre {
     padding-left: 0.4em;
     padding-right: 0.4em;
     background: #FFF;
-    width: 594px;
+    width: 694px;
     border-top: 1px solid #DDD;
     border-bottom: 1px solid #DDD;
 }
@@ -507,11 +507,11 @@ pre {
     background: #EEE;
 }
 #link_table {
-    width:583px;
+    width:683px;
 }
 #text_content_boundry {
     padding: 10px 50px 50px 50px;
-    width: 400px;
+    width: 500px;
     min-height:500px;
     background-color:#FFF;
     overflow: visible;
@@ -536,7 +536,7 @@ pre {
 }
 #entries_content_boundry {
     padding: 0px 0px 0px 0px;
-    width: 580px;
+    width: 680px;
     height:580px;
     background-color:#EEE;
     overflow:hidden;
@@ -551,7 +551,7 @@ pre {
     border-right: 1px solid #DDD;
     border-bottom: 0px;
     padding: 2px;
-    width: 600px;
+    width: 700px;
     background-color:#FFF;
     overflow: auto;
     height:100px;
@@ -615,7 +615,7 @@ pre {
     border-right: 1px solid #DDD;
     border-bottom:0px;
     padding: 2px;
-    width:600px;
+    width:700px;
     height:100px;
 }
 .summary_show{
@@ -636,7 +636,7 @@ pre {
     border-bottom: 1px solid #EEE;
     padding: 4px;
     height: 500px;
-    width: 600px;
+    width: 700px;
     background-color:#FFF;
     overflow: auto;
 }
@@ -647,7 +647,7 @@ pre {
     border-right: 1px solid #EEE;
     border-bottom: 1px solid #EEE;
     padding: 6px;
-    width: 600px;
+    width: 700px;
     background-color:#FFF;
     overflow: auto;
 }
@@ -659,7 +659,7 @@ pre {
     border-bottom: 1px solid #EEE;
     padding: 4px;
     height: 450px;
-    width: 600px;
+    width: 700px;
     background-color:#FFF;
     overflow: auto;
 }
@@ -669,7 +669,7 @@ pre {
     border-left:1px solid #EEE;
     border-right: 1px solid #EEE;
     border-bottom: 1px solid #EEE;
-    width: 600px;
+    width: 700px;
     background-color:#FFF;
     overflow: hidden;
 }
@@ -681,7 +681,7 @@ pre {
     border-bottom: 1px solid #EEE;
     padding: 2px;
     height: 400px;
-    width: 600px;
+    width: 700px;
     background-color:#FFF;
     overflow: auto;
 }
@@ -693,7 +693,7 @@ pre {
     border-bottom: 1px solid #DDD;
     padding: 2px;
     height: 450px;
-    width: 600px;
+    width: 700px;
     background-color:#FFF;
     overflow: auto;
 }
@@ -716,7 +716,7 @@ pre {
     background-color:#FFF;
     overflow: auto;
     min-height: 500px;
-    width: 600px;
+    width: 700px;
 }
 #detail_entry_text {
     border: none;
@@ -724,7 +724,7 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 300px;
-    width: 600px;
+    width: 700px;
 }
 #detail_entry_text_long {
     border: none;
@@ -732,7 +732,7 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 500px;
-    width: 600px;
+    width: 700px;
 }
 #detail_new_entry {
     border: none;
@@ -740,7 +740,7 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 550px;
-    width: 605px;
+    width: 705px;
 }
 #detail_activation {
     border: none;
@@ -748,7 +748,7 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 550px;
-    width: 600px;
+    width: 700px;
 }
 #detail_search {
     border: none;
@@ -756,13 +756,13 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 550px;
-    width: 600px;
+    width: 700px;
 }
 #detail_wrapper {
     border: 1px solid #AAA;
     padding: 0px;
     margin:0px;
-    width: 605px;
+    width: 705px;
 }
 #detail_imgs {
     border: 1px solid #DDD;
@@ -770,7 +770,7 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 400px;
-    width: 600px;
+    width: 700px;
 }
 #detail_links {
     border: 1px solid #DDD;
@@ -778,7 +778,7 @@ pre {
     background-color:#FFF;
     overflow: auto;
     height: 100px;
-    width: 600px;
+    width: 700px;
 }
 #detail_links_header {
     border-top: 1px solid #AAA;
@@ -788,7 +788,7 @@ pre {
     overflow: none;
     min-height: 1.9em;
     max-height: 1.9em;
-    min-width: 600px;
+    min-width: 700px;
 }
 #detail_links_header ul {
     padding-bottom:0;
@@ -809,7 +809,7 @@ pre {
     overflow: none;
     min-height: 1.9em;
     max-height: 1.9em;
-    min-width: 600px;
+    min-width: 700px;
 }
 
 
@@ -836,7 +836,7 @@ pre {
     padding: 0px;
     background-color:#FFF;
     overflow: auto;
-    width: 600px;
+    width: 700px;
     height:400px;
 }
 #delete_detail {
@@ -859,7 +859,7 @@ pre {
     background-color:#FFF;
     overflow: scroll;
     height: 475px;
-    width: 600px;
+    width: 700px;
 }
 #toolbar {
     border-top: 1px solid #DDD;
@@ -868,7 +868,7 @@ pre {
     border-bottom:0px;
     padding: 2px;
     background-color:#FFF;
-    width: 600px;
+    width: 700px;
 }
 #compact_list {
     padding: 1px;
@@ -918,7 +918,7 @@ textarea{
     padding: 0px;
     margin: 0px;
     list-style: none;
-    width: 600px;
+    width: 700px;
     display: block;
     clear: left;
 }
@@ -954,7 +954,7 @@ textarea{
     padding: 0px;
     margin: 0px;
     list-style: none;
-    width: 600px;
+    width: 700px;
     display: block;
 }
 #nav ul{
@@ -999,7 +999,7 @@ textarea{
     padding: 5px 10px 3px 3px;
     margin: 0px 0px 0px 0px;
     list-style: none;
-    width: 600px;
+    width: 700px;
     display: block;
     
 }
@@ -1074,7 +1074,7 @@ textarea{
     border-bottom:  1px solid #EEE;
     border-left:  1px solid #EEE;
     border-right:  1px solid #EEE;
-    width: 588px;
+    width: 688px;
 }
 #recent_grid tr{
     padding: 0px 0px 0px 0px;
@@ -1087,7 +1087,7 @@ textarea{
 }
 #search_results_grid{
     padding: 0px;
-    width:605px;
+    width:705px;
     height: 600px;
     overflow: auto;
     
@@ -1283,7 +1283,7 @@ textarea{
     padding: .3em;
 }
 #dashboard_wrapper table{
-    width: 600px;
+    width: 700px;
     border: 1px solid #AAA;
 }
 #text_content{
