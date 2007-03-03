@@ -1155,11 +1155,11 @@ textarea{
 
 .the_lists{
     background: #FFC;
-    padding: 10px;
-    margin: 10px;
+    padding: 1em;
+    margin: 1em;
     border: 1px dashed #DDD;
     line-height: 1.7em;
-    font-size:1.2em;
+    font-size:1em;
 }
 
 #filter-menu{
