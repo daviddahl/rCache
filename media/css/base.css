@@ -391,6 +391,14 @@ textarea:active {
     min-height:500px;
     background-color:#FFF;
 }
+#movie-list{
+    font-size:1.3em;
+}
+
+#movie-list li{
+    padding: 0.4em;
+}
+
 #login_boundry .message{
     min-height:300px;
 }
