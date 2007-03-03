@@ -33,18 +33,12 @@ except:
 
 from rcache.models import *
 search_refer = re.compile("/search/$")
+
 class LoginError(Exception):
     pass
 
 def index(request):
-    if request.POST:
-        post = []
-        for (k,v) in request.POST.items():
-            post.append(k,v)
-    else:
-        post = ['GET','No POST']
-        
-    return render_to_response('index.html',{'p':post})
+    return render_to_response('index.html',{})
 
 def bookmarklet(request):
     return render_to_response('bookmarklet.html',dict())
