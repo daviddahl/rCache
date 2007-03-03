@@ -413,9 +413,9 @@ pre {
     padding-left: 0;
 }
 #detail_tags{
-    padding: 0.5em 0.6em 0.5em 0.2em;
+    padding: 0.5em 0.5em 0.7em 0.7em;
     background: #FFF;
-    width: 98%;
+    width: 97%;
     border-top: 1px solid #DDD;
     border-bottom: 1px solid #DDD;
 }
