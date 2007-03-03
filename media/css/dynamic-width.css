@@ -696,8 +696,8 @@ pre {
     padding: 0.2em;
     background-color:#FFF;
     overflow: auto;
-    min-height: 50%;
-    width: 100%;
+    min-height: 400px;
+    width: 98%;
 }
 #detail_wrapper {
     border: 1px solid #AAA;
