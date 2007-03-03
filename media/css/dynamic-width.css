@@ -665,7 +665,7 @@ pre {
     background-color:#FFF;
     overflow: auto;
     min-height: 30%;
-    width: 80%;
+    width: 98%;
 }
 #detail_entry_text_long {
     border: none;
@@ -838,7 +838,7 @@ textarea{
     padding: 0px;
     margin: 0px;
     list-style: none;
-    width: 80%;
+    width: 100%;
     display: block;
     clear: left;
 }
@@ -888,7 +888,7 @@ textarea{
     border-top:  1px solid #AAA;
     border-left: 1px solid #AAA;
     border-right:  1px solid #AAA;
-    font-size:1.1em;
+    font-size:1em;
 }
 #nav li a {
     text-decoration: none;
@@ -996,7 +996,7 @@ textarea{
 #search_results_grid{
     padding: 0px;
     width:100%;
-    min-height: 50%;
+    min-height: 400px;
     overflow: auto;
     
     border: none;
