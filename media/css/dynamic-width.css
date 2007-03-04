@@ -680,7 +680,7 @@ pre {
     padding: 0.2em;
     background-color:#FFF;
     overflow: auto;
-    min-height: 50%;
+    max-height: 450px;
     width: 98%;
 }
 #detail_activation {
