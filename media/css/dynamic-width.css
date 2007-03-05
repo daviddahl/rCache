@@ -47,19 +47,15 @@ h2 a{
     text-decoration:none;
 }
 select{
-    font:0.9em 'trebuchet ms', verdana, sans-serif;
-    /*font-family: monospace;*/
+    font:1em 'trebuchet ms', verdana, sans-serif;
     color:#000;
     background-color:#EEE;
     margin: 0.5em;
-    padding: 0.1em;
+    padding: 0.2em;
     
 }
 select:focus{
-    font:0.9em 'trebuchet ms', verdana, sans-serif;
-    color:#000;
     background-color:#DDD;
-
 }
 #header {
     height: 4em;
@@ -231,10 +227,10 @@ form {
 }
 input{
     /*font-family: monospace;*/
-    font:0.9em 'trebuchet ms', verdana, sans-serif;
+    font:1em 'trebuchet ms', verdana, sans-serif;
     border: 1px solid #BBB;
     background-color:#EEE;
-    padding: 0.1em;
+    padding: 0.2em;
     color: #000;
     margin:0.5em;
     
@@ -318,7 +314,7 @@ input:focus {
 }
 
 textarea {
-    font:0.9em 'trebuchet ms', verdana, sans-serif;
+    font:1em 'trebuchet ms', verdana, sans-serif;
     border: 1px solid #BBB;
     background-color:#EEE;
     padding: 0.2em;
