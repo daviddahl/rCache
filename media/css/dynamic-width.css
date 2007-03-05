@@ -865,6 +865,17 @@ textarea{
     text-decoration: underline;
 }
 
+.pseudo-logo{
+    padding:0; 
+    margin:0.8em; 
+    border: none; 
+    background: #CCC; 
+    color:#CC6600; 
+    font-size:1.3em; 
+    font-style: oblique; 
+    font-family: Georgia, Verdana serif;
+    border-style:none;
+}
 
 #nav{
     padding: 0;
@@ -874,14 +885,15 @@ textarea{
     display: block;
 }
 #nav ul{
-    margin: 0 0 0.4em 1em;
+    margin: 0 0 0.3em 1em;
     padding: 0;
 }
 #nav li {
     display: inline; 
     padding: 0.4em;
     background: #EEE;
-    border-top:  1px solid #AAA;
+    border-top:  1px solid #AAA;    
+    border-bottom: none;
     border-left: 1px solid #AAA;
     border-right:  1px solid #AAA;
     font-size:1em;
