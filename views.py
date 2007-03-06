@@ -7,6 +7,7 @@ import urllib
 import copy
 import time
 from urlparse import urlparse
+from cgi import escape
 
 from django.http import Http404,HttpResponse,HttpResponseRedirect
 from django.template import Context, loader
@@ -584,6 +585,7 @@ def detail(request,entry_id):
         try:
             u = User.objects.get(id=request.session['userid'])
             e = Entry.objects.filter(user=u,id__exact=entry_id)
+            escaped_text_content = escape(e[0].text_content)
             imgs = Media.objects.filter(entry__exact=e[0])
             links = EntryUrl.objects.filter(entry__exact=e[0])
             tags = Tag.objects.filter(entry__exact=e[0])
@@ -610,6 +612,7 @@ def detail(request,entry_id):
 
             return render_to_response('detail.html',
                                       {'entry':e,
+                                       'escaped_text_content':escaped_text_content,
                                        'imgs':imgs,
                                        'links':links,
                                        'links_len':links_len,

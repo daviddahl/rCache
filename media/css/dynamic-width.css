@@ -1036,6 +1036,7 @@ textarea{
 /*    float: left; */
     text-decoration:none;
     min-width: 6em;
+    font-size:0.9em;
 }
 .button a{
     text-align:center;
