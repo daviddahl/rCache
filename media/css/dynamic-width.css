@@ -48,7 +48,7 @@ h2 a{
 }
 select{
     /*font:1em 'trebuchet ms', verdana, sans-serif;*/
-    font:'Lucida Grande',sans-serif;
+    font: 0.9em 'Lucida Grande',sans-serif;
     color:#000;
     background-color:#EEE;
     margin: 0.5em;
