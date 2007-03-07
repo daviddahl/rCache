@@ -1,5 +1,5 @@
 body {
-    font:0.9em 'trebuchet ms', verdana, sans-serif;
+    font: 0.9em 'Lucida Grande',sans-serif;
     line-height: 1.2em;
     background-color: #CCC;
     margin:0;
@@ -95,7 +95,7 @@ select:focus{
 
 }
 .font_read_normal{
-    font:11px 'trebuchet ms', verdana, sans-serif;
+    font: 0.9em 'Lucida Grande',sans-serif;
     line-height: 1em;
     padding:0.4em;
     text-decoration:none;
@@ -227,7 +227,7 @@ form {
 }
 input{
     /*font-family: monospace;*/
-    font:1em 'trebuchet ms', verdana, sans-serif;
+    font: 0.9em 'Lucida Grande',sans-serif;
     border: 1px solid #BBB;
     background-color:#EEE;
     padding: 0.2em;
@@ -314,7 +314,7 @@ input:focus {
 }
 
 textarea {
-    font:1em 'trebuchet ms', verdana, sans-serif;
+    font: 0.9em 'Lucida Grande',sans-serif;
     border: 1px solid #BBB;
     background-color:#EEE;
     padding: 0.2em;
