@@ -504,6 +504,7 @@ def colleague_research_detail(request,coll_id,entry_id):
             #so far so good
             colleague = User.objects.get(id=coll_id)
             e = Entry.objects.filter(user=colleague,id__exact=entry_id)
+            escaped_text_content = escape(e[0].text_content)
             imgs = Media.objects.filter(entry__exact=e[0])
             links = EntryUrl.objects.filter(entry__exact=e[0])
             tags = Tag.objects.filter(entry__exact=e[0])
@@ -532,7 +533,8 @@ def colleague_research_detail(request,coll_id,entry_id):
                                        'user':u,
                                        'colleague':colleague,
                                        'coll_render':True,
-                                       'back_lnk':back_lnk})
+                                       'back_lnk':back_lnk,
+                                       'escaped_text_content':escaped_text_content})
         else:
             m = "Error fetching entry. Could not determine Query Type."
             return render_to_response('colleague_err.html',
