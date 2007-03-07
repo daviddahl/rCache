@@ -706,7 +706,8 @@ pre {
     padding: 0.2em;
     background-color:#FFF;
     overflow: auto;
-    min-height: 30%;
+    max-height: 40em;
+    min-height:15em;
     width: 98%;
 }
 #detail_links {
@@ -714,7 +715,8 @@ pre {
     padding: 0.2em;
     background-color:#FFF;
     overflow: auto;
-    min-height: 30%;
+    max-height: 12em;
+    min-height:8em;
     width: 98%;
 }
 #detail_links_header {
