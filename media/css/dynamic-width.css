@@ -8,7 +8,6 @@ body {
     text-align : center;
 }
 table {
-    /*border: 1px solid #CCC;*/
     padding: 0;
     background-color:#FFF;
 }
@@ -759,13 +758,11 @@ pre {
     padding-top:0.2em;
     margin:0;
 }
+
 #detail_imgs_header li {
     display: inline;
     padding-right:20%;
 }
-
-
-
 
 #results_detail {
     border-top: 1px solid #DDD;
@@ -1202,7 +1199,7 @@ textarea{
     padding: .3em;
 }
 #dashboard_wrapper table{
-    width: 80%;
+    width: 100%;
     border: 1px solid #AAA;
 }
 #text_content{
@@ -1261,4 +1258,14 @@ textarea{
     max-height: 40%;
     overflow: auto;
     line-height:1.4em;
+}
+
+.dash-wrap{
+    min-height: 5em;
+    max-height: 20em;
+    overflow: auto;
+    width:100%;
+}
+.user-tbl{
+    width: 100%;
 }

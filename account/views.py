@@ -52,9 +52,10 @@ def dashboard(request):
     """Display grid of inactive applied for users and a grid of currently active users. Sort by number of entries. allow admin to select an inactive user and activate them. an email is sent out with a link. once clicked user is brought back to rcache to enter and confirm his or her password."""
     if request.user.is_authenticated():
         # Do something for authenticated users.
-        new_users = User.objects.filter(password__exact='')
-        users = User.objects.filter(active__exact=1)
-        users_in_limbo = User.objects.filter(password__exact='no passwd yet')
+        new_users = User.objects.filter(password__exact='').order_by('-id')
+        users = User.objects.filter(active__exact=1).order_by('-id')
+        users_in_limbo = User.objects.filter(password__exact='no passwd yet').order_by('-id')
+        #count = entry.entry_count(user_id)
         return render_to_response('dashboard.html',
                                   {'users':users,
                                    'new_users':new_users,
@@ -79,8 +80,7 @@ def activation_yes(request,user_id):
             hk = hash_key(user)
 
             evt = UserEvent(user=user,
-                            hash_key=hk,
-                            event_type='Accept Account')
+                            hash_key=hk,                            event_type='Accept Account')
             evt.save()
             #send_email
             msg = """Dear %s,\n\nThank you for applying for an rCache account. It is ready to use. Please click on this link to activate:\n\nhttps://collect.rcache.com/accounts/activate/?hk=%s\n\nBest Regards,\n\nrCache Activation Bot\n\n\nrCache.com: your personal search repository""" \

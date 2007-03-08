@@ -1,6 +1,5 @@
 import os
 from django.conf.urls.defaults import *
-from django.conf.urls.defaults import *
 from rcache.rss import LatestEntries, LatestEntriesByTag
 
 feeds = {

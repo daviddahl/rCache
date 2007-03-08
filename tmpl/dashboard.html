@@ -13,8 +13,8 @@ rCache - Accounts - Dashboard
    <div><h1>New Users</h1></div>
     {% endblock %}
   </div>
-<div>
-  <table id="new_users" cellspacing="0" cellpadding="0" border="0">
+<div class="dash-wrap">
+  <table class="user-tbl" cellspacing="0" cellpadding="0" border="0">
     <tr class="tr-light">
       <td><strong>Login</strong></td>
       <td><strong>Application Date</strong></td>
@@ -24,7 +24,7 @@ rCache - Accounts - Dashboard
     <tr class="{% cycle tr-dark,tr-light %}">
       <td>{{ user.login }}</td>
       <td>{{ user.date_created|timesince }}</td>
-      <td><a href="/accounts/activation/{{ user.id }}/">Activation</a></td>
+      <td><a href="/accounts/activation/{{ user.id }}/yes/">Activation</a></td>
     </tr>
     {% endfor %}
   </table>
@@ -32,8 +32,8 @@ rCache - Accounts - Dashboard
 
  <div><h1>Users in Limbo</h1></div>
 
-<div>
-  <table id="users_in_limbo" cellspacing="0" cellpadding="0" border="0">
+<div class="dash-wrap">
+  <table class="user-tbl" cellspacing="0" cellpadding="0" border="0">
     <tr class="tr-light">
       <td><strong>Login</strong></td>
       <td colspan="2"><strong>Name</strong></td>
@@ -52,8 +52,8 @@ rCache - Accounts - Dashboard
 
  <div><h1>Existing Users</h1></div>
 
-<div>
-  <table id="existing_users" cellspacing="0" cellpadding="0" border="0">
+<div class="dash-wrap">
+  <table class="user-tbl" cellspacing="0" cellpadding="0" border="0">
     <tr class="tr-light">
       <td><strong>Login</strong></td>
       <td colspan="2"><strong>Name</strong></td>
