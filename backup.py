@@ -5,6 +5,8 @@ import sys
 import glob
 import time
 import gzip
+from optparse import OptionParser
+
 
 def old_backup_list(pth):
     old = []
@@ -27,9 +29,9 @@ def delete_files(pth_lst):
     for pth in pth_lst:
         os.remove(pth)
 
-def back_up_pth(pth):
+def back_up_pth(pth,ext):
     dte = str(time.strftime('%Y%m%d%H%M%S'))
-    dte += ".sql"
+    dte += ext
     return os.path.join(pth, dte)
 
 def gzip_sh(pth):
@@ -59,23 +61,51 @@ def make_backup(db,passwd,pth):
     except:
         return False
 
+def make_svn_backup(repo,pth):
+    try:
+        cmd = "svnadmin dump %s > %s" % (repo,pth,)
+        results = os.popen(cmd)
+        return True
+    except:
+        return False
+
+    
 if __name__ == '__main__':
-    #oldfiles = old_backup_list('/Users/dahl/Desktop/tmp')
-    #for old in oldfiles:
-    #    print old
-    backup_path = "/var/backups/rcache/"
+    
+    parser = OptionParser()
+    parser.add_option("-b", "--backup", dest="backup_type",
+                      help="Which backup to do: s - SVN or d - DATABASE")
+    
+    opt_args = parser.parse_args()
+    cfg = opt_args[0]
+    
+    backup_path = "/var/backups/rcache"
     if os.path.exists(backup_path):
         pass
     else:
         os.mkdir(backup_path)
-    #fixme: use env vars here!
-    db = 'rcache_dev'
-    passwd = 'uh_yeah'
-    print "starting backup..."
-    #fixme start timer
-    this_backup = back_up_pth(backup_path)
-    print "saving to %s" % this_backup
-    b = make_backup(db,passwd,this_backup)
-    print "gzipping..."
-    gzip_sh(this_backup)
-    print "done."
+
+    
+    if cfg.backup_type == 'd':
+        
+        db = os.environ['RCACHE_DB_NAME']
+        passwd = os.environ['RCACHE_DB_PASSWD']
+        print "starting database backup..."
+        this_backup = back_up_pth(backup_path,'.sql')
+        print "saving to %s" % this_backup
+        b = make_backup(db,passwd,this_backup)
+        print "gzipping..."
+        gzip_sh(this_backup)
+        print "done."
+
+    if cfg.backup_type == 's':
+        
+        print "starting SVN backup"
+        this_backup = back_up_pth(backup_path,'.dump')
+        print "saving to %s" % this_backup
+        repo = os.environ['SVN_REPO']
+        b = make_svn_backup(repo,this_backup)
+        print "gzipping..."
+        gzip_sh(this_backup)
+        print "done."
+        
