@@ -1,4 +1,8 @@
 """
+Author: David Dahl
+http://www.ddahl.com
+2007-03-20
+
 Clarify: a wrapper around several tools that convert PDF (as image) to TIFF
 Then, the TIFF is pumped through Tesseract-ocr to capture the text.
 This program was created to make it easy to text index obfuscated data contained
@@ -144,6 +148,24 @@ class Clarify(object):
         self.scrape_all(lst)
 
 
+    def images_from_pdf(self):
+        """get all images only from PDF document"""
+        #uses program: 'pdfimages' called like: pdfimages copy.pdf /tmp/extract
+        cmd = "%s %s" % ('pdfimages',self.input_file,)
+        res = os.system(cmd)
+        return res
+
+    def pdf_info(self):
+        """Get PDF Info from PDF"""
+        cmd = "%s %s" % ('pdfinfo', self.input_file,)
+        res = os.system(cmd)
+        return res
+
+    def parse_pdf_info(self):
+        """Parse pdf info into a dict"""
+
+
+    
 if __name__ == '__main__':
     
     pass
