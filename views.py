@@ -17,6 +17,7 @@ from django.utils import simplejson
 from django.core.validators import email_re
 from django.core.mail import send_mail
 from django.contrib.syndication import feeds
+from django import newforms as forms
 
 from account.views import hash_key
 import antiword
@@ -33,6 +34,8 @@ except:
     pass
 
 from rcache.models import *
+from rcache.forms import *
+
 search_refer = re.compile("/search/$")
 
 class LoginError(Exception):
@@ -1370,3 +1373,227 @@ def feed(request, url, feed_dict=None):
 
 def server(request):
     return render_to_response('server.html',dict())
+
+def commentary(request,entry_id):
+    """Lookup any existing commentary for this entry,
+    or show form to create new commentary"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.POST:
+            #create commentary object
+            posted_data = copy.deepcopy(request.POST)
+            CommForm = forms.models.form_for_model(Commentary)
+            cform = CommForm(posted_data)
+            if cform.is_valid():
+                commentary = cform.save()
+                #redirect to make snippits
+                return HttpResponseRedirect("/commentary/makesnippets/%s" \
+                                            % commentary.id)
+            else:
+                #form not valid??
+                cform.fields['user'].widget = forms.widgets.HiddenInput(attrs={'class':'hidden_input'})
+                cform.fields['entry'].widget = forms.widgets.HiddenInput(attrs={'class':'hidden_input'})
+                cform.fields['title'].widget = forms.widgets.Textarea(attrs={'cols':'60','rows':'2'})
+                cform.fields['summary'].widget = forms.widgets.Textarea(attrs={'cols':'60','rows':'4'})
+                e = Entry.objects.filter(user=u,id=request.POST['entry'])
+                tags_clean= tags_cleaned(e[0])
+                etc = escape(e[0].text_content)
+                return render_to_response('new_commentary.html',
+                                          {'user':u,
+                                           'entry':e,
+                                           'escaped_text_content':etc,
+                                           'tags':tags_clean,
+                                           'cform':cform})
+                
+        else:
+            try:
+                e = Entry.objects.filter(user=u,id=entry_id)
+                tags_clean= tags_cleaned(e[0])
+                etc = escape(e[0].text_content)
+                #lookup commentary
+                c = Commentary.objects.filter(user=u,entry=e[0])
+                if len(c) > 0:
+                    #display existing commentary
+                    return render_to_response('commentary.html',
+                                              {'user':u,
+                                               'commentary':c,
+                                               'entry':e,
+                                               'escaped_text_content':etc,})
+                else:
+                    #display form to create new commentary
+                    raise Exception("No existing commentaries")
+            except Exception,err:
+                print err
+                title = "Commentary on '%s'" % e[0].entry_name
+                initial_data = {'user':u.id,
+                                'entry':entry_id,
+                                'title':title,
+                                'summary':None}
+                cform = CommentaryForm(initial_data)
+                cform.fields['user'].widget = forms.widgets.HiddenInput(attrs={'class':'hidden_input'})
+                cform.fields['entry'].widget = forms.widgets.HiddenInput(attrs={'class':'hidden_input'})
+                cform.fields['title'].widget = forms.widgets.Textarea(attrs={'cols':'60','rows':'2'})
+                cform.fields['summary'].widget = forms.widgets.Textarea(attrs={'cols':'60','rows':'4'})
+                return render_to_response('new_commentary.html',
+                                          {'user':u,
+                                           'entry':e,
+                                           'escaped_text_content':etc,
+                                           'tags':tags_clean,
+                                           'cform':cform}) 
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def commentary_make_snippets(request,commentary_id):
+    """after initial commentary object is created - redirect here to make snippits automatically."""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        #generate snippets here
+        #get entry from commentary ID
+        comm = Commentary.objects.filter(user=u,id=commentary_id)
+        #try:
+        #split entry.text_content on '\n'
+        raw_snips = comm[0].entry.text_content.split("\n")
+        #for each non empty list item make a snippet
+        for snip in raw_snips:
+            snip.strip()
+            sortordr = 0
+            if snip:
+                sortordr += 1000
+                s = Snippet(user=u,
+                            entry=comm[0].entry,
+                            snippet=snip,
+                            sortorder=sortordr,
+                            commentary=comm[0])
+                s.save()
+        #display commentary detail page
+        return HttpResponseRedirect("/commentary/detail/%s/"\
+                                    % commentary_id)
+        
+        #except Exception, e:
+            #cannot get entry or snippets... fail to ???
+            #print e
+            #pass
+        
+    
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def commentary_detail(request,commentary_id):
+    """Display the commentary detail, all snippets and all of the comments per snippets"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        #lookup commentary
+        comm = Commentary.objects.filter(user=u,id=commentary_id)
+        #lookup snippets
+        snips = Snippet.objects.filter(commentary=comm[0]).order_by('id')
+        #lookup original article
+        entry = comm[0].entry
+        etc = escape(entry.text_content)
+        tags_clean = tags_cleaned(entry)
+        #display commentary header/title/summary, list snippets in divs,
+        #add a control div between each div to provide delete,
+        #add comment controls
+        return render_to_response('commentary_detail.html',
+                                  {'user':u,
+                                   'entry':entry,
+                                   'escaped_text_content':etc,
+                                   'tags':tags_clean,
+                                   'commentary':comm,
+                                   'snippets':snips})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def tags_cleaned(entry):
+    tags = Tag.objects.filter(entry__exact=entry)
+    tags_clean = []
+    for t in tags:
+        tags_clean.append(t.tag)
+    tags_clean = dict.fromkeys(tags_clean).keys()
+    return tags_clean
+
+def snippet_xhr(request,snippet_id):
+    """return JSON obj: snippet and related comments"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        snip = Snippet.objects.filter(id=snippet_id,user=u)
+        thesnippet = snip[0]
+        thesnippet.active = 1
+        thesnippet.save()
+        comments = Comment.objects.filter(snippet=thesnippet).order_by('id')
+        c = []
+        for comm in comments:
+            c.append({'id':comm.id,
+                      'parent':comm.parent.id,
+                      'comment':comm.comment,
+                      'user':comm.user.login
+                      })
+        
+        json_dict = dict(snippet={'snippet':thesnippet.snippet,
+                                  'id':thesnippet.id,
+                                  'active':thesnippet.active,
+                                  },
+                         comments=c)
+        
+        return HttpResponse(simplejson.dumps(json_dict),
+                            mimetype='application/javascript')
+        
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def snippet_hide_xhr(request,snippet_id):
+    """return JSON obj: snippet and related comments"""
+    if login_check(request):
+        
+        u = User.objects.get(id=request.session['userid'])
+        snip = Snippet.objects.filter(id=snippet_id,user=u)
+        thesnippet = snip[0]
+        thesnippet.active = 0
+        thesnippet.save()
+        print "Active = %s" % thesnippet.active
+        return HttpResponse(simplejson.dumps({'result':True}),
+                            mimetype='application/javascript')
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def comment_new_xhr(request):
+    """Post - only interface to add a new comment"""
+    if login_check(request):
+        if request.POST:
+            #try:
+            u = User.objects.get(id=request.session['userid'])
+            snip = Snippet.objects.filter(id=request.POST['snippet'])
+            s = snip[0]
+            try:
+                parent = Comment.objects.filter(user=u,id=request.POST.parent)
+                p = parent[0].id
+                sortorder = p.sortorder + 1000
+            except:
+                p = None
+                sortorder = 0
+
+            comment = Comment(user=u,
+                              parent=p,
+                              snippet=s,
+                              comment=request.POST['comment'],
+                              sortorder=sortorder)
+            comment.save()
+            return HttpResponse(
+                simplejson.dumps({'result':'Success',
+                                  'message':'Comment entered',
+                                  'comment':comment.comment,
+                                  'comment_id':comment.id,
+                                  'comment_user':comment.user.login,
+                                  'snippet_id':comment.snippet.id}),
+                mimetype='application/javascript')
+                
+            #except:
+            #    return HttpResponse(simplejson.dumps({'result':'Error',
+            #                                          'message':'Coould not create comment.'}),
+            #                        mimetype='application/javascript')
+        else:
+            return HttpResponse(
+                simplejson.dumps({'result':'Failure',
+                                  'message':'Comment NOT entered - Use POST not GET',}),
+                mimetype='application/javascript')
+    else:
+        return HttpResponseRedirect("/login_required/")

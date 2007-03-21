@@ -533,6 +533,9 @@ pre {
 .hidden_input{
     display:none;
 }
+.hidden{
+    display:none;
+}
 #new_tags{
     visibility:visible;
     /*display: none;*/
@@ -668,6 +671,14 @@ pre {
     background-color:#FFF;
     overflow: auto;
     max-height: 450px;
+    width: 98%;
+}
+#detail_entry_text_short {
+    border: none;
+    padding: 0.2em;
+    background-color:#FFF;
+    overflow: auto;
+    max-height: 175px;
     width: 98%;
 }
 #detail_new_entry {
@@ -1047,6 +1058,35 @@ textarea{
     border-bottom: 1px solid #000;
     border-right: 1px solid #000;
 }
+
+.button-small{
+    background: #EEE;
+    border: 1px solid #999;
+    padding: 1px;
+    margin:0;
+    text-decoration:none;
+    font-family: verdana, sans-serif;
+    font-size:0.75em;
+    line-height: 0.8em;
+}
+.button-small a{
+    text-align:center;
+}
+.button-small:hover{
+    color: #000;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.button-expand{
+    background: #EEE;
+    border: 1px solid #999;
+    padding: 0;
+    margin:0;
+    text-decoration:none;
+    font-size:0.7em;
+}
+
 .op_link{
     color:#000;
 }
@@ -1268,4 +1308,57 @@ textarea{
 }
 .user-tbl{
     width: 100%;
+}
+#new-comment{
+    padding: 0.5em;
+    width: 98%;
+    border-bottom: 1px solid #DDD;
+}
+
+#commentary-detail{
+    padding: 1em;
+    width:90%
+}
+.comment-form-lst{
+    list-style-type: none;
+    display:inline;
+}
+.comment-form-lst li{
+    list-style-type: none;
+}
+.new-comment-txt{
+    width:45em;
+    height: 4em;
+}
+.comment{
+    border-top:1px solid #D2D2D2;
+    border-bottom:1px solid #D2D2D2;
+    border-right:1px solid #D2D2D2;
+    border-left:6px solid #D2D2D2;
+    margin: 0.3em;
+    padding: 0.2em;
+    font-size: 0.8em;
+    color: #666;
+}
+#snippets{
+    padding: 1em;
+    width:98%;
+    border: 1px solid #AAA;
+    max-height: 25em;
+    overflow: auto;
+}
+
+.snippet{
+    border: 1px solid #AAA;
+    padding: 0.3em;
+    margin: 0.4em; 
+    clear:left;
+}
+
+.snippet-hidden{
+    border: none;
+    padding: 0.1em;
+    margin: 0.1em; 
+    float: left;
+    clear:none;
 }

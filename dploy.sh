@@ -1,13 +1,4 @@
 #!/bin/bash
-
-#cd /home/david/code/rcache_django/rcache/
-#rm *.pyc
-#svn up
-#python /usr/lib/python2.4/compileall.py .
-#sudo apache2ctl restart
-
-
-#!/bin/bash
 #svn url
 export SVN_URL='file:///home/david/repo_rcache rcache'
 #datestr

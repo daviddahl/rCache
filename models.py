@@ -229,11 +229,10 @@ class UserEvent(models.Model):
     class Admin:
         list_display = ('user','hash_key','event_type','event_date','open',)
     
-
 class Colleague(models.Model):
     """a user who is granted access to an rCache user's data"""
-    colleague = models.ForeignKey(User) #currently logged-in user
-    user_id = models.IntegerField()     #owner user id of the colleague
+    colleague = models.ForeignKey(User) #colleague user obj
+    user_id = models.IntegerField()     #currently logged in user id
     created = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     tag_restrictions = models.BooleanField(default=True)
@@ -248,43 +247,62 @@ class Colleague(models.Model):
     class Admin:
         pass
 
-## class ColleaguePrivilege(models.Model):
-##     """a colleague's privilege"""
-##     colleague = models.ForeignKey(Colleague)
-##     priv_type = models.CharField(maxlength=32)
-##     #priv_types: read, write
-##     function = models.CharField(maxlength=32)
-##     #function: READ: tag, search
-##     #function: WRITE: comment, entry, tag
-##     content = models.CharField(maxlength=64)
-##     #content: for READ:TAG: 'economy' can look at entries tagged with 'economy'
-##     #content: for READ:SEARCH 'dollar' can perform canned keyword searches on 'dollar'
-##     approved = models.DateTimeField(auto_now_add=True)
-    
-##     class Admin:
-##         pass 
-
-class Snippet(models.Model):
+class ColleagueGroup(models.Model):
+    """A group of Colleagues that a user can address with
+    a single message or connection"""
     user = models.ForeignKey(User)
-    entry = models.ForeignKey(Entry)
-    date_created = models.DateTimeField(null=True, blank=True)
-    active = models.IntegerField(null=True, blank=True)
-    snippet = models.TextField(blank=True)
-    def __str__(self):
-        return self.snippet
-    class Meta:
-        db_table = 'snippet'
-    class Admin:
-        list_display = ('snippet','user','entry') 
+    group_name = models.CharField(maxlength=100)
+    description = models.CharField(maxlength=255)
+    colleague = models.ManyToManyField(Colleague)
 
+    class Admin:
+        pass
+    
 class Commentary(models.Model):
     """Commentary has a one to one relationship with Entry."""
-    pass
+    user = models.ForeignKey(User)
+    entry = models.ForeignKey(Entry)
+    title = models.CharField(maxlength=255,blank=True)
+    summary = models.TextField(blank=True)
 
+    class Admin:
+        list_display = ('entry','title','user',)
+ 
+class Snippet(models.Model):
+    """A piece of text from an entry that a user comments on"""
+    user = models.ForeignKey(User)
+    entry = models.ForeignKey(Entry)
+    commentary = models.ForeignKey(Commentary)
+    date_created = models.DateTimeField(auto_now_add=True)
+    active = models.IntegerField()
+    snippet = models.TextField()
+    sortorder = models.IntegerField(blank=True)
+    
+    def __str__(self):
+        return self.snippet
+
+    class Admin:
+        list_display = ('snippet','user','entry',) 
+        
 class Comment(models.Model):
     """Comments are related to commentary and Snippits"""
-    pass
+    user = models.ForeignKey(User)
+    parent = models.ForeignKey('self', null=True, related_name='child_set')
+    snippet = models.ForeignKey(Snippet)
+    comment = models.TextField()
+    sortorder = models.IntegerField(blank=True)
+
+    class Admin:
+        list_display = ('user','comment',)
 
 class Folio(models.Model):
     """A Folio is a group of Commentaries you want to share with colleagues or publish out to a web page or blogging software or white paper/research paper"""
-    pass
+    user = models.ForeignKey(User)
+    folio_name = models.CharField(maxlength=255)
+    description = models.TextField(blank=True)
+    commentary = models.ManyToManyField(Commentary)
+    shared = models.BooleanField(default=False)
+    colleague_group = models.ManyToManyField(ColleagueGroup)
+    
+    class Admin:
+        list_display = ('folio_name','description','user','shared',)

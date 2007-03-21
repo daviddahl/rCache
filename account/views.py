@@ -143,8 +143,9 @@ def activate(request):
                     user.password = password_enc
                     user.active = 1
                     user.save()
-                    evt[0].open = False
-                    evt[0].save()
+                    the_evt = evt[0]
+                    the_evt.open = False
+                    the_evt.save()
                     #fixme: send email again!
                     return render_to_response('account_ready.html',
                                               {'hk':request.POST['hk'],
@@ -294,8 +295,9 @@ def password_change(request):
                     user.password = password_enc
                     user.active = 1
                     user.save()
-                    evt[0].open = False
-                    evt[0].save()
+                    the_evt = evt[0]
+                    the_evt.open = False
+                    the_evt.save()
                     #fixme: send email again!
                     return render_to_response('password_changed.html',
                                               {'hk':request.POST['hk'],
