@@ -37,14 +37,14 @@ class ClarifyError(Exception):
 
 class Clarify(object):
     
-    def __init__(self,input_file,output_path,text_file_path):
+    def __init__(self,input_file,output_path):
         self.input_file = input_file
         self.output_path = output_path
-        self.text_file_path = text_file_path
+        #self.text_file_path = text_file_path
         self.tiff_lst = []
         self.resulting_text = [] #empty list to add each page's text
         self.txt_lst = [] #empty list to add tesseract txt file paths
-
+        self.txt_dct = {}
         output_path_file = "%s%s" % (output_path,'/copy.pdf')
         print output_path_file
         try:
@@ -115,10 +115,18 @@ class Clarify(object):
 
     def scrape_txt(self,pth):
         """scrape text out of tesseract txt file"""
+        #extract-000019.ppm.tiff.txt
+        #put all data in a dict: {'page':00019,'data':txt}
+        pth_lst = pth.split('-')
+        num_lst = pth_lst[1].split('.')
+        page = int(num_lst[0])
         try:
+            
             f = open(pth)
             lines = f.readlines()
-            return "\n".join(lines)
+            txt = "\n".join(lines)
+            self.txt_dct[page] = txt
+            return {page:txt}
         except Exception,e:
             return 'No text recovered: %s' % str(e)
 
@@ -134,18 +142,30 @@ class Clarify(object):
     
     def main(self):
         self.rip_images(self.output_path)
-
-        sleep(20)
+        self.pdf_info_dct = c.pdf_info()
+        sleep_secs = int(info['Pages'])
+        sleep(sleep_secs)
 
         lst = self.dir_to_lst(self.output_path)
         tiff_lst = self.convert_all_pnms(lst)
         lst = self.dir_to_lst(self.output_path)
         self.ocr_all(lst)
+        
+        sleep((sleep_secs / 2))
 
-        sleep(10)
 
         lst = self.dir_to_lst(self.output_path)
         self.scrape_all(lst)
+        sleep((sleep_secs / 2))
+
+        txt_lst = []
+        pages = self.txt_dct.keys()
+        pages.sort()
+
+        for p in pages:
+            txt_lst.append(self.txt_dct[p])
+            
+        self.full_txt = '\n\n'.join(txt_lst)
 
 
     def images_from_pdf(self):
@@ -158,13 +178,36 @@ class Clarify(object):
     def pdf_info(self):
         """Get PDF Info from PDF"""
         cmd = "%s %s" % ('pdfinfo', self.input_file,)
-        res = os.system(cmd)
-        return res
+        res = os.popen(cmd)
+        lst = res.readlines()
+        info_dct = self.parse_pdf_info(lst)
+        return info_dct
 
-    def parse_pdf_info(self):
+    def parse_pdf_info(self,result):
         """Parse pdf info into a dict"""
+        """
+        Sample Output of pdfinfo copy.pdf:
+        Producer:       Xerox WCP 35
+        CreationDate:   Wed Mar 14 19:12:03 2007
+        ModDate:        Wed Mar 14 19:19:49 2007
+        Tagged:         no
+        Pages:          26
+        Encrypted:      no
+        Page size:      612 x 792 pts (letter)
+        File size:      1393653 bytes
+        Optimized:      yes
+        PDF version:    1.3
+        """
+        #read each line into a list via os.system
+        pdfinfo = {}
+        for line in result:
+            i = line.split(':')
+            j = i[1].split('\n')
+            key = i[0]
+            val = j[0].strip()
+            pdfinfo[key] = val
 
-
+        return pdfinfo
     
 if __name__ == '__main__':
     

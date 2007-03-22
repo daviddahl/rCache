@@ -1,19 +1,36 @@
 from clarify import *
 from time import sleep
+#DOJDocsPt1-2070319.pdf
+c = Clarify('/home/david/Desktop/DOJDocsPt1-2070319.pdf','/tmp/pdf_ocr')
+info = c.pdf_info()
 
-c = Clarify('/home/david/code/transcript_ISN10024.pdf','/tmp/pdf_rip_cache','/tmp/pdf_rip_cache/text')
-c.rip_images('/tmp/pdf_rip_cache')
+print info
 
-sleep(20)
+c.rip_images('/tmp/pdf_ocr')
 
-lst = c.dir_to_lst('/tmp/pdf_rip_cache')
+sleep_secs = int(info['Pages'])
+
+sleep(sleep_secs)
+
+lst = c.dir_to_lst('/tmp/pdf_ocr')
 tiff_lst = c.convert_all_pnms(lst)
-lst = c.dir_to_lst('/tmp/pdf_rip_cache')
+lst = c.dir_to_lst('/tmp/pdf_ocr')
 c.ocr_all(lst)
 
-sleep(10)
+sleep((sleep_secs / 2))
 
-lst = c.dir_to_lst('/tmp/pdf_rip_cache')
+lst = c.dir_to_lst('/tmp/pdf_ocr')
 c.scrape_all(lst)
 
-print c.txt_lst[0]
+sleep((sleep_secs / 2))
+
+txt_lst = []
+pages = c.txt_dct.keys()
+pages.sort()
+
+for p in pages:
+    txt_lst.append(c.txt_dct[p])
+    
+txt = '\n\n'.join(txt_lst)
+
+print txt
