@@ -37,7 +37,7 @@ class ClarifyError(Exception):
 
 class Clarify(object):
     
-    def __init__(self,input_file,output_path):
+    def __init__(self,input_file=None,output_path=None):
         self.input_file = input_file
         self.output_path = output_path
         #self.text_file_path = text_file_path
@@ -47,10 +47,13 @@ class Clarify(object):
         self.txt_dct = {}
         output_path_file = "%s%s" % (output_path,'/copy.pdf')
         print output_path_file
-        try:
-            shutil.copyfile(input_file,output_path_file)
-        except Exception,e:
-            raise ClarifyError("Err: Could not copy PDF to /tmp: %s" % str(e))
+        if input_file is None:
+            pass
+        else:
+            try:
+                shutil.copyfile(input_file,output_path_file)
+            except Exception,e:
+                raise ClarifyError("Err: Could not copy PDF to /tmp: %s" % str(e))
 
         
     def rip_images(self,tmpdir):
@@ -208,7 +211,47 @@ class Clarify(object):
             pdfinfo[key] = val
 
         return pdfinfo
-    
+
+    def get_pdf_http(self,url):
+        """Given a url of a PDF download it"""
+        #use twill to download
+        #save to directory
+        pass
+
+    def load_url(self,url):
+        self.pdf_urls.append(url)
+
+    def load_urls(self,url_txt_list,download_cache):
+        self.download_cache = download_cache
+        pdf_search = re.compile('.pdf$')
+        try:
+            f = open(url_txt_list,'r')
+            for line in f:
+                file_url = line.split('/')
+                for url in file_url:
+                    if pdf_search.search(url):
+                        filename = file_url
+                        break
+                #fixme: downloads to current dir
+                cmd = 'wget %s -O %s/%s' % (line,download_cache,filename,)
+                res = os.popen(cmd)
+        except Exception,e:
+            print "error opening File: %s: %s" % (url_txt_list,str(e),)
+            pass
+
+
+    def get_file_http(self,url):
+        """download a page with twill: parse for links ending in '.pdf'
+        add all links to the pdf_urls list"""
+        pass
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     
     pass

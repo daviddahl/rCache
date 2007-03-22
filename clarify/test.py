@@ -1,7 +1,7 @@
 from clarify import *
 from time import sleep
 #DOJDocsPt1-2070319.pdf
-c = Clarify('/home/david/Desktop/DOJDocsPt1-2070319.pdf','/tmp/pdf_ocr')
+c = Clarify('/home/david/code/transcript.pdf','/tmp/pdf_ocr')
 info = c.pdf_info()
 
 print info
@@ -34,3 +34,6 @@ for p in pages:
 txt = '\n\n'.join(txt_lst)
 
 print txt
+f = open('/home/david/Desktop/KSM.txt','w')
+f.writelines(txt)
+f.close()
