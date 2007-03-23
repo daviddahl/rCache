@@ -89,7 +89,7 @@ class Clarify(object):
         lst = os.listdir(pth)
         new_lst = []
         for f in lst:
-            if f == 'copy.pdf':
+            if f == 'copy.pdf' or os.path.isdir(f):
                 pass
             else:
                 new_lst.append(os.path.join(pth, f))
@@ -113,6 +113,7 @@ class Clarify(object):
             outpath = "%s" % tiff
             #fixme: see if tesseract will just output the txtdatat to stdout
             txt = self.ocr_page(tiff,outpath)
+            sleep(3)
             #self.txt_lst.append(txt)
 
 
@@ -212,40 +213,14 @@ class Clarify(object):
 
         return pdfinfo
 
-    def get_pdf_http(self,url):
-        """Given a url of a PDF download it"""
-        #use twill to download
-        #save to directory
-        pass
 
-    def load_url(self,url):
-        self.pdf_urls.append(url)
-
-    def load_urls(self,url_txt_list,download_cache):
-        self.download_cache = download_cache
-        pdf_search = re.compile('.pdf$')
-        try:
-            f = open(url_txt_list,'r')
-            for line in f:
-                file_url = line.split('/')
-                for url in file_url:
-                    if pdf_search.search(url):
-                        filename = file_url
-                        break
-                #fixme: downloads to current dir
-                cmd = 'wget %s -O %s/%s' % (line,download_cache,filename,)
-                res = os.popen(cmd)
-        except Exception,e:
-            print "error opening File: %s: %s" % (url_txt_list,str(e),)
-            pass
-
-
-    def get_file_http(self,url):
-        """download a page with twill: parse for links ending in '.pdf'
-        add all links to the pdf_urls list"""
-        pass
-
-
+    def create_jobs(self,pdf_cache_pth):
+        """for each pdf in pdf_cache_path: create a job dictionary"""
+        self.jobs_lst = []
+        counter = 1
+        pdf_lst = self.dir_to_lst(pdf_cache_path)
+        for pdf in pdf_lst:
+            self.jobs_lst.append({counter:pdf})
 
 
 
