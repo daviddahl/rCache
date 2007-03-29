@@ -2,6 +2,14 @@
 {% block title %}
 rCache.com - Recent Entries
 {% endblock %}
+{% block js_app %}
+<link type="text/css" rel="stylesheet" href="/media/css/yui-datatable.css">
+<script type="text/javascript" src="/media/js/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/media/js/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="/media/js/yui/datasource/datasource-beta-min.js"></script>
+<script type="text/javascript" src="/media/js/yui/datatable/datatable-beta-min.js"></script>
+<script type="text/javascript" src="/media/js/recent.js"></script>
+{% endblock %}
 {% block body %}
 <body>
 {% endblock %}
@@ -10,34 +18,40 @@ rCache.com - Recent Entries
 <div id="detail_wrapper">
   <div id="recent_header">
     {% block func_title %}
-    <strong>Recent Entries</strong>  &nbsp; &nbsp; <a href="/rss/recent/" class="rss">RSS</a>
+    <strong>Recent Entries</strong>
+    &nbsp; &nbsp; <a href="/rss/recent/" class="rss">RSS</a>
+    &nbsp; &nbsp; <a href="/recent_original/">Can't see the Entries?</a>
     {% endblock %}
   </div>
 <div id="search_results_grid">
-  <br />
-  <table id="recent_grid" cellspacing="0" cellpadding="0" border="0">
-    <tr class="tr-light">
-      <td><strong>Title</strong></td>
-      <td><strong>URL</strong></td>
-      <td><strong>Date Saved</strong></td>
-    </tr>
-    {% block entries %}
-    {% for e in entries %}
-    <tr class="{% cycle tr-dark,tr-light %}">
-      <td>
-	<a href="/detail/{{ e.id }}/">
-	{% if e.entry_name %}
-	{{ e.entry_name|truncatewords:15 }}
-	{% else %}
-	No Title
-	{% endif %}
-	</a></td>
-      <td><a href="{{ e.entry_url }}" title="{{ e.entry_url }}" target="_new">Go</a></td>
-      <td>{{ e.date_created|timesince }}</td>
-    </tr>
-    {% endfor %}
-    {% endblock %}
-  </table>
 </div>
+<script type="text/javascript">
+// Supply any request parameters that are required load initial data 
+var initialRequest = "offset=1";
+var oConfigs = {
+        caption:"",
+        initialRequest:initialRequest,
+        pageCurrent: 1,
+        rowsPerPage: 20,
+        startRecordIndex: 1,
+        pageLinksLength: 10,
+        rowsPerPageDropdown: [20,50,100],
+        rowSingleSelect:true
+};
+var myDataTable = new YAHOO.widget.DataTable("search_results_grid",
+                                              myColumnSet,
+                                              myDataSource,
+                                              oConfigs);
+
+myDataTable.subscribe("cellClickEvent",myDataTable.onEventSelectRow);
+myDataTable.subscribe("selectEvent",eventSelectRow);
+//myDataTable.select(myDataTable.getRow(0));
+function eventSelectRow(e){
+// gets the row object
+var row = this.getRecordSet().getRecord(e.els[0].recordId);
+window.location="/detail/" + row['rcacheid'] + "/?recent_enhanced";
+}
+
+</script>
 </div>
 {% endblock %}

@@ -1015,7 +1015,7 @@ textarea{
     padding: 0px;
     width:100%;
     border: none;
-    max-height:50em;
+    max-height:60em;
     min-height:40em;
     overflow:auto;
 }

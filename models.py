@@ -133,7 +133,9 @@ class Entry(models.Model):
         """Fulltext search on Entries sorted by relevence"""
         from django.db import connection
         cursor = connection.cursor()
-        
+        #fixme: look into these tweaks
+        #WHERE MATCH (text_content) AGAINST (%s WITH QUERY EXPANSION)
+        #ft_min_word_length 
         q = """SELECT id,entry_url, entry_name, date_created,
         MATCH(text_content) AGAINST (%s) AS score
         FROM entry

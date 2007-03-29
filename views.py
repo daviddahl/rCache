@@ -559,27 +559,51 @@ def recent(request):
     else:
         return HttpResponseRedirect("/login_required/")
 
+def recent_original(request):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        e = Entry.objects.filter(user=u).order_by('-id')[:50]
+        #request.session['back_lnk'] = 
+        return render_to_response('recent_orig.html',
+                                  {'entries':e,
+                                   'user':u})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
 def recent_xhr(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
         if request.GET.has_key('offset'):
-            e = Entry.objects.filter(user=u).order_by('-id')[:3]
+            e = Entry.objects.filter(user=u).order_by('-id')[:300]
         else:
             if request.GET.has_key('offset'):
                 start = int(request.GET['offset']) + 1
-                end = start + 20
+                end = start + 25
                 e = Entry.objects.filter(user=u).order_by('-id')[start:end]
             else:
-                e = Entry.objects.filter(user=u).order_by('-id')[:3]
-
+                e = Entry.objects.filter(user=u).order_by('-id')[:300]
         json_lst = []
         #cols: id,name,url,date
+        json_dct = {'entries_db':
+                    {'totalItems':len(e),
+                     'itemsFound':len(e),
+                     'items':[]
+                     }
+                    }
         for entry in e:
-            lst = [entry.id,entry.entry_name,entry.entry_url,
-                   entry.date_created.__str__()]
-            json_lst.append(lst)
-        
-        return HttpResponse(simplejson.dumps(json_lst),
+            #url = '<a href="%s" target="_new">Go</a>' % entry.entry_url
+            e_lst = entry.entry_name.split(' ')[:10]
+            e_str = " ".join(e_lst)
+            detail_link = '<a href="/detail/%s/">%s</a>' % \
+                          (entry.id,e_str,)
+            dct = {
+                   'rcacheid':entry.id,
+                   'name':e_str,
+                   #'url':url,
+                   'date':entry.date_created.__str__()}
+            json_dct['entries_db']['items'].append(dct)
+            
+        return HttpResponse(simplejson.dumps(json_dct),
                         mimetype='application/javascript')
     else:
         return HttpResponseRedirect("/login_required/")
@@ -614,7 +638,10 @@ def detail(request,entry_id):
                 
             else:
                 back_lnk = None    
-
+            if request.GET.has_key('recent_enhanced'):
+                recent_enhanced = True
+            else:
+                recent_enhanced = False
             return render_to_response('detail.html',
                                       {'entry':e,
                                        'escaped_text_content':escaped_text_content,
@@ -626,7 +653,8 @@ def detail(request,entry_id):
                                        'entry_txt_id':entry_txt_id,
                                        'edit_buttons':True,
                                        'back_lnk':back_lnk,
-                                       'user':u})
+                                       'user':u,
+                                       'recent_enhanced':recent_enhanced})
         except Exception,e:
             #need to log exception
             #send 404!
