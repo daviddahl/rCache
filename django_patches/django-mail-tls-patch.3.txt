@@ -1,0 +1,74 @@
+Index: django/conf/global_settings.py
+===================================================================
+--- django/conf/global_settings.py	(revision 4815)
++++ django/conf/global_settings.py	(working copy)
+@@ -118,6 +118,7 @@
+ # Optional SMTP authentication information for EMAIL_HOST.
+ EMAIL_HOST_USER = ''
+ EMAIL_HOST_PASSWORD = ''
++EMAIL_TLS = False   # encrypt the connection using TLS/SSL?
+ 
+ # List of strings representing installed apps.
+ INSTALLED_APPS = ()
+Index: django/core/mail.py
+===================================================================
+--- django/core/mail.py	(revision 4815)
++++ django/core/mail.py	(working copy)
+@@ -34,21 +34,24 @@
+             val = Header(val, settings.DEFAULT_CHARSET)
+         MIMEText.__setitem__(self, name, val)
+ 
+-def send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=None, auth_password=None):
++def send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=None, auth_password=None,tls=None):
+     """
+     Easy wrapper for sending a single message to a recipient list. All members
+     of the recipient list will see the other recipients in the 'To' field.
+ 
+     If auth_user is None, the EMAIL_HOST_USER setting is used.
+     If auth_password is None, the EMAIL_HOST_PASSWORD setting is used.
++    If tls is None, the EMAIL_TLS setting is used.
+     """
+     if auth_user is None:
+         auth_user = settings.EMAIL_HOST_USER
+     if auth_password is None:
+         auth_password = settings.EMAIL_HOST_PASSWORD
+-    return send_mass_mail([[subject, message, from_email, recipient_list]], fail_silently, auth_user, auth_password)
++    if tls is None:
++        tls=getattr(settings, 'EMAIL_TLS', False)
++    return send_mass_mail([[subject, message, from_email, recipient_list]], fail_silently, auth_user, auth_password,tls)
+ 
+-def send_mass_mail(datatuple, fail_silently=False, auth_user=None, auth_password=None):
++def send_mass_mail(datatuple, fail_silently=False, auth_user=None, auth_password=None,tls= None):
+     """
+     Given a datatuple of (subject, message, from_email, recipient_list), sends
+     each message to each recipient list. Returns the number of e-mails sent.
+@@ -57,13 +60,20 @@
+     If auth_user and auth_password are set, they're used to log in.
+     If auth_user is None, the EMAIL_HOST_USER setting is used.
+     If auth_password is None, the EMAIL_HOST_PASSWORD setting is used.
++    If tls is None, the EMAIL_TLS setting is used.
+     """
+     if auth_user is None:
+         auth_user = settings.EMAIL_HOST_USER
+     if auth_password is None:
+         auth_password = settings.EMAIL_HOST_PASSWORD
++    if tls is None:
++        tls=getattr(settings, 'EMAIL_TLS', False)
+     try:
+         server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
++        if tls:
++            server.ehlo(settings.EMAIL_HOST)
++            server.starttls()
++            server.ehlo(settings.EMAIL_HOST)
+         if auth_user and auth_password:
+             server.login(auth_user, auth_password)
+     except:
+@@ -92,7 +102,7 @@
+             if not fail_silently:
+                 raise
+     try:
+-        server.quit()
++        server.close() # with .quit(), at least smtp.gmail.com complains
+     except:
+         if fail_silently:
+             return

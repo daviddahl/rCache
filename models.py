@@ -139,7 +139,7 @@ class Entry(models.Model):
         q = """SELECT id,entry_url, entry_name, date_created,
         MATCH(text_content) AGAINST (%s) AS score
         FROM entry
-        WHERE MATCH (text_content) AGAINST (%s)
+        WHERE MATCH (text_content) AGAINST (%s WITH QUERY EXPANSION)
         AND user_id = %s"""
             
         cursor.execute(q,[kw,kw,_user.id])
@@ -298,13 +298,11 @@ class Comment(models.Model):
         list_display = ('user','comment',)
 
 class Folio(models.Model):
-    """A Folio is a group of Commentaries you want to share with colleagues or publish out to a web page or blogging software or white paper/research paper"""
+    """A Folio is a bag of entries that are categorized in a larger scope"""
     user = models.ForeignKey(User)
     folio_name = models.CharField(maxlength=255)
-    description = models.TextField(blank=True)
-    commentary = models.ManyToManyField(Commentary)
-    shared = models.BooleanField(default=False)
-    colleague_group = models.ManyToManyField(ColleagueGroup)
+    description = models.TextField(blank=True,null=True)
+    entry = models.ManyToManyField(Entry)
     
     class Admin:
-        list_display = ('folio_name','description','user','shared',)
+        list_display = ('folio_name','description','user',)

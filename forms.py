@@ -11,3 +11,8 @@ class CommentaryForm(forms.Form):
     title = forms.CharField(max_length=255,widget=Textarea)
     summary = forms.CharField(required=False,widget=Textarea) 
     
+class FolioForm(forms.Form):
+    user = forms.IntegerField(widget=HiddenInput)
+    folio_name = forms.CharField(max_length=255)
+    description = forms.CharField(widget=Textarea)
+    

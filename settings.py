@@ -2,7 +2,16 @@ import os
 
 # Django settings for rcache project.
 
-DEBUG = False
+DEBUG = True
+
+SERVER_URL = os.environ['RCACHE_SERVER_URL']
+
+EMAIL_HOST = os.environ['RCACHE_EMAIL_HOST']
+EMAIL_HOST_USER = os.environ['RCACHE_EMAIL_USER']
+EMAIL_HOST_PASSWORD = os.environ['RCACHE_EMAIL_HOST_PASSWORD']
+EMAIL_PORT = os.environ['RCACHE_EMAIL_PORT']
+EMAIL_TLS = True
+
 TEMPLATE_DEBUG = DEBUG
 #fixme: add admins to env vars
 ADMINS = (
@@ -11,13 +20,12 @@ ADMINS = (
 DEV_ENV = os.environ['RCACHE_SERVER_ENV']
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'           # 'postgresql', 'mysql', 'sqlite3' or 'ado_mssql'.
-DATABASE_NAME = os.environ['RCACHE_DB_NAME']             # Or path to database file if using sqlite3.
-DATABASE_USER = os.environ['RCACHE_DB_USER']             # Not used with sqlite3.
-DATABASE_PASSWORD = os.environ['RCACHE_DB_PASSWD']         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
-
+DATABASE_ENGINE = 'mysql'
+DATABASE_NAME = os.environ['RCACHE_DB_NAME']
+DATABASE_USER = os.environ['RCACHE_DB_USER']
+DATABASE_PASSWORD = os.environ['RCACHE_DB_PASSWD']
+DATABASE_HOST = ''
+DATABASE_PORT = ''
 # Local time zone for this installation. All choices can be found here:
 # http://www.postgresql.org/docs/current/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
 TIME_ZONE = 'America/Chicago'

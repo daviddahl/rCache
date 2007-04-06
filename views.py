@@ -35,6 +35,7 @@ except:
 
 from rcache.models import *
 from rcache.forms import *
+from rcache.settings import *
 
 search_refer = re.compile("/search/$")
 
@@ -574,14 +575,14 @@ def recent_xhr(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
         if request.GET.has_key('offset'):
-            e = Entry.objects.filter(user=u).order_by('-id')[:300]
+            e = Entry.objects.filter(user=u).order_by('-id')[:200]
         else:
             if request.GET.has_key('offset'):
                 start = int(request.GET['offset']) + 1
                 end = start + 25
                 e = Entry.objects.filter(user=u).order_by('-id')[start:end]
             else:
-                e = Entry.objects.filter(user=u).order_by('-id')[:300]
+                e = Entry.objects.filter(user=u).order_by('-id')[:200]
         json_lst = []
         #cols: id,name,url,date
         json_dct = {'entries_db':
@@ -856,6 +857,31 @@ def search(request):
     else:
         return HttpResponseRedirect("/login_required/")
 
+def search_xhr(request):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        
+        if request.POST:
+            if request.POST['search_str']:
+                params = request.POST['search_str']
+                e = Entry()
+                entries = e.fulltxt(u,params)
+                #fixme: entries need to be re-formatted for YUI
+                data = {'result':'success','entries':entries}
+                return HttpResponse(simplejson.dumps(data),
+                        mimetype='application/javascript')
+            else:
+                data = {'result':'error','msg':'Please Enter a Query'}
+                return HttpResponse(simplejson.dumps(data),
+                        mimetype='application/javascript')
+        else:
+            data = {'result':'error','msg':'POST Not GET!'}
+            return HttpResponse(simplejson.dumps(data),
+                                mimetype='application/javascript')
+    else:
+        data = {'result':'error','msg':'You are not logged in.'}
+        return HttpResponse(simplejson.dumps(data),
+                            mimetype='application/javascript')
 
 def firefox(request):
     if login_check(request):
@@ -922,7 +948,7 @@ def login(request):
     else:
         #GET
         return render_to_response('login.html',
-                                  {})
+                                  {'server_url':SERVER_URL})
 
 def login_err(request):
     error = "Login Incorrect"
@@ -1625,3 +1651,14 @@ def comment_new_xhr(request):
                 mimetype='application/javascript')
     else:
         return HttpResponseRedirect("/login_required/")
+
+def smtp_google():
+    from rcache.settings import *
+    from django.core.mail import send_mail
+    subject = "Testing Google SMTP"
+    message = "Test message"
+    from_email = 'admin@rcache.com'
+    recipient_list = ['david@ddahl.com',]
+    send_mail(subject, message, from_email, recipient_list,
+              fail_silently=False, auth_user=EMAIL_HOST_USER,
+              auth_password=EMAIL_HOST_PASSWORD)
