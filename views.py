@@ -220,7 +220,8 @@ def new_colleague(request):
                           mesg,
                           'admin@rcache.com',
                           [coll_user.email,'admin@rcache.com',],
-                          fail_silently=True)
+                          fail_silently=True,auth_user=EMAIL_HOST_USER,
+                          auth_password=EMAIL_HOST_PASSWORD)
                 m = ""
                 c = Colleague.objects.filter(user_id__exact=request.session['userid']).order_by("-id")
                 return render_to_response('colleague_pending.html',
@@ -1324,7 +1325,9 @@ def account_new(request):
                               msg,
                               'admin@rcache.com',
                               [u.email,'admin@rcache.com',],
-                              fail_silently=True)
+                              fail_silently=True,auth_user=EMAIL_HOST_USER,
+                              auth_password=EMAIL_HOST_PASSWORD)
+                    
                     return render_to_response('account_pending.html',{'message':m})
                 else:
                     m = "Email address is not valid."
@@ -1653,8 +1656,8 @@ def comment_new_xhr(request):
         return HttpResponseRedirect("/login_required/")
 
 def smtp_google():
-    from rcache.settings import *
-    from django.core.mail import send_mail
+    
+    #from django.core.mail import send_mail
     subject = "Testing Google SMTP"
     message = "Test message"
     from_email = 'admin@rcache.com'
