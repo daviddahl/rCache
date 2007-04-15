@@ -22,6 +22,17 @@ rCache.com - Filter Entries
   <a class="op_link" href="/taglist/?op=alpha">Show Tags Alphabetically...</a>
 {% endblock %}
 </div>
-{% block search_slow_msg%}
+<div id="tag-menu">
+  <ul>
+    <li><strong>Tag Tools</strong></li>
+    <li class="selected">
+      <a href="/filter/tags/maintenence/" class="button" title="Remove Empty Tags">Tag Maintenence</a>
+    </li>
+    <li class="selected">
+      <a href="/filter/tags/editor/" class="button" title="Edit and remove Tags">Tag Editor</a>
+    </li>
+  </ul>
+</div>
+{% block search_slow_msg %}
 {% endblock %}
 {% endblock %}

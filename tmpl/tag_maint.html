@@ -1,0 +1,30 @@
+{% extends "search.html" %}
+{% block title %}
+rCache.com - Tag Maintenence
+{% endblock %}
+{% block search_content %}
+<div id="filter-menu">
+ 
+</div>
+<div class="empty-tags">
+{% if msg %}
+  <div class="instructions">{{ msg }}</div>
+{% endif %}
+{% block the_list %}
+  <h3>{{ len_tgs }} Empty Tag{{ len_tgs|pluralize }}</h3>
+  <ul>
+{% for tag in empty_tags %}
+    <li><a class="button" href="/filter/tags/maintenence/remove_empty_tag/{{ tag.1 }}/" title="Remove tag: {{ tag.0 }} permanently.">Remove</a> &nbsp; {{ tag.0 }} </li>
+{% endfor %}
+    {% if tgs %}
+    <li><a class="button" href="/filter/tags/maintenence/remove_all_empty_tags/">Remove All Empty Tags</a></li>
+    {% endif %}
+    </ul>
+<br/><br/>
+<a class="op_link" href="/filter/">Back to Tag and Domain Filter</a> &nbsp;
+{% endblock %}
+</div>
+
+{% block search_slow_msg %}
+{% endblock %}
+{% endblock %}

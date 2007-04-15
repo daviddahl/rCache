@@ -1188,7 +1188,8 @@ textarea{
     background: #FFC;
     padding: 1em;
     margin: 1em;
-    border: 1px dashed #DDD;
+    border-top: 1px dashed #DDD;
+    border-bottom: 1px dashed #DDD;
     line-height: 1.7em;
 }
 
@@ -1205,7 +1206,8 @@ textarea{
     background: #FFC;
     padding: 1em;
     margin: 1em;
-    border: 1px dashed #DDD;
+    border-bottom: 1px dashed #DDD;
+    border-top: 1px dashed #DDD;
     line-height: 1.7em;
     font-size:1em;
 }
@@ -1361,4 +1363,31 @@ textarea{
     margin: 0.1em; 
     float: left;
     clear:none;
+}
+
+.empty-tags{
+    background: #FFC;
+    padding: 1em;
+    margin: 1em;
+    border-top: 1px dashed #DDD;
+    border-bottom: 1px dashed #DDD;
+    line-height: 1.7em;
+    font-size:1em;
+}
+.empty-tags li{
+    list-style: none;
+    padding: 0.5em;
+}
+#tag-menu li{
+    list-style: none;
+    display:inline;
+    padding: 0.5em;
+}
+#tg-tbl{
+    width:30em;
+    padding:0;
+    border:1px solid #AAA;
+}
+#tg-tbl td{
+    padding:0.3em;
 }

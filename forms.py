@@ -16,3 +16,8 @@ class FolioForm(forms.Form):
     folio_name = forms.CharField(max_length=255)
     description = forms.CharField(widget=Textarea)
     
+class GetTagForm(forms.Form):
+    tag = forms.CharField(max_length=64)
+
+class TagForm(forms.Form):
+    tag = forms.CharField(max_length=64)

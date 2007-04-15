@@ -67,10 +67,30 @@ class Tag(models.Model):
         rows = cursor.fetchall()
         return rows
 
+    def empty_tags(self,_user):
+        """Get empty tags - tags that are not attached to an Entry """
+        q = """SELECT tag.tag,tag.id,entry_tag.tag_id FROM
+               tag left join entry_tag ON entry_tag.tag_id = tag.id
+               WHERE entry_tag.tag_id is NULL AND tag.user_id = %s"""
+        cursor = connection.cursor()
+        cursor.execute(q,[_user.id])
+        rows = cursor.fetchall()
+        return rows
+
+    def kill_tags(self,_user,tag_list):
+        """remove tags in list of ids"""
+        for tag in tag_list:
+            try:
+                t = Tag.objects.filter(user=_user.id,id=tag['id'])
+                t[0].delete()
+            except Exception, e:
+                print str(e)
+                pass
+
     def normalize_tags(self,_user):
         """get all tags loop through them sorted by tag, tag_count"""
         pass
-
+        
     def existing_tags(self,entry_id):
         cursor = connection.cursor()
         q = """SELECT et.id,et.tag_id,et.entry_id,t.tag

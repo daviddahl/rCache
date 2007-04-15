@@ -6,6 +6,7 @@ import re
 import md5
 import sha
 import time
+
 from django.contrib.auth import authenticate, login
 from django.http import Http404,HttpResponse,HttpResponseRedirect
 from django.template import Context, loader
@@ -17,7 +18,7 @@ from django.core.mail import send_mail
 from django.core.mail import send_mass_mail
 
 from rcache.models import *
-
+from rcache.settings import *
 
 def login_required(request):
     return render_to_response('account_login_required.html',{})
@@ -90,7 +91,9 @@ def activation_yes(request,user_id):
                       msg,
                       'donotreply@rcache.com',
                       [user.email,'admin@rcache.com',],
-                      fail_silently=True)
+                      fail_silently=True,
+                      auth_user=EMAIL_HOST_USER,
+                      auth_password=EMAIL_HOST_PASSWORD)
             user.password = "no passwd yet"
             user.save()
             message ="Activation Successful."
@@ -245,7 +248,9 @@ def password(request):
                               msg,
                               'donotreply@rcache.com',
                               [user[0].email,'admin@rcache.com',],
-                              fail_silently=True)
+                              fail_silently=True,
+                              auth_user=EMAIL_HOST_USER,
+                              auth_password=EMAIL_HOST_PASSWORD)
                     message ="An Email has been sent to you with directions to change your password"
                     return render_to_response('password_reset.html',
                                               {'message':message,

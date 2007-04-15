@@ -1,0 +1,47 @@
+{% extends "search.html" %}
+{% block title %}
+rCache.com - Tag Editor
+{% endblock %}
+{% block search_content %}
+<div id="filter-menu" class="message">
+<h3>Tag Editor</h3>
+  {% if tag_form %}
+  <form action="." method="post" class="aligned">
+  {{ tag_form.as_ul }}
+  <br />
+  <input type="submit" value="Get Tag"/>
+  </form>
+  
+  </br />&nbsp;
+  <br >&nbsp;
+  {% endif %}
+
+  {% if tags %}
+  <table cellpadding="0" cellspacing="0" id="tg-tbl">
+    <tr>
+      <td>Tag</td>
+      <td>&nbsp;</td>
+    </tr>
+    {% for tag in tags %}
+    <tr class="{% cycle tr-dark,tr-light %}">
+      <td><a href="/filter/tags/edit/{{ tag.id }}/" title="Edit tag '{{ tag.tag }}'">{{ tag.tag }}</a></td>
+      <td><a class="button" title="Remove tag '{{ tag.tag }}' permenantly" href="/filter/tags/remove/{{ tag.id }}/">Remove</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+  {% endif %}
+</div>
+<div id="tag-menu">
+  <ul>
+    <li><strong>Tag Tools</strong></li>
+    <li class="selected">
+      <a href="/filter/tags/maintenence/" class="button" title="Remove Empty Tags">Tag Maintenence</a>
+    </li>
+    <li class="selected">
+      <a href="/filter/tags/editor/" class="button" title="Edit and remove Tags">Tag Editor</a>
+    </li>
+  </ul>
+</div>
+{% block search_slow_msg %}
+{% endblock %}
+{% endblock %}

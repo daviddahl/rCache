@@ -1269,6 +1269,163 @@ def tag_list(request):
     else:
         return HttpResponseRedirect("/login_required/")
 
+
+def tag_editor(request):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.POST:
+            #lookup tags:
+            tags = Tag.objects.filter(user=u,tag__icontains=request.POST['tag'])
+            tag_form = None
+        else:
+            tags = None
+            
+            tag_form = GetTagForm()
+            
+        return render_to_response('tag_editor.html',
+                                  {'user':u,
+                                   'tag_form':tag_form,
+                                   'tags':tags})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def tag_maint(request):
+    """deal with empty tags - show empty tags here, also start tag editor UI"""
+    if login_check(request):
+        #get empty tags:
+        u = User.objects.get(id=request.session['userid'])
+        t = Tag()
+        empty_tags = t.empty_tags(u)
+        len_tgs = len(empty_tags)
+        if len(empty_tags) > 0:
+            tgs = True
+        else:
+            tgs = False
+        return render_to_response('tag_maint.html',
+                                  {'user':u,
+                                   'empty_tags':empty_tags,
+                                   'tgs':tgs,
+                                   'len_tgs':len_tgs})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def tag_edit(request,tag_id):
+    """Edit one tag"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.POST:
+            try:
+                form = TagForm(request.POST)
+                if form.is_valid():
+                    t = Tag.objects.filter(id=tag_id,user=u)
+                    tag = t[0]
+                    tag.tag = request.POST['tag']
+                    tag.save()
+                    msg = "Success: Tag Updated"
+                    return render_to_response('tag_edit.html',
+                                              {'user':u,
+                                               'tag':tag,
+                                               'tag_id':tag_id,
+                                               'form':form,
+                                               'msg':msg})
+                else:
+                    raise Exception("Something blew up.")
+            except Exception, e:
+                msg = "Error: Could not update tag. Please contact the admin if this error repeats."
+                t = Tag.objects.filter(id=tag_id,user=u)
+                tag = t[0]
+                tag.tag = request.POST['tag']
+                tag.save()
+                return render_to_response('tag_edit.html',
+                                          {'user':u,
+                                           'tag':tag,
+                                           'tag_id':tag_id,
+                                           'form':form,
+                                           'msg':msg})
+        else:
+            
+            t = Tag.objects.filter(id=tag_id,user=u)
+            tag = t[0]
+            form = TagForm(dict(tag=tag.tag))
+            
+            return render_to_response('tag_edit.html',
+                                      {'user':u,
+                                       'tag':tag,
+                                       'tag_id':tag_id,
+                                       'form':form})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+
+def tag_remove(request,tag_id):
+    """Edit one tag"""
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        try:
+            t = Tag.objects.filter(id=tag_id,user=u)
+            tag = t[0]
+            tag.delete()
+            msg = "Success: Tag Removed"
+            return render_to_response('tag_edit.html',
+                                      {'user':u,
+                                       'tag':tag,
+                                       'msg':msg})
+        except Exception, e:
+            msg = "Error: Could not remove tag. Please contact the admin if this error repeats."
+            t = Tag.objects.filter(id=tag_id,user=u)
+            tag = t[0]
+            return render_to_response('tag_edit.html',
+                                      {'user':u,
+                                       'tag':tag,
+                                       'tag_id':tag_id,
+                                       'msg':msg})
+    else:
+        return HttpResponseRedirect("/login_required/")
+
+def remove_empty_tag(request,tag_id):
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        empty_tags = []
+        try:
+            t = Tag.objects.filter(user=u.id,id=tag_id)
+            tag_name = t[0].tag
+            t[0].delete()
+            msg = "Success: tag '%s' was removed" % tag_name
+        except Exception, e:
+            print str(e)
+            msg = "Error: Could not remove the Tag"
+        t = Tag()
+        empty_tags = t.empty_tags(u)
+        len_tgs = len(empty_tags)
+        if len(empty_tags) > 0:
+            tgs = True
+        else:
+            tgs = False
+        return render_to_response('tag_maint.html',
+                                  {'user':u,
+                                   'empty_tags':empty_tags,
+                                   'msg':msg,
+                                   'tgs':tgs,
+                                   'len_tgs':len_tgs})
+    else:
+        return HttpResponseRedirect("/login_required/")
+            
+def remove_all_empty_tags(request):
+    if login_check(request):
+        try:
+            u = User.objects.get(id=request.session['userid'])
+            t = Tag()
+            empty_tags = t.empty_tags(u)
+            tlst = []
+            for tag in empty_tags:
+                tlst.append({'id':tag[1]})
+            t.kill_tags(u,tlst)
+            return HttpResponseRedirect("/filter/tags/maintenence/?all_tags_removed")
+        except:
+            return HttpResponseRedirect("/filter/tags/maintenence/?tag_removal_error")
+    else:
+        return HttpResponseRedirect("/login_required/")
+    
 def domain_list(request):
     """get domains alphabetically for domain list"""
     if login_check(request):
