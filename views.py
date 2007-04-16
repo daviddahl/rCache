@@ -1481,20 +1481,22 @@ def account_new(request):
                     #send email
                     msg = message_new_account % (u.email,
                                                  request.POST['research_type'],)
-                    send_mail('rCache Account Application',
-                              msg,
-                              'admin@rcache.com',
-                              [u.email,'admin@rcache.com',],
-                              fail_silently=True,auth_user=EMAIL_HOST_USER,
-                              auth_password=EMAIL_HOST_PASSWORD)
-                    
+                    try:
+                        send_mail('rCache Account Application',
+                                  msg,
+                                  'admin@rcache.com',
+                                  [u.email,'admin@rcache.com',],
+                                  fail_silently=False,auth_user=EMAIL_HOST_USER,
+                                  auth_password=EMAIL_HOST_PASSWORD)
+                    except Exception, e:
+                        err = str(e)
                     return render_to_response('account_pending.html',{'message':m})
                 else:
                     m = "Email address is not valid."
                 return render_to_response('account.html',{'message':m})
                 
             except Exception,e:
-                m = "An error occurred creating an account for %s. Please send an email to admin at rcache dot com, please include this error message" % request.POST['email']
+                m = "An error occurred creating an account for %s. Please send an email to admin at rcache dot com, please include this error message: %s" % (request.POST['email'],err,)
                 return render_to_response('account.html',{'message':m})
         else:
             m = "Please Enter your email address"
