@@ -1274,9 +1274,14 @@ def tag_editor(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
         if request.POST:
+            tags = []
             #lookup tags:
-            tags = Tag.objects.filter(user=u,tag__icontains=request.POST['tag'])
-            tag_form = None
+            tag_form = GetTagForm(dict(tag=request.POST['tag']))
+            if tag_form.is_valid():
+                tags = Tag.objects.filter(user=u,tag__icontains=request.POST['tag'])
+                tag_form = None
+            else:
+                pass
         else:
             tags = None
             
@@ -1315,6 +1320,7 @@ def tag_edit(request,tag_id):
         u = User.objects.get(id=request.session['userid'])
         if request.POST:
             try:
+                
                 form = TagForm(request.POST)
                 if form.is_valid():
                     t = Tag.objects.filter(id=tag_id,user=u)
@@ -1334,13 +1340,10 @@ def tag_edit(request,tag_id):
                 msg = "Error: Could not update tag. Please contact the admin if this error repeats."
                 t = Tag.objects.filter(id=tag_id,user=u)
                 tag = t[0]
-                tag.tag = request.POST['tag']
-                tag.save()
                 return render_to_response('tag_edit.html',
                                           {'user':u,
-                                           'tag':tag,
-                                           'tag_id':tag_id,
-                                           'form':form,
+                                           'tag':tag.tag,
+                                           'tag_id':tag.id,
                                            'msg':msg})
         else:
             
