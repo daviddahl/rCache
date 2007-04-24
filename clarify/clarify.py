@@ -154,12 +154,12 @@ class Clarify(object):
         tiff_lst = self.convert_all_pnms(lst)
         lst = self.dir_to_lst(self.output_path)
         self.ocr_all(lst)
-        
+        #hack hack hack
         sleep((sleep_secs / 2))
-
-
+        
         lst = self.dir_to_lst(self.output_path)
         self.scrape_all(lst)
+        #hack hack hack
         sleep((sleep_secs / 2))
 
         txt_lst = []

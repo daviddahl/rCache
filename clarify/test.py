@@ -34,6 +34,6 @@ for p in pages:
 txt = '\n\n'.join(txt_lst)
 
 print txt
-f = open('/home/david/Desktop/KSM.txt','w')
+f = open('/home/david/Desktop/output.txt','w')
 f.writelines(txt)
 f.close()
