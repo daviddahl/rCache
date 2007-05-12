@@ -10,6 +10,7 @@
 <script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
 <script src="chrome://rcache/content/rcache_compress.js"/>
 <script src="chrome://rcache/content/rclip_compress.js"/>
+<script src="chrome://rcache/content/rcache_extractor.js"/>
 
 <commandset>
   <command id="cmd_close" oncommand="rcache.close()"/>
@@ -26,6 +27,13 @@
 		  tooltiptext="Save Selected Text to rCache">
     <image id="rcache-status-sel-icon" src="chrome://rcache/content/skin/database_save.png" tooltiptext="rCache Collector::Save data to rCache database"/>
   </statusbarpanel>
+
+  <statusbarpanel id="rcache-panel-ext"
+		  onmousedown="extractor.reportXUL()"
+		  tooltiptext="Process Documents (PDF,Word) in Page">
+    <image id="rcache-status-sel-icon" src="chrome://rcache/content/skin/page_white_find.png" tooltiptext="rCache Extractor::Find and Save Documents (PDF, Word)"/>
+  </statusbarpanel>
+
  </statusbar>
 
  <window id="main-window"

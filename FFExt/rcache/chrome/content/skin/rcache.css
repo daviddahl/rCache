@@ -1,0 +1,117 @@
+#rcache-db-add{
+    background: url(chrome://rcache/skin/database_add.png);
+}
+#rcache-add{
+    background: url(chrome://rcache/content/skin/add.png);
+}
+#rcache-delete{
+    background: url(chrome://rcache/skin/delete.png);
+}
+#rcache-error{
+    background: url(chrome://rcache/skin/error.png);
+}
+#urllable{
+    min-height:0.9em; 
+    max-height:1em; 
+    min-width: 20em;
+    max-width: 20em; 
+}
+#logo-box{
+    margin-left:1em; 
+    margin-bottom:0.4em; 
+    margin-top:0.2em; 
+    background:#FFF; 
+    max-width:56em;
+}
+#rcache-desc{
+    margin-top:1em;
+    margin-left:0.5em;
+}
+#collect-widget-hbox{
+    margin-left:0.7em;
+}
+#url{
+    min-width: 20em; min-height: 2.0em;
+    max-width: 20em; max-height: 2.0em; margin-left:0.5em;
+}
+#pgtitlelabel{
+    min-height:1.0em; 
+    max-height:1em; 
+    min-width: 20em;
+    max-width: 20em;
+}
+#pagetitle{
+    min-width: 20em; min-height: 2.0em;
+    max-width: 20em; max-height: 2.0em; margin-left:0.5em;   
+}
+#taglabel{
+    min-height:1.0em; 
+    max-height:1.0em; 
+    min-width: 20em;
+    max-width: 20em;
+}
+#tags{
+    min-width: 20em; min-height: 2.0em;
+    max-width: 20em; max-height: 2.0em; margin-left:0.5em
+}
+#textlabel{
+    min-height:0.6em; 
+    max-height:0.6em; 
+    min-width: 20em;
+    max-width: 20em;
+}
+#selectedtext{
+    min-width: 35em; min-height: 10em;
+    max-width: 35em; max-height: 10em; margin-top:0.8em;
+}
+#top-hbox{
+    margin:1em;
+}
+#linkbox{
+    min-height: 6em; max-height: 6em;
+    min-width: 56em; max-width: 56em; margin:0em;
+}
+#desc-title{
+    min-width:42em; margin-left0.2em; margin-top:0.5em
+}
+#pdf-lst{
+    min-height: 10em; max-height: 10em;
+    min-width: 56em; max-width: 56em;
+    margin: 0em;
+}
+#pdf-dl-desc{
+    margin:0.5em; color:grey;
+}
+#pdf-dl-progress{
+    margin:0.3em;
+}
+#downloaded-items{
+    min-height: 10em; max-height: 10em;
+    min-width: 56em; max-width: 56em;
+    margin: 0.3em;
+}
+#delete-wrapper{
+    max-width:16; max-height:16; margin:0.1em;
+}
+#remove-desc{
+    margin-left:0.4em; color:#666;
+}
+#ul-progress-box{
+    margin-bottom:0.5em;
+}
+#pdf-ul-progress{
+    margin:0.3em;
+}
+#rcache-upload-doc{
+    max-width:10em; margin-left:1.0em; 
+    margin-bottom:1.5em; margin-top:0;
+}
+#statusmsg{
+    min-height:2em; 
+    max-height:2em; 
+    min-width: 20em;
+    max-width: 20em;
+    margin:0.2em;
+    color:#0135CA;
+    font-size:1.1em;
+}
