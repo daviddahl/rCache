@@ -14,11 +14,28 @@
 
 <commandset>
   <command id="cmd_close" oncommand="rcache.close()"/>
+  <command id="rcache_old" oncommand="rcache.confirm();"/>
+  <command id="rcache_extract" oncommand="extractor.reportXUL();"/>
 </commandset>
 
 <keyset>
-  <key key="c" modifiers="shift" command="cmd_close"/>
-</keyset>
+    <key id="rcache_key" modifiers="alt" key="R" oncommand="extractor.reportXUL()"/>
+    <key id="rcache_key_old" modifiers="alt shift" key="R" oncommand="rcache.confirm()"/>
+  </keyset>
+  <!--<toolbox id="navigator-toolbox">
+    <toolbar id="nav-bar">
+      <toolbarbutton id="rcache-toolbar-btn"
+		     class="toolbarbutton-1"
+		     label="rCache"
+		     accesskey="r"
+		     command="rcache_extract"
+		     image="chrome://rcache/content/skin/page_white_find.png"
+		     tooltiptext="rCache Collector"
+		     insertbefore="urlbar-container"/>
+	
+    </toolbar>
+  </toolbox>-->
+
 
  <statusbar id="status-bar">
    
@@ -27,13 +44,26 @@
 		  tooltiptext="Save Selected Text to rCache">
     <image id="rcache-status-sel-icon" src="chrome://rcache/content/skin/database_save.png" tooltiptext="rCache Collector::Save data to rCache database"/>
   </statusbarpanel>
-
   <statusbarpanel id="rcache-panel-ext"
-		  onmousedown="extractor.reportXUL()"
-		  tooltiptext="Process Documents (PDF,Word) in Page">
-    <image id="rcache-status-sel-icon" src="chrome://rcache/content/skin/page_white_find.png" tooltiptext="rCache Extractor::Find and Save Documents (PDF, Word)"/>
-  </statusbarpanel>
+		  class="statusbarpanel-iconic"
+		  tooltiptext="rcache Collector"
+		  src="chrome://rcache/content/skin/rcache_circle_btn.png"
+		  accesskey="r"
+		  onmousedown="extractor.reportXUL();">
+    
+    <!--<button
+	id="rcache-activate-button"
+	image="chrome://rcache/content/skin/page_white_find.png" 
+	disabled="false"
+	accesskey="r"
+	onmousedown="extractor.reportXUL();"/>-->                
 
+    <!--<image id="rcache-status-sel-icon" 
+	   src="chrome://rcache/content/skin/page_white_find.png" 
+	   tooltiptext="rCache Extractor::Find and Save Documents (PDF, Word)"
+	   accesskey="r"
+	   key="rcache_key"/>-->
+  </statusbarpanel>		
  </statusbar>
 
  <window id="main-window"

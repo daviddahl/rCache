@@ -1,7 +1,8 @@
 """
 Author: David Dahl
+Copyright 2007, David L Dahl
 http://www.ddahl.com
-2007-03-20
+Created: 2007-04-20
 
 Clarify: a wrapper around several tools that convert PDF (as image) to TIFF
 Then, the TIFF is pumped through Tesseract-ocr to capture the text.
