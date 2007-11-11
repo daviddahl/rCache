@@ -5,9 +5,10 @@ rCache.com - Colleagues
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
-<div id="detail_new_entry">
+  	<div id="global_page_title">
+		<h1>Colleagues</h1>
+	</div>
   <div id="colleague_list">
-    <h3>Colleagues*</h3>
     <h4><a class="button" href="/colleague/new/">Add a New Colleague</a></h4>
     <h5>You have {{ colleagues_cnt }} Colleague{{ colleagues_cnt|pluralize }}</h5>
     {% if colleagues %}

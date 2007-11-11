@@ -16,11 +16,10 @@ rCache.com - Recent Entries
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
-  <div id="recent_header">
+  <div id="global_page_title">
     {% block func_title %}
-    <strong>Recent Entries</strong>
-    &nbsp; &nbsp; <a href="/rss/recent/" class="rss">RSS</a>
-    &nbsp; &nbsp; <a href="/recent_original/">Can't see the Entries?</a>
+    <h1>Recent Entries <a href="/rss/recent/"><img src="/media/img/feed.png" height="16" width="16" alt="RSS Feed" title="RSS Feed"></a></h1>
+    <a href="/recent_original/">Can't see the Entries?</a>
     {% endblock %}
   </div>
 <div id="search_results_grid">

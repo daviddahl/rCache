@@ -24,11 +24,11 @@ import antiword
 import pdf
 import html2text
 from email_messages import *
-from twill import get_browser
 try:
+    from twill import get_browser
     from twill.commands import go as tw_go
 except:
-	tw_go = None
+    tw_go = None
 #from BeautifulSoup import BeautifulSoup
 try:
     if os.environ['RCACHE_USE_TIDY']:

@@ -1,0 +1,146 @@
+h1,h2,h3,h4,h5,h6,table,td,tr,th {
+	margin:0px;
+	padding:0px;
+}
+a {
+    color: #666;
+}
+
+a:hover {
+    color: #333;
+}
+div {
+    clear: right;
+}
+form {
+}
+table {
+    background-color:#FFF;
+}
+table noborder{
+    background-color:#FFF; 
+}
+th{
+    padding: 0.1em;
+    font-size: 0.9em;
+    font-style: bold;
+}
+td {
+    padding: 0;
+    font-size: 0.9em;
+}
+
+h1 {
+	font-family:Georgia,Serif;
+    font-size:36px;
+    font-weight:normal;
+    letter-spacing:-2px;
+    color:#8e4700;
+}
+h1 a {
+    text-decoration:none;
+}
+
+h3{
+    font-weight: 900;
+    padding: 0.2em;
+}
+h3 a{
+    text-decoration:none;
+}
+h2 a{
+    text-decoration:none;
+}
+select{
+    font: 0.9em 'Lucida Grande',sans-serif;
+    color:#000;
+    background-color:#EEE;
+    margin: 0.5em;
+    padding: 0.2em;
+    
+}
+select:focus{
+    background-color:#DDD;
+}
+ul { 
+	list-style:none;
+	padding:0px;
+	margin:0px;
+}
+br.clearit {
+	clear:both;
+	line-height:0;
+	height:0px;
+}
+img {
+	border:0px;
+}
+input{
+    /*font-family: monospace;*/
+    border: 1px solid #BBB;
+    background-color:#EEE;
+    padding: 0.2em;
+    color: #000;
+    margin:0.5em;
+    
+}
+input: {
+    border: 1px solid #AAA;
+    background-color:#FFF;
+    color: #000;
+}
+textarea:focus {
+    border: 1px solid #AAA;
+    background-color:#FFF;
+    color: #000;
+}
+input:active {
+    border: 1px solid #AAA;
+    background-color:#FFF;
+    color: #000;
+}
+
+input:focus {
+    border: 1px solid #AAA;
+    background-color:#FFF;
+    color: #000;
+}
+
+textarea {
+    border: 1px solid #BBB;
+    background-color:#EEE;
+    padding: 0.2em;
+    margin:0.5em;
+    color: #000;
+}
+textarea:active {
+    background-color:#FFF;
+    border: 1px solid #AAA;
+}
+pre {
+    font:1em Tahoma,Arial,Helvetica,sans-serif;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    line-height:130%;
+}
+label,input,textarea {
+    display: block;
+    float: left;
+    margin:10px 0px;
+}
+label {
+    width:100px;
+    padding:3px 0px;
+}
+
+br {
+    clear: left;
+}
+input,label,textarea {
+	padding:3px;
+	font-size:14px;
+	font-family:'Lucida Grande', Arial, Verdana, Helvetica, Sans-Serif;
+}

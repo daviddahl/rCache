@@ -8,37 +8,37 @@ rCache.com - New Entry
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
-<div id="detail_new_entry">
-  <p class="message">
-  <strong>Create a new Entry.</strong> Enter URL, Title, Tags, Entry Text and File (Word, PDF, Text). <br />For ease of use, install the <a href="/firefox/">rCache Firefox Extension</a>.
-  </p>
-  {% if message %}
-   <div class="error_message">ERROR: {{ message }}</div>
-   {% endif %}
-  <form id="uploader" enctype="multipart/form-data" method="POST" action=".">
-  <label for="url">URL:</label>
-  <input id="url" type="text" maxlength="255" name="url" size="60"/>
-  <br/>
-  <label for="title">Title:</label>
-  <input id="title" type="text" size="60" name="title" maxlength="255"/>
-  <br/>
-  <p class="message">
-  Tags should be entered like so: <i><strong>economics,dollar,unemployment</strong> </i> (comma delimited)
-  </p>
-  <label for="tags">Tags:</label>
-  <input id="tags" type="text" maxlength="80" name="tags" size="30"/>
-  <br/>
-  <label for="entry_text">Entry Text:</label>
-  <textarea id="entry_text" name="entry_text" cols="60" rows="10"/></textarea>
-  <p class="message">
-  Text scraped from the uploaded file will be appended to the <i>'Entry Text'</i>
-  </p>
-  <label for="the_file">Upload a File:</label>
-  <input id="the_file" type="file" name="the_file"/>
-  <br/>
-  <label for="submit"/>&nbsp;</label>
-  <input id="submit" type="submit" value="Save"/>
-  </form>
-</div>
+  	<div id="global_page_title">
+		<h1>Create a new Entry.</h1><div>Enter URL, Title, Tags, Entry Text and File (Word, PDF, Text). <br />For ease of use, install the <a href="/firefox/">rCache Firefox Extension</a>.</div>
+  	</div>
+	{% if message %}
+	<div class="error_message">ERROR: {{ message }}</div>
+	{% endif %}
+	<div class="form-wrapper">
+		<form id="uploader" enctype="multipart/form-data" method="POST" action=".">
+		<label for="url">URL:</label>
+		<input id="url" type="text" maxlength="255" name="url" size="60"/>
+		<br/>
+		<label for="title">Title:</label>
+		<input id="title" type="text" size="60" name="title" maxlength="255"/>
+		<br/>
+		<p class="message">
+		Tags should be entered like so: <i><strong>economics,dollar,unemployment</strong> </i> (comma delimited)
+		</p>
+		<label for="tags">Tags:</label>
+		<input id="tags" type="text" maxlength="80" name="tags" size="30"/>
+		<br/>
+		<label for="entry_text">Entry Text:</label>
+		<textarea id="entry_text" name="entry_text" cols="60" rows="10"/></textarea>
+		<p class="message">
+		Text scraped from the uploaded file will be appended to the <i>'Entry Text'</i>
+		</p>
+		<label for="the_file">Upload a File:</label>
+		<input id="the_file" type="file" name="the_file"/>
+		<br/>
+		<label for="submit"/>&nbsp;</label>
+		<input id="submit" type="submit" value="Save"/>
+		</form>
+	</div>
 </div>
 {% endblock %}

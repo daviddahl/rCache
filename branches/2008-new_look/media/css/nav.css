@@ -1,0 +1,104 @@
+.home-title, .home-subtitle,#pub-menu li {
+	font-family:Georgia, Serif;
+	text-align:center;
+}
+.home-title {
+	font-size:40px;
+	letter-spacing:-2px;
+}
+.home-title a {
+	text-decoration:none;
+	color:#333;
+	letter-spacing:-2px;
+}
+.home-subtitle {
+	font-size:11px;
+	text-transform:uppercase;
+	letter-spacing:2px;
+    margin-bottom:8px;
+    padding-bottom:8px;
+}
+.home-title .logo-r {
+	font-style:italic;
+	font-weight:bold;
+	color:#9a8255;
+	padding-right:4px;
+}
+#pub-menu {
+	padding:3px 0px;
+	border-top:1px solid #000;
+    border-bottom:1px solid #000;
+
+}
+#pub-menu ul {
+	text-align:center;
+}
+#pub-menu li {
+	display:inline;
+    font-size:14px;
+    padding:0px 8px;
+}
+
+#pub-menu li a {
+    text-decoration: none;
+}
+#pub-menu li a:hover {
+    color: #CC6600;
+    text-decoration: underline;
+}
+#nav{
+    padding:0;
+    margin:32px 0px 0px 0px;
+    display: block;
+}
+#nav ul {
+    margin:0px 16px 0px 0px;
+    padding:0px;
+}
+#nav li {
+    float:right; 
+    padding: 0.4em;
+    background:#EEE;
+    border-top:1px solid #AAA;    
+    border-bottom: none;
+    border-left:1px solid #AAA;
+    border-right:1px solid #AAA;
+    font-size:1em;
+    margin-left:8px;
+}
+#nav li a {
+    text-decoration: none;
+    padding: 0.4em;
+}
+#nav li a:hover {
+    padding: 0.4em;
+    color: #333;
+}
+#nav li.active {
+    padding: 0.4em;
+    background:#FFF;
+    color: #333;
+}
+#nav li.active a{
+    color: #333;
+}
+#nav li.blend_in {
+    background:#CCC;
+    border-top:  1px solid #CCC;
+    border-left: 1px solid #CCC;
+    border-right:  1px solid #CCC;
+}
+
+#user-nav {
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+
+#user-nav li {
+	float:left;
+	margin-right:4px;
+    padding:5px 8px;
+    background-color:#eee;
+    font-size:11px;
+}

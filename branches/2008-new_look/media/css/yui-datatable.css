@@ -8,12 +8,12 @@ version: 2.2.0
 .example span, .example .yui-dt-columntext {border:1px solid red;}*/
 #search_results_grid .yui-dt-selected {background-color:#333;color:#FFF;} /*white on black*/ 
 
-#search_results_grid {margin:0em;width:98%;padding-left:0.4em;}
+#search_results_grid {}
 #search_results_grid table {
     border-collapse:collapse; border:1px solid #AAA;
     min-height:40em;
     max-height:60em;
-    width: 99%;
+    width: 100%;
 }
 #search_results_grid th, #formatting td {border:1px solid #AAA;padding:.5em;}
 #search_results_grid th, #formatting th a {color:#333;}
