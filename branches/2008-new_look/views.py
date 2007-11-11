@@ -1311,7 +1311,7 @@ def tag_maint(request):
                                    'empty_tags':empty_tags,
                                    'tgs':tgs,
                                    'len_tgs':len_tgs})
-g    else:
+    else:
         return HttpResponseRedirect("/login_required/")
 
 def tag_edit(request,tag_id):
