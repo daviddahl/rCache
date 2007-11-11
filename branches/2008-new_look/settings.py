@@ -2,7 +2,7 @@ import os
 
 # Django settings for rcache project.
 
-DEBUG = False
+DEBUG = True
 
 SERVER_URL = os.environ['RCACHE_SERVER_URL']
 
@@ -20,12 +20,12 @@ ADMINS = (
 DEV_ENV = os.environ['RCACHE_SERVER_ENV']
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql_old'
+DATABASE_ENGINE = 'sqlite3'#'mysql_old'
 DATABASE_NAME = os.environ['RCACHE_DB_NAME']
-DATABASE_USER = os.environ['RCACHE_DB_USER']
-DATABASE_PASSWORD = os.environ['RCACHE_DB_PASSWD']
-DATABASE_HOST = ''
-DATABASE_PORT = ''
+DATABASE_USER = os.environ.get('RCACHE_DB_USER','')
+DATABASE_PASSWORD = os.environ.get('RCACHE_DB_PASSWD','')
+DATABASE_HOST = os.environ.get('RCACHE_DB_HOST','')
+DATABASE_PORT = os.environ.get('RCACHE_DB_PORT','')
 # Local time zone for this installation. All choices can be found here:
 # http://www.postgresql.org/docs/current/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
 TIME_ZONE = 'America/Chicago'
