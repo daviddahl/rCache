@@ -1,6 +1,6 @@
 #!/bin/bash
 #svn url
-export SVN_URL='file:///home/david/repo_rcache rcache'
+export SVN_URL='file:///var/svn/repo_rcache rcache'
 #datestr
 export THE_DATE=`date +%C%y%m%d%H%M`
 #create dir for new export from svn
