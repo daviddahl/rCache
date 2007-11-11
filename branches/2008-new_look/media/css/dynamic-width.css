@@ -1,8 +1,8 @@
 body {
     font-family:Georgia, Serif, Arial,'Lucida Grande',Verdana,Helvetica,Sans,sans-serif;
-    background-color: #826e48;
+    background-color: #555;
     margin:0px;
-    padding:32px;
+    padding:32px 128px 32px 32px;
 }
 
 /* START CUSTOMS*/
