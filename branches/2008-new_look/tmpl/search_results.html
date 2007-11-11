@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+rCache.com - Search Results
+{% endblock %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+  <div id="recent_header">
+    {% block func_title %}
+    {% if coll_render %}
+    <div class="results_title"><h3>Search Results for '<i>{{ the_kw }}</i>' from Colleague <i>{{ coll_login }}'s</i> Research </h3>
+      <h4><a href="{{ back_lnk }}" title="{{ coll_login }}'s Research">Back</a></h4>
+    </div>
+    {% else %}
+    <div class="results_title"><h3>Search Results for '<i>{{ params }}</i>'</h3></div>
+    {% endif %}
+    {% endblock %}
+  </div>
+<div id="search_results_grid">
+  <table id="recent_grid" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tr-light">
+      <td><strong>Title</strong></td>
+      <td><strong>Relevance</strong></td>
+      <td><strong>URL</strong></td>
+      <td><strong>Date Saved</strong></td>
+    </tr>
+    {% for e in entries %}
+    <tr class="{% cycle tr-dark,tr-light %}">
+      <td>
+	{% if coll_render %}
+	<a href="/colleague/{{ coll_id }}/detail/{{ e.0 }}/?search={{ the_kw }}">
+	{% else %}
+	<a href="/detail/{{ e.0 }}/">
+	{% endif %}
+	{% if e.2 %}
+	{{ e.2|truncatewords:9 }}
+	{% else %}
+	No Title
+	{% endif %}
+	</a></td>
+	<td>{{ e.4|floatformat:3 }}</td>
+      <td><a href="{{ e.1 }}" title="{{ e.1 }}" target="_new">Go</a></td>
+      <td>{{ e.3|timesince }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+</div>
+{% endblock %}

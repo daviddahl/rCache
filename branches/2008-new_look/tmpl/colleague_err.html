@@ -1,0 +1,15 @@
+{% extends "new_entry.html" %}
+{% block title %}
+rCache.com - Error
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+<div id="detail_new_entry">
+  <div id="colleague_list">
+    <h3>Colleague Research Access Error</h3>
+    <div class="error_message">{{ message }}</div>
+  </div>
+</div>
+</div>
+{% endblock %}

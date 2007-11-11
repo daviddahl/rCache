@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://rcache/content/rcache.css"?>
+
+<overlay id="rcache-browser-overlay" 
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
+<script src="chrome://rcache/content/rcache_compress.js"/>
+<script src="chrome://rcache/content/rclip_compress.js"/>
+<script src="chrome://rcache/content/rcache_extractor.js"/>
+
+<commandset>
+  <command id="cmd_close" oncommand="rcache.close()"/>
+  <command id="rcache_old" oncommand="rcache.confirm();"/>
+  <command id="rcache_extract" oncommand="extractor.reportXUL();"/>
+</commandset>
+
+<keyset>
+    <key id="rcache_key" modifiers="alt" key="R" oncommand="extractor.reportXUL()"/>
+    <key id="rcache_key_old" modifiers="alt shift" key="R" oncommand="rcache.confirm()"/>
+  </keyset>
+  <!--<toolbox id="navigator-toolbox">
+    <toolbar id="nav-bar">
+      <toolbarbutton id="rcache-toolbar-btn"
+		     class="toolbarbutton-1"
+		     label="rCache"
+		     accesskey="r"
+		     command="rcache_extract"
+		     image="chrome://rcache/content/skin/page_white_find.png"
+		     tooltiptext="rCache Collector"
+		     insertbefore="urlbar-container"/>
+	
+    </toolbar>
+  </toolbox>-->
+
+
+ <statusbar id="status-bar">
+   
+  <statusbarpanel id="rcache-panel-sel"
+		  onmousedown="rcache.confirm()"
+		  tooltiptext="Save Selected Text to rCache">
+    <image id="rcache-status-sel-icon" src="chrome://rcache/content/skin/database_save.png" tooltiptext="rCache Collector::Save data to rCache database"/>
+  </statusbarpanel>
+  <statusbarpanel id="rcache-panel-ext"
+		  class="statusbarpanel-iconic"
+		  tooltiptext="rcache Collector"
+		  src="chrome://rcache/content/skin/rcache_circle_btn.png"
+		  accesskey="r"
+		  onmousedown="extractor.reportXUL();">
+    
+    <!--<button
+	id="rcache-activate-button"
+	image="chrome://rcache/content/skin/page_white_find.png" 
+	disabled="false"
+	accesskey="r"
+	onmousedown="extractor.reportXUL();"/>-->                
+
+    <!--<image id="rcache-status-sel-icon" 
+	   src="chrome://rcache/content/skin/page_white_find.png" 
+	   tooltiptext="rCache Extractor::Find and Save Documents (PDF, Word)"
+	   accesskey="r"
+	   key="rcache_key"/>-->
+  </statusbarpanel>		
+ </statusbar>
+
+ <window id="main-window"
+	 insertbefore="status-bar">
+   <toolbox id="rcache-toolbox"
+	    insertbefore="status-bar">
+     <toolbar id="rCacheToolbar" 
+	      hidden="true" 
+	      flex="0.2"
+	      fullscreentoolbar="true"
+	      insertbefore="status-bar">
+       
+       <hbox id="main-hbox" style="margin:5px;" flex="1"> <!-- start main hbox -->
+	 <vbox id="button_menu">  <!-- start button_menu vbox -->
+	   <label id="rcache_button_menu"
+		  class="rcache_button_menu"
+		  value="rCache"/>
+	   <label id="rcache_close"
+		  class="rcache_button"
+		  value="Close"
+		  tooltip="Close rCache toolbar"
+		  onmousedown ="rcache.close();"/>
+	   <label id="rcache_paste"
+		  class="rcache_button"
+		  value="Paste Selected"
+		  tooltip="Paste selected text from browser into entry text field"
+		  onmousedown="rcache.paste_selected();"/>
+	   <label id="rcache_paste_clipbd"
+		  class="rcache_button"
+		  value="Paste Clipboard"
+		  tooltip="Paste clipboard data into entry text field"
+		  onmousedown="rcache.paste_clipboard();"/>
+	   <label id="rcache_update_recent"
+		  class="rcache_button"
+		  value="Update Recent Entries"
+		  onmousedown="rcache.append_list_items();"/>
+	   <label id="rcache_test_button"
+		  class="rcache_button"
+		  value="test browser"
+		  onmousedown="rcache.test_browser();"/>
+	 </vbox> <!-- end button menu vbox -->
+
+
+       <spacer style="width: 0.4em;"/>
+       <hbox>
+       <iframe id="collector-iframe" 
+		src="chrome://rcache/content/collector.xul" 
+		flex="1" 
+		style="min-height: 18em; max-height: 18em; 
+		       min-width: 45em; max-width: 45em;"/>   
+       </hbox>
+        <hbox>
+	   <vbox id="recent"> <!-- start recent vbox -->
+	     
+	     <label id="recent-entries-label" 
+		  value="Recent Entries" 
+		  crop="right"/>
+	     <spacer style="height: 7px;"/>
+		     
+	     <listbox id="recent-listbox" style="min-height: 12em; max-height: 12em; min-width: 25em; max-width: 25em;"
+		      rows="5">
+	       <listhead>
+		 <listheader label="Title"/>
+	       </listhead>
+	       
+	       <listcols>
+		 <listcol flex="1"/>
+	       </listcols>
+	       
+
+	     </listbox>
+	   </vbox> <!-- end recent vbox -->
+    </hbox>
+       
+	   
+	 </hbox>
+	 
+     </toolbar>
+   </toolbox>
+ </window>
+</overlay>

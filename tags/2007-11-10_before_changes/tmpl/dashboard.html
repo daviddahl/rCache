@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}
+rCache - Accounts - Dashboard
+{% endblock %}
+{% block content %}
+<div id="dashboard_wrapper">
+  <div class="home-title" style="padding-left:1em;">
+  <a href="/"><img src="/media/img/logo_rcache_new.png" width="135" height="30" border="0"/></a>
+</div>
+<div class="home-title" style="padding-top:1.5em;padding-left:1em;">Accounts Dashboard</div>
+  <div style="clear:left;">
+    {% block func_title %}
+   <div><h1>New Users</h1></div>
+    {% endblock %}
+  </div>
+<div class="dash-wrap">
+  <table class="user-tbl" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tr-light">
+      <td><strong>Login</strong></td>
+      <td><strong>Application Date</strong></td>
+      <td>&nbsp;</td>
+    </tr>
+    {% for user in new_users %}
+    <tr class="{% cycle tr-dark,tr-light %}">
+      <td>{{ user.login }}</td>
+      <td>{{ user.date_created|timesince }}</td>
+      <td><a href="/accounts/activation/{{ user.id }}/yes/">Activation</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+ <div><h1>Users in Limbo</h1></div>
+
+<div class="dash-wrap">
+  <table class="user-tbl" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tr-light">
+      <td><strong>Login</strong></td>
+      <td colspan="2"><strong>Name</strong></td>
+      <td><strong>Date</strong></td>
+    </tr>
+    {% for user in users_in_limbo %}
+    <tr class="{% cycle tr-dark,tr-light %}">
+      <td>{{ user.login }}</td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.date_created|timesince }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+ <div><h1>Existing Users</h1></div>
+
+<div class="dash-wrap">
+  <table class="user-tbl" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tr-light">
+      <td><strong>Login</strong></td>
+      <td colspan="2"><strong>Name</strong></td>
+      <td><strong>Date</strong></td>
+      <td>&nbsp;</td>
+    </tr>
+    {% for user in users %}
+    <tr class="{% cycle tr-dark,tr-light %}">
+      <td>{{ user.login }}</td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.date_created|timesince }}</td>
+      <td><a href="/accounts/detail/{{ user.id }}/">User Details</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+</div>
+{% endblock %}

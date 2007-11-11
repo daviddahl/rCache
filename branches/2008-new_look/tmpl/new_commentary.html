@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}
+rCache.com - Detail
+{% endblock %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+  
+{% for e in entry %}
+<div id="detail_header">
+  {% if coll_render %}
+  <h4>This Entry is from your Colleague {{ colleague.login }}'s Research</h4>
+  {% endif %}
+  
+  <span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span>
+<h2><a href="{{ e.entry_url }}" title="Original URL: {{ e.entry_url }}" target="_new">{{ e.entry_name }}</a></h2>
+</div>
+<div id="new-commentary">
+  <h3>New Commentary</h3>
+  <form action="." method="post" class="aligned">
+  {{ cform.as_p }}
+  <input type="submit" value="Save">
+  </form>
+  <br />
+</div>
+<div id="detail_tags">
+  <strong>Tags</strong> &nbsp; 
+  {% for tag in tags %}
+  {{ tag }} &nbsp; 
+  {% endfor %} 
+</div>
+
+<div id="detail_entry_text_short">
+<div id="text_content_boundry">
+  <pre>{{ escaped_text_content }}</pre>
+</div>
+<div id="new-commentary">
+  
+</div>
+</div>
+{% endfor %}
+
+</div>
+{% endblock %}

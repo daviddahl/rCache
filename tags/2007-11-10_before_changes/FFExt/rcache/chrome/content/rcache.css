@@ -1,0 +1,66 @@
+
+#rcache-status {
+    font:11px 'trebuchet ms', verdana, sans-serif;
+}
+#rcache-panel-old {
+    cursor: pointer;
+    font:11px 'trebuchet ms', verdana, sans-serif;
+}
+#rcache-panel-pop {
+    cursor: pointer;
+    font:11px 'trebuchet ms', verdana, sans-serif;
+}
+#rcache-status-icon{
+    background: url(chrome://rcache/content/skin/database_add.png);
+}
+#statusmsg {
+     font:1.5em color:#00F; 'trebuchet ms', verdana, sans-serif;
+}
+#rcache-toolbox{
+    
+    font:1em color:#999; 'trebuchet ms', verdana, sans-serif;
+}
+#rcache-toolbox vbox{
+    /*border: 1px #00F solid;*/
+}
+
+#rcache-toolbox hbox{
+    /*border: 1px #F00 solid;*/
+}
+#main-hbox{
+}
+#rcache-collector{
+    font:1em color:#999; 'trebuchet ms', verdana, sans-serif;
+}
+#entry-hbox{
+    
+}
+#entry-vbox{
+    display: -moz-box;
+}
+.rcache_button {
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+    font-size: 0.9em;
+    border: 1px solid #BBB;
+    padding: 0.3em;
+}
+.rcache_button:hover {
+    border: 1px solid #999;
+}
+#button_menu {
+    padding: 0.7em;
+    border: 1px solid #AAA;
+}
+#rcache_button_menu{
+    
+    font:1em bold color:#999; 'trebuchet ms', verdana, sans-serif;
+}
+#entry {
+    padding: 0.6em;
+}
+#recent {
+    padding: 0.6em;
+    border: 1px solid #AAA;
+}

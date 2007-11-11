@@ -1,0 +1,26 @@
+{% extends "activation.html" %}
+{% block title %}
+rCache - Activate Your New Account
+{% endblock %}
+{% block activate_content %}
+<p>
+{% if message %}
+<div class="error_message">Error: {{ message }}</div>
+{% endif %}
+Do you want to activate your new account?
+<h4>{{ user.login }}</h4>
+
+<form action="/accounts/activate/" method="post">
+<input class="hideme" type="hidden" name="hk" value="{{ hk }}"/>
+
+<label for="id_password">Password</label>
+<input type="password" name="password" id="id_password" maxlength="45"/>
+<br />
+<label for="id_password_conf">Confirm Password</label>
+<input type="password" name="password_conf" id="id_password_conf" maxlength="45"/>
+<br />
+<label for="id_submit">&nbsp;</label>
+<input type="submit" id="id_submit" value="Activate Account"/>
+</form>
+</p>
+{% endblock %}

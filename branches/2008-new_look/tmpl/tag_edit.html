@@ -1,0 +1,37 @@
+{% extends "search.html" %}
+{% block title %}
+rCache.com - Tag Editor
+{% endblock %}
+{% block search_content %}
+<div id="filter-menu" class="message">
+<h3>Edit Tag</h3>
+  {% if msg %}
+  <div class="instructions">{{ msg }}</div>
+  {% endif %}
+  {% if form %}
+  <form action="." method="post" class="aligned">
+  {{ form.as_ul }}
+  <br />
+  <input type="hidden" name="tag_id" value="{{ tag_id }}" class="hidden"/>
+  <label for="id-submit">&nbsp;</label>
+  <input type="submit" value="Save" id="id_submit"/> 
+  </form>
+  
+  </br />&nbsp;
+  <br >&nbsp;
+  {% endif %}
+</div>
+<div id="tag-menu">
+  <ul>
+    <li><strong>Tag Tools</strong></li>
+    <li class="selected">
+      <a href="/filter/tags/maintenence/" class="button" title="Remove Empty Tags">Tag Maintenence</a>
+    </li>
+    <li class="selected">
+      <a href="/filter/tags/editor/" class="button" title="Edit and remove Tags">Tag Editor</a>
+    </li>
+  </ul>
+</div>
+{% block search_slow_msg %}
+{% endblock %}
+{% endblock %}

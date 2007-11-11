@@ -1,0 +1,108 @@
+A Simple HTML Parser for Python
+
+Yes I can hear you already- why do we need yet another HTML parser for Python? Yes there are a number of excellent HTML parsers available, I recently had a project where I needed to write my own. This project only needed simple information such as the contents of the title tag, the body text, and a list of referenced URLs. Most of the existing parsers are sophisticated implementations that are designed the preserve the HTML's structure. This is great if you want this structure, or if you are working with well-formed XHTML. However, I found that many of these parsers broken by very simple page errors. Unfortunately the world wide web is full of errors, due to the various different standards and browsers, but also because most browsers try to "do their best", leading to the errors not being noticed.
+
+So my solution was a really simple parser. It recognised three tags: title, body, and a href. It tried to convert entity codes into ANSI characters if possible. Otherwise, all other tags are ignored.
+The SimpleHTMLParser Implementation
+
+The resulting SimpleHTMLParser is available for download (2.6KB). This is a ZIP file of a PY Python source file. It is distributed with a Berkeley-style license.
+
+The implementation is event based (eg. a bit like SAX), and uses two classes. BaseSimpleHTMLParser is a base parser that calls various methods (handle_*) to handle specific 'events' such as the beginning or end of a tag. A sub-class should be created from BaseSimpleHTMLParser, that handles these methods as required. A much more sophisticated parser could be quickly created by writing your own sub-class.
+
+The parse method should be called with the HTML to be parsed, as a string.
+
+The second class is SimpleTextHTMLParser. This sub-classes BaseSimpleHTMLParser, implementing the various event handlers to produce the required simple-but-flexible functionality.
+How to use SimpleHTMLParser
+
+The following examples for using SimpleHTMLParser were created using PythonWin 2.4.2. The '>>>' characters are PythonWin's prompts.
+
+First, define the parser classes by running SimpleHTMLParser.py (use the menu in PythonWin, or run it as a command line script). Then use the urllib to load the required HTML:
+
+>>> import urllib
+>>> import urlparse
+>>> surl = "http://www.winwaed.com"
+>>> u = urllib.urlopen(surl)
+>>> spage = u.read()
+
+spage now contains the contents of the HTML page as a string. We then create a SimpleTextHTMLParser object, and pass spage to it:
+
+>>> myParser = SimpleTextHTMLParser()
+>>> myParser.parse(s, u.geturl() )
+
+The parser also requires the page's URL. This is so that it can fully parse any relative URLs that are found within the page. These will be returned as full URLs.
+
+The page has now been parsed, and the various elements can be extracted as class properties. For example, the title is stored in the titleText property:
+
+>>> myParser.titleText
+Winwaed Software Technology
+
+The bodyText property contains the body text. All child tags will have been stripped out, and entity codes will have been interpreted into ANSI characters (if possible). Here is an example: (result has been split across multiple lines for clarity)
+
+>>> myParser.bodyText
+"Winwaed Software Technology Partners| Contacts --> Winwaed Software Technology 
+# Dynamic version: --> Home| Articles| Downloads| Contact Contact Contact --> 
+Home Menu › About Us › Products › Projects On this page › 
+What's New › What We Do › Why Winwaed? What's New A new Articles 
+section has been added, to hold various software articles, code snippets, and 
+freeware. The articles are entitled Microsoft Authenticode and the Micro-ISV, 
+and Processing the HSX XML Feed with XSLT. In partnership with MP2KMag.com, our 
+Mapping-Tools.com website is now accepting orders for the newly-released Microsoft 
+MapPoint 2006. Version 2.2 of GridImp has been released. The GridImp is a utility 
+for importing gridded data into Microsoft's MapPoint application, and runs on 
+Windows 2000 or Windows XP. Version 2.2 adds support for MapPoint 2006. Winwaed 
+Software Technology has just launched a new site: Mileage-Charts.com. This is a 
+sister site to Mapping-Tools.com, and sells pre-computed mileage table data. The 
+current mileage table product includes distances and travel times between huge 
+numbers of US cities, and only costs US$20. See Mileage-Charts.com today, for your 
+US mileage charts. Winwaed Software Technology has been appointed as North 
+American distributors of Magellan Ingenierie's TourSolver for MapPoint application. 
+TourSolver is a powerful route optimization tool, capable of optimizing hundreds of 
+stops amongst dozens of vehicles. See the TourSolver pages on our Mapping-Tools.com 
+website. Version 1.4 of MileCharter has been released. MileCharter allows the quick 
+and simple creation of mileage charts and tables using Microsoft\xae's MapPoint\xae 
+application. MileCharter can create tables of route distance, travel time, and 
+estimated costs; and supports all geographic editions of Microsoft MapPoint 2002 
+and 2004. Version 1.4 includes a new tutorial for beginners to Microsoft MapPoint, 
+and is now available on CD-ROM from Amazon. Electronic Delivery continues to be 
+available. ^ top --> What We Do Winwaed Software Technology provides software 
+consulting and programming services. We can take on most projects, but specialise in 
+geographical and scientific applications. We currently support the Gistix GIS 
+Toolkit, and produce and sell a number of utilities for Microsoft's MapPoint 
+application. Recent projects include custom programming solutions for Microsoft 
+MapPoint and the Open / Star Office suites. We are also working with the University 
+of Dallas on an educational field biology project. ^ top --> Why Winwaed? The word 
+Winwaed goes back to a major Anglo-Saxon Battle in 655AD. Although the location of 
+this battle is unknown, Richard Marsden (Winwaed Software Technology's founder) grew 
+up at one of its most likely locations. For further information, there's a website 
+devoted to the Battle of Winwaed. Contact Information Privacy Statement \xa9 
+Copyright 2003-6, Winwaed Software Technology Irving, Texas"
+
+All the URLs that are found in a href tags are listed in the listURLs list property. Relative URLs are expanded as full URLs, and duplicates are removed. Here is an example: (result has been broken across multiple lines here, for clarity)
+
+>>> myParser.listURLs
+['http://www.winwaed.com/history/winwaed/winwaed.shtml', 
+'http://www.winwaed.com/products/office.shtml', 
+'http://www.mapping-tools.com/toursolver/index.shtml', 
+'http://www.winwaed.com/products/products.shtml', 
+'http://www.winwaed.com/index.html', 
+'http://www.mapping-tools.com/milecharter/index.shtml', 
+'http://www.winwaed.com/about.shtml', 
+'http://www.winwaed.com/index.shtml', 
+'http://www.mileage-charts.com', 
+'http://www.mapping-tools.com', 
+'http://www.mapping-tools.com/milecharter/buy_milecharter.shtml', 
+'http://www.winwaed.com/projects/dallas_wetlands.shtml', 
+'http://www.mapping-tools.com/info/mp_products/mappoint.shtml', 
+'http://www.winwaed.com/products/gistix.shtml', 
+'http://www.winwaed.com/info/authenticode/authenticode.shtml', 
+'http://www.winwaed.com/contact.shtml', 
+'http://www.mapping-tools.com/mappoint2006', 
+'http://www.winwaed.com/info/hsx_xslt/hsx_xslt.shtml', 
+'http://www.winwaed.com', 
+'http://www.winwaed.com/privacy.shtml', 
+'http://www.winwaed.com/projects/projects.shtml', 
+'http://www.mapping-tools.com/gridimp/index.shtml', 
+'http://www.winwaed.com/info/index.shtml', 
+'http://www.winwaed.com/download/index.shtml']
+
+And that is it! I hope you find these parser classes useful. Although they are lacking the sophistication of other better-known Python parsers, this parser has proved to be more robust. 

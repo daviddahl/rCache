@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+
+<div id="login_boundry">
+  {% include "pub-menu.html" %}
+  {% block login_link %}
+  <div class="message">
+  You must be <a href="https://collect.rcache.com/login/">logged in</a> to access this resource.
+  </div>
+  {% endblock %}
+</div>
+
+{% endblock %}
+{% block getfirefox %}
+{% endblock %}

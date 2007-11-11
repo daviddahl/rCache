@@ -1,0 +1,34 @@
+{% extends "recent_orig.html" %}
+{% block title %}
+rCache.com - Tag Results
+{% endblock %}
+{% block func_title %}
+<div class="results_title">
+  {% if coll_render %}
+  <h3>Results for Tag '<i>{{ the_tag }}</i>' from Colleague <i>{{ coll_login }}'s</i> Research</h3>
+  <h4><a href="{{ back_lnk }}" title="{{ coll_login }}'s Research">Back</a></h4>
+  {% else %}
+  <strong>Results for Tag</strong> '<i>{{ the_tag }}</i>' &nbsp; &nbsp;<a href="/rss/tag/?tg={{ the_tag|urlencode }}" class="rss">RSS</a>
+  {% endif %}
+</div>
+{% endblock %}
+{% block entries %}
+    {% for e in entries %}
+    <tr class="{% cycle tr-dark,tr-light %}">
+      <td>
+	{% if coll_render %}
+	<a href="/colleague/{{ coll_id }}/detail/{{ e.id }}/?tag={{ the_tag }}">
+	{% else %}
+	<a href="/detail/{{ e.id }}/">
+	{% endif %}
+	{% if e.entry_name %}
+	{{ e.entry_name|truncatewords:10 }}
+	{% else %}
+	No Title
+	{% endif %}
+	</a></td>
+      <td><a href="{{ e.entry_url }}" title="{{ e.entry_url }}" target="_new">Go</a></td>
+      <td>{{ e.date_created|timesince }}</td>
+    </tr>
+    {% endfor %}
+{% endblock %}

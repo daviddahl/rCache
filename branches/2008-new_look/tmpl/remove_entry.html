@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}
+rCache.com - Remove Entry
+{% endblock %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+<div id="detail_header">
+<span class="entry_detail_id">Entry # {{ entry.id }}, Saved {{ entry.date_created|timesince }} ago {{ entry.date_created }}</span>
+
+  <h2><a href="{{ entry.entry_url }}" title="Original URL: {{ entry.entry_url }}" target="_new">{{ entry.entry_name }}</a></h2>
+
+  <br />
+  <br />
+ <a href="/detail/{{ entry.id }}/" title="Cancel" class="button">Cancel</a>
+ <a href="/removeit/{{ entry.id }}/" title="Remove this entry permanently. This cannot be reversed." class="button">Remove This Entry permanently.</a>
+
+</div>
+
+<div id="detail_entry_text"></div>
+</div>
+{% endblock %}

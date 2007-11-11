@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}
+rCache.com - 
+{% endblock %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+{% for e in entry %}
+<div id="detail_header">
+  <span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span> &nbsp; &nbsp; &nbsp;
+  <a href="/detail/{{ e.id }}/" title="Cancel editing" class="button">Cancel</a>
+</div>
+<div id="detail_entry_text" style="min-height:650px;">
+<div id="text_content_boundry">
+  {% if message %}
+  <p class="error_message">{{ message }}</p>
+  {% endif %}
+  <form action="." method="post">
+  <label for="entry_url">Entry URL</label>
+  <input type="text" name="entry_url" size="65" id="entry_url" value="{{ e.entry_url }}">
+  <br />
+  <label for="entry_name">Entry Title</label>
+  <input type="text" name="entry_name" size="65" id="entry_name" value="{{ e.entry_name }}">
+  <br />
+  <label for="entry_tags">Tags</label>
+  <input type="text" name="entry_tags" size="65" id="entry_tags" value="{{ entry_tags }}">
+  <br />
+  <label for="text_content">Entry Text</label>
+  <textarea cols="90" rows="30" name="text_content" id="text_content">{{ e.text_content }}</textarea>
+ 
+  <label for="id_submit">&nbsp;</label>
+  <input type="submit" value="Save"/>
+  </form>
+  
+</div>
+
+
+</div>
+
+{% endfor %}
+</div>
+{% endblock %}

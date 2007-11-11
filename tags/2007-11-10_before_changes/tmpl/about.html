@@ -1,0 +1,114 @@
+{% extends "firefox.html" %}
+{% block js %}
+{% endblock %}
+{% block content %}
+<div id="firefox_boundry">
+  {% include "pub-menu.html" %}
+  
+  <div class="message">
+    <h3>About rCache</h3>
+    <p>
+    rCache is that always-there place to store data that you want to refer back to. Bookmarks and saving web page data to your computer's disk are unwieldy and slow processes. Your data is stored on your hard disk, and tends to be unorganized.
+    </p>
+    <p>
+    rCache frees you from this, by giving you your own research repository online - where you can store articles, blog postings, documents and images. Tagging and full-text keyword searching is a snap.
+    <br />
+    You can store data that you may want to cite in your research, white paper, article or your own blog posting.
+    </p>
+    <h3>rCache Feature List</h3>
+    <p>
+    <strong>Collect</strong> data from web pages, PDFs, Word Documents and other resources.
+    </p>
+    <p>
+    <strong>Index</strong> all of this data in a searchable, browsable database.
+    </p>
+    <p>
+    <strong>Tagging</strong> of Entries makes pinpoint filtering easy.
+    </p>
+
+    <p>
+    <strong>Filter</strong> your data by the Entry's source domain name.
+    </p>
+    <p>
+    <strong>Search</strong> your data by keyword or phrase.
+    </p>
+    <p>
+    <strong>RSS</strong>: Use an RSS reader to keep track of your most recent Entries or any tag based lookups into your data.
+    </p>
+    <p>
+    <strong>Collaborate</strong>: Give colleagues access to your research data, with restrictions based on tags or keyword searches.
+    </p>
+    <p>
+    System Requirements: (Online version)
+    <br />
+    Windows, Macintosh or Linux OS that can run Firefox 1.5 and later. rCache strives to be a cross-platform system, however, use of Internet Explorer (IE) is not encouraged. We are targeting Firefox users, or those that will use Firefox for data collection. Trying to support multiple broswers may be possible in the future. For the time being, we do not have the resources to code for IE.
+    </p>
+    <h3><a href="#rcache">rCache Screenshots</a></h3>
+    rCache works hand in glove with the best of breed web browser, Firefox&trade;.
+    <br />
+    <a href="http://getfirefox.com/"
+title="Get Firefox - Web browsing redefined."><img
+src="http://www.mozilla.org/products/firefox/buttons/getfirefox_large2.png"
+width="178" height="60" border="0" alt="Get Firefox" target="_new"></a>
+  <br />
+    </p>
+  <a name="collector"></a>
+    The <strong>rCache Collector</strong> Firefox&trade; extension makes entering data into your rCache database fast and trivial.
+    <br />
+    <ul>
+      <li>Select an area on a web page by clicking and dragging your mouse.</li>
+      <li>Click on the <i>rCache Collector</i> icon <img src="/media/img/database_save.png" border="0"/> on the status bar of your Firefox browser.</li>
+      <li>Enter <i>Tags</i> (comma delimited)</li>
+      <li>Click <i>Continue</i> </li>
+      <li>Your selection is entered into the database, and the rCache Collector window goes away, unobtrusively.</li>
+    </ul>
+  </div>
+  <div class="screenshot">
+    <h4>rCache Collector Firefox&trade; Extension</h4>
+    <img src="/media/img/ffext_screen.png" width="500" height="427"
+    style="display:table-cell;vertical-align:middle;padding-top:0px; padding-right:25px; padding-left:25px; margin: 10px; border:none"/>
+  </div>
+  <h1>rCache Collector Movies</h1>
+  <ul id="movie-list">
+    <li><a href="/media/img/rCacheCollectorInstall.mov" target="_new">Install rCache Collector - QuickTime</a></li>
+    <li><a href="/media/img/rCacheCollectorFFExt2.mov" target="_new">Using rCache Collector - QuickTime</a></li>
+  </ul>
+  <a name="rcache"></a>
+  <h1>rCache Screenshots</h1>
+  
+  <div class="screenshot">
+    <h4>rCache Detail Screen</h4>
+    <a href="#top">Back to Top</a>
+    <img src="/media/img/detail.png" width="500" height="676"
+    style="display:table-cell;vertical-align:middle;padding-top:0px; padding-right:25px; padding-left:25px; margin: 10px; border:none"/>
+  </div>
+
+  <div class="screenshot">
+    <h4>rCache New Entry Screen</h4>
+    <p>A new entry can be text, Microsoft Word &trade; or PDF documents. The text is scraped from the docs and added to the database and internal search engine index.</p>
+    <a href="#top">Back to Top</a>
+    <img src="/media/img/new_entry.png" width="500" height="575"
+    style="display:table-cell;vertical-align:middle;padding-top:0px; padding-right:25px; padding-left:25px; margin: 10px; border:none"/>
+  </div>
+
+  <div class="screenshot">
+    <h4>rCache Search Engine</h4>
+    <p>All of the text in your rCache database is indexed and searchable. rCache sorts the results by relevance.</p>
+    <a href="#top">Back to Top</a>
+    <img src="/media/img/search_results.png" width="500" height="301"
+    style="display:table-cell;vertical-align:middle;padding-top:0px; padding-right:25px; padding-left:25px; margin: 10px; border:none"/>
+  </div>
+
+  <div class="screenshot">
+    <h4>rCache RSS Support</h4>
+    <p>You can use an RSS reader to keep track of your entries and any tag-based lookups into your data.</p>
+    <a href="#top">Back to Top</a>
+    <img src="/media/img/rss_recent.png" width="340" height="74"
+    style="display:table-cell;vertical-align:middle;padding-top:0px; padding-right:25px; padding-left:25px; margin: 10px; border:none"/>
+    <br />
+    <img src="/media/img/rss_tags.png" width="340" height="78"
+    style="display:table-cell;vertical-align:middle;padding-top:0px; padding-right:25px; padding-left:25px; margin: 10px; border:none"/>
+  </div>
+  
+</div>
+{% endblock %}

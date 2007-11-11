@@ -1,0 +1,31 @@
+{% extends "dashboard.html" %}
+{% block title %}
+rCache - Accounts - Dashboard
+{% endblock %}
+{% block content %}
+<div id="dashboard_wrapper">
+  <div id="detail_activation">
+  <div>
+    {% block func_title %}
+   <div><h1>User Activation</h1></div>
+    {% endblock %}
+  </div>
+  {% block activate_content %}
+  <p>
+  {% if message %}
+  <div class="error_message">Error: {{ message }}</div>
+  {% endif %}
+  Do you want to activate a new account for:
+  <h4><a href="/accounts/detail/{{ user.id }}/">{{ user.login }}</a> </h4>
+  {% if user.research_type %}
+  <h4>Type of Research:</h4>
+  <pre>{{ user.research_type }}</pre>
+  {% endif %}
+  </p>
+  <p>
+  <a href="/accounts/activation/{{ user.id }}/yes/" class="button">YES</a> <a href="/accounts/dashboard/" class="button">NO</a>
+  </p>
+  {% endblock %}
+</div>
+</div>
+{% endblock %}

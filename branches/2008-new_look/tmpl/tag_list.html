@@ -1,0 +1,38 @@
+{% extends "search.html" %}
+{% block title %}
+rCache.com - Filter Entries
+{% endblock %}
+{% block search_content %}
+<div id="filter-menu">
+  <span>Filter by: </span>
+  <ul>
+    {% block filter_menu %}
+    <li class="selected">Tags</li>
+    <li><a href="/filter/domains/">Domains</a></li>
+    {% endblock %}
+  </ul>
+</div>
+<div class="the_lists">
+{% block the_list %}
+{% for tag in tags %}
+<a href="/tag/?tg={{ tag.0 }}">{{ tag.0 }}</a> &nbsp;
+{% endfor %}
+<br/><br/>
+<a class="op_link" href="/taglist/?op=all">Show All Tags...</a> &nbsp;
+  <a class="op_link" href="/taglist/?op=alpha">Show Tags Alphabetically...</a>
+{% endblock %}
+</div>
+<div id="tag-menu">
+  <ul>
+    <li><strong>Tag Tools</strong></li>
+    <li class="selected">
+      <a href="/filter/tags/maintenence/" class="button" title="Remove Empty Tags">Tag Maintenence</a>
+    </li>
+    <li class="selected">
+      <a href="/filter/tags/editor/" class="button" title="Edit and remove Tags">Tag Editor</a>
+    </li>
+  </ul>
+</div>
+{% block search_slow_msg %}
+{% endblock %}
+{% endblock %}

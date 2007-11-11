@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block js %}
+{% block mochi %}
+{% endblock %}
+{% block dojo %}
+{% endblock %}
+{% block yui %}
+{% endblock %}
+{% endblock %}
+{% block js_app %}
+{% endblock %}
+{% block body %}
+<body style="padding:0; margin:0; text-align:left; vertical-align:left;">
+{% endblock %}
+{% block content %}
+<div id="loginxul_boundry">
+  <h3>rCache.com</h3>
+  {% if message %}
+  <h4>{{ message }}</h4>
+  {% endif %}
+  {% if logged_in %}
+  {% block loggedin %}
+  <h3>You are logged in</h3>
+  <h4> <A href="#" onclick="javascript: self.close();">Close</A></h4>
+  {% endblock %}
+  {% else %}
+   {% block form %}
+  <form action="https://collect.rcache.com/loginxul/" method="POST">
+  <label for="login">Login </label>
+  <input type="text" name="login" maxlength="60" size="20"/>
+  <br/>
+  <label for="passwd">Password </label>  
+  <input type="password" name="passwd" maxlength="60" size="20"/>
+  <br/>
+  <label for="loginbutton">&nbsp;</label>  
+  <input type="submit" name="loginbutton" value="Login"/>
+  </form>
+  <br /><br />
+  <span>Don't have an Account? <a href="#" onclick="javascript:window.open('https://collect.rcache.com/account/','rCache Account')">Click Here</a></span>
+  {% endblock %}
+  {% endif %}
+</div>
+{% endblock %}
+{% block copyright %}
+{% endblock %}

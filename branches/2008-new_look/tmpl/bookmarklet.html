@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Firefox Bookmarklet</title>
+<style type="text/css">
+.bookmarklet_info {
+    /*font-family: monospace;*/
+    font:11px 'trebuchet ms', verdana, sans-serif;
+    border: 1px solid #BBB;
+    font-size: 11px;
+    padding: 5px;
+    color: #666;
+    width:400px;
+    margin:5px;
+    
+}
+</style>
+</head>
+
+<body>
+<div class="bookmarklet_info">
+  <strong>rCache Bookmarklet.</strong> This "Bookmarklet" allows for dead-easy use of rCache.
+  Install this link in your browser's toolbar and any page you are reading can
+  be cached with one click.
+  <br/><br/>
+  Bookmarklet Installation: drag this link to your browser's toolbar.
+  <br/>
+  Production
+  <br/>
+<a onClick="alert('To drag the button to your toolbar, left click the link and while holding the mouse button down, drag it to the browser toolbar and release the button.'); return false;" href="javascript:location.href='https://rcache.com/cache_link?url='+location.href">rCache This</a>
+
+  <br/>
+  Local
+  <br/>
+  <a onClick="alert('To drag the button to your toolbar, left click the link and while holding the mouse button down, drag it to the browser toolbar and release the button.'); return false;" href="javascript:location.href='http://127.0.0.1:8000/cache?url='+location.href">Local rCache This</a>
+
+</div>
+  <br/>
+
+
+</body> </html>

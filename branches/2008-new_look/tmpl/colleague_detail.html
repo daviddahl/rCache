@@ -1,0 +1,59 @@
+{% extends "new_entry.html" %}
+{% block title %}
+rCache.com - Colleague Detail - {{ colleague.colleague.login }}
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+<div id="detail_new_entry">
+  <div id="colleague_list">
+    <h3>Manage Colleague</h3>
+    <h1>{{ colleague.colleague.login }}</h1>
+    <div>
+      {% if updated %}
+      <h3 class="message">Colleague Updated</h3>
+      {% endif %}
+      <br />      
+    <form action="/colleague/{{ colleague.id }}/" method="post">
+    <input class="hideme" type="hidden" name="colleague" value="{{ colleague.id }}">
+      <label for="active" title="Active Colleagues have access to your Entries, with the restrictions below.">Active?</label>
+      {% if colleague.active %}
+      <input type="checkbox" name="active" value="1" checked/>
+      {% else %}
+      <input type="checkbox" name="active" value="1"/>
+      {% endif %}
+    <br />
+    <label for="tag_restrictions">Search Restrictions?</label>
+      {% if colleague.search_restrictions %}
+      <input type="checkbox" name="search_restrictions" value="1" checked/>
+      {% else %}
+      <input type="checkbox" name="search_restrictions" value="1"/>
+      {% endif %}
+    <br />
+    <label for="priv_type" title="Approved Search Keywords is a list of tags: economics,Warsaw Pact, etc...">Approved Search Keywords</label>
+    <textarea name="search_keywords_approved" value="" cols="40" rows="2" maxlength="1024" title="Approved Search Keywords is a list of keywords: economics,Warsaw Pact, etc... that you allow your colleague top search by.">{{ colleague.search_keywords_approved }}</textarea>
+    <br />
+      <label for="tag_restrictions">Tag Restrictions?</label>
+      {% if colleague.tag_restrictions %}
+      <input type="checkbox" name="tag_restrictions" value="1" checked/>
+      {% else %}
+      <input type="checkbox" name="tag_restrictions" value="1"/>
+      {% endif %}
+    <br />
+    <label for="priv_type" title="Approved Tags is a list of tags: economics,Warsaw Pact, etc...">Approved Tags</label>
+    <textarea name="tags_approved" value="" cols="40" rows="2" maxlength="1024" title="Approved Tags is a list of tags: economics,Warsaw Pact, etc...">{{ colleague.tags_approved }}</textarea>
+      <br />
+      <label for="commentary">Allow Commentary and Annotation?</label>
+      {% if colleague.commentary %}
+      <input type="checkbox" name="commentary" value="1" checked/>
+      {% else %}
+      <input type="checkbox" name="commentary" value="1"/>
+      {% endif %}
+    <br />
+    <input type="submit" value="Update Colleague"/>
+    </form>
+    </div>   
+  </div>
+</div>
+</div>
+{% endblock %}

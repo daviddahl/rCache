@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}
+rCache.com - Recent Entries
+{% endblock %}
+{% block js_app %}
+{% endblock %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+  <div id="recent_header">
+    {% block func_title %}
+    <strong>Recent Entries</strong>
+    &nbsp; &nbsp; <a href="/rss/recent/" class="rss">RSS</a>
+    &nbsp; &nbsp; <a href="/recent/">Recent Entries Enhanced</a>
+    {% endblock %}
+  </div>
+<div id="search_results_grid">
+  <br />
+  <table id="recent_grid" cellspacing="0" cellpadding="0" border="0">
+    <tr class="tr-light">
+      <td><strong>Title</strong></td>
+      <td><strong>URL</strong></td>
+      <td><strong>Date Saved</strong></td>
+    </tr>
+    {% block entries %}
+    {% for e in entries %}
+    <tr class="{% cycle tr-dark,tr-light %}">
+      <td>
+	<a href="/detail/{{ e.id }}/">
+	{% if e.entry_name %}
+	{{ e.entry_name|truncatewords:15 }}
+	{% else %}
+	No Title
+	{% endif %}
+	</a></td>
+      <td><a href="{{ e.entry_url }}" title="{{ e.entry_url }}" target="_new">Go</a></td>
+      <td>{{ e.date_created|timesince }}</td>
+    </tr>
+    {% endfor %}
+    {% endblock %}
+  </table>
+</div>
+</div>
+{% endblock %}

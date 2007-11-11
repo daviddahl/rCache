@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}
+rCache.com - Commentary Detail
+{% endblock %}
+{% block js_app %}
+<script type="text/javascript" src="/media/js/yui/yahoo/yahoo-min.js"></script>
+<script type="text/javascript" src="/media/js/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="/media/js/commentary.js"></script>
+{% endblock %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+  
+{% for c in commentary %}
+<div id="commentary-detail">
+  <h3>Commentary Detail</h3>
+  <h4>{{ c.title }}</h4>
+  <div id="commentary-summary">
+    <pre>{{ c.summary }}</pre>
+  </div>
+  <h4>Snippets</h4>
+
+
+  <div id="snippets">
+
+    
+  {% for s in snippets %}
+    {% if s.active %}
+  <div class="{% if s.active %}snippet{% else %}snippet-hidden{% endif %}" id="snippet_{{ s.id }}">
+    <pre>{{ s.snippet }}</pre>
+  <div class="snippet-options">
+    {% if s.active %}
+    <a href="#" class="button-small" title="Set Snippet Inactive" onclick="javascript:commentary.snippet_hide({{ s.id }});">-</a>
+    <!-- <a href="#" class="button-small" title="Remove Snippet" onclick="commentary.snippet_remove({{ s.id }});">X</a> -->
+    {% endif %}
+    <a href="#" class="button-small" onclick="commentary.comment_new(snippet={{ s.id }});">New Comment</a>
+  <div class="comments" class="hidden" id="new_comment_snippet_{{ s.id }}"></div>
+  <div class="comments" class="hidden" id="comments_snippet_{{ s.id }}"></div>
+  </div>
+
+  {% else %}
+
+  <div class="{% if s.active %}snippet{% else %}snippet-hidden{% endif %}" id="snippet_{{ s.id }}">
+    <a href="#" class="button-small" title="activate this hidden snippet" onclick="javascript:commentary.snippet_show({{ s.id }})">+</a>{% endif %}
+ </div>
+    {% endfor %}
+
+  {% endfor %}
+</div>
+<div id="detail_header">
+  <h3>Original Entry</h3>
+  {% if coll_render %}
+  <h4>This Entry is from your Colleague {{ colleague.login }}'s Research</h4>
+  {% endif %}
+  
+  <span class="entry_detail_id">Entry # {{ entry.id }}, Saved {{ entry.date_created|timesince }} ago {{ entry.date_created }}</span>
+<h2><a href="{{ entry.entry_url }}" title="Original URL: {{ entry.entry_url }}" target="_new">{{ entry.entry_name }}</a></h2>
+</div>
+<div id="detail_tags">
+  <strong>Tags</strong> &nbsp; 
+  {% for tag in tags %}
+  {{ tag }} &nbsp; 
+  {% endfor %} 
+</div>
+
+<div id="detail_entry_text_short">
+<div id="text_content_boundry">
+  <pre>{{ escaped_text_content }}</pre>
+</div>
+</div>
+</div>
+{% endblock %}

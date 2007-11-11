@@ -1,0 +1,33 @@
+{% extends "firefox.html" %}
+{% block js %}
+{% endblock %}
+{% block title %}rCache.com - Products - rCache Server{% endblock %}
+{% block content %}
+<div id="firefox_boundry">
+  {% include "pub-menu.html" %}
+<div class="message" style="line-height:1.7em;">
+  <p><img src="/media/img/rcache_server_logo.png" width="167" height="29"/></p>
+  
+  <p>
+  <strong>rCache Server</strong> - All of the power of rCache.com located at your office or in your datacenter.
+  <br />
+  rCache is a powerful data collection and research tool, but some businesses have a need for the utmost in security and scalability. rCache Server and rCache Collector can be customized to your specifications.
+  <br /><br />
+  We are working feverishly on packaging rCache for the corporate environment. rCache Server is expected to launch in Summer 2007. A beta program will be launched prior to the public release, if your organization is interested, contact us today.
+  <br /><br />
+  <a href="/contact/">Contact Us</a>
+  <br/><br/>
+  Subscribe to our blog feed for updated information: <a href="http://rcache.blogspot.com/feeds/posts/default" class="rss">RSS</a>
+  <br />
+  </p>
+  <p style="font-size:0.9em">
+  System Requirements:
+  <ul>
+    <li>OS: GNU/Linux</li>
+    <li>Database: MySQL, Postgresql, or SQLite</li>
+    <li>Web server: Apache2</li>
+  </ul>
+  </p>
+  </div>
+</div>
+{% endblock %}
