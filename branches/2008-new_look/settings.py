@@ -19,7 +19,7 @@ ADMINS = (
 DEV_ENV = os.environ['RCACHE_SERVER_ENV']
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'#'mysql_old'
+DATABASE_ENGINE = 'mysql_old'
 DATABASE_NAME = os.environ['RCACHE_DB_NAME']
 DATABASE_USER = os.environ.get('RCACHE_DB_USER','')
 DATABASE_PASSWORD = os.environ.get('RCACHE_DB_PASSWD','')

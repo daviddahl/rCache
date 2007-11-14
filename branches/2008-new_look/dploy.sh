@@ -1,19 +1,20 @@
 #!/bin/bash
 #svn url
-export SVN_URL='file:///var/svn/repo_rcache rcache'
+export SVN_URL='file:///var/svn/repo_rcache/branches/2008-new_look'  
+#'file:///var/svn/rcache rcache'
 #datestr
 export THE_DATE=`date +%C%y%m%d%H%M`
 #create dir for new export from svn
-mkdir /home/david/deploy/$THE_DATE
+mkdir /usr/local/lib/dploy/$THE_DATE
 #chang dir
-cd /home/david/deploy/$THE_DATE
+cd /usr/local/lib/dploy/$THE_DATE
 #svn export command
 svn export $SVN_URL
 #byte-compile the whole dir
-python /usr/lib/python2.4/compileall.py /home/david/deploy/$THE_DATE/rcache
+python /usr/lib/python2.4/compileall.py /usr/local/lib/dploy/$THE_DATE/rcache
 #remove symlink
-rm /home/david/deploy/rcache
+rm /usr/local/lib/dploy/rcache
 #make symlink
-ln -s /home/david/deploy/$THE_DATE/rcache /home/david/deploy/rcache
+ln -s /usr/local/lib/dploy/$THE_DATE/rcache /usr/local/lib/rcache
 #restart apache
-sudo apache2ctl restart
+apache2ctl restart
