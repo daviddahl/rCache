@@ -1,6 +1,6 @@
 #!/bin/bash
 #svn url
-export SVN_URL='file:///var/svn/rcache/branches/2008-new_look'  
+export SVN_URL='file:///var/svn/rcache/branches/2008-new_look rcache'  
 #'file:///var/svn/rcache rcache'
 #datestr
 export THE_DATE=`date +%C%y%m%d%H%M`
