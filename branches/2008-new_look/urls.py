@@ -93,3 +93,11 @@ urlpatterns += patterns('rcache.account.views',
                         (r'^accounts/password/change/$','password_change'),
                         (r'^accounts/detail/(?P<user_id>\d+)/$','detail'),
                        )
+
+urlpatterns += patterns('rcache.hyper.views',
+                        (r'^hyper/search/$', 'search'),
+                       )
+
+urlpatterns += patterns('rcache.xhr.views',
+                        (r'^xhr/search/$', 'search'),
+                       )

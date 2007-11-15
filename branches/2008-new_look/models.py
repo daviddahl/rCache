@@ -27,7 +27,8 @@ class User(models.Model):
     user_url = models.CharField(blank=True, maxlength=255)
     
     def __str__(self):
-        return "%s : %s %s %s" %(self.id,self.login, self.first_name, self.last_name)
+        return "%s : %s %s %s" \
+               % (self.id,self.login, self.first_name, self.last_name)
     class Meta:
         db_table = '_user'
     class Admin:
