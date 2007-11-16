@@ -21,7 +21,7 @@ class HyperUtil(object):
         except Exception, e:
             print unicode(e)
             
-    def make_doc(self,hyper_lst,txt):
+    def make_doc(self,hyper_lst):
         """Use a dictionary to create a document. the dictionary is like:
         {'@uri': 123,           # my database id
          '@title':u'the title', # title
@@ -37,8 +37,9 @@ class HyperUtil(object):
          '@misc': 'whatever' }
         """
         if not self.db:
-            self.open()
-            
+            self.open_w()
+
+        
         for entry in hyper_lst:
             doc = he.Document()
             #for k,v in entry.items():
@@ -47,14 +48,17 @@ class HyperUtil(object):
             print entry['title']
             print entry['author']
             
-            doc.add_attr('@uri',entry['uri'])
-            doc.add_attr('@title',entry['title'])
-            doc.add_attr('@author',entry['author'])
-            
-            doc.add_text(txt)
+            doc.add_attr('@uri',str(entry['uri']).encode('utf-8','ignore'))
+            doc.add_attr('@title',entry['title'].encode('utf-8','ignore'))
+            doc.add_attr('@author',str(entry['author']).encode('utf-8','ignore'))
+            doc.add_text(entry['txt'].decode('utf-8','ignore').encode('utf-8','ignore'))
 
-            self.db.put_doc(doc,self.db.PDCLEAN)
-        
+            if not self.db.put_doc(doc,self.db.PDCLEAN):
+                print "put failed"
+            else:
+                print "put successful"
+
+ 
     def optimize_and_close(self):
         try:
             self.db.optimize(self.db.OPTNODBOPT)
@@ -74,8 +78,20 @@ class HyperUtil(object):
             print uniceod(e)
             return
 
+    def open_w(self):
+        """open db to write"""
+        casket = '/var/hyper/casket'
+        try:
+            db = he.Database()
+            db.open(casket,db.DBWRITER | db.DBCREAT)
+            self.db = db
+        except Exception, e:
+            print uniceod(e)
+            return
+    
     def query(self,qs,query_type='SIMPLE'):
         """try query string against the db"""
+        self.qs = qs
         try:
             cond = he.Condition()
             cond.set_phrase(qs)
@@ -83,6 +99,7 @@ class HyperUtil(object):
                 qt = cond.SIMPLE
             # results is a list of integers (the ids of the qdbm records)
             results = self.db.search(cond,qt)
+            #print results
             return results
         except Exception, e:
             print unicode(e)
@@ -97,6 +114,14 @@ class HyperUtil(object):
             docs.append(self.db.get_doc(res,0))
         return docs
 
+    def print_results(self,docs):
+        """
+        print the results
+        """
+        for doc in docs:
+            print self.snippet(doc,self.qs)
+
+        
     def snippet(self,doc,phrase):
         """
         make a snippet
@@ -111,25 +136,53 @@ class HyperUtil(object):
         """
         get all rcache Entries - format as hyper dict
         """
-        entries = Entry.objects.all()[:100] # get 100 for now
+        log = open('/tmp/hyper.log','w')
+        entries = Entry.objects.all() # get 100 for now
         hyper_lst = []
         for e in entries:
-            print e.entry_name
-            d = {'uri': e.id,
-                 'title': e.entry_name,
-                 'author': e.user.id
-                 }
-            hyper_lst.append(d)
+            try:
+                author = e.user.id
+                title = e.entry_name
+                uri = e.id
+                txt = e.text_content
+                d = {'uri': uri,
+                     'title': title,
+                     'author': author,
+                     'txt':txt
+                     }
+                hyper_lst.append(d)
+            except Exception, e:
+                try:
+                    err = "ERROR: id %s: %s\n" % (str(e))
+                except Exception,e:
+                    err =  str(e)
+                log.write(err)
+                log.flush
+                print err
+                continue
             
-            self.make_doc(hyper_lst,e.text_content)
             
-        #self.optimize_and_close()
+        self.make_doc(hyper_lst)
+        print "Optimizing!!!!!!!!!!!"
+        self.optimize_and_close()
         return
 
 def load():
     h = HyperUtil()
-    h.open()
+    h.open_w()
     h.rcache_docs()
+
+def create():
+    h = HyperUtil()
+    h.create()
+
+def search(q):
+    h = HyperUtil()
+    h.open()
+    lst = h.query(q)
+    res = h.process_query(lst)
+    #h.print_results(res)
+    return res
 
 if __name__ == '__main__':
     load()
