@@ -1,6 +1,9 @@
 from django.db import models
 from django.db import connection
 
+from rcache.hyper.client import HyperClient as h
+
+
 class Company(models.Model):
     company_name = models.CharField(blank=True, maxlength=300)
     description = models.CharField(blank=True, maxlength=765)
@@ -150,6 +153,20 @@ class Entry(models.Model):
     def get_absolute_url(self):
         return "/detail/%s/" % self.id
     
+    def hypersearch(self,query,user):
+        """
+        search the hyperestraier index via the p2p client
+        """
+        hyper = h()
+        res = hyper.search(query)
+        lst = hyper.id_lst()
+        if len(lst) > 0:
+            in_str = "id IN (%s)" % ",".join(lst)
+            qs = Entry.objects.filter(user=user).extra(where=in_str)
+        else:
+            return []
+        return qs
+
     def fulltxt(self,_user,kw):
         """Fulltext search on Entries sorted by relevence"""
         from django.db import connection
