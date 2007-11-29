@@ -140,6 +140,9 @@ class Entry(models.Model):
     summary = models.TextField(blank=True)
     tag = models.ManyToManyField(Tag)
 
+    hyper_attrs = {}
+    
+
     def entry_count(self,user_id):
         cursor = connection.cursor()
         q = """SELECT COUNT(id) FROM entry WHERE user_id = %s"""
@@ -158,14 +161,33 @@ class Entry(models.Model):
         search the hyperestraier index via the p2p client
         """
         hyper = h()
-        res = hyper.search(query)
-        lst = hyper.id_lst()
+        res = hyper.search(query,user.id)
+        lst,dct = hyper.id_lst()
+        print "entries found: %s" % str(len(lst))
+        #print dct
         if len(lst) > 0:
             in_str = "id IN (%s)" % ",".join(lst)
-            qs = Entry.objects.filter(user=user).extra(where=in_str)
+            entries = Entry.objects.filter(user=user).extra(where=[in_str,])
+            qs = []
+            for entry in entries:
+
+                id = str(entry.id)
+                the_attrs = dct[id]
+                print the_attrs
+                entry.set_hyper_attrs(the_attrs)
+                qs.append(entry)
+
+                #                    print "problem with : %s" % entry.id
+                #                    print str(e)
         else:
             return []
         return qs
+
+    def set_hyper_attrs(self,dct):
+        """
+        set hyperestraier attrs inside the entry object
+        """
+        self.hyper_attrs = dct
 
     def fulltxt(self,_user,kw):
         """Fulltext search on Entries sorted by relevence"""

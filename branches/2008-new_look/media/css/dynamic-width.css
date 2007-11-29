@@ -30,7 +30,7 @@ body {
     border-bottom: 8px solid #EEE;
     border-top: 8px solid #EEE;
 	padding:8px 0px;
-	margin-bottom:16px;
+	margin-bottom:0px;
 }
 #global_page_title div {
 	margin:8px 0px;
@@ -1178,4 +1178,15 @@ h2 {
 }
 #tg-tbl td{
     padding:0.3em;
+}
+
+.keywords{
+    font-size:0.6em;
+    font-family:'sans-serif';
+}
+#keywords{
+    font-size: 0.6em;
+    font-family: 'sans-serif';
+    padding:1em;
+    border-bottom: 1px solid #ddd;
 }

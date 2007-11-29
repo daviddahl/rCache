@@ -39,6 +39,7 @@ except:
 from rcache.models import *
 from rcache.forms import *
 from rcache.settings import *
+from rcache.hyper.client import HyperClient
 
 search_refer = re.compile("/search/$")
 
@@ -618,11 +619,18 @@ def detail(request,entry_id):
     if login_check(request):
         try:
             u = User.objects.get(id=request.session['userid'])
-            e = Entry.objects.filter(user=u,id__exact=entry_id)
-            escaped_text_content = escape(e[0].text_content)
-            imgs = Media.objects.filter(entry__exact=e[0])
-            links = EntryUrl.objects.filter(entry__exact=e[0])
-            tags = Tag.objects.filter(entry__exact=e[0])
+            e = Entry.objects.filter(user=u,id__exact=entry_id)[0]
+            try:
+                h = HyperClient()
+                entry_attrs = h.all_attrs(str(e.id),u.id)
+            except Exception, ex:
+                print ex
+                entry_attrs = {}
+            
+            escaped_text_content = escape(e.text_content)
+            imgs = Media.objects.filter(entry__exact=e)
+            links = EntryUrl.objects.filter(entry__exact=e)
+            tags = Tag.objects.filter(entry__exact=e)
             tags_clean = []
             for t in tags:
                 tags_clean.append(t.tag)
@@ -659,7 +667,8 @@ def detail(request,entry_id):
                                        'edit_buttons':True,
                                        'back_lnk':back_lnk,
                                        'user':u,
-                                       'recent_enhanced':recent_enhanced})
+                                       'recent_enhanced':recent_enhanced,
+                                       'entry_attrs':entry_attrs})
         except Exception,e:
             #need to log exception
             #send 404!
@@ -845,7 +854,8 @@ def search(request):
             if request.POST['search_str']:
                 params = request.POST['search_str']
                 e = Entry()
-                entries = e.fulltxt(u,params)
+                #entries = e.fulltxt(u,params)
+                entries = e.hypersearch(params,u)
                 return render_to_response('search_results.html',
                                           {'user':u,
                                            'params':params,
