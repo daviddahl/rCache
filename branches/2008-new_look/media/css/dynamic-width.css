@@ -1,20 +1,21 @@
 body {
-    font-family:Georgia, Serif, Arial,'Lucida Grande',Verdana,Helvetica,Sans,sans-serif;
+    font-family:'Lucida Grande',Verdana,Helvetica,Sans,sans-serif;
     background-color: #555;
     margin:0px;
-    padding:32px 128px 32px 32px;
+    padding:16px 16px 16px 16px;
+    font-size:0.8em;
 }
 
 /* START CUSTOMS*/
 #wrapper {
-    padding:16px;
+    padding:0px;
     margin:0px;
-	background-color:#fff;
+    background-color:#fff;
     min-width:800px;
 }
 #wrapper-inner {
-	border:1px solid #ccc;
-    padding:32px;
+    border:1px solid #eee;
+    padding:8px;
     margin:0px;
     min-height:500px;
     position:relative;
@@ -27,10 +28,12 @@ body {
     padding:0.5em;
 }
 #global_page_title {
-    border-bottom: 8px solid #EEE;
+    border-bottom: 1px solid #EEE;
     border-top: 8px solid #EEE;
-	padding:8px 0px;
-	margin-bottom:0px;
+    border-right:1px solid #eee;
+    border-left: 1px solid #eee;
+    padding:0px 8px;
+    margin-bottom:0px;
 }
 #global_page_title div {
 	margin:8px 0px;
@@ -140,8 +143,8 @@ body {
 
 
 h2 {
-    color: #AAA;
-    font-size:1.2em;
+    color: #111;
+    font-size:1.3em;
     padding:0;
     margin:0;
 }
@@ -293,20 +296,16 @@ h2 {
 }
 
 #detail_header{
-    padding: 0.8em;
     background: #FFF;
-    width: 90%;
-    line-height: 1.5em;
+    line-height: 1.25em;
 }
 #detail_header h2{
     padding-left: 0;
 }
 #detail_tags{
-    padding: 0.7em 0.7em 0.7em 0.7em;
+    padding: 8px;
     background: #FFF;
-    width: 97%;
-    border-top: 1px solid #DDD;
-    border-bottom: 1px solid #DDD;
+    border: 1px solid #eee;
 }
 #detail_tags span{
     font-style:bold;
@@ -327,9 +326,8 @@ h2 {
     padding: 1em;
 }
 .entry_detail_id{
-    font: bolder;
-    padding-top: 1em;
-    padding-left: 0;
+    font-size:40%;
+    padding-left: 16px;
 }
 .tr-light{
     background: #FFF;
@@ -560,12 +558,13 @@ h2 {
     width: 98%;
 }
 #detail_entry_text_long {
-    border: none;
-    padding: 0.2em;
+    border-right:1px solid #eee;
+    border-left:1px solid #eee;
+    border-top:1px solid #eee;
+    padding: 8px;
     background-color:#FFF;
     overflow: auto;
     max-height: 450px;
-    width: 98%;
 }
 #detail_entry_text_short {
     border: none;
@@ -600,32 +599,22 @@ h2 {
     width: 98%;
 }
 #detail_imgs {
-    border: 1px solid #DDD;
-    padding: 0.2em;
+    border: 1px solid #eee;
+    padding: 0px;
     background-color:#FFF;
     overflow: auto;
-    max-height: 40em;
-    min-height:15em;
-    width: 98%;
 }
 #detail_links {
-    border: 1px solid #DDD;
-    padding: 0.2em;
+    border: 1px solid #eee;
+    padding: 0px;
     background-color:#FFF;
     overflow: auto;
-    max-height: 12em;
-    min-height:8em;
-    width: 98%;
 }
 #detail_links_header {
-    border-top: 1px solid #AAA;
-    border-bottom: 1px solid #AAA;
-    padding: 0.1em;
-    background-color:#EEE;
+    border: 1px solid #eee;
+    padding:0px 4px;
     overflow: none;
-    min-height: 1.9em;
-    max-height: 1.9em;
-    min-width: 80%;
+    background:#eee;
 }
 #detail_links_header ul {
     padding-bottom:0;
@@ -639,14 +628,10 @@ h2 {
     padding-right:20%;
 }
 #detail_imgs_header {
-    border-top: 1px solid #AAA;
-    border-bottom: 1px solid #AAA;
-    padding: 0.1em;
-    background-color:#EEE;
+    border: 1px solid #eee;
+    padding:0px 4px;
     overflow: none;
-    min-height: 1.9em;
-    max-height: 1.9em;
-    min-width: 80%;
+    background:#eee;
 }
 
 
@@ -704,7 +689,9 @@ h2 {
 }
 
 #search_button{
-    margin-left: 1em;
+    margin-top: 8px;
+    color: #000;
+    background:FFC;
 }
 .vlist_data{
   margin: 0.4em;  
@@ -806,6 +793,7 @@ h2 {
     padding: 0px;
     max-height:800px;
     overflow:auto;
+    border:1px solid #eee;
 }
 .bold_header{
     font-weight:bolder;
@@ -836,7 +824,7 @@ h2 {
 /*    float: left; */
     text-decoration:none;
     min-width: 6em;
-    font-size:0.9em;
+    font-size:0.8em;
 }
 .button a{
     text-align:center;
@@ -1187,6 +1175,6 @@ h2 {
 #keywords{
     font-size: 0.6em;
     font-family: 'sans-serif';
-    padding:1em;
-    border-bottom: 1px solid #ddd;
+    padding:8px;
+    border: 1px solid #eee;
 }

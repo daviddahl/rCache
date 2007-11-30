@@ -80,11 +80,14 @@ class HyperClient(object):
         raw_kwords = doc.keywords.split("\t")
         the_kwords = []
         i = 0
+        kw_count = 0
         for kword in raw_kwords:
             if i == 1:
                 i = 0
                 continue
             else:
+                kw_count += 1
                 the_kwords.append(kword)
                 i += 1
-        return the_kwords
+        #the_kwords.reverse()
+        return the_kwords[:8]

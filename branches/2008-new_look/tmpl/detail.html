@@ -8,18 +8,16 @@ rCache.com - Detail
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
- <div id="global_page_title">
+  <div id="global_page_title">
 <div id="detail_header">
   {% if coll_render %}
   <h4>This Entry is from your Colleague {{ colleague.login }}'s Research</h4>
   {% endif %}
-  
-  <span class="entry_detail_id">Entry # {{ entry.id }}, Saved {{ entry.date_created|timesince }} ago {{ entry.date_created }}</span>
-<h2><a href="{{ entry.entry_url }}" title="Original URL: {{ entry.entry_url }}" target="_new">{{ entry.entry_name }}</a></h2>
+<h2><a href="{{ entry.entry_url }}" title="Original URL: {{ entry.entry_url }}" target="_new">{{ entry.entry_name }}</a>   <span class="entry_detail_id">Entry # {{ entry.id }}, Saved {{ entry.date_created|timesince }} ago {{ entry.date_created }}</span></h2>
 </div>
 </div>
 <div id="detail_tags">
-  <strong>Tags</strong> &nbsp; 
+  <strong>Tags:</strong> &nbsp; 
   {% for tag in tags %}
 <a href="/tag/?tg={{ tag|urlencode }}" title="Filter your research by tag: {{ tag }}">{{ tag }}</a> &nbsp; 
   {% endfor %}

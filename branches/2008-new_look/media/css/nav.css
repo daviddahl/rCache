@@ -3,7 +3,7 @@
 	text-align:center;
 }
 .home-title {
-	font-size:40px;
+	font-size:24px;
 	letter-spacing:-2px;
 }
 .home-title a {
@@ -12,11 +12,11 @@
 	letter-spacing:-2px;
 }
 .home-subtitle {
-	font-size:11px;
-	text-transform:uppercase;
-	letter-spacing:2px;
-    margin-bottom:8px;
-    padding-bottom:8px;
+    font-size:8px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:4px;
+    padding-bottom:4px;
 }
 .home-title .logo-r {
 	font-style:italic;
@@ -48,7 +48,7 @@
 }
 #nav{
     padding:0;
-    margin:32px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
     display: block;
 }
 #nav ul {

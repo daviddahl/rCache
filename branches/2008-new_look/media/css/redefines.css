@@ -73,36 +73,38 @@ br.clearit {
 	height:0px;
 }
 img {
-	border:0px;
+	border:1px solid #111;
+	margin-left:8px;
+	margin-top:8px;
 }
 input{
     /*font-family: monospace;*/
     border: 1px solid #BBB;
     background-color:#EEE;
-    padding: 0.2em;
+    line-height:150%;
     color: #000;
     margin:0.5em;
-    
+    font-size:24px;
 }
-input: {
+input:hover {
     border: 1px solid #AAA;
     background-color:#FFF;
     color: #000;
 }
 textarea:focus {
     border: 1px solid #AAA;
-    background-color:#FFF;
+    background-color:#FFC;
     color: #000;
 }
 input:active {
     border: 1px solid #AAA;
-    background-color:#FFF;
+    background-color:#FFC;
     color: #000;
 }
 
 input:focus {
     border: 1px solid #AAA;
-    background-color:#FFF;
+    background-color:#FFC;
     color: #000;
 }
 
@@ -129,7 +131,7 @@ pre {
 label,input,textarea {
     display: block;
     float: left;
-    margin:10px 0px;
+    margin:10px 10px;
 }
 label {
     width:100px;
@@ -143,4 +145,7 @@ input,label,textarea {
 	padding:3px;
 	font-size:14px;
 	font-family:'Lucida Grande', Arial, Verdana, Helvetica, Sans-Serif;
+}
+h1{
+font-size:24px;
 }

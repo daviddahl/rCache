@@ -268,11 +268,11 @@ form {
 }
 input{
     /*font-family: monospace;*/
-    font:11px 'trebuchet ms', verdana, sans-serif;
+    font-family:'trebuchet ms', verdana, sans-serif;
     border: 1px solid #BBB;
-    background-color:#EEE;
-    font-size: 11px;
-    padding: 1px;
+    background-color:#FFC;
+    font-size: 20px;
+    padding: 3px;
     color: #000;
     margin:5px;
     

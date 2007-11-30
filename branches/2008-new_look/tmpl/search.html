@@ -17,10 +17,10 @@ rCache.com - Search
 	  <strong><i>Please Enter a Search Term.</i></strong>
 	  </p>
 	  {% endif %}
-	  <form action="." method="POST">
+	  <form action="/search/" method="POST">
 	  <label for="search_str">Search</label>
 	  <input type="text" name="search_str" maxlength="40" size="40"/>
-	  <input type="submit" name="search_btn" value="Search"/>
+	  <input id="search_button" type="submit" name="search_btn" value="Search"/>
 	  </form>
 		<br />
 	{% endblock %}
