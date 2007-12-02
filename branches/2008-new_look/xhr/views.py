@@ -25,10 +25,10 @@ def hypersearch(request):
         
         try:
             params = request.POST['search_str']
-            print params
+            #print params
             e = Entry()
             entries = e.hypersearch(params,u)
-            print "entries: %s" % entries
+            #print "entries: %s" % entries
             results = []
             for entry in entries:
                 results.append({'title':entry.entry_name,
@@ -36,8 +36,10 @@ def hypersearch(request):
                                 'attrs':entry.hyper_attrs,
                                 'id':entry.id})
             res = render_to_string('related_docs.html',
-                                   {'results':results})
-            print "res: ", res
+                                   {'results':results,
+                                    'length':len(results),
+                                    'keywords':params})
+            #print "res: ", res
             return JsonResponse({'status':'success',
                                  'msg':res})
         except Exception, e:

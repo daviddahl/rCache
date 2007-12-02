@@ -264,13 +264,41 @@ var xhr = new Object();
 
 rcache.xhr = xhr;
 
+rcache.xhr.related_add_kword = function(kword){
+    // add a keyword to the kwords span
+    var existing_kwords = j('#related-doc-keywords')[0].innerHTML;
+    //alert(existing_kwords);
+    if (existing_kwords == ''){
+	j('#related-doc-keywords')[0].innerHTML = existing_kwords + kword + " ";
+    } else {
+	var e_kwords_arr = existing_kwords.split(" ");
+	if (e_kwords_arr.indexOf(kword) >= 0){
+	    //already in array
+	} else {
+	    j('#related-doc-keywords')[0].innerHTML = existing_kwords + kword + " ";
+	}
+    }
+}
+rcache.xhr.related_docs_custom_kwords_clear = function(){
+    j('#related-doc-keywords')[0].innerHTML = '';
+}
+
+rcache.xhr.related_docs_custom_kwords = function(){
+    // get the keywords from the span holding them, pass them to 'related_docs'
+    kwords = j('#related-doc-keywords')[0].innerHTML;
+    if (kwords == ''){
+	alert("Please select one or more keywords.");
+    } else {
+	rcache.xhr.related_docs(kwords);
+    }
+}
 
 rcache.xhr.related_docs = function(kwords){
     
     // get related docs via a docs' keywords
-    var query = '';
-    var kwords_arr = kwords.split(' ',3);
-    query = query + kwords_arr.join(' ');
+    var query = kwords;
+    //var kwords_arr = kwords.split(' ',3);
+    //query = query + kwords_arr.join(' ');
     var post_data = {'search_str':query};
     var url = "/xhr/search/";
     j.post(url,post_data,function(data,textStatus){

@@ -1191,7 +1191,12 @@ text-decoration:underline;
 padding:2px;
 }
 #related-docs-header{
-    padding:4px;
+    padding:8px;
     border-left:1px solid #eee;
     border-right:1px solid #eee;
+}
+#related-doc-keywords{
+    font-family:serif;
+    font-weight: bolder;
+    color:#9A8255;
 }
