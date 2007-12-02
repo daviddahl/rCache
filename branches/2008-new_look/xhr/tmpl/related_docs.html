@@ -1,0 +1,15 @@
+  <table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td colspan="3"><strong>Related Documents</strong></td>
+  {% for rdoc in rdocs %}
+    <tr>
+      <td><a href="/detail//">{{ rdoc.entry_title }}</a></td>
+      <td>
+	{% for kwd in rdoc.entry_attrs.kwords %}
+	<a href="/tag/?tg={{ kwd }}">{{ kwd }}</a> &nbsp;
+	{% endfor %}
+      </td>
+      <td>{{ rdoc.date_created }}</td>
+    </tr>
+  {% endfor %}
+  </table>

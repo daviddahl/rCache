@@ -623,6 +623,11 @@ def detail(request,entry_id):
             try:
                 h = HyperClient()
                 entry_attrs = h.all_attrs(str(e.id),u.id)
+                try:
+                   kw_for_q = entry_attrs['kwords']
+                   kwords_for_query = " ".join(kw_for_q)
+                except Exception, ex:
+                    print ex
             except Exception, ex:
                 print ex
                 entry_attrs = {}
@@ -655,6 +660,7 @@ def detail(request,entry_id):
                 recent_enhanced = True
             else:
                 recent_enhanced = False
+                
             return render_to_response('detail.html',
                                       {'entry':e,
                                        'escaped_text_content':escaped_text_content,
@@ -668,7 +674,8 @@ def detail(request,entry_id):
                                        'back_lnk':back_lnk,
                                        'user':u,
                                        'recent_enhanced':recent_enhanced,
-                                       'entry_attrs':entry_attrs})
+                                       'entry_attrs':entry_attrs,
+                                       'kwords_for_query':kwords_for_query})
         except Exception,e:
             #need to log exception
             #send 404!

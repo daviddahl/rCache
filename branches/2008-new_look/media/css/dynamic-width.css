@@ -1,5 +1,5 @@
 body {
-    font-family:'Lucida Grande',Verdana,Helvetica,Sans,sans-serif;
+    font-family:'Lucida Grande',sans-serif;
     background-color: #555;
     margin:0px;
     padding:16px 16px 16px 16px;
@@ -1172,9 +1172,26 @@ h2 {
     font-size:0.6em;
     font-family:'sans-serif';
 }
+#keywords table{
+width:100%;
+}
 #keywords{
     font-size: 0.6em;
     font-family: 'sans-serif';
-    padding:8px;
+    padding:4px;
     border: 1px solid #eee;
+    max-height:300px;
+    overflow:auto;
+}
+#keywords a{
+cursor:pointer;
+text-decoration:underline;
+}
+#keywords td{
+padding:2px;
+}
+#related-docs-header{
+    padding:4px;
+    border-left:1px solid #eee;
+    border-right:1px solid #eee;
 }

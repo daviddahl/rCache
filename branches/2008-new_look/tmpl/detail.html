@@ -29,6 +29,7 @@ rCache.com - Detail
   {% endif %}
   <a href="#links" title="Extracted Links" class="button">Links</a>
   <a href="#imgs" title="Extracted Images" class="button">Images</a>
+  <a href="#" onclick="rcache.xhr.related_docs('{{ kwords_for_query }}')" title="Show Related Documents" class="button">Related Documents</a>
   <!-- <a href="/commentary/{{ entry.id }}/" title="New/Edit Commentary" class="button">Commentary</a> -->
 
   {% if back_lnk %}
@@ -42,17 +43,16 @@ rCache.com - Detail
 <div id="keywords">
   <strong>Keywords:</strong> &nbsp;
   {% for kwd in entry_attrs.kwords %}
-  <a href="/tag/?tg={{ kwd }}">{{ kwd }}</a> &nbsp;
+  <a onclick="rcache.xhr.related_docs('{{ kwd }}');">{{ kwd }}</a> &nbsp;
   {% endfor %}
 </div>
-
+<div id="related-docs-header" title="Click on any of the above keywords to display related documents"><strong>Related Documents:</strong></div>
+<div id="related-docs"></div>
 <div id="detail_entry_text_long">
 <div id="text_content_boundry">
   <pre>{{ escaped_text_content|urlize }}</pre>
 </div>
 </div>
-
-
 
 <a name="links"></a>
 <div id="detail_links_header">

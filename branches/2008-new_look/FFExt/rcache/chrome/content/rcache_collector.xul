@@ -13,6 +13,11 @@
 	  src="chrome://rcache/content/rcache_compress.js"/>
   <script type="application/x-javascript" 
 	  src="chrome://rcache/content/rclip_compress.js"/>
+  <script type="application/x-javascript" 
+	  src="chrome://rcache/content/jquery-min.js"/>
+  <script>
+    var j = jQuery.noConflict();
+  </script>
 <hbox>
 <vbox id="outer-box" style="max-width:60em;">
 

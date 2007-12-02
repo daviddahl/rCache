@@ -99,5 +99,5 @@ urlpatterns += patterns('rcache.hyper.views',
                        )
 
 urlpatterns += patterns('rcache.xhr.views',
-                        (r'^xhr/search/$', 'search'),
+                        (r'^xhr/search/$', 'hypersearch'),
                        )

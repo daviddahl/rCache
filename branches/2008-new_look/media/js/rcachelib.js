@@ -256,3 +256,36 @@ var JsSpiderCallBk = {
   },
  timeout: 10000
 }
+
+//start new rCache object
+
+var rcache = new Object();
+var xhr = new Object();
+
+rcache.xhr = xhr;
+
+
+rcache.xhr.related_docs = function(kwords){
+    
+    // get related docs via a docs' keywords
+    var query = '';
+    var kwords_arr = kwords.split(' ',3);
+    query = query + kwords_arr.join(' ');
+    var post_data = {'search_str':query};
+    var url = "/xhr/search/";
+    j.post(url,post_data,function(data,textStatus){
+	    res = eval('(' + data  + ')');
+	    if (res.status == 'success'){
+		j("#related-docs").children().remove();
+		j("#related-docs")[0].innerHTML = res.msg;
+		j("#related-docs").css({'border':'1px solid #eee',
+			    'padding':'4px',
+			    'max-height':'200px',
+			    'overflow':'auto'});
+		j("#related-docs > table").css({'width':'100%'});
+		j("#related-docs").show("slow");
+	    } else {
+		alert(res.msg);
+	    }
+	});
+}
