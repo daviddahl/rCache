@@ -289,6 +289,8 @@ rcache.xhr.related_docs_custom_kwords = function(){
     if (kwords == ''){
 	alert("Please select one or more keywords.");
     } else {
+	j("#related-docs")[0].innerHTML = '<img src="/media/img/loading_ani2.gif" border="0"/>';
+	j("#related-docs").css({'border':'1px solid #eee','padding':'4px'});
 	rcache.xhr.related_docs(kwords);
     }
 }
@@ -316,4 +318,36 @@ rcache.xhr.related_docs = function(kwords){
 		alert(res.msg);
 	    }
 	});
+}
+
+rcache.xhr.clear_input = function(inpt){
+    // clear search input
+    inpt.value = "";
+    inpt.onclick = null;
+}
+
+rcache.xhr.search = function(){
+    // perform a search - use base64 encoding on search query
+    var qs = encodeURIComponent(j('#search-inpt')[0].value);
+    // get input value
+    // base64 encode it
+    // change location to /search/?q=jhfjdhfldhgfkdhfdjh
+    document.location = "/search/?search_str=" + qs;
+    
+}
+
+function showKeyCode(e)
+{
+    //alert("keyCode for the key pressed: " + e.keyCode + "\n");
+}
+
+function checkSubmission(e){
+    // check for return "13"
+    // alert(e.keyCode);
+    if (e.which == 13){
+	rcache.xhr.search();
+	return true;
+    } else {
+	return false;
+    }   
 }

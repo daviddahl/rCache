@@ -857,9 +857,9 @@ def search(request):
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
         
-        if request.POST:
-            if request.POST['search_str']:
-                params = request.POST['search_str']
+        if request.GET.has_key('search_str'):
+            if request.GET['search_str']:
+                params = request.GET['search_str']
                 e = Entry()
                 #entries = e.fulltxt(u,params)
                 entries = e.hypersearch(params,u)

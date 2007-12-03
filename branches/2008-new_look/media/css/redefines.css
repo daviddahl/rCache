@@ -13,6 +13,8 @@ div {
     clear: right;
 }
 form {
+    margin:0;
+    padding:0;
 }
 table {
     background-color:#FFF;
@@ -73,9 +75,7 @@ br.clearit {
 	height:0px;
 }
 img {
-	border:1px solid #111;
-	margin-left:8px;
-	margin-top:8px;
+	border:0;
 }
 input{
     /*font-family: monospace;*/

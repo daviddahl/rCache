@@ -90,15 +90,50 @@
 }
 
 #user-nav {
-	position:absolute;
-	top:0px;
-	left:0px;
+    position:absolute;
+    top:0px;
+    left:0px;
 }
 
 #user-nav li {
-	float:left;
-	margin-right:4px;
+    float:left;
+    margin-right:4px;
     padding:5px 8px;
     background-color:#eee;
     font-size:11px;
+}
+
+#search-nav{
+padding:0;
+margin:0;
+}
+
+#search-nav ul{
+padding:0;
+margin:0;
+}
+#search-nav li{
+padding:0;
+margin:0;
+}
+#search-nav form{
+padding:0;
+margin:0;
+}
+
+#search-nav{
+padding:0;
+margin:0;
+}
+
+#search-nav{
+    position:absolute;
+    top:0px;
+    left:300px;
+    margin:-1px;
+    padding:-1px;
+    font-size:60%;
+    font-family:'sans-serif';
+    color:#000;
+    background:#fff;
 }

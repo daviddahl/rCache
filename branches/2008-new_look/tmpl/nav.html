@@ -1,14 +1,18 @@
 <div id="nav">
-     	<ul>
-	  <li><a href="/colleagues/" title="Manage Colleagues">Colleagues</a></li>
-	  <li><a href="/search/" title="Perform keyword searches">Search</a></li>
-	  <li><a href="/filter/" title="Filter your data by Tag or Domain">Filter</a></li>
-	  <li><a href="/recent/">Entries</a></li>
-	  <li><a href="/new/" title="Create new entry or upload document">New</a></li>
-	</ul>
+  <ul>
+    <li><a href="/colleagues/" title="Manage Colleagues">Colleagues</a></li>
+    <li><a href="/filter/" title="Filter your data by Tag or Domain">Filter</a></li>
+    <li><a href="/recent/">Entries</a></li>
+    <li><a href="/new/" title="Create new entry or upload document">New</a></li>
+  </ul>
 </div>
+
+<ul id="search-nav">
+<li><input style="background:#fdfdfd;margin-top:0px;margin-left:0;margin-right:0;margin-bottom:0;padding:4px;" name="search_query" id="search-inpt" size="40" maxlength="40" value="Enter Search Keywords" onclick="rcache.xhr.clear_input(this);" onkeydown="checkSubmission(event);"/><img src="/media/img/system-search.png" border="0" onclick="rcache.xhr.search();" style="margin-top:4px; margin-left:4px; cursor:pointer;" title="Search your data"/></li>
+</ul>
+
 <ul id="user-nav">
-    <li class="home-title"><a href="/recent/"><span class="logo-r">r</span>Cache</a></li>
-    <li><a href="/myaccount/" title="Update Account">{{ user.login }}</a></li>
-    <li><a href="/logout/" title="Exit rCache">Logout</a></li>
+  <li class="home-title"><a href="/recent/"><span class="logo-r">r</span>Cache</a></li>
+  <li><a href="/myaccount/" title="Update Account">{{ user.login }}</a></li>
+  <li><a href="/logout/" title="Exit rCache">Logout</a></li>
 </ul>
