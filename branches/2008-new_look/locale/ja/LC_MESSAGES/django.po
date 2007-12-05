@@ -1,0 +1,1112 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-12-04 23:38-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: settings.py:71
+msgid "English"
+msgstr ""
+
+#: settings.py:72
+msgid "Spanish"
+msgstr ""
+
+#: settings.py:73
+msgid "Italian"
+msgstr ""
+
+#: settings.py:74
+msgid "Portugese"
+msgstr ""
+
+#: settings.py:75
+msgid "French"
+msgstr ""
+
+#: settings.py:76
+msgid "German"
+msgstr ""
+
+#: tmpl/404logged_in.html:4
+msgid "rCache.com - Error: 404 - Cannot locate that resource"
+msgstr ""
+
+#: tmpl/404logged_in.html:12
+msgid "Error: 404, Resource could not be found."
+msgstr ""
+
+#: tmpl/about.html:10
+msgid "About rCache"
+msgstr ""
+
+#: tmpl/about.html:12
+msgid ""
+"rCache is that always-there place to store data that you want to refer back "
+"to. Bookmarks and saving web page data to your computer's disk are unwieldy "
+"and slow processes. Your data is stored on your hard disk, and tends to be "
+"unorganized."
+msgstr ""
+
+#: tmpl/about.html:15
+msgid ""
+"rCache frees you from this, by giving you your own research repository "
+"online - where you can store articles, blog postings, documents and images. "
+"Tagging and full-text keyword searching is a snap."
+msgstr ""
+
+#: tmpl/about.html:17
+msgid ""
+"You can store data that you may want to cite in your research, white paper, "
+"article or your own blog posting."
+msgstr ""
+
+#: tmpl/about.html:19
+msgid "rCache Feature List"
+msgstr ""
+
+#: tmpl/about.html:21
+msgid "Collect"
+msgstr ""
+
+#: tmpl/about.html:21
+msgid "data from web pages, PDFs, Word Documents and other resources."
+msgstr ""
+
+#: tmpl/about.html:24
+msgid "Index"
+msgstr ""
+
+#: tmpl/about.html:24
+msgid "all of this data in a searchable, browsable database."
+msgstr ""
+
+#: tmpl/about.html:27
+msgid "Tagging"
+msgstr ""
+
+#: tmpl/about.html:27
+msgid "of Entries makes pinpoint filtering easy."
+msgstr ""
+
+#: tmpl/about.html:31 tmpl/nav.html:5
+msgid "Filter"
+msgstr ""
+
+#: tmpl/about.html:31
+msgid "your data by the Entry's source domain name."
+msgstr ""
+
+#: tmpl/about.html:34
+msgid "Search"
+msgstr ""
+
+#: tmpl/about.html:34
+msgid "your data by keyword or phrase."
+msgstr ""
+
+#: tmpl/about.html:37 tmpl/contact.html:22 tmpl/tag_results.html:12
+msgid "RSS"
+msgstr ""
+
+#: tmpl/about.html:37
+msgid ""
+"Use an RSS reader to keep track of your most recent Entries or any tag based "
+"lookups into your data."
+msgstr ""
+
+#: tmpl/about.html:40
+msgid "Collaborate"
+msgstr ""
+
+#: tmpl/about.html:40
+msgid ""
+"Give colleagues access to your research data, with restrictions based on "
+"tags or keyword searches."
+msgstr ""
+
+#: tmpl/about.html:43
+msgid "System Requirements: (Online version)"
+msgstr ""
+
+#: tmpl/about.html:45
+msgid ""
+"Windows, Macintosh or Linux OS that can run Firefox 1.5 and later. rCache "
+"strives to be a cross-platform system, however, use of Internet Explorer "
+"(IE) is not encouraged. We are targeting Firefox users, or those that will "
+"use Firefox for data collection. Trying to support multiple broswers may be "
+"possible in the future. For the time being, we do not have the resources to "
+"code for IE."
+msgstr ""
+
+#: tmpl/account.html:10
+msgid "Create Account"
+msgstr ""
+
+#: tmpl/account.html:14
+msgid ""
+"rCache is free and easy to use. We are accepting applications for a Beta "
+"Test period. We only have a few slots available, so if you are a serious "
+"researcher, and think you will benefit from rCache, apply today."
+msgstr ""
+
+#: tmpl/account.html:16
+msgid ""
+"is highly recommended for rCache use, in fact we have not really tested "
+"rCache on other browsers due to a lack of cross-platform extensibility."
+msgstr ""
+
+#: tmpl/account.html:18
+msgid "Take a look at the incredible"
+msgstr ""
+
+#: tmpl/account.html:18 tmpl/account_pending.html:23
+msgid "features"
+msgstr ""
+
+#: tmpl/account.html:18 tmpl/account_pending.html:23
+msgid "of Firefox."
+msgstr ""
+
+#: tmpl/account.html:22
+msgid "Step 1:"
+msgstr ""
+
+#: tmpl/account.html:25
+#, python-format
+msgid "ERROR: %(message)s "
+msgstr ""
+
+#: tmpl/account.html:27
+msgid "Enter your email address here to apply."
+msgstr ""
+
+#: tmpl/account.html:29 tmpl/myaccount.html:18
+msgid "Email Address"
+msgstr ""
+
+#: tmpl/account.html:32
+msgid "*rCache will not disclose your email address to any other entity."
+msgstr ""
+
+#: tmpl/account.html:34
+msgid "Before using rCache, you have to accept the"
+msgstr ""
+
+#: tmpl/account.html:34
+msgid "rCache Site Use Agreement"
+msgstr ""
+
+#: tmpl/account.html:34
+msgid "and, please read our"
+msgstr ""
+
+#: tmpl/account.html:34
+msgid "Privacy Policy"
+msgstr ""
+
+#: tmpl/account.html:38
+msgid "What kind of research are you doing?"
+msgstr ""
+
+#: tmpl/account.html:42
+msgid "Apply for Account"
+msgstr ""
+
+#: tmpl/account_pending.html:7
+msgid "Thank You for applying for an rCache account."
+msgstr ""
+
+#: tmpl/account_pending.html:13
+msgid "An email has been sent to you confirming your application."
+msgstr ""
+
+#: tmpl/account_pending.html:14
+msgid ""
+"When your account is created, another email will notify you of your new "
+"account."
+msgstr ""
+
+#: tmpl/account_pending.html:17
+msgid "Step 2:"
+msgstr ""
+
+#: tmpl/account_pending.html:19
+msgid "Install rCache Collector for Firefox"
+msgstr ""
+
+#: tmpl/account_pending.html:20 tmpl/collector.html:9
+#: tmpl/collector.html.py:12 tmpl/collector.html:16
+msgid "rCache Collector"
+msgstr ""
+
+#: tmpl/account_pending.html:20
+msgid ""
+"is a Firefox Extension or 'Add-on' that makes it easy to select information "
+"on a web page and quickly categorize and save that data in your rCache "
+"database."
+msgstr ""
+
+#: tmpl/account_pending.html:22
+msgid "Click this link to"
+msgstr ""
+
+#: tmpl/account_pending.html:23
+msgid "Firefox"
+msgstr ""
+
+#: tmpl/account_pending.html:23
+msgid ""
+"is highly recommended for rCache use, in fact we have not really tested "
+"rCache on other browsers due to a lack of cross-platform extensibility. Take "
+"a look at the incredible"
+msgstr ""
+
+#: tmpl/account_pending.html:26
+msgid "Thank you for your interest."
+msgstr ""
+
+#: tmpl/account_pending.html:28
+msgid "The rCache team."
+msgstr ""
+
+#: tmpl/agreement.html:6
+msgid "rCache End User Agreement"
+msgstr ""
+
+#: tmpl/agreement.html:10
+msgid "rCache is Copyright 2008, David Dahl, admin at rcache.com."
+msgstr ""
+
+#: tmpl/agreement.html:13
+msgid "This is the end user license agreement for rCache.com."
+msgstr ""
+
+#: tmpl/agreement.html:15
+msgid ""
+"Creating an account and using the software indicates your agreement to the "
+"terms of this license. If you do not agree to the terms of this license you "
+"must request that your account be terminated."
+msgstr ""
+
+#: tmpl/agreement.html:17
+msgid ""
+"You may use rCache.com without charge. However, this is subject to change at "
+"any time. If rCache.com begins to charge for the use of the site, you will "
+"be able to export all of your data without penalty."
+msgstr ""
+
+#: tmpl/agreement.html:19
+msgid "End User License Agreement"
+msgstr ""
+
+#: tmpl/agreement.html:21
+msgid "To create an account, go to https://collect.rcache.com/account/"
+msgstr ""
+
+#: tmpl/agreement.html:23
+msgid "Under this Agreement you may:"
+msgstr ""
+
+#: tmpl/agreement.html:25
+msgid "Create a single account on rCache.com, for use by you only."
+msgstr ""
+
+#: tmpl/agreement.html:27
+msgid "Proper Use of Resources:"
+msgstr ""
+
+#: tmpl/agreement.html:29
+msgid ""
+"Lawful and Ethical Use Only. rCache.com and facilities may be used only for "
+"lawful and ethical purposes. Your use of any rCache.com service (directly or "
+"indirectly) shall not in our good faith determination: (a) infringe any "
+"third party's copyright, patent, trademark, trade secret or other "
+"proprietary rights or rights of publicity or privacy; (b) be used in "
+"connection with a civil or criminal violation of any local, state, federal "
+"or international law, statute, ordinance, regulation or government "
+"requirement (including, without limitation, the laws and regulations "
+"governing export control, unfair competition, anti-discrimination or false "
+"advertising; theft; fraud; forgery; or misappropriation of funds, credit "
+"cards, or personal information); (c) be defamatory, trade libelous, "
+"unlawfully threatening or unlawfully harassing or be construed as an attempt "
+"to inflict emotional distress; (d) be used to publicly host obscene or "
+"pornographic materials, or in a manner that would otherwise violate evolving "
+"Internet community standards which we operate under or acknowledge; and (e) "
+"contain any viruses, Trojan horses, worms, time bombs, cancelbots or other "
+"computer programming routines that are intended to damage, interfere with, "
+"intercept or expropriate any system, data or personal information, "
+"including, without limitation, 'pirated software', 'hackers\\' programs or "
+"archives', 'Warez Sites', or 'IRC Bots'."
+msgstr ""
+
+#: tmpl/agreement.html:31
+msgid ""
+"If it is determined that you have created more than one account your "
+"accounts will be suspended until further notice. If you attempt to automate "
+"the caching process your account will be suspended and removed from the "
+"system."
+msgstr ""
+
+#: tmpl/agreement.html:33
+msgid ""
+"If your account takes up more than it's fair share of disk space or "
+"processor time, you may have to get your own server to run rCache on."
+msgstr ""
+
+#: tmpl/agreement.html:35
+msgid "Limited Warranty"
+msgstr ""
+
+#: tmpl/agreement.html:37
+msgid ""
+"rCache.com is provided as-is without warranty of any kind. The author will "
+"not be liable for damages of any kind arising out of use of this software."
+msgstr ""
+
+#: tmpl/base.html:8
+msgid "rCache.com - personal internet search cache and research tools"
+msgstr ""
+
+#: tmpl/base.html:11
+msgid "personal internet search cache and research tools web scraper"
+msgstr ""
+
+#: tmpl/base.html:12
+msgid ""
+"rCache is a powerful tool that lets you archive data from disparate sources. "
+"rCache is a web scraper, a bookmarking tool and more. Tag-based lookups as "
+"well as keyword searches can be performed on your data. Not a social site: "
+"rCache is for the serious researcher. rCache is that always-there place to "
+"store data that you want to refer back to. rCache works hand in glove with "
+"the best of breed web browser, Firefox"
+msgstr ""
+
+#: tmpl/base.html:43
+msgid "Get Firefox"
+msgstr ""
+
+#: tmpl/colleague_detail.html:4
+msgid "rCache.com - Colleague Detail"
+msgstr ""
+
+#: tmpl/colleague_detail.html:10
+msgid "Manage Colleague"
+msgstr ""
+
+#: tmpl/colleague_detail.html:17
+msgid "Colleague Updated"
+msgstr ""
+
+#: tmpl/colleague_detail.html:22
+msgid ""
+"Active Colleagues have access to your Entries, with the restrictions below."
+msgstr ""
+
+#: tmpl/colleague_detail.html:22
+msgid "Active?"
+msgstr ""
+
+#: tmpl/colleague_detail.html:29
+msgid "Search Restrictions?"
+msgstr ""
+
+#: tmpl/colleague_detail.html:36
+msgid ""
+"Approved Search Keywords is a list of tags: economics,Warsaw Pact, etc..."
+msgstr ""
+
+#: tmpl/colleague_detail.html:36
+msgid "Approved Search Keywords"
+msgstr ""
+
+#: tmpl/colleague_detail.html:39
+msgid "Tag Restrictions?"
+msgstr ""
+
+#: tmpl/colleague_detail.html:46 tmpl/colleague_detail.html.py:47
+msgid "Approved Tags is a list of tags: economics,Warsaw Pact, etc..."
+msgstr ""
+
+#: tmpl/colleague_detail.html:46
+msgid "Approved Tags"
+msgstr ""
+
+#: tmpl/colleague_detail.html:49
+msgid "Allow Commentary and Annotation?"
+msgstr ""
+
+#: tmpl/colleague_detail.html:56
+msgid "Update Colleague"
+msgstr ""
+
+#: tmpl/colleague_research.html:4
+msgid "rCache - Colleague Research"
+msgstr ""
+
+#: tmpl/colleague_research.html:15
+msgid "You are not a colleague of"
+msgstr ""
+
+#: tmpl/colleague_research.html:17
+msgid "Colleague Research:"
+msgstr ""
+
+#: tmpl/colleague_research.html:18
+msgid "Your status as a colleague of"
+msgstr ""
+
+#: tmpl/colleague_research.html:18
+msgid "is"
+msgstr ""
+
+#: tmpl/colleague_research.html:25 tmpl/domain_list.html:7
+#: tmpl/tag_list.html:12
+msgid "Tags"
+msgstr ""
+
+#: tmpl/colleague_research.html:31
+msgid "Coming soon: Your Colleague's Full Tag List"
+msgstr ""
+
+#: tmpl/colleague_research.html:35
+msgid "Search Keywords"
+msgstr ""
+
+#: tmpl/colleague_research.html:41
+msgid "Coming Soon: Search Your Colleague's Entries in Full."
+msgstr ""
+
+#: tmpl/colleagues.html:4
+msgid "rCache.com - Colleagues"
+msgstr ""
+
+#: tmpl/colleagues.html:10 tmpl/nav.html:4
+msgid "Colleagues"
+msgstr ""
+
+#: tmpl/colleagues.html:12
+msgid "Create a New Colleague"
+msgstr ""
+
+#: tmpl/colleagues.html:18
+msgid "You have"
+msgstr ""
+
+#: tmpl/colleagues.html:18
+msgid "Colleague"
+msgstr ""
+
+#: tmpl/colleagues.html:23 tmpl/contact.html:24
+msgid "Email"
+msgstr ""
+
+#: tmpl/colleagues.html:33
+msgid "*Not Active*"
+msgstr ""
+
+#: tmpl/colleagues.html:36
+msgid "View the research of"
+msgstr ""
+
+#: tmpl/colleagues.html:36
+msgid "View Research"
+msgstr ""
+
+#: tmpl/colleagues.html:37
+msgid "Edit Privileges"
+msgstr ""
+
+#: tmpl/colleagues.html:37 tmpl/detail.html:32
+msgid "Edit"
+msgstr ""
+
+#: tmpl/collector.html:12
+msgid "The "
+msgstr ""
+
+#: tmpl/collector.html:12
+msgid ""
+"Firefox extension makes entering data into your rCache database fast and "
+"trivial."
+msgstr ""
+
+#: tmpl/collector.html:15
+msgid "Select an area on a web page by clicking and dragging your mouse."
+msgstr ""
+
+#: tmpl/collector.html:16
+msgid "Click on the"
+msgstr ""
+
+#: tmpl/collector.html:16
+msgid "icon"
+msgstr ""
+
+#: tmpl/collector.html:16
+msgid "on the status bar of your Firefox browser."
+msgstr ""
+
+#: tmpl/collector.html:17
+msgid "Enter Tags (comma delimited)"
+msgstr ""
+
+#: tmpl/collector.html:18
+msgid "Click Continue"
+msgstr ""
+
+#: tmpl/collector.html:19
+msgid ""
+"Your selection is entered into the database, and the rCache Collector window "
+"goes away, unobtrusively."
+msgstr ""
+
+#: tmpl/contact.html:5
+msgid "rCache.com - Contact Us"
+msgstr ""
+
+#: tmpl/contact.html:10
+msgid "Contact Us"
+msgstr ""
+
+#: tmpl/contact.html:12
+msgid "Click here if you Forgot your Password"
+msgstr ""
+
+#: tmpl/contact.html:14
+msgid "Questions? Comments? Ideas?"
+msgstr ""
+
+#: tmpl/contact.html:17
+msgid "Support"
+msgstr ""
+
+#: tmpl/contact.html:19
+msgid "Feel free to ask questions, report bugs and request features via the "
+msgstr ""
+
+#: tmpl/contact.html:19
+msgid "rCache-Talk Google Group"
+msgstr ""
+
+#: tmpl/contact.html:21
+msgid "Blog"
+msgstr ""
+
+#: tmpl/contact.html:22
+msgid "Announcements are on the"
+msgstr ""
+
+#: tmpl/contact.html:22
+msgid "rCache Blog"
+msgstr ""
+
+#: tmpl/contact.html:25
+msgid ""
+"Send an email to the rCache.com team. Make sure you adjust the email address "
+"before sending."
+msgstr ""
+
+#: tmpl/contact.html:26
+msgid "admin AT rcache dot com"
+msgstr ""
+
+#: tmpl/contact.html:30
+msgid "We look forward to hearing from you."
+msgstr ""
+
+#: tmpl/contact.html:33
+msgid "Read our"
+msgstr ""
+
+#: tmpl/contact.html:33
+msgid "PRIVACY POLICY"
+msgstr ""
+
+#: tmpl/contact.html:33
+msgid "and our"
+msgstr ""
+
+#: tmpl/contact.html:33
+msgid "EULA"
+msgstr ""
+
+#: tmpl/detail.html:16
+#, python-format
+msgid ""
+"\n"
+"    This Entry is from your Colleague %(colleague.login)s's Research\n"
+"    "
+msgstr ""
+
+#: tmpl/detail.html:21
+msgid "Entry #"
+msgstr ""
+
+#: tmpl/detail.html:21
+msgid "Date Cached:"
+msgstr ""
+
+#: tmpl/detail.html:25 tmpl/new_entry.html:31
+msgid "Tags:"
+msgstr ""
+
+#: tmpl/detail.html:27
+#, python-format
+msgid " Filter your research by tag: %(tag)s "
+msgstr ""
+
+#: tmpl/detail.html:32
+msgid "Edit this entry"
+msgstr ""
+
+#: tmpl/detail.html:33
+msgid "Remove this entry permanently"
+msgstr ""
+
+#: tmpl/detail.html:33 tmpl/tag_editor.html:32 tmpl/tag_maint.html:16
+msgid "Remove"
+msgstr ""
+
+#: tmpl/detail.html:35 tmpl/detail.html.py:66
+msgid "Extracted Links"
+msgstr ""
+
+#: tmpl/detail.html:35
+msgid "Links"
+msgstr ""
+
+#: tmpl/detail.html:36 tmpl/detail.html.py:88
+msgid "Extracted Images"
+msgstr ""
+
+#: tmpl/detail.html:36
+msgid "Images"
+msgstr ""
+
+#: tmpl/detail.html:37
+msgid "New/Edit Commentary"
+msgstr ""
+
+#: tmpl/detail.html:37
+msgid "Commentary"
+msgstr ""
+
+#: tmpl/detail.html:40 tmpl/detail.html.py:43 tmpl/tag_results.html:10
+msgid "Back"
+msgstr ""
+
+#: tmpl/detail.html:48
+msgid "Keywords:"
+msgstr ""
+
+#: tmpl/detail.html:53
+msgid "Click on any of the above keywords, then click 'Show Related Documents'"
+msgstr ""
+
+#: tmpl/detail.html:53
+msgid "Related Documents:"
+msgstr ""
+
+#: tmpl/detail.html:53
+msgid "Get Related Documents"
+msgstr ""
+
+#: tmpl/detail.html:54
+msgid "Clear Keywords"
+msgstr ""
+
+#: tmpl/detail.html:67 tmpl/detail.html.py:89
+msgid "Back to Top"
+msgstr ""
+
+#: tmpl/detail.html:76
+msgid "a link scraped from this entry's page"
+msgstr ""
+
+#: tmpl/detail.html:83
+msgid "No Links Extracted"
+msgstr ""
+
+#: tmpl/detail.html:95
+msgid "an image scraped from this entry's page"
+msgstr ""
+
+#: tmpl/detail.html:99
+msgid "No Images Extracted"
+msgstr ""
+
+#: tmpl/domain_list.html:4
+msgid "rCache.com - Filter Entries by Domain"
+msgstr ""
+
+#: tmpl/domain_list.html:8 tmpl/tag_list.html:13
+msgid "Domains"
+msgstr ""
+
+#: tmpl/domain_list.html:12
+msgid "View all Entries from"
+msgstr ""
+
+#: tmpl/login.html:11 tmpl/login.html.py:20 tmpl/login_err.html:11
+#: tmpl/login_err.html.py:22
+msgid "Login"
+msgstr ""
+
+#: tmpl/login.html:13 tmpl/login_err.html:15
+msgid "Username"
+msgstr ""
+
+#: tmpl/login.html:16 tmpl/login_err.html:18 tmpl/myaccount.html:33
+msgid "Password"
+msgstr ""
+
+#: tmpl/login_err.html:13
+msgid "Login Error"
+msgstr ""
+
+#: tmpl/logout.html:10
+msgid "You are Logged Out."
+msgstr ""
+
+#: tmpl/logout.html:11
+msgid "Login Again?"
+msgstr ""
+
+#: tmpl/myaccount.html:21
+msgid "First Name"
+msgstr ""
+
+#: tmpl/myaccount.html:24
+msgid "Surame"
+msgstr ""
+
+#: tmpl/myaccount.html:27
+msgid "Web Site"
+msgstr ""
+
+#: tmpl/myaccount.html:30
+msgid "Blog Url"
+msgstr ""
+
+#: tmpl/myaccount.html:40 tmpl/new_entry.html:43 tmpl/tag_edit.html:20
+msgid "Save"
+msgstr ""
+
+#: tmpl/nav.html:4
+msgid "Manage Colleagues"
+msgstr ""
+
+#: tmpl/nav.html:5
+msgid "Filter your data by Tag or Domain"
+msgstr ""
+
+#: tmpl/nav.html:6
+msgid "Entries"
+msgstr ""
+
+#: tmpl/nav.html:7
+msgid "Create new entry or upload document"
+msgstr ""
+
+#: tmpl/nav.html:7
+msgid "New"
+msgstr ""
+
+#: tmpl/nav.html:12
+msgid "Search..."
+msgstr ""
+
+#: tmpl/nav.html:12
+msgid "Search your data"
+msgstr ""
+
+#: tmpl/nav.html:17
+msgid "Update Account"
+msgstr ""
+
+#: tmpl/nav.html:18
+msgid "Exit rCache"
+msgstr ""
+
+#: tmpl/nav.html:18
+msgid "Logout"
+msgstr ""
+
+#: tmpl/new_entry.html:13
+msgid "Create a new Entry."
+msgstr ""
+
+#: tmpl/new_entry.html:14
+msgid "Enter URL, Title, Tags, Entry Text and File (Word, PDF, Text)."
+msgstr ""
+
+#: tmpl/new_entry.html:15
+msgid "For ease of use, install the"
+msgstr ""
+
+#: tmpl/new_entry.html:15
+msgid "rCache Firefox Extension"
+msgstr ""
+
+#: tmpl/new_entry.html:18
+msgid "ERROR:"
+msgstr ""
+
+#: tmpl/new_entry.html:22
+msgid "URL:"
+msgstr ""
+
+#: tmpl/new_entry.html:25
+msgid "Title:"
+msgstr ""
+
+#: tmpl/new_entry.html:29
+msgid "Tags should be entered like so:"
+msgstr ""
+
+#: tmpl/new_entry.html:29
+msgid "economics,dollar,unemployment"
+msgstr ""
+
+#: tmpl/new_entry.html:29
+msgid "(comma delimited)"
+msgstr ""
+
+#: tmpl/new_entry.html:34
+msgid "Entry Text:"
+msgstr ""
+
+#: tmpl/new_entry.html:37
+msgid "Text scraped from the uploaded file will be appended to the"
+msgstr ""
+
+#: tmpl/new_entry.html:37
+msgid "Entry Text"
+msgstr ""
+
+#: tmpl/new_entry.html:39
+msgid "Upload a File:"
+msgstr ""
+
+#: tmpl/privacy.html:6
+msgid "rCache Privacy Policy"
+msgstr ""
+
+#: tmpl/privacy.html:11
+msgid "This is the web site of rCache.com."
+msgstr ""
+
+#: tmpl/privacy.html:13
+msgid ""
+"rCache.com respects it's user's privacy in the utmost fashion. We can be "
+"reached via e-mail at admin at rcache dot com. For each visitor to our site, "
+"our Web server automatically recognizes no information regarding the domain "
+"or e-mail address. We collect information volunteered by the user, such as "
+"survey information and/or site registrations, no information on users who "
+"browse our Web page. The information we collect is used for internal review "
+"and is then discarded."
+msgstr ""
+
+#: tmpl/privacy.html:15
+msgid ""
+"With respect to cookies: We use cookies to record session information, for "
+"instence: to provide for the automatic login of the rCache Firefox extension."
+msgstr ""
+
+#: tmpl/privacy.html:17
+msgid ""
+"If you do not want to receive e-mail from us in the future, please let us "
+"know by sending us e-mail at the above address."
+msgstr ""
+
+#: tmpl/privacy.html:19
+msgid ""
+"With respect to Ad Servers: We do not partner with or have special "
+"relationships with any ad server companies."
+msgstr ""
+
+#: tmpl/privacy.html:21
+msgid ""
+"Upon request we provide site visitors with access to all information that we "
+"maintain about them, communications that the user/visitor has directed to "
+"our site (e.g., e-mails, customer inquiries), contact information (e.g., "
+"name, address, phone number) that we maintain about them. It is not a "
+"requirement for users to disclose their name or address. We only require a "
+"working email address."
+msgstr ""
+
+#: tmpl/privacy.html:23
+msgid "Users can access this information by e-mail us at the above address."
+msgstr ""
+
+#: tmpl/privacy.html:25
+msgid ""
+"Most importantly, the user's rCache data is their data, not the property of "
+"rCache.com. Users are entitled to a full CSV-formatted dump (delivered via "
+"HTTPS) if and when he/she decides to cancel their account. Afterward, all of "
+"the user's data is removed from the rCache database."
+msgstr ""
+
+#: tmpl/privacy.html:27
+msgid ""
+"With respect to security: We have appropriate security measures in place in "
+"our physical facilities to protect against the loss, misuse or alteration of "
+"information that we have collected from you at our site."
+msgstr ""
+
+#: tmpl/privacy.html:29
+msgid ""
+"If you feel that this site is not following its stated information policy, "
+"you may contact us at the above addresses or phone number."
+msgstr ""
+
+#: tmpl/recent.html:4
+msgid "rCache.com - Recent Entries"
+msgstr ""
+
+#: tmpl/recent.html:22
+msgid "Recent Entries"
+msgstr ""
+
+#: tmpl/recent.html:22
+msgid "RSS Feed"
+msgstr ""
+
+#: tmpl/related_docs.html:4
+msgid "Related entries found for"
+msgstr ""
+
+#: tmpl/related_docs.html:11
+msgid "*No title*"
+msgstr ""
+
+#: tmpl/tag_edit.html:4 tmpl/tag_editor.html:4
+msgid "rCache.com - Tag Editor"
+msgstr ""
+
+#: tmpl/tag_edit.html:8
+msgid "Edit Tag"
+msgstr ""
+
+#: tmpl/tag_edit.html:29 tmpl/tag_editor.html:40 tmpl/tag_list.html:30
+msgid "Tag Tools"
+msgstr ""
+
+#: tmpl/tag_edit.html:31 tmpl/tag_editor.html:42 tmpl/tag_list.html:32
+msgid "Remove Empty Tags"
+msgstr ""
+
+#: tmpl/tag_edit.html:31 tmpl/tag_editor.html:42 tmpl/tag_list.html:32
+#: tmpl/tag_maint.html:7
+msgid "Tag Maintenence"
+msgstr ""
+
+#: tmpl/tag_edit.html:34 tmpl/tag_editor.html:45 tmpl/tag_list.html:35
+msgid "Edit and remove Tags"
+msgstr ""
+
+#: tmpl/tag_edit.html:34 tmpl/tag_editor.html:9 tmpl/tag_editor.html.py:45
+#: tmpl/tag_list.html:35
+msgid "Tag Editor"
+msgstr ""
+
+#: tmpl/tag_editor.html:16
+msgid "Get Tag"
+msgstr ""
+
+#: tmpl/tag_editor.html:26
+msgid "Tag"
+msgstr ""
+
+#: tmpl/tag_editor.html:31
+msgid " Edit tag"
+msgstr ""
+
+#: tmpl/tag_editor.html:32
+msgid "Remove tag"
+msgstr ""
+
+#: tmpl/tag_editor.html:32
+msgid "permanantly"
+msgstr ""
+
+#: tmpl/tag_list.html:4
+msgid "rCache.com - Filter Entries"
+msgstr ""
+
+#: tmpl/tag_list.html:8
+msgid "Filter by:"
+msgstr ""
+
+#: tmpl/tag_list.html:24
+msgid "Show All Tags"
+msgstr ""
+
+#: tmpl/tag_list.html:25
+msgid "Show Tags Alphabetically"
+msgstr ""
+
+#: tmpl/tag_maint.html:4
+msgid "rCache.com - Tag Maintenence"
+msgstr ""
+
+#: tmpl/tag_maint.html:16
+msgid "Remove tag:"
+msgstr ""
+
+#: tmpl/tag_maint.html:16
+msgid "permanently."
+msgstr ""
+
+#: tmpl/tag_maint.html:19
+msgid "Remove All Empty Tags"
+msgstr ""
+
+#: tmpl/tag_maint.html:23
+msgid "Back to Tag and Domain Filter"
+msgstr ""
+
+#: tmpl/tag_results.html:4
+msgid "rCache.com - Tag Results"
+msgstr ""
+
+#: tmpl/tag_results.html:9 tmpl/tag_results.html.py:12
+msgid "Results for Tag"
+msgstr ""
+
+#: tmpl/tag_results.html:9
+msgid "from Colleague"
+msgstr ""
+
+#: tmpl/tag_results.html:9
+msgid "'s"
+msgstr ""
+
+#: tmpl/tag_results.html:9
+msgid "Research"
+msgstr ""
+
+#: tmpl/tag_results.html:10
+msgid "'s Research"
+msgstr ""
+
+#: tmpl/tag_results.html:29
+msgid "*No Title*"
+msgstr ""
+
+#: tmpl/tag_results.html:32
+msgid "Go"
+msgstr ""
