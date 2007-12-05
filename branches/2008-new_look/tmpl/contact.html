@@ -1,35 +1,36 @@
+{% load i18n %}
 {% extends "firefox.html" %}
 {% block js %}
 {% endblock %}
-{% block title %}rCache.com - Contact Us{% endblock %}
+{% block title %}{% trans "rCache.com - Contact Us" %}{% endblock %}
 {% block content %}
 <div id="firefox_boundry">
   {% include "pub-menu.html" %}
-<div class="message">
-  <h3>Contact Us</h3>
+<div id="contact-us">
+  <h1>{% trans "Contact Us" %}</h1>
   <p>
-  <h4><a href="https://collect.rcache.com/accounts/password/">Click here if you Forgot your Password</a></h4>
-
-  <h3>Questions? Comments? Ideas?</h3>
+  <h4><a href="https://collect.rcache.com/accounts/password/">{% trans "Click here if you Forgot your Password" %}</a></h4>
+<br />
+  <h1>{% trans "Questions? Comments? Ideas?" %}</h1>
+  <br />
   <ul>
-  <li><strong>Support</strong>
+  <li><strong>{% trans "Support" %}</strong>
     <br />
-    Feel free to ask questions, report bugs and request features via 
-    the <a href="http://groups.google.com/group/rcache-talk/topics" target="_new">rCache-Talk Google Group</a> <a href="http://groups.google.com/group/rcache-talk/feeds" class="rss">RSS</a>
+    {% trans "Feel free to ask questions, report bugs and request features via the " %}<a href="http://groups.google.com/group/rcache-talk/topics" target="_new">{% trans "rCache-Talk Google Group" %}</a> <a href="http://groups.google.com/group/rcache-talk/feeds" class="rss">RSS</a>
     </li>
-   <li><strong>Blog</strong><br />
-    Announcements are on the  <a href="http://rcache.blogspot.com" target="_new">rCache Blog</a> <a href="http://rcache.blogspot.com/feeds/posts/default" class="rss">RSS</a>
+   <li><strong>{% trans "Blog" %}</strong><br />
+    {% trans "Announcements are on the" %}  <a href="http://rcache.blogspot.com" target="_new">{% trans "rCache Blog" %}</a> <a href="http://rcache.blogspot.com/feeds/posts/default" class="rss">{% trans "RSS" %}</a>
     </li>
-    <li><strong>Email</strong><br />
-    Send an email to the rCache.com team. Make sure you "fix" the email address before sending.<br />
-    <a href="mailto:admin_at_rcache_dot_com">admin AT rcache dot com</a>
+    <li><strong>{% trans "Email" %}</strong><br />
+    {% trans "Send an email to the rCache.com team. Make sure you adjust the email address before sending." %}<br />
+    <a href="mailto:admin_at_rcache_dot_com">{% trans "admin AT rcache dot com" %}</a>
     </li>
     </ul>
     <br />
-  <strong>We look forward to hearing from you.</strong>
+  <strong>{% trans "We look forward to hearing from you." %}</strong>
   </p>
   <p>
-  Read our <a href="/privacy/">PRIVACY POLICY</a> and our <a href="/agreement/">EULA</a>.
+  {% trans "Read our" %} <a href="/privacy/">{% trans "PRIVACY POLICY" %}</a> {% trans "and our" %} <a href="/agreement/">{% trans "EULA" %}</a>.
 
   </p>
   </div>

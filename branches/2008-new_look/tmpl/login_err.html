@@ -1,17 +1,27 @@
+{% load i18n %}
 {% extends "base.html" %}
+{% block js %}
+{% endblock %}
 {% block body %}
 <body>
 {% endblock %}
 {% block content %}
+{% include "pub-menu.html" %}
+<div id="login-screen" class="site-block">
+<h1>{% trans "Login" %}</h1>
 
-<div id="login_boundry">
-  {% include "pub-menu.html" %}
-  <br />
-  {{ e }}<br/><br/>
-  Please <a href="https://collect.rcache.com/login/">try again</a>
+  <div class="message">{% trans "Login Error" %}</div>
+  <form action="/login/" method="POST">
+  <label for="username">{% trans "Username" %} </label>
+  <input type="text" name="login" maxlength="60" size="20"/>
+  <br/>
+  <label for="passwd">{% trans "Password" %} </label>  
+  <input type="password" name="passwd" maxlength="60" size="20"/>
+  <br/>
+  <label for="loginbutton">&nbsp;</label>  
+  <input type="submit" name="loginbutton" value="{% trans "Login" %}"/>
+  </form>
 </div>
-
 {% endblock %}
 {% block getfirefox %}
 {% endblock %}
-

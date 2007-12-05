@@ -1,6 +1,7 @@
+{% load i18n %}
 {% extends "base.html" %}
 {% block title %}
-rCache.com - Recent Entries
+{% trans "rCache.com - Recent Entries" %}
 {% endblock %}
 {% block js_app %}
 <link type="text/css" rel="stylesheet" href="/media/css/yui-datatable.css">
@@ -18,8 +19,7 @@ rCache.com - Recent Entries
 <div id="detail_wrapper">
   <div id="global_page_title">
     {% block func_title %}
-    <h1>Recent Entries <a href="/rss/recent/"><img src="/media/img/feed.png" height="16" width="16" alt="RSS Feed" title="RSS Feed"></a></h1>
-    <a href="/recent_original/">Can't see the Entries?</a>
+    <h1>{% trans "Recent Entries" %} <a href="/rss/recent/"><img src="/media/img/feed.png" height="16" width="16" alt="{% trans "RSS Feed" %}" title="{% trans "RSS Feed" %}"></a></h1>
     {% endblock %}
   </div>
 <div id="search_results_grid">

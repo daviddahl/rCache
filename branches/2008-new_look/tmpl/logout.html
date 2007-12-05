@@ -1,3 +1,4 @@
+{% load i18n %}
 {% extends "base.html" %}
 {% block body %}
 <body>
@@ -5,10 +6,9 @@
 {% block content %}
 <div id="login_boundry">
   {% include "pub-menu.html" %}
-<div class="message">
-  <br/>
-  <br />
-You are Logged Out. <a href="https://collect.rcache.com/login/">Login Again?</a>
+<div class="site-block" id="logout">
+  <h1>{% trans "You are Logged Out." %}</h1>
+<br /> <a href="https://collect.rcache.com/login/">{% trans "Login Again?" %}</a>
 </div>
 </div>
 {% endblock %}

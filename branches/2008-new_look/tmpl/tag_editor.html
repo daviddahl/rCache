@@ -1,15 +1,19 @@
+{% load i18n%}
 {% extends "search.html" %}
 {% block title %}
-rCache.com - Tag Editor
+{% trans "rCache.com - Tag Editor" %}
 {% endblock %}
 {% block search_content %}
+
+<div id="global_page_title">
+<h1>{% trans "Tag Editor" %}</h1>
+</div>
 <div id="filter-menu" class="message">
-<h3>Tag Editor</h3>
   {% if tag_form %}
   <form action="." method="post" class="aligned">
   {{ tag_form.as_ul }}
   <br />
-  <input type="submit" value="Get Tag"/>
+  <input type="submit" value="{% trans "Get Tag" %}"/>
   </form>
   
   </br />&nbsp;
@@ -19,13 +23,13 @@ rCache.com - Tag Editor
   {% if tags %}
   <table cellpadding="0" cellspacing="0" id="tg-tbl">
     <tr>
-      <td>Tag</td>
+      <td>{% trans "Tag" %}</td>
       <td>&nbsp;</td>
     </tr>
     {% for tag in tags %}
     <tr class="{% cycle tr-dark,tr-light %}">
-      <td><a href="/filter/tags/edit/{{ tag.id }}/" title="Edit tag '{{ tag.tag }}'">{{ tag.tag }}</a></td>
-      <td><a class="button" title="Remove tag '{{ tag.tag }}' permenantly" href="/filter/tags/remove/{{ tag.id }}/">Remove</a></td>
+      <td><a href="/filter/tags/edit/{{ tag.id }}/" title="{% trans " Edit tag" %} '{{ tag.tag }}'">{{ tag.tag }}</a></td>
+      <td><a class="button" title="{% trans "Remove tag" %} '{{ tag.tag }}' {% trans "permanantly" %} href="/filter/tags/remove/{{ tag.id }}/">{% trans "Remove" %}</a></td>
     </tr>
     {% endfor %}
     </table>
@@ -33,12 +37,12 @@ rCache.com - Tag Editor
 </div>
 <div id="tag-menu">
   <ul>
-    <li><strong>Tag Tools</strong></li>
+    <li><strong>{% trans "Tag Tools" %}</strong></li>
     <li class="selected">
-      <a href="/filter/tags/maintenence/" class="button" title="Remove Empty Tags">Tag Maintenence</a>
+      <a href="/filter/tags/maintenence/" class="button" title="{% trans "Remove Empty Tags" %}">{% trans "Tag Maintenence" %}</a>
     </li>
     <li class="selected">
-      <a href="/filter/tags/editor/" class="button" title="Edit and remove Tags">Tag Editor</a>
+      <a href="/filter/tags/editor/" class="button" title="{% trans "Edit and remove Tags" %}">{% trans "Tag Editor" %}</a>
     </li>
   </ul>
 </div>

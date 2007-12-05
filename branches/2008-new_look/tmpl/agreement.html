@@ -1,39 +1,40 @@
+{% load i18n %}
 {% extends "account.html" %}
 {% block js %}
 {% endblock %}
 {% block account_title %}
-<h1>rCache End User Agreement</h1>
+<h1>{% trans "rCache End User Agreement" %}</h1>
 {% endblock %}
 {% block account_content %}
 <p>
-rCache is &copy; Copyright 2005,2006,2007 David Dahl, david at ddahl dot com.
+<strong>{% trans "rCache is Copyright 2008, David Dahl, admin at rcache.com." %}</strong>
 <br />
-<pre style="font-size:1em">
-This is the end user license agreement for rCache.com.
+<pre style="font-size:0.8em">
+{% trans "This is the end user license agreement for rCache.com." %}
 
-Creating an account and using the software indicates your agreement to the terms of this license. If you do not agree to the terms of this license you must request that your account be terminated.
+{% trans "Creating an account and using the software indicates your agreement to the terms of this license. If you do not agree to the terms of this license you must request that your account be terminated." %}
 
-You may use rCache.com without charge. However, this is subject to change at any time. If rCache.com begins to charge for the use of the site, you will be able to export all of your data without penalty.
+{% trans "You may use rCache.com without charge. However, this is subject to change at any time. If rCache.com begins to charge for the use of the site, you will be able to export all of your data without penalty." %}
 
-EULA
+{% trans "End User License Agreement" %}
 
-To create an account, go to https://collect.rcache.com/account/
+{% trans "To create an account, go to https://collect.rcache.com/account/" %}
 
-Under this Agreement you may:
+{% trans "Under this Agreement you may:" %}
 
-Create a single account on rCache.com, for use by you only.
+{% trans "Create a single account on rCache.com, for use by you only." %}
 
-Proper Use of Resources:
+{% trans "Proper Use of Resources:" %}
 
-Lawful and Ethical Use Only. rCache.com and facilities may be used only for lawful and ethical purposes. Your use of any rCache.com service (directly or indirectly) shall not in our good faith determination: (a) infringe any third party's copyright, patent, trademark, trade secret or other proprietary rights or rights of publicity or privacy; (b) be used in connection with a civil or criminal violation of any local, state, federal or international law, statute, ordinance, regulation or government requirement (including, without limitation, the laws and regulations governing export control, unfair competition, anti-discrimination or false advertising; theft; fraud; forgery; or misappropriation of funds, credit cards, or personal information); (c) be defamatory, trade libelous, unlawfully threatening or unlawfully harassing or be construed as an attempt to inflict emotional distress; (d) be used to publicly host obscene or pornographic materials, or in a manner that would otherwise violate evolving Internet community standards which we operate under or acknowledge; and (e) contain any viruses, Trojan horses, worms, time bombs, cancelbots or other computer programming routines that are intended to damage, interfere with, intercept or expropriate any system, data or personal information, including, without limitation, "pirated software", "hackers' programs or archives", "Warez Sites", or "IRC Bots."
+{% trans "Lawful and Ethical Use Only. rCache.com and facilities may be used only for lawful and ethical purposes. Your use of any rCache.com service (directly or indirectly) shall not in our good faith determination: (a) infringe any third party's copyright, patent, trademark, trade secret or other proprietary rights or rights of publicity or privacy; (b) be used in connection with a civil or criminal violation of any local, state, federal or international law, statute, ordinance, regulation or government requirement (including, without limitation, the laws and regulations governing export control, unfair competition, anti-discrimination or false advertising; theft; fraud; forgery; or misappropriation of funds, credit cards, or personal information); (c) be defamatory, trade libelous, unlawfully threatening or unlawfully harassing or be construed as an attempt to inflict emotional distress; (d) be used to publicly host obscene or pornographic materials, or in a manner that would otherwise violate evolving Internet community standards which we operate under or acknowledge; and (e) contain any viruses, Trojan horses, worms, time bombs, cancelbots or other computer programming routines that are intended to damage, interfere with, intercept or expropriate any system, data or personal information, including, without limitation, 'pirated software', 'hackers\' programs or archives', 'Warez Sites', or 'IRC Bots'." %}
 
-If it is determined that you have created more than one account your accounts will be suspended until further notice. If you attempt to automate the caching process your account will be suspended and removed from the system.
+{% trans "If it is determined that you have created more than one account your accounts will be suspended until further notice. If you attempt to automate the caching process your account will be suspended and removed from the system." %}
 
-If your account takes up more than it's fair share of disk space or processor time, you may have to get your own server to run rCache on. 
+{% trans "If your account takes up more than it's fair share of disk space or processor time, you may have to get your own server to run rCache on." %}
 
-Limited Warranty
+{% trans "Limited Warranty" %}
 
-rCache.com is provided as-is without warranty of any kind. The author will not be liable for damages of any kind arising out of use of this software.
+{% trans "rCache.com is provided as-is without warranty of any kind. The author will not be liable for damages of any kind arising out of use of this software." %}
 </pre>
 </p>
 {% endblock %}

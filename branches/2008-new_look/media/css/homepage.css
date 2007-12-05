@@ -4,7 +4,9 @@
 .frontpage-cols div {
 	float:left;
 	min-width:200px;
-	margin:32px 0px;
+	margin-top:32px;
+	padding-right:32px;
+	padding-left:32px;
 }
 .frontpage-cols .col-archive, .frontpage-cols .col-index {
 	margin-right:48px;

@@ -1,6 +1,7 @@
+{% load i18n %}
 {% extends "base.html" %}
 {% block title %}
-rCache.com - Error: 404 - Cannot locate that resource
+{% trans "rCache.com - Error: 404 - Cannot locate that resource" %}
 {% endblock %}
 {% block body %}
 <body>
@@ -8,7 +9,7 @@ rCache.com - Error: 404 - Cannot locate that resource
 {% block content %}
 <div id="firefox_boundry">
 {% include "nav.html" %}
-  <p class="message">Error: 404, Resource could not be found.
+  <p class="message">{% trans "Error: 404, Resource could not be found." %}
   <br/><br/>
 
   </p>

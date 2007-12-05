@@ -75,6 +75,7 @@ urlpatterns = patterns('rcache.views',
                        (r'^account/$','account_new'),
                        (r'^myaccount/$','myaccount'),
                        (r'^password/$','lost_password'),
+                       (r'^collector/$','collector'),
                        )
 urlpatterns += patterns('',
                         (r'^media/(.*)$',

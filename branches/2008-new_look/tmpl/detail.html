@@ -1,3 +1,4 @@
+{% load i18n %}
 {% extends "base.html" %}
 {% block title %}
 rCache.com - {{ entry.entry_name }}
@@ -11,42 +12,46 @@ rCache.com - {{ entry.entry_name }}
   <div id="global_page_title">
 <div id="detail_header">
   {% if coll_render %}
-  <h4>This Entry is from your Colleague {{ colleague.login }}'s Research</h4>
+  <h4>
+    {% blocktrans %}
+    This Entry is from your Colleague {{ colleague.login }}'s Research
+    {% endblocktrans %}
+  </h4>
   {% endif %}
-<h2><a href="{{ entry.entry_url }}" title="Original URL: {{ entry.entry_url }}" target="_new">{{ entry.entry_name }}</a>   <span class="entry_detail_id">Entry # {{ entry.id }}, Saved {{ entry.date_created|timesince }} ago {{ entry.date_created }}</span></h2>
+<h2><a href="{{ entry.entry_url }}" title="Original URL: {{ entry.entry_url }}" target="_new">{{ entry.entry_name }}</a>  <span class="entry_detail_id">{% trans "Entry #" %} {{ entry.id }},  {% trans "Date Cached:" %} {{ entry.date_created }}</span></h2>
 </div>
 </div>
 <div id="detail_tags">
-  <strong>Tags:</strong> &nbsp; 
+  <strong>{% trans "Tags:" %}</strong> &nbsp; 
   {% for tag in tags %}
-<a href="/tag/?tg={{ tag|urlencode }}" title="Filter your research by tag: {{ tag }}">{{ tag }}</a> &nbsp; 
+<a href="/tag/?tg={{ tag|urlencode }}" title="{% blocktrans %} Filter your research by tag: {{ tag }} {% endblocktrans %}">{{ tag }}</a> &nbsp; 
   {% endfor %}
    &nbsp; &nbsp; &nbsp; 
   {% if coll_render %}
   {% else %}
- <a href="/edit/{{ entry.id }}/" title="Edit this entry" class="button">Edit</a>
- <a href="/remove/{{ entry.id }}/" title="Remove this entry permanently" class="button">Remove</a>
+ <a href="/edit/{{ entry.id }}/" title="{% trans "Edit this entry" %}" class="button">{% trans "Edit" %}</a>
+ <a href="/remove/{{ entry.id }}/" title="{% trans "Remove this entry permanently" %}" class="button">{% trans "Remove" %}</a>
   {% endif %}
-  <a href="#links" title="Extracted Links" class="button">Links</a>
-  <a href="#imgs" title="Extracted Images" class="button">Images</a>
-  <!-- <a href="/commentary/{{ entry.id }}/" title="New/Edit Commentary" class="button">Commentary</a> -->
+  <a href="#links" title="{% trans "Extracted Links" %}" class="button">{% trans "Links" %}</a>
+  <a href="#imgs" title="{% trans "Extracted Images" %}" class="button">{% trans "Images" %}</a>
+  <!-- <a href="/commentary/{{ entry.id }}/" title="{% trans "New/Edit Commentary" %}" class="button">{% trans "Commentary" %}</a> -->
 
   {% if back_lnk %}
-  <a class="button" href="{{ back_lnk }}">Back</a>
+  <a class="button" href="{{ back_lnk }}">{% trans "Back" %}</a>
   {% endif %}
   {% if recent_enhanced %}
-  <a class="button" href="javascript:history.go(-1)">Back</a>
+  <a class="button" href="javascript:history.go(-1)">{% trans "Back" %}</a>
   {% endif %}
 </div>
 
 <div id="keywords">
-  <strong>Keywords:</strong> &nbsp;
+  <strong>{% trans "Keywords:" %}</strong> &nbsp;
   {% for kwd in entry_attrs.kwords %}
   <a onclick="rcache.xhr.related_add_kword('{{ kwd }}');">{{ kwd }}</a> &nbsp;
   {% endfor %}
 </div>
-<div id="related-docs-header" title="Click on any of the above keywords, then click 'Show Related Documents'"><strong>Related Documents:</strong> <span id="related-doc-keywords"></span>  <a href="#" onclick="rcache.xhr.related_docs_custom_kwords()" title="Get Related Documents" class="button">Get Related Documents</a>
- <a href="#" onclick="rcache.xhr.related_docs_custom_kwords_clear()" title="Clear Keywords" class="button">Clear Keywords</a>
+<div id="related-docs-header" title="{% trans "Click on any of the above keywords, then click 'Show Related Documents'" %}"><strong>{% trans "Related Documents:" %}</strong> <span id="related-doc-keywords"></span>  <a href="#" onclick="rcache.xhr.related_docs_custom_kwords()" title="{% trans "Get Related Documents" %}" class="button">{% trans "Get Related Documents" %}</a>
+ <a href="#" onclick="rcache.xhr.related_docs_custom_kwords_clear()" title="{% trans "Clear Keywords" %}" class="button">{% trans "Clear Keywords" %}</a>
 </div>
 <div id="related-docs"></div>
 <div id="detail_entry_text_long">
@@ -58,8 +63,8 @@ rCache.com - {{ entry.entry_name }}
 <a name="links"></a>
 <div id="detail_links_header">
   <ul>
-    <li><strong>Extracted Links</strong></li>
-    <li><a href="#top">Back to Top</a></li>
+    <li><strong>{% trans "Extracted Links" %}</strong></li>
+    <li><a href="#top">{% trans "Back to Top" %}</a></li>
   </ul>
 </div>
 {% if links_len %}
@@ -68,30 +73,30 @@ rCache.com - {{ entry.entry_name }}
     {% for link in links %}
     <tr class="{% cycle tr-light,tr-dark %}">
       <td class="detail_link_list">
-	<a href="{{ link.url }}" title="a link scraped from this entry's page" target="_new">{{ link.url }}</a>
+	<a href="{{ link.url }}" title="{% trans "a link scraped from this entry's page" %}" target="_new">{{ link.url }}</a>
       </td>
     </tr>
     {% endfor %}
   </table>
 </div>
 {% else %}
-<div class="notice_message"><h4>No Links Extracted</h4></div>
+<div class="notice_message"><h4>{% trans "No Links Extracted" %}</h4></div>
 {% endif %}
 <a name="imgs"></a>
 <div id="detail_imgs_header">
   <ul>
-    <li><strong>Extracted Images</strong></li>
-    <li><a href="#top">Back to Top</a></li>
+    <li><strong>{% trans "Extracted Images" %}</strong></li>
+    <li><a href="#top">{% trans "Back to Top" %}</a></li>
   </ul>
 </div>
 {% if imgs_len %}
 <div id="detail_imgs">
 {% for img in imgs %}
-  <img src="{{ img.path }}" title="an image scraped from this entry's page"/><br />
+  <img src="{{ img.path }}" title="{% trans "an image scraped from this entry's page" %}"/><br />
   {% endfor %}
 </div>
 {% else %}
-<div class="notice_message"><h4>No Images Extracted</h4></div>
+<div class="notice_message"><h4>{% trans "No Images Extracted" %}</h4></div>
 {% endif %}
 
 </div>

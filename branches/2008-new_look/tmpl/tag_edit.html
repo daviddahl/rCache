@@ -1,10 +1,13 @@
+{% load i18n %}
 {% extends "search.html" %}
 {% block title %}
-rCache.com - Tag Editor
+{% trans "rCache.com - Tag Editor" %}
 {% endblock %}
 {% block search_content %}
+<div id="global_page_title">
+<h1>{% trans "Edit Tag" %}</h1>
+</div>
 <div id="filter-menu" class="message">
-<h3>Edit Tag</h3>
   {% if msg %}
   <div class="instructions">{{ msg }}</div>
   {% endif %}
@@ -14,7 +17,7 @@ rCache.com - Tag Editor
   <br />
   <input type="hidden" name="tag_id" value="{{ tag_id }}" class="hidden"/>
   <label for="id-submit">&nbsp;</label>
-  <input type="submit" value="Save" id="id_submit"/> 
+  <input type="submit" value="{% trans "Save" %}" id="id_submit"/> 
   </form>
   
   </br />&nbsp;
@@ -23,12 +26,12 @@ rCache.com - Tag Editor
 </div>
 <div id="tag-menu">
   <ul>
-    <li><strong>Tag Tools</strong></li>
+    <li><strong>{% trans "Tag Tools" %}</strong></li>
     <li class="selected">
-      <a href="/filter/tags/maintenence/" class="button" title="Remove Empty Tags">Tag Maintenence</a>
+      <a href="/filter/tags/maintenence/" class="button" title="{% trans "Remove Empty Tags" %}">{% trans "Tag Maintenence" %}</a>
     </li>
     <li class="selected">
-      <a href="/filter/tags/editor/" class="button" title="Edit and remove Tags">Tag Editor</a>
+      <a href="/filter/tags/editor/" class="button" title="{% trans "Edit and remove Tags" %}">{% trans "Tag Editor" %}</a>
     </li>
   </ul>
 </div>

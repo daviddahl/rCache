@@ -15,6 +15,7 @@ TEMPLATE_DEBUG = DEBUG
 #fixme: add admins to env vars
 ADMINS = (
     ('David Dahl', 'david@ddahl.com'),
+    ('David Dahl', 'admin@rcache.com'),
 )
 DEV_ENV = os.environ['RCACHE_SERVER_ENV']
 MANAGERS = ADMINS
@@ -61,19 +62,25 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
 )
+gettext_noop = lambda s:s
+LANGUAGES = (
+    ('en',gettext_noop('English')),
+    ('es',gettext_noop('Spanish')),
+    ('it',gettext_noop('Italian')),
+    ('pt',gettext_noop('Portugese')),
+    ('fr',gettext_noop('French')),
+    ('de',gettext_noop('German')),
+    )
 
 ROOT_URLCONF = 'rcache.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
     os.environ['RCACHE_DJANGO_TMPL_DIR'],
-#    '/home/david/code/rcache_django/rcache/tmpl',
-#    '/Users/dahl/Code/rcache_django/tmpl',
-#    '/home/rcachedev/code/dev/rcache/tmpl',
 )
 
 INSTALLED_APPS = (

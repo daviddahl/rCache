@@ -1717,6 +1717,13 @@ def commentary_make_snippets(request,commentary_id):
     else:
         return HttpResponseRedirect("/login_required/")
 
+def collector(request):
+    """
+    info page about the collector
+    """
+    return render_to_response('collector.html',{})
+
+    
 def commentary_detail(request,commentary_id):
     """Display the commentary detail, all snippets and all of the comments per snippets"""
     if login_check(request):
@@ -1847,3 +1854,4 @@ def smtp_google():
     send_mail(subject, message, from_email, recipient_list,
               fail_silently=False, auth_user=EMAIL_HOST_USER,
               auth_password=EMAIL_HOST_PASSWORD)
+

@@ -326,7 +326,7 @@ h2 {
     padding: 1em;
 }
 .entry_detail_id{
-    font-size:40%;
+    font-size:90%;
     padding-left: 16px;
 }
 .tr-light{
@@ -1176,7 +1176,7 @@ h2 {
 width:100%;
 }
 #keywords{
-    font-size: 0.6em;
+    font-size: 90%;
     font-family: 'sans-serif';
     padding:4px;
     border: 1px solid #eee;
@@ -1201,3 +1201,20 @@ padding:2px;
     color:#9A8255;
 }
 
+#contact-us{
+padding:16px;
+line-height:150%;
+}
+
+.site-block{
+padding:16px;
+line-height:150%;
+}
+
+.instr li{
+    list-style-type:square;
+}
+
+.instr {
+    margin:32px;
+}

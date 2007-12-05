@@ -1,14 +1,16 @@
+{% load i18n %}
 {% extends "recent_orig.html" %}
 {% block title %}
-rCache.com - Tag Results
+{% trans "rCache.com - Tag Results" %}
 {% endblock %}
 {% block func_title %}
-<div class="results_title">
+<div id="global_page_title">
   {% if coll_render %}
-  <h3>Results for Tag '<i>{{ the_tag }}</i>' from Colleague <i>{{ coll_login }}'s</i> Research</h3>
-  <h4><a href="{{ back_lnk }}" title="{{ coll_login }}'s Research">Back</a></h4>
+  <h1>{% trans "Results for Tag" %} '<i>{{ the_tag }}</i>' {% trans "from Colleague" %} <i>{{ coll_login }}{% trans "'s" %}</i> {% trans "Research" %}</h1>
+  <h1><a href="{{ back_lnk }}" title="{{ coll_login }}{% trans "'s Research" %}">{% trans "Back" %}</a></h1>
   {% else %}
-  <strong>Results for Tag</strong> '<i>{{ the_tag }}</i>' &nbsp; &nbsp;<a href="/rss/tag/?tg={{ the_tag|urlencode }}" class="rss">RSS</a>
+  <h3><strong>{% trans "Results for Tag" %}</strong> '<i>{{ the_tag }}</i>' &nbsp; &nbsp;</h3><a href="/rss/tag/?tg={{ the_tag|urlencode }}" class="rss">{% trans "RSS" %}</a>
+<br /><br />
   {% endif %}
 </div>
 {% endblock %}
@@ -24,10 +26,10 @@ rCache.com - Tag Results
 	{% if e.entry_name %}
 	{{ e.entry_name|truncatewords:10 }}
 	{% else %}
-	No Title
+	{% trans "*No Title*" %}
 	{% endif %}
 	</a></td>
-      <td><a href="{{ e.entry_url }}" title="{{ e.entry_url }}" target="_new">Go</a></td>
+      <td><a href="{{ e.entry_url }}" title="{{ e.entry_url }}" target="_new">{% trans "Go" %}</a></td>
       <td>{{ e.date_created|timesince }}</td>
     </tr>
     {% endfor %}

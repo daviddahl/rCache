@@ -1,3 +1,4 @@
+{% load i18n %}
 {% extends "base.html" %}
 {% block title %}
 rCache.com - New Entry
@@ -8,37 +9,39 @@ rCache.com - New Entry
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
-  	<div id="global_page_title">
-		<h1>Create a new Entry.</h1><div>Enter URL, Title, Tags, Entry Text and File (Word, PDF, Text). <br />For ease of use, install the <a href="/firefox/">rCache Firefox Extension</a>.</div>
-  	</div>
-	{% if message %}
-	<div class="error_message">ERROR: {{ message }}</div>
-	{% endif %}
-	<div class="form-wrapper">
-		<form id="uploader" enctype="multipart/form-data" method="POST" action=".">
-		<label for="url">URL:</label>
-		<input id="url" type="text" maxlength="255" name="url" size="60"/>
-		<br/>
-		<label for="title">Title:</label>
-		<input id="title" type="text" size="60" name="title" maxlength="255"/>
-		<br/>
-		<p class="message">
-		Tags should be entered like so: <i><strong>economics,dollar,unemployment</strong> </i> (comma delimited)
-		</p>
-		<label for="tags">Tags:</label>
-		<input id="tags" type="text" maxlength="80" name="tags" size="30"/>
-		<br/>
-		<label for="entry_text">Entry Text:</label>
-		<textarea id="entry_text" name="entry_text" cols="60" rows="10"/></textarea>
-		<p class="message">
-		Text scraped from the uploaded file will be appended to the <i>'Entry Text'</i>
-		</p>
-		<label for="the_file">Upload a File:</label>
-		<input id="the_file" type="file" name="the_file"/>
-		<br/>
-		<label for="submit"/>&nbsp;</label>
-		<input id="submit" type="submit" value="Save"/>
-		</form>
-	</div>
+  <div id="global_page_title">
+    <h1>{% trans "Create a new Entry." %}</h1>
+    <div>{% trans "Enter URL, Title, Tags, Entry Text and File (Word, PDF, Text)." %} 
+<br />{% trans "For ease of use, install the" %} <a href="/firefox/">{% trans "rCache Firefox Extension" %}</a>.</div>
+  </div>
+  {% if message %}
+  <div class="error_message">{% trans "ERROR:" %} {{ message }}</div>
+  {% endif %}
+  <div class="form-wrapper">
+    <form id="uploader" enctype="multipart/form-data" method="POST" action=".">
+      <label for="url">{% trans "URL:" %}</label>
+      <input id="url" type="text" maxlength="255" name="url" size="60"/>
+      <br/>
+      <label for="title">{% trans "Title:" %}</label>
+      <input id="title" type="text" size="60" name="title" maxlength="255"/>
+      <br/>
+      <p class="message">
+	{% trans "Tags should be entered like so:" %} <i><strong>{% trans "economics,dollar,unemployment" %}</strong> </i> {% trans "(comma delimited)" %}
+      </p>
+      <label for="tags">{% trans "Tags:" %}</label>
+      <input id="tags" type="text" maxlength="80" name="tags" size="30"/>
+      <br/>
+      <label for="entry_text">{% trans "Entry Text:" %}</label>
+      <textarea id="entry_text" name="entry_text" cols="60" rows="10"/></textarea>
+<p class="message">
+  {% trans "Text scraped from the uploaded file will be appended to the" %} <i>'{% trans "Entry Text" %}'</i>
+</p>
+<label for="the_file">{% trans "Upload a File:" %}</label>
+<input id="the_file" type="file" name="the_file"/>
+<br/>
+<label for="submit"/>&nbsp;</label>
+<input id="submit" type="submit" value="{% trans "Save" %}"/>
+</form>
+</div>
 </div>
 {% endblock %}

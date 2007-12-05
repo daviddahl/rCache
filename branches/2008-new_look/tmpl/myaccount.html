@@ -1,8 +1,10 @@
+{% load i18n %}
 {% extends "new_entry.html" %}
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
-<div id="detail_new_entry">
+  <div id="global_page_title"><h1>Update Account</h1></div>
+  <div id="detail_new_entry">
   {% if err %}
   <div class="instructions">
     {% for e in err %}
@@ -10,33 +12,32 @@
     {% endfor %}
   </div>
   {% endif %}
-  <div id="account_update">
-  <h1>Update Account</h1>
-  <br />
+  <div class="site-block">
+    <br />
   <form id="account_form" enctype="multipart/form-data" method="POST" action=".">
-  <label for="email">Email Address</label>
+  <label for="email">{% trans "Email Address" %}</label>
   <input id="id_email" type="text" maxlength="32" name="email" value="{{ user.email }}" size="24"/>
     <br />
-  <label for="id_first_name">First Name</label>
+  <label for="id_first_name">{% trans "First Name" %}</label>
   <input id="id_first_name" type="text" size="24" name="first_name" value="{{ user.first_name }}" maxlength="32"/>
   <br/>
-  <label for="id_last_name">Last Name</label>
+  <label for="id_last_name">{% trans "Surame" %}</label>
   <input id="id_last_name" type="text" size="24" name="last_name" value="{{ user.last_name }}" maxlength="32"/>
   <br/>
-  <label for="id_website">Web Site</label>
+  <label for="id_website">{% trans "Web Site" %}</label>
   <input id="id_website" type="text" size="24" name="website" value="{{ user.website }}" maxlength="32"/>
   <br/>
-  <label for="id_blogurl">Blog Url</label>
+  <label for="id_blogurl">{% trans "Blog Url" %}</label>
   <input id="id_blogurl" type="text" size="24" name="blogurl" value="{{ user.blogurl }}" maxlength="32"/>
   <br/>
-  <label for="id_passwd">Password</label>
+  <label for="id_passwd">{% trans "Password" %}</label>
   <input id="id_passwd" type="password" size="24" name="password" value="" maxlength="32"/>
   <br/>
   <label for="id_passwd_conf">Confirm Password</label>
   <input id="id_passwd_conf" type="password" size="24" name="password_conf" maxlength="32"/>
   <br/>
   <label for="submit"/>&nbsp;</label>
-  <input id="submit" type="submit" value="Save"/>
+  <input id="submit" type="submit" value="{% trans "Save" %}"/>
   </form>
   </div>
 </div>

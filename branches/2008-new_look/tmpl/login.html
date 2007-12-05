@@ -1,3 +1,4 @@
+{% load i18n %}
 {% extends "base.html" %}
 {% block js %}
 {% endblock %}
@@ -6,18 +7,19 @@
 {% endblock %}
 {% block content %}
 {% include "pub-menu.html" %}
-
+<div id="login-screen" class="site-block">
+<h1>{% trans "Login" %}</h1>
   <form action="/login/" method="POST">
-  <label for="login">Login </label>
+  <label for="username">{% trans "Username" %} </label>
   <input type="text" name="login" maxlength="60" size="20"/>
   <br/>
-  <label for="passwd">Password </label>  
+  <label for="passwd">{% trans "Password" %} </label>  
   <input type="password" name="passwd" maxlength="60" size="20"/>
   <br/>
   <label for="loginbutton">&nbsp;</label>  
-  <input type="submit" name="loginbutton" value="Login"/>
+  <input type="submit" name="loginbutton" value="{% trans "Login" %}"/>
   </form>
-
+</div>
 {% endblock %}
 {% block getfirefox %}
 {% endblock %}

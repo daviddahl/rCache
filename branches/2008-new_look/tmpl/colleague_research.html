@@ -1,40 +1,44 @@
+{% load i18n %}
 {% extends "new_entry.html" %}
 {% block title %}
-rCache - Colleague Research
+{% trans "rCache - Colleague Research" %}
 {% endblock %}
 {% block content %}
 {% include "nav.html" %}
+<div id="global_page_title">
+  <h1>Colleagues</h1>
+</div>
 <div id="detail_wrapper">
 <div id="detail_new_entry">
   <div id="colleague_list">
     {% if err %}
-    <h1>You are not a colleague of {{ colleague.login }}</h1>
+    <h1>{% trans "You are not a colleague of" %} {{ colleague.login }}</h1>
     {% else %}
-    <h3>Colleague Research: {{ colleague.login }}</h3>
-    <h4 class="notice_message">Your status as a colleague of {{ colleague.login }} is {{ active_txt }}</h4>
+    <h3>{% trans "Colleague Research:" %} {{ colleague.login }}</h3>
+    <h4 class="notice_message">{% trans "Your status as a colleague of" %} {{ colleague.login }} {% trans "is" %} {{ active_txt }}</h4>
     {% endif %}
     {% if initial_state_txt %}
     <div id="message">{{ initial_state_txt }}</div>
     {% endif %}
   {% if user_colleague_record.tag_restrictions %}
   <div id="colleague_research_tags">
-    <h4>Tags</h4>
+    <h1>{% trans "Tags" %}</h1>
     {% for tag in tags %}
     <a href="/colleague/{{ colleague.id }}/research/tag/?tag={{ tag|urlencode }}">{{ tag }}</a> &nbsp;
     {% endfor %}
   </div>
   {% else %}
-  <div id="colleague_research_tags">Coming soon: Your Colleague's Full Tag List</div>	
+  <div id="colleague_research_tags">{% trans "Coming soon: Your Colleague's Full Tag List" %}</div>	
   {% endif %}
   {% if user_colleague_record.search_restrictions %}
   <div id="colleague_research_search">
-    <h4>Search Keywords</h4>
+    <h1>{% trans "Search Keywords" %}</h1>
     {% for kw in search_kw %}
     <a href="/colleague/{{ colleague.id }}/research/search/?kw={{ kw|urlencode }}">{{ kw }}</a> &nbsp;
     {% endfor %}
   </div>
   {% else %}
-  <div id="colleague_research_search">Coming Soon: Search Your Colleague's Entries in Full. </div>
+  <div id="colleague_research_search">{% trans "Coming Soon: Search Your Colleague's Entries in Full." %} </div>
   {% endif %}
   </div>
   </div>

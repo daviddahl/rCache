@@ -1,0 +1,23 @@
+{% load i18n %}
+{% extends "firefox.html" %}
+{% block js %}
+{% endblock %}
+{% block content %}
+<div id="firefox_boundry">
+{% include "pub-menu.html" %}  
+   <div id="rcache-collector" class="site-block">
+    <h1>{% trans "rCache Collector" %}</h1>
+    <br />
+      <a name="collector"></a>
+      {% trans "The " %}<strong>{% trans "rCache Collector" %}</strong> {% trans "Firefox extension makes entering data into your rCache database fast and trivial." %}
+      <br />
+      <ul class="instr">
+      	  <li>{% trans "Select an area on a web page by clicking and dragging your mouse." %}</li>
+      	  <li>{% trans "Click on the" %} <i>{% trans "rCache Collector" %}</i> {% trans "icon" %} <img src="/media/img/database_save.png" border="0"/> {% trans "on the status bar of your Firefox browser." %}</li>
+      	  <li>{% trans "Enter Tags (comma delimited)" %}</li>
+      	  <li>{% trans "Click Continue" %} </li>
+      	  <li>{% trans "Your selection is entered into the database, and the rCache Collector window goes away, unobtrusively." %}</li>
+    	  </ul>
+</div>
+</div>	  
+{% endblock content %}

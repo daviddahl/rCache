@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-12-03 11:43-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: settings.py:71
+msgid "English"
+msgstr ""
+
+#: settings.py:72
+msgid "Spanish"
+msgstr ""
+
+#: settings.py:73
+msgid "Italian"
+msgstr ""
+
+#: settings.py:74
+msgid "Portugese"
+msgstr ""
+
+#: settings.py:75
+msgid "French"
+msgstr ""
+
+#: settings.py:76
+msgid "German"
+msgstr ""
+
+#: tmpl/base.html:8
+msgid "rCache.com - personal internet search cache and research tools"
+msgstr ""
+
+#: tmpl/detail.html:16
+#, python-format
+msgid ""
+"\n"
+"    This Entry is from your Colleague %(colleague.login)s's Research\n"
+"    "
+msgstr ""
+
+#: tmpl/detail.html:21
+msgid "Entry #"
+msgstr ""
+
+#: tmpl/detail.html:25
+msgid "Tags:"
+msgstr ""
+
+#: tmpl/detail.html:27
+#, python-format
+msgid " Filter your research by tag: %(tag)s "
+msgstr ""
+
+#: tmpl/detail.html:32
+msgid "Edit this entry"
+msgstr ""
+
+#: tmpl/detail.html:32
+msgid "Edit"
+msgstr ""
+
+#: tmpl/detail.html:33
+msgid "Remove this entry permanently"
+msgstr ""
+
+#: tmpl/detail.html:33
+msgid "Remove"
+msgstr ""
+
+#: tmpl/detail.html:35 tmpl/detail.html.py:66
+msgid "Extracted Links"
+msgstr ""
+
+#: tmpl/detail.html:35
+msgid "Links"
+msgstr ""
+
+#: tmpl/detail.html:36 tmpl/detail.html.py:88
+msgid "Extracted Images"
+msgstr ""
+
+#: tmpl/detail.html:36
+msgid "Images"
+msgstr ""
+
+#: tmpl/detail.html:37
+msgid "New/Edit Commentary"
+msgstr ""
+
+#: tmpl/detail.html:37
+msgid "Commentary"
+msgstr ""
+
+#: tmpl/detail.html:40 tmpl/detail.html.py:43
+msgid "Back"
+msgstr ""
+
+#: tmpl/detail.html:48
+msgid "Keywords:"
+msgstr ""
+
+#: tmpl/detail.html:53
+msgid "Click on any of the above keywords, then click 'Show Related Documents'"
+msgstr ""
+
+#: tmpl/detail.html:53
+msgid "Related Documents:"
+msgstr ""
+
+#: tmpl/detail.html:53
+msgid "Get Related Documents"
+msgstr ""
+
+#: tmpl/detail.html:54
+msgid "Clear Keywords"
+msgstr ""
+
+#: tmpl/detail.html:67 tmpl/detail.html.py:89
+msgid "Back to Top"
+msgstr ""
+
+#: tmpl/detail.html:76
+msgid "a link scraped from this entry's page"
+msgstr ""
+
+#: tmpl/detail.html:83
+msgid "No Links Extracted"
+msgstr ""
+
+#: tmpl/detail.html:95
+msgid "an image scraped from this entry's page"
+msgstr ""
+
+#: tmpl/detail.html:99
+msgid "No Images Extracted"
+msgstr ""
+
+#: tmpl/nav.html:4
+msgid "Manage Colleagues"
+msgstr ""
+
+#: tmpl/nav.html:4
+msgid "Colleagues"
+msgstr ""
+
+#: tmpl/nav.html:5
+msgid "Filter your data by Tag or Domain"
+msgstr ""
+
+#: tmpl/nav.html:5
+msgid "Filter"
+msgstr ""
+
+#: tmpl/nav.html:6
+msgid "Entries"
+msgstr ""
+
+#: tmpl/nav.html:7
+msgid "Create new entry or upload document"
+msgstr ""
+
+#: tmpl/nav.html:7
+msgid "New"
+msgstr ""
+
+#: tmpl/nav.html:12
+msgid "Search..."
+msgstr ""
+
+#: tmpl/nav.html:12
+msgid "Search your data"
+msgstr ""
+
+#: tmpl/nav.html:17
+msgid "Update Account"
+msgstr ""
+
+#: tmpl/nav.html:18
+msgid "Exit rCache"
+msgstr ""
+
+#: tmpl/nav.html:18
+msgid "Logout"
+msgstr ""

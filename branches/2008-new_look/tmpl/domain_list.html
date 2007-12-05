@@ -1,13 +1,14 @@
+{% load i18n %}
 {% extends "tag_list.html" %}
 {% block title %}
-rCache.com - Filter Entries by Domain
+{% trans "rCache.com - Filter Entries by Domain" %}
 {% endblock %}
 {% block filter_menu %}
-<li><a href="/filter/tags/">Tags</a></li>
-<li class="selected">Domains</li>
+<li><a href="/filter/tags/">{% trans "Tags" %}</a></li>
+<li class="selected">{% trans "Domains" %}</li>
 {% endblock %}
 {% block the_list %}
 {% for domain in domains %}
-<a href="/filter/domain_results/?domain={{ domain.0 }}" title="View all Entries from {{ domain.0 }}">{{ domain.0 }}</a> &nbsp;
+<a href="/filter/domain_results/?domain={{ domain.0 }}" title="{% trans "View all Entries from" %} {{ domain.0 }}">{{ domain.0 }}</a> &nbsp;
 {% endfor %}
 {% endblock %}

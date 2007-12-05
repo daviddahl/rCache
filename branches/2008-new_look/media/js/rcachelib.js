@@ -28,6 +28,11 @@ function Querystring(qs) { // optionally pass a querystring to parse
 	}
 }
 
+
+String.prototype.trim = function () {
+    return this.replace(/^\s+|\s+$/g, "");
+}; 
+
 function Querystring_get(key, default_) {
 	// This silly looking line changes UNDEFINED to NULL
 	if (default_ == null) default_ = null;
@@ -285,10 +290,14 @@ rcache.xhr.related_docs_custom_kwords_clear = function(){
 
 rcache.xhr.related_docs_custom_kwords = function(){
     // get the keywords from the span holding them, pass them to 'related_docs'
-    kwords = j('#related-doc-keywords')[0].innerHTML;
-    if (kwords == ''){
+    var kwords_str = j('#related-doc-keywords')[0].innerHTML;
+    kwords_str.trim()
+    if (kwords_str == ''){
 	alert("Please select one or more keywords.");
     } else {
+	var kwords_arr = kwords_str.split(" ");
+	var kwords = kwords_arr.join(" AND ");
+	
 	j("#related-docs")[0].innerHTML = '<img src="/media/img/loading_ani2.gif" border="0"/>';
 	j("#related-docs").css({'border':'1px solid #eee','padding':'4px'});
 	rcache.xhr.related_docs(kwords);
@@ -296,7 +305,7 @@ rcache.xhr.related_docs_custom_kwords = function(){
 }
 
 rcache.xhr.related_docs = function(kwords){
-    
+    // fixme: use AND between all keywords!!!!!!!!!!
     // get related docs via a docs' keywords
     var query = kwords;
     //var kwords_arr = kwords.split(' ',3);
@@ -332,7 +341,11 @@ rcache.xhr.search = function(){
     // get input value
     // base64 encode it
     // change location to /search/?q=jhfjdhfldhgfkdhfdjh
-    document.location = "/search/?search_str=" + qs;
+    if (qs){
+	document.location = "/search/?search_str=" + qs;
+    } else {
+	alert("Please enter a search term.");
+    }
     
 }
 
