@@ -617,6 +617,8 @@ def recent_xhr(request):
     
 def detail(request,entry_id):
     if login_check(request):
+        entry_attrs = []
+        kwords_for_query = []
         try:
             u = User.objects.get(id=request.session['userid'])
             e = Entry.objects.filter(user=u,id__exact=entry_id)[0]
