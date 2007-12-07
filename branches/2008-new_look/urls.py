@@ -7,7 +7,15 @@ feeds = {
     'tag': LatestEntriesByTag,
 }
 
-urlpatterns = patterns('rcache.views',
+js_info_dict = {
+    'packages': ('rcache',),
+}
+
+urlpatterns = patterns('',
+    (r'^jsi18n/(?P<packages>\S+?)/$', 'django.views.i18n.javascript_catalog'),
+)
+
+urlpatterns += patterns('rcache.views',
                        (r'^admin/', include('django.contrib.admin.urls')),
                        (r'^$', 'index'),
                        (r'^cache/$', 'cache'),

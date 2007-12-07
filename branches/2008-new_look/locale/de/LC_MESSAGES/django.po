@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-04 23:31-0800\n"
+"POT-Creation-Date: 2007-12-06 23:22-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,264 @@ msgstr ""
 
 #: settings.py:76
 msgid "German"
+msgstr ""
+
+#: views.py:135
+#, python-format
+msgid "Error: Cannot Update Colleague. %s"
+msgstr ""
+
+#: views.py:147
+msgid ""
+"Error: Cannot fetch Colleague record. Perhaps your Colleague has not "
+"accepted the account offer"
+msgstr ""
+
+#: views.py:165
+msgid "That email address is already used by one of your colleagues."
+msgstr ""
+
+#: views.py:219
+msgid "rCache.com: Collaborative Research Request"
+msgstr ""
+
+#: views.py:221
+#, python-format
+msgid ""
+"Dear %(user_email)s,\n"
+"\n"
+"Your colleague, %(col_email)s, would like to share some research with you "
+"via rcache.com, a collaborative online research tool. you can read about "
+"rcache's functionality here: http://www.rcache.com/about/.\n"
+"\n"
+"If you would like to accept %(user_email)s's offer to become an online "
+"rCache colleague, click here: https://collect.rcache.com/accounts/activate/?"
+"hk=%(hash_key)s\n"
+"\n"
+"You will be granted a full rCache account (if you do not already have one) "
+"which you can use to collect and store data from the web and elsewhere. "
+"rCache is free and easy to use.\n"
+"\n"
+"Best Regards,\n"
+"\n"
+"rCache Account Bot"
+msgstr ""
+
+#: views.py:226
+#, python-format
+msgid ""
+"Dear %(coll_user)s,\n"
+"\n"
+"Your colleague, %(user_email)s, would like to share some research with you "
+"via your rcache.com account.\n"
+"\n"
+"Click here to login and configure your Colleague settings: https://collect."
+"rcache.com/login/\n"
+"\n"
+"Best Regards,\n"
+"\n"
+"rCache Account Bot"
+msgstr ""
+
+#: views.py:244
+msgid ""
+"Please make sure the email address is correct, and you have entered the "
+"email in 'Confirm Email'"
+msgstr ""
+
+#: views.py:318 views.py:459
+msgid "Active"
+msgstr ""
+
+#: views.py:320 views.py:461
+msgid "Not Active"
+msgstr ""
+
+#: views.py:321
+#, python-format
+msgid "Your Colleague Status with %(col_login)s is Inactive."
+msgstr ""
+
+#: views.py:328
+msgid "Colleague Not Found."
+msgstr ""
+
+#: views.py:338 views.py:467
+#, python-format
+msgid "Your colleague account with %(col_login)s has not been configured yet"
+msgstr ""
+
+#: views.py:392
+#, python-format
+msgid ""
+"You do not have permission to search %(col_login)s's entries tagged: %(tag)s"
+msgstr ""
+
+#: views.py:400
+#, python-format
+msgid "An error occurred trying to lookup your colleague's research. %s"
+msgstr ""
+
+#: views.py:433
+#, python-format
+msgid ""
+"You do not have permission to search %(col_login)s's entries with the "
+"keyword: %(kword)s"
+msgstr ""
+
+#: views.py:441
+#, python-format
+msgid "An error occurred trying to lookup your colleague's research. %(err)s"
+msgstr ""
+
+#: views.py:518 views.py:560
+msgid "Error fetching entry. Could not determine Query Type."
+msgstr ""
+
+#: views.py:834
+#, python-format
+msgid "%(ttl)s ** From file: %(file_name)s ** "
+msgstr ""
+
+#: views.py:838
+#, python-format
+msgid "***Error sccraping document: %(file_name)s ***"
+msgstr ""
+
+#: views.py:849
+msgid ""
+"\n"
+"------Scraped Text------\n"
+msgstr ""
+
+#: views.py:862
+msgid "Please upload a file or enter some Entry Text."
+msgstr ""
+
+#: views.py:911
+msgid "Please Enter a Query"
+msgstr ""
+
+#: views.py:919
+msgid "ERROR: You are not logged in."
+msgstr ""
+
+#: views.py:961
+msgid "Success"
+msgstr ""
+
+#: views.py:963
+msgid "Login Failed"
+msgstr ""
+
+#: views.py:991
+msgid "Login Incorrect"
+msgstr ""
+
+#: views.py:994
+msgid "Login Failed: Please enter your password."
+msgstr ""
+
+#: views.py:996
+msgid "Login Failed: Please enter your login name."
+msgstr ""
+
+#: views.py:1063
+#, python-format
+msgid "Something Blew Up!: %(err)s"
+msgstr ""
+
+#: views.py:1120
+msgid "Unknown Error"
+msgstr ""
+
+#: views.py:1245
+#, python-format
+msgid "Error processing Word doc: %(filename)s"
+msgstr ""
+
+#: views.py:1256
+#, python-format
+msgid "Error processing PDF file: %(filename)s"
+msgstr ""
+
+#: views.py:1364
+msgid "Success: Tag Updated"
+msgstr ""
+
+#: views.py:1372
+msgid "ERROR: Something blew up."
+msgstr ""
+
+#: views.py:1374
+msgid ""
+"Error: Could not update tag. Please contact the admin if this error repeats."
+msgstr ""
+
+#: views.py:1405
+msgid "Success: Tag Removed"
+msgstr ""
+
+#: views.py:1411
+msgid ""
+"Error: Could not remove tag. Please contact the admin if this error repeats."
+msgstr ""
+
+#: views.py:1430
+#, python-format
+msgid "Success: tag '%(tag_name)s' was removed"
+msgstr ""
+
+#: views.py:1433
+msgid "Error: Could not remove the Tag"
+msgstr ""
+
+#: views.py:1519
+msgid "rCache Account Application"
+msgstr ""
+
+#: views.py:1533
+#, python-format
+msgid ""
+"An error occurred creating an account for %(email)s. Please send an email to "
+"admin at rcache dot com, please include this error message: %(err)s"
+msgstr ""
+
+#: views.py:1537
+msgid "Please Enter your email address"
+msgstr ""
+
+#: views.py:1556
+msgid "Password and Password Confirm do not match."
+msgstr ""
+
+#: views.py:1564
+msgid "Email Address is not valid."
+msgstr ""
+
+#: views.py:1604
+msgid "No feeds are registered."
+msgstr ""
+
+#: views.py:1614
+#, python-format
+msgid "Slug %(slug)r isn't registered."
+msgstr ""
+
+#: views.py:1619
+#, python-format
+msgid ""
+"Invalid feed parameters. Slug %(slug)r is valid, but other parameters, or "
+"lack thereof, are not."
+msgstr ""
+
+#: views.py:1678
+msgid "No existing commentaries"
+msgstr ""
+
+#: views.py:1681
+#, python-format
+msgid "Commentary on '%(entry_name)s'"
 msgstr ""
 
 #: tmpl/404logged_in.html:4

@@ -14,6 +14,7 @@ from django.template import Context, loader
 from django.shortcuts import render_to_response, get_object_or_404
 from django import forms
 from django.utils import simplejson
+from django.utils.translation import ugettext_lazy as _
 from django.core.validators import email_re
 from django.core.mail import send_mail
 from django.contrib.syndication import feeds
@@ -131,7 +132,7 @@ def colleague_detail(request,coll_id):
                                            'colleague':coll,
                                            'updated':True})
             except Exception,e:
-                m= "Error: Cannot Update Colleague. %s" % e
+                m= _("Error: Cannot Update Colleague. %s") % e
                 return render_to_response('colleague_err.html',
                                           {'user':u,
                                            'message':m})
@@ -143,7 +144,7 @@ def colleague_detail(request,coll_id):
                                           {'colleague':c[0],
                                            'user':u})
             except Exception,e:
-                m= "Error: Cannot fetch Colleague record. Perhaps your Colleague has not accepted the account offer"
+                m= _("Error: Cannot fetch Colleague record. Perhaps your Colleague has not accepted the account offer")
                 return render_to_response('colleague_err.html',
                                           {'user':u,
                                            'message':m})
@@ -161,7 +162,7 @@ def new_colleague(request):
             for col in cols:
                 if col.colleague.login == request.POST["colleague_email"]:
                     #err: need to return with "you already have that colleague"
-                    m = "That email address is already used by one of your colleagues."
+                    m = _("That email address is already used by one of your colleagues.")
                     return render_to_response('new_colleague.html',
                                               {'user':u,
                                                'message':m,
@@ -173,9 +174,10 @@ def new_colleague(request):
                 #fixme: try...
                 #create User object
                 comp = Company.objects.get(pk=1)
-                coll_user,created = User.objects.get_or_create(email=valid['email'],
-                                                               company=comp,
-                                                               login=valid['email'])
+                coll_user,created = \
+                                  User.objects.get_or_create(email=valid['email'],
+                                                             company=comp,
+                                                             login=valid['email'])
                 coll_user.save()
                 
                 #create colleague object
@@ -214,11 +216,16 @@ def new_colleague(request):
                                         event_type='Invited Colleague')
                 evt_invited.save()
                 
-                subject = "rCache.com: Collaborative Research Request"
+                subject = _("rCache.com: Collaborative Research Request")
                 if created:
-                    mesg = """Dear %s,\n\nYour colleague, %s, would like to share some research with you via rcache.com, a collaborative online research tool. you can read about rcache's functionality here: http://www.rcache.com/about/.\n\nIf you would like to accept %s's offer to become an online rCache colleague, click here: https://collect.rcache.com/accounts/activate/?hk=%s\n\nYou will be granted a full rCache account (if you do not already have one) which you can use to collect and store data from the web and elsewhere. rCache is free and easy to use.\n\nBest Regards,\n\nrCache Account Bot""" % (coll_user.email,u.email,u.email,hk2,)
+                    mesg = _("""Dear %(user_email)s,\n\nYour colleague, %(col_email)s, would like to share some research with you via rcache.com, a collaborative online research tool. you can read about rcache's functionality here: http://www.rcache.com/about/.\n\nIf you would like to accept %(user_email)s's offer to become an online rCache colleague, click here: https://collect.rcache.com/accounts/activate/?hk=%(hash_key)s\n\nYou will be granted a full rCache account (if you do not already have one) which you can use to collect and store data from the web and elsewhere. rCache is free and easy to use.\n\nBest Regards,\n\nrCache Account Bot""") % \
+                           {'col_email':coll_user.email,
+                            'user_email':u.email,
+                            'hash_key':hk2}
                 else:
-                    mesg = """Dear %s,\n\nYour colleague, %s, would like to share some research with you via your rcache.com account.\n\nClick here to login and configure your Colleague settings: https://collect.rcache.com/login/\n\nBest Regards,\n\nrCache Account Bot""" % (coll_user.email,u.email,)
+                    mesg = _("""Dear %(coll_user)s,\n\nYour colleague, %(user_email)s, would like to share some research with you via your rcache.com account.\n\nClick here to login and configure your Colleague settings: https://collect.rcache.com/login/\n\nBest Regards,\n\nrCache Account Bot""") %\
+                           {'coll_user':coll_user.email,
+                            'user_email':u.email}
                 
                 send_mail(subject,
                           mesg,
@@ -234,7 +241,7 @@ def new_colleague(request):
                                            'colleagues':c,
                                            'colleagues_cnt':len(c)})
             else:
-                m = "Please make sure the email address is correct, and you have entered the email in 'Confirm Email'"
+                m = _("Please make sure the email address is correct, and you have entered the email in 'Confirm Email'")
                 return render_to_response('new_colleague.html',
                                           {'user':u,
                                            'message':m,
@@ -308,16 +315,17 @@ def colleague_research(request,coll_id):
             colleague = User.objects.get(id=coll_id)
 
             if c[0].active:
-                active_txt = "Active"
+                active_txt = _("Active")
             else:
-                active_txt = "Not Active"
-                m = "Your Colleague Status with %s is Inactive." % colleague.login
+                active_txt = _("Not Active")
+                m = _("Your Colleague Status with %(col_login)s is Inactive.") \
+                      % {'col_login':colleague.login}
                 return render_to_response('colleague_err.html',
                                           {'user':u,
                                            'err':True,
                                            'message':m})
         except Exception,e:
-            m = "Colleague Not Found."
+            m = _("Colleague Not Found.")
             return render_to_response('colleague_err.html',
                                       {'user':u,
                                        'err':True,
@@ -327,7 +335,7 @@ def colleague_research(request,coll_id):
            c[0].search_restrictions and \
            c[0].tags_approved == "" and \
            c[0].search_keywords_approved == "":
-            initial_state_txt = "Your colleague account with %s has not been configured yet" % colleague.login
+            initial_state_txt = _("Your colleague account with %(col_login)s has not been configured yet") % {'col_login':colleague.login}
         else:
             initial_state_txt = None
 
@@ -381,13 +389,15 @@ def colleague_research_tag(request,coll_id):
                                            'coll_render':True})
             else:
                 #return error message
-                m= "You do not have permission to search %s's entries tagged: %s" %(colleague.login,urllib.unquote_plus(request.GET['tag']),)
+                m= _("You do not have permission to search %(col_login)s's entries tagged: %(tag)s") %\
+                   {'col_login':colleague.login,
+                    'tag':urllib.unquote_plus(request.GET['tag'])}
                 return render_to_response('colleague_err.html',
                                           {'user':u,
                                            'err':True,
                                            'message':m})
         except Exception,e:
-            m= "An error occurred trying to lookup your colleague's research. %s" % e
+            m= _("An error occurred trying to lookup your colleague's research. %s") % e
             return render_to_response('colleague_err.html',
                                       {'user':u,
                                        'err':True,
@@ -420,13 +430,15 @@ def colleague_research_keywords(request,coll_id):
                                            'coll_render':True})
             else:
                 #return error message
-                m= "You do not have permission to search %s's entries with the keyword: %s" %(colleague.login,urllib.unquote_plus(request.GET['search']),)
+                m= _("You do not have permission to search %(col_login)s's entries with the keyword: %(kword)s") %\
+                   {'col_login':colleague.login,
+                    'kword':urllib.unquote_plus(request.GET['search'])}
                 return render_to_response('colleague_err.html',
                                           {'user':u,
                                            'err':True,
                                            'message':m})
         except Exception,e:
-            m= "An error occurred trying to lookup your colleague's research. %s" % e
+            m= _("An error occurred trying to lookup your colleague's research. %(err)s") % {'err':e}
             return render_to_response('colleague_err.html',
                                       {'user':u,
                                        'err':True,
@@ -444,15 +456,15 @@ def colleague_check(request,coll_id,query_type="tag"):
     colleague = User.objects.get(id=coll_id)
     
     if c[0].active:
-        active_txt = "Active"
+        active_txt = _("Active")
     else:
-        active_txt = "Not Active"
+        active_txt = _("Not Active")
         
     if c[0].tag_restrictions and \
            c[0].search_restrictions and \
            c[0].tags_approved == "" and \
            c[0].search_keywords_approved == "":
-        initial_state_txt = "Your colleague account with %s has not been configured yet" % colleague.login
+        initial_state_txt = _("Your colleague account with %(col_login)s has not been configured yet") % {'col_login':colleague.login}
         #return error as you do not have access yet
         return False
     else:
@@ -503,7 +515,7 @@ def colleague_research_detail(request,coll_id,entry_id):
         elif request.GET.has_key('tag'):
             query_type = 'tag'
         else:
-            m = "Error fetching entry. Could not determine Query Type."
+            m = _("Error fetching entry. Could not determine Query Type.")
             return render_to_response('colleague_err.html',
                                       {'user':u,
                                        'err':True,
@@ -545,7 +557,7 @@ def colleague_research_detail(request,coll_id,entry_id):
                                        'back_lnk':back_lnk,
                                        'escaped_text_content':escaped_text_content})
         else:
-            m = "Error fetching entry. Could not determine Query Type."
+            m = _("Error fetching entry. Could not determine Query Type.")
             return render_to_response('colleague_err.html',
                                       {'user':u,
                                        'err':True,
@@ -809,7 +821,7 @@ def new_entry(request):
             url = "Manual entry"
             #handle form data
             url = request.POST['url']
-            ttl = request.POST['title']
+            title = request.POST['title']
             tgs = request.POST['tags']
             etext = request.POST['entry_text']
             if request.FILES.has_key('the_file'):
@@ -819,10 +831,12 @@ def new_entry(request):
                     file_name = request.FILES['the_file']['filename']
 
                     #if ttl == '':
-                    ttl = ttl + ' ** From file: %s ** ' % file_name 
+                    ttl = _('%(ttl)s ** From file: %(file_name)s ** ') % \
+                          {'ttl':title,'file_name':file_name} 
 
                     content_type = request.FILES['the_file']['content-type']
-                    file_txt = '***Error sccraping document: %s ***' % file_name
+                    file_txt = _('***Error sccraping document: %(file_name)s ***') %\
+                               {'file_name':file_name}
 
                     if content_type == 'application/msword':
                         file_txt = process_word(file_data,file_name)
@@ -832,7 +846,7 @@ def new_entry(request):
                     #    file_txt = process_txt(file_data)
                     else:
                         pass
-                etext = etext + "\n------Scraped Text------\n" + file_txt
+                etext = etext + _("\n------Scraped Text------\n") + file_txt
             if etext:    
                 entry = Entry(entry_url=url,
                               entry_name=ttl,
@@ -845,7 +859,7 @@ def new_entry(request):
                 detail_url = "/detail/%s/" % entry.id
                 return HttpResponseRedirect(detail_url)
             else:
-                m="Please upload a file or enter some Entry Text."
+                m=_("Please upload a file or enter some Entry Text.")
                 return render_to_response('new_entry.html',
                                           {'user':u,
                                            'message':m})
@@ -894,7 +908,7 @@ def search_xhr(request):
                 return HttpResponse(simplejson.dumps(data),
                         mimetype='application/javascript')
             else:
-                data = {'result':'error','msg':'Please Enter a Query'}
+                data = {'result':'error','msg':_('Please Enter a Query')}
                 return HttpResponse(simplejson.dumps(data),
                         mimetype='application/javascript')
         else:
@@ -902,7 +916,7 @@ def search_xhr(request):
             return HttpResponse(simplejson.dumps(data),
                                 mimetype='application/javascript')
     else:
-        data = {'result':'error','msg':'You are not logged in.'}
+        data = {'result':'error','msg':_('ERROR: You are not logged in.')}
         return HttpResponse(simplejson.dumps(data),
                             mimetype='application/javascript')
 
@@ -944,9 +958,9 @@ def loginxul(request):
     if request.POST:
         loggedin = authenticate(request.POST['login'],request.POST['passwd'],request.session)
         if loggedin:
-            message = 'Success'
+            message = _('Success')
         else:
-            message = 'Login Failed'
+            message = _('Login Failed')
     else:
         message = None
     return render_to_response('loginxul.html',
@@ -974,12 +988,12 @@ def login(request):
                                   {'server_url':SERVER_URL})
 
 def login_err(request):
-    error = "Login Incorrect"
+    error = _("Login Incorrect")
     if request.GET['err']:
         if request.GET['err'] == 'passwd':
-            error = "Login Failed: Please enter your password."
+            error = _("Login Failed: Please enter your password.")
         if request.GET['err'] == 'login':
-            error = "Login Failed: Please enter your login name."
+            error = _("Login Failed: Please enter your login name.")
             
     return render_to_response('login_err.html',
                               {'e':error})
@@ -1046,7 +1060,8 @@ def postcache(request):
                 except Exception,e:
                     print e
                     json_dict=dict(status="error",entry_id=None,
-                                   msg="Something Blew Up!: " + str(e))
+                                   msg=_("Something Blew Up!: %(err)s")\
+                                   % {'err':unicode(e)})
                     return HttpResponse(simplejson.dumps(json_dict),
                                         mimetype='application/javascript')
             else:
@@ -1102,7 +1117,7 @@ def err_unknown(request):
         if request.GET.has_key('e'):
             err = request.GET['e']
         else:
-            err = 'Unknown'
+            err = _('Unknown Error')
         return render_to_response('err_unknown.html',
                                   {'err':err,
                                    'user':u})
@@ -1227,7 +1242,8 @@ def process_word(data,filename):
         the_text = antiword.extractText(tmp_name)
         return the_text
     except:
-        return "Error processing Word doc: %s" % filename
+        return _("Error processing Word doc: %(filename)s") %\
+               {'filename':filename}
 
 
 def process_pdf(data,filename):
@@ -1237,12 +1253,8 @@ def process_pdf(data,filename):
         the_text = pdf.extractPDFText(tmp_name)
         return the_text
     except:
-        return "Error processing PDF file: %s" % filename
+        return _("Error processing PDF file: %(filename)s") % {'filename':filename}
     
-
-def search_engine(request):
-    """pass search request to database fulltext query or Nutch or PyLucene, not sure which one yet."""
-    pass
 
 def tag(request):
     """filter entries by tag"""
@@ -1349,7 +1361,7 @@ def tag_edit(request,tag_id):
                     tag = t[0]
                     tag.tag = request.POST['tag']
                     tag.save()
-                    msg = "Success: Tag Updated"
+                    msg = _("Success: Tag Updated")
                     return render_to_response('tag_edit.html',
                                               {'user':u,
                                                'tag':tag,
@@ -1357,9 +1369,9 @@ def tag_edit(request,tag_id):
                                                'form':form,
                                                'msg':msg})
                 else:
-                    raise Exception("Something blew up.")
+                    raise Exception(_("ERROR: Something blew up."))
             except Exception, e:
-                msg = "Error: Could not update tag. Please contact the admin if this error repeats."
+                msg = _("Error: Could not update tag. Please contact the admin if this error repeats.")
                 t = Tag.objects.filter(id=tag_id,user=u)
                 tag = t[0]
                 return render_to_response('tag_edit.html',
@@ -1390,13 +1402,13 @@ def tag_remove(request,tag_id):
             t = Tag.objects.filter(id=tag_id,user=u)
             tag = t[0]
             tag.delete()
-            msg = "Success: Tag Removed"
+            msg = _("Success: Tag Removed")
             return render_to_response('tag_edit.html',
                                       {'user':u,
                                        'tag':tag,
                                        'msg':msg})
         except Exception, e:
-            msg = "Error: Could not remove tag. Please contact the admin if this error repeats."
+            msg = _("Error: Could not remove tag. Please contact the admin if this error repeats.")
             t = Tag.objects.filter(id=tag_id,user=u)
             tag = t[0]
             return render_to_response('tag_edit.html',
@@ -1415,10 +1427,10 @@ def remove_empty_tag(request,tag_id):
             t = Tag.objects.filter(user=u.id,id=tag_id)
             tag_name = t[0].tag
             t[0].delete()
-            msg = "Success: tag '%s' was removed" % tag_name
+            msg = _("Success: tag '%(tag_name)s' was removed") % {'tag_name':tag_name}
         except Exception, e:
             print str(e)
-            msg = "Error: Could not remove the Tag"
+            msg = _("Error: Could not remove the Tag")
         t = Tag()
         empty_tags = t.empty_tags(u)
         len_tgs = len(empty_tags)
@@ -1504,7 +1516,7 @@ def account_new(request):
                     msg = message_new_account % (u.email,
                                                  request.POST['research_type'],)
                     try:
-                        send_mail('rCache Account Application',
+                        send_mail(_('rCache Account Application'),
                                   msg,
                                   'admin@rcache.com',
                                   [u.email,'admin@rcache.com',],
@@ -1518,10 +1530,11 @@ def account_new(request):
                 return render_to_response('account.html',{'message':m})
                 
             except Exception,e:
-                m = "An error occurred creating an account for %s. Please send an email to admin at rcache dot com, please include this error message: %s" % (request.POST['email'],err,)
+                m = _("An error occurred creating an account for %(email)s. Please send an email to admin at rcache dot com, please include this error message: %(err)s")\
+                    % {'email':request.POST['email'],'err':err}
                 return render_to_response('account.html',{'message':m})
         else:
-            m = "Please Enter your email address"
+            m = _("Please Enter your email address")
             return render_to_response('account.html',{'message':m})
     else:
         return render_to_response('account.html',{'message':m})
@@ -1540,7 +1553,7 @@ def myaccount(request):
                   u.password = password_enc
               else:
                   #passwords do not match
-                  err.append("Password and Password Confirm do not match.")
+                  err.append(_("Password and Password Confirm do not match."))
                   render_to_response('myaccount.html',{'user':u,
                                                        'err':err})
           if request.POST['email']:
@@ -1548,7 +1561,7 @@ def myaccount(request):
                   if isValidEmail(request.POST['email'],None):
                       u.email = request.POST['email']
               except:
-                  err.append("Email Address is not valid.")
+                  err.append(_("Email Address is not valid."))
                   render_to_response('myaccount.html',{'user':u,
                                                          'err':err})
               u.blogurl = request.POST['blogurl']
@@ -1588,7 +1601,7 @@ def approve_user(user_id,passwd):
 def feed(request, url, feed_dict=None):
     if login_check(request):
         if not feed_dict:
-            raise Http404, "No feeds are registered."
+            raise Http404, _("No feeds are registered.")
 
         try:
             slug, param = url.split('/', 1)
@@ -1598,12 +1611,12 @@ def feed(request, url, feed_dict=None):
         try:
             f = feed_dict[slug]
         except KeyError:
-            raise Http404, "Slug %r isn't registered." % slug
+            raise Http404, _("Slug %(slug)r isn't registered.") % {'slug':slug}
 
         try:
             feedgen = f(slug, request).get_feed(param)
         except feeds.FeedDoesNotExist:
-            raise Http404, "Invalid feed parameters. Slug %r is valid, but other parameters, or lack thereof, are not." % slug
+            raise Http404, _("Invalid feed parameters. Slug %(slug)r is valid, but other parameters, or lack thereof, are not.") % {'slug':slug}
 
         response = HttpResponse(mimetype=feedgen.mime_type)
         feedgen.write(response, 'utf-8')
@@ -1662,10 +1675,11 @@ def commentary(request,entry_id):
                                                'escaped_text_content':etc,})
                 else:
                     #display form to create new commentary
-                    raise Exception("No existing commentaries")
+                    raise Exception(_("No existing commentaries"))
             except Exception,err:
                 print err
-                title = "Commentary on '%s'" % e[0].entry_name
+                title = _("Commentary on '%(entry_name)s'") \
+                        % {'entry_name':e[0].entry_name}
                 initial_data = {'user':u.id,
                                 'entry':entry_id,
                                 'title':title,

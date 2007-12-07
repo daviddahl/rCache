@@ -344,7 +344,7 @@ rcache.xhr.search = function(){
     if (qs){
 	document.location = "/search/?search_str=" + qs;
     } else {
-	alert("Please enter a search term.");
+	alert(gettext("Please enter a search term."));
     }
     
 }

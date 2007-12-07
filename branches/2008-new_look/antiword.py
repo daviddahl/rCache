@@ -18,7 +18,9 @@ def getCommandOutput(command):
     data = child.read()
     err = child.close()
     if err:
-	raise RuntimeError, '%s failed w/ exit code %d' % (command, err)
+        raise RuntimeError, _('%(cmd)s failed w/ exit code %(err)d') \
+              % {'cmd':command,
+                 'err':err}
     return data
 
 
