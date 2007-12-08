@@ -1,0 +1,19 @@
+qdbm:
+
+tar xvf
+./configure
+make
+sudo make install
+
+hyperestraier:
+
+tar xvfz hyperestraier-1.4.10.tar.gz
+cd hyperestraier-1.4.10/
+./configure
+make
+sudo make install
+
+pure-python-hyperestraier:
+
+make python
+sudo make python-install

@@ -17,7 +17,7 @@ class HyperUtil(object):
         """ create the casket """
         try:
             #casket = os.environ['HYPERESTRAIER_DB_PATH']
-            casket = '/var/hyper/casket'
+            casket = '/var/hyper/daemon-root/_node/rcache'
             db = he.Database()
             db.open(casket,db.DBWRITER | db.DBCREAT)
             self.db = db
