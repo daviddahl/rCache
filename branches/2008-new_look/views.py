@@ -636,7 +636,7 @@ def detail(request,entry_id):
             u = User.objects.get(id=request.session['userid'])
             e = Entry.objects.filter(user=u,id__exact=entry_id)[0]
             try:
-                h = HyperClient()
+                h = HyperClient(url=os.environ['RCACHE_HYPER_URL'])
                 entry_attrs = h.all_attrs(str(e.id),u.id)
                 try:
                    kw_for_q = entry_attrs['kwords']
@@ -730,6 +730,13 @@ def edit_entry(request,entry_id):
                 add_tags(taglist,u,entry)
 
                 entry.save()
+                # update hyperestraier db
+                try:
+                    hyper_client = HyperClient(url=os.environ['RCACHE_HYPER_URL'])
+                    hyper_client.doc_update(str(entry.id),entry)
+                except Exception, e:
+                    print unicode(e)
+                
                 url = "/detail/%s/" % entry.id
                 return HttpResponseRedirect(url)
             else:
@@ -832,7 +839,7 @@ def new_entry(request):
                     file_name = request.FILES['the_file']['filename']
 
                     #if ttl == '':
-                    ttl = _('%(ttl)s ** From file: %(file_name)s ** ') % \
+                    title = _('%(ttl)s ** From file: %(file_name)s ** ') % \
                           {'ttl':title,'file_name':file_name} 
 
                     content_type = request.FILES['the_file']['content-type']
@@ -850,10 +857,17 @@ def new_entry(request):
                 etext = etext + _("\n------Scraped Text------\n") + file_txt
             if etext:    
                 entry = Entry(entry_url=url,
-                              entry_name=ttl,
+                              entry_name=title,
                               text_content=etext,
                               user=u)
                 entry.save()
+
+                try:
+                    hyper_client = HyperClient(url=os.environ['RCACHE_HYPER_URL'])
+                    hyper_client.doc_add(entry)
+                except Exception, e:
+                    print unicode(e)
+                
                 #handle tags here!
                 taglist = manage_tags(tgs)
                 add_tags(taglist,u,entry)
@@ -1055,6 +1069,15 @@ def postcache(request):
                     add_tags(tags,_user,entry)
                     entry_urls(the_links,entry,_user)
                     process_media(the_imgs,entry)
+
+                    # add this entry to the hyper db
+                    
+                    try:
+                        hyper_client = HyperClient(url=os.environ['RCACHE_HYPER_URL'])
+                        hyper_client.doc_add(entry)
+                        reactor.run()
+                    except Exception, e:
+                        print unicode(e)
 
                     return HttpResponse(simplejson.dumps('done'),
                                         mimetype='application/javascript')

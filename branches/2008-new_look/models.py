@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.db import connection
 
@@ -160,7 +162,7 @@ class Entry(models.Model):
         """
         search the hyperestraier index via the p2p client
         """
-        hyper = h()
+        hyper = h(url=os.environ['RCACHE_HYPER_URL'])
         res = hyper.search(query,user.id)
         lst,dct = hyper.id_lst()
         print "entries found: %s" % str(len(lst))
@@ -362,7 +364,7 @@ class Folio(models.Model):
     user = models.ForeignKey(User)
     folio_name = models.CharField(maxlength=255)
     description = models.TextField(blank=True,null=True)
-    entry = models.ManyToManyField(Entry)
+    #entry = models.ManyToManyField(Entry)
     
     class Admin:
         list_display = ('folio_name','description','user',)

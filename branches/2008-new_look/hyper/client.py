@@ -3,35 +3,30 @@ hyperestraier daemon client
 david dahl
 2007-11-19
 """
-
 import hyperestraier as h
 
 class HyperClient(object):
     """
     hyperestraier client to wrap hyperestraier pure python module
     """
-    url = 'http://fisk.rcache.com:1972/node/rcache'
-    cond = None
-    results = []
-    node = None
-
     def __init__(self,url='http://fisk.rcache.com:1972/node/rcache'):
         self.url = url
-    
+        self.init_node()
+
+
     def search(self,query,user_id):
         """
         configure connect and query server -
         returns a list 
         """
         expr = "@author STREQ %s" % user_id
-        self.node = h.Node()
-        #self.node.set_auth("rcache", "bigrig")
         self.node.set_url(self.url)
         self.cond = h.Condition()
         self.cond.set_phrase(query)
         self.cond.add_attr(expr)
         self.results = self.node.search(self.cond, 0)
         return self.results
+
 
     def id_lst(self):
         """
@@ -92,3 +87,37 @@ class HyperClient(object):
                 i += 1
         #the_kwords.reverse()
         return the_kwords[:8]
+
+    
+    def doc_add(self,entry):
+        """
+        Take entry obj, create a new doc and add to the index.
+        """
+        doc = h.Document()
+        doc.add_attr("@uri",str(entry.id))
+        doc.add_attr("@title",entry.entry_name)
+        doc.add_attr("@author",str(entry.user.id))
+        doc.add_text(entry.text_content)
+        self.node.put_doc(doc)
+
+
+    def doc_remove(self,uri):
+        """
+        get doc via uri, get doc id and remove from index
+        """
+        id = self.node.uri_to_id(uri)
+        doc = self.node.out_doc(id)
+        
+            
+    def doc_update(self,uri,entry):
+        """
+        do remove and add of entry
+        """
+        self.doc_remove(uri)
+        self.doc_add(entry)
+
+
+    def init_node(self):
+        self.node = h.Node()
+        #self.node.set_auth("rcache", "bigrig")
+        self.node.set_url(self.url)
