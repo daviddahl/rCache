@@ -25,6 +25,7 @@ class HyperClient(object):
         """
         expr = "@author STREQ %s" % user_id
         self.node = h.Node()
+        self.node.set_auth("rcache", "bigrig")
         self.node.set_url(self.url)
         self.cond = h.Condition()
         self.cond.set_phrase(query)
