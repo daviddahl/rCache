@@ -1,10 +1,14 @@
 # utilities to set up and use the hyper estraier database
 import os
+import sys
 import datetime
+
+print sys.path
 
 import HyperEstraier as he
 
 from rcache.models import *
+
 
 
 class HyperUtil(object):
