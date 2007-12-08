@@ -10,12 +10,12 @@ class HyperClient(object):
     """
     hyperestraier client to wrap hyperestraier pure python module
     """
-    url = 'http://127.0.0.1:1972/node/rcache'
+    url = 'http://fisk.rcache.com:1972/node/rcache'
     cond = None
     results = []
     node = None
 
-    def __init__(self,url='http://127.0.0.1:1972/node/rcache'):
+    def __init__(self,url='http://fisk.rcache.com:1972/node/rcache'):
         self.url = url
     
     def search(self,query,user_id):
@@ -25,7 +25,7 @@ class HyperClient(object):
         """
         expr = "@author STREQ %s" % user_id
         self.node = h.Node()
-        self.node.set_auth("rcache", "bigrig")
+        #self.node.set_auth("rcache", "bigrig")
         self.node.set_url(self.url)
         self.cond = h.Condition()
         self.cond.set_phrase(query)
