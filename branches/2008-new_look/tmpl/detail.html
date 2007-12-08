@@ -12,11 +12,7 @@ rCache.com - {{ entry.entry_name }}
   <div id="global_page_title">
 <div id="detail_header">
   {% if coll_render %}
-  <h4>
-    {% blocktrans %}
-    This Entry is from your Colleague {{ colleague.login }}'s Research
-    {% endblocktrans %}
-  </h4>
+  <h4>{% blocktrans %}This Entry is from your Colleague {{ colleague }}'s Research{% endblocktrans %}</h4>
   {% endif %}
 <h2><a href="{{ entry.entry_url }}" title="Original URL: {{ entry.entry_url }}" target="_new">{{ entry.entry_name }}</a>  <span class="entry_detail_id">{% trans "Entry #" %} {{ entry.id }},  {% trans "Date Cached:" %} {{ entry.date_created }}</span></h2>
 </div>

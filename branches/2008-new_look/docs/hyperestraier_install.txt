@@ -17,3 +17,8 @@ pure-python-hyperestraier:
 
 make python
 sudo make python-install
+
+DO NOT FORGET sudo ldconfig
+
+start P2P server : 
+estmaster start /var/hyper/daemon-root

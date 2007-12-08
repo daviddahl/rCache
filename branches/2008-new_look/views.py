@@ -524,6 +524,7 @@ def colleague_research_detail(request,coll_id,entry_id):
         if colleague_check_detail(request,coll_id,query_type):
             #so far so good
             colleague = User.objects.get(id=coll_id)
+            print colleague
             e = Entry.objects.filter(user=colleague,id__exact=entry_id)
             escaped_text_content = escape(e[0].text_content)
             imgs = Media.objects.filter(entry__exact=e[0])
