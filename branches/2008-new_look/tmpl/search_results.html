@@ -53,7 +53,7 @@ rCache.com - Search Results
       <td colspan="4" class="keywords">
 	<strong>Keywords:</strong> &nbsp;
 	{% for kword in e.hyper_attrs.keywords %}
-	  <a href="/tag/?tg={{ kword }}">{{ kword }}</a> &nbsp;
+	  {{ kword }}&nbsp;
 	  {% endfor %} </td>
     </tr>
     {% endfor %}

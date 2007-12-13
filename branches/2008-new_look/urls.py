@@ -109,4 +109,5 @@ urlpatterns += patterns('rcache.hyper.views',
 
 urlpatterns += patterns('rcache.xhr.views',
                         (r'^xhr/search/$', 'hypersearch'),
+                        (r'^xhr/entries/with/link/(?P<link_id>\d+)/$', 'entries_with_link'),
                        )

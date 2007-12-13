@@ -349,6 +349,22 @@ rcache.xhr.search = function(){
     
 }
 
+rcache.xhr.entries_with_link = function(link_id){
+    var url = "/xhr/entries/with/link/" + link_id + "/";
+    j.get(url,function(data){
+	    var res = eval('(' + data + ')');
+	    if (res.status == 'success'){
+		var entries = j(res.entries);
+		//alert(res.entries);
+		j("#link-entries-" + res.link_id).children().remove();
+		j("#link-entries-" + res.link_id).append(entries);
+	    } else {
+		//fixme: install jqModal
+		alert("No other entries contain this link");
+	    }
+	});
+}
+
 function showKeyCode(e)
 {
     //alert("keyCode for the key pressed: " + e.keyCode + "\n");

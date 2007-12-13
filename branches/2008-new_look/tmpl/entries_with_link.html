@@ -1,0 +1,5 @@
+<ul class="entry-list">
+{% for entry in entry_list %}
+<li><a href="/detail/{{ entry.entry.id }}/">{{ entry.entry.entry_name }}</a></li>
+{% endfor %}
+</ul>

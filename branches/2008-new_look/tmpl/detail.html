@@ -68,8 +68,9 @@ rCache.com - {{ entry.entry_name }}
   <table id="link_table" cellspacing="0" cellpadding="0" border="0">
     {% for link in links %}
     <tr class="{% cycle tr-light,tr-dark %}">
-      <td class="detail_link_list">
-	<a href="{{ link.url }}" title="{% trans "a link scraped from this entry's page" %}" target="_new">{{ link.url }}</a>
+      <td class="detail_link_list" id="link-{{ link.id }}">
+	<a class="js-lnk" onclick="rcache.xhr.entries_with_link({{ link.id }});">Entries That Link To...</a> <a href="{{ link.url }}" title="{% trans "a link scraped from this entry's page" %}" target="_new">{{ link.url }}</a>
+          <div id="link-entries-{{ link.id }}"></div>
       </td>
     </tr>
     {% endfor %}

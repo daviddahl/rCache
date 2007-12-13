@@ -48,3 +48,25 @@ def hypersearch(request):
     else:
         return JsonResponse({'status':'failure',
                              'msg':"Not Logged In, good try."})
+
+def entries_with_link(request,link_id):
+    """
+    return rendered html snippet with all entries that also contain x link
+    """
+    try:
+        u = User.objects.get(id=request.session['userid'])
+        link = EntryUrl.objects.filter(user=u,id=link_id)[0]
+        print link
+        entries = EntryUrl.objects.filter(user=u,url=link.url)
+
+        entry_list = render_to_string("entries_with_link.html",
+                                      {'entry_list':entries})
+        print entry_list
+        if len(entry_list) == 0:
+            return JsonResponse({'status':'failure','entries':entry_list})
+        return JsonResponse({'status':'success','entries':entry_list,
+                             'link_id':link.id})
+
+    except Exception,e:
+        print str(e)
+        return JsonResponse({'status':'failure','msg':'No entries found'})

@@ -1218,3 +1218,11 @@ line-height:150%;
 .instr {
     margin:32px;
 }
+
+.js-lnk{
+text-decoration:underline;
+cursor:pointer;
+}
+.entry-list{
+margin:16px;
+}
