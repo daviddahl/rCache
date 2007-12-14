@@ -228,6 +228,8 @@ class EntryUrl(models.Model):
     date_created = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     entry = models.ForeignKey(Entry)
     user = models.ForeignKey(User)
+    #fixme: add to schema!
+    #link_words = models.CharField(maxlength=765)
     
     class Meta:
         db_table = 'entry_url'
@@ -235,6 +237,23 @@ class EntryUrl(models.Model):
         list_display = ('url','user','date_created',)
         search_fields =['url',]
 
+class SavedLink(models.Model):
+    """
+    a saved link to be read later - populated through bookmarklet
+    """
+    user = models.ForeignKey(User)
+    url = models.CharField(maxlength=765)
+    title = models.CharField(maxlength=765,default='No Title')
+    comment = models.TextField(blank=True)
+    date_saved = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
+    rcached = models.DateTimeField(blank=True)
+    keywords = models.TextField(blank=True)
+    description = models.TextField(blank=True)
+
+    class Admin:
+        pass
+        
 class Url(models.Model):
     user = models.ForeignKey(User)
     url = models.CharField(blank=True, maxlength=765)

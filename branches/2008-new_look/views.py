@@ -1895,3 +1895,42 @@ def smtp_google():
               fail_silently=False, auth_user=EMAIL_HOST_USER,
               auth_password=EMAIL_HOST_PASSWORD)
 
+def save_link(request):
+    """
+    accept incoming link from users via bookmarklet
+    """
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        if request.GET['url']:
+            # ok we have the minimum amount of data to store
+            url = request.GET['url']
+            try:
+                title = request.GET['title']
+            except:
+                title = ''
+            try:
+                comment = request.GET['comment']
+            except:
+                comment = ''
+            try:
+                keywords = request.GET['keywords']
+            except:
+                keywords = ''
+            try:
+                description = request.GET['description']
+            except:
+                description = ''
+            try:
+                lnk = SavedLink.objects.create(user=u,
+                                               url=url,
+                                               title=title,
+                                               comment=comment,
+                                               keywords=keywords,
+                                               description=description)
+                print "Link Saved: %s %s" %(lnk.id,url,)
+                return HttpResponseRedirect(url) 
+            except Exception,e:
+                print e
+                return HttpResponse(str(e))
+    else:
+        return HttpResponseRedirect("/login_required/") 
