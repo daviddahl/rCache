@@ -1944,6 +1944,7 @@ def saved_links(request):
         saved_links = SavedLink.objects.filter(user=u).order_by("-id")
         return render_to_response("saved_links.html",
                                   {'user':u,
+                                   'SERVER_URL':SERVER_URL,
                                    'saved_links':saved_links})
     else:
         return HttpResponseRedirect("/login_required/") 

@@ -69,7 +69,7 @@ Bookmarking tool:
 	title = encodeURIComponent('No title');
     }
 
-    var save_link_url  = 'http://127.0.0.1:8000/save/link/?url=' + 
+    var save_link_url  = '{{ SERVER_URL }}/save/link/?url=' + 
         url + '&title=' + title + '&description=' + description +
         '&keywords=' + keywords;
     document.location = save_link_url;
