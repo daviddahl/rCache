@@ -247,10 +247,17 @@ class SavedLink(models.Model):
     comment = models.TextField(blank=True)
     date_saved = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
-    rcached = models.DateTimeField(blank=True)
+    rcached = models.DateTimeField(blank=True,null=True)
     keywords = models.TextField(blank=True)
     description = models.TextField(blank=True)
+    public = models.BooleanField(default=False)
 
+    def no_title(self):
+        if self.title == 'No Title':
+            return True
+        else:
+            return False
+        
     class Admin:
         pass
         

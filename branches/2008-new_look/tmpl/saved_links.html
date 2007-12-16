@@ -1,0 +1,80 @@
+{% load i18n %}
+{% extends "search.html" %}
+{% block title %}
+{% trans "rCache.com - Saved Links" %}
+{% endblock %}
+{% block search_content %}
+<div id="global_page_title">
+  <h1>{% trans "Saved Links" %}</h1>
+  <strong>{% trans "You can save links here with the rCache Bookmarklet, see: " %}</strong> <a href="#bookmarklet">rCache Bookmarklet</a>
+    
+</div>
+<div class="saved-links-area">
+{% block the_list %}
+<table id="saved-links" border="0" cellpadding="0" cellspacing="0">
+<tr class="theader">
+<td>Link</td>
+<td>Date Saved</td>
+<td>Keywords</td>
+<td>Description</td>
+</tr>
+{% for link in saved_links %}
+<tr class="{% cycle tr-dark,tr-light%} tdata">
+  <td><a href="{{ link.url }}" target="_new" title="{% trans "Visit Link: " %} {{ link.url }}">
+      {% if link.no_title %}
+      {{ link.url }}
+      {% else %}
+      {{ link.title }}
+      {% endif %}</a>
+  </td>
+  <td>{{ link.date_saved }}</td>
+  <td>{{ link.keywords }}</td>
+  <td>{{ link.description }}</td>		
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
+</div>
+
+<a name="bookmarklet"></a>
+<div class="message">
+Bookmarking tool:
+<a onClick="alert('To drag the button to your toolbar, left click the link and while holding the mouse button down, drag it to the browser toolbar and release the button.'); return false;" href="javascript:var s = function(){
+    var url = encodeURIComponent(document.location);
+    var title = '';
+    var description = '';
+    var keywords = '';
+    try{
+	var head = document.getElementsByTagName('head')[0].childNodes;
+	for(i=0; i<=head.length; i++){
+	    try{
+		if (head[i].getAttribute('name').toLowerCase()=='description'){
+		    description = encodeURIComponent(
+				  head[i].getAttribute('content'));
+		}
+		if (head[i].getAttribute('name').toLowerCase()=='keywords'){
+		    keywords = encodeURIComponent(
+                               head[i].getAttribute('content'));
+		}
+	    }catch(e){
+
+	    }
+	}
+    } catch(e){
+	var head = null;
+    }
+    try{
+	title = encodeURIComponent(document.getElementsByTagName('title')[0].innerHTML);
+    }catch(e){
+	title = encodeURIComponent('No title');
+    }
+
+    var save_link_url  = 'http://127.0.0.1:8000/save/link/?url=' + 
+        url + '&title=' + title + '&description=' + description +
+        '&keywords=' + keywords;
+    document.location = save_link_url;
+}; s();">rCache bookmarklet</a>. Drag this link to your Browser's toolbar to activate. When you want to  remember a URL for later reading, just click on it. The url and associated meta data will be saved in your <a href="/saved/links/">Saved Links</a>.
+</div>
+
+
+{% endblock %}

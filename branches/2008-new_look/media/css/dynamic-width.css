@@ -1226,3 +1226,22 @@ cursor:pointer;
 .entry-list{
 margin:16px;
 }
+
+#saved-links{
+    padding:2px;
+    border: 1px solid #eee;
+}
+
+#saved-links td{
+    font-size:60%;
+}
+
+.saved-links-area{
+    margin:0px;
+}
+.theader td{
+font-weight: bolder;
+}
+.tdata td{
+font-size: 50%;
+}

@@ -387,17 +387,17 @@ save_link = function(){
     var description = '';
     var keywords = '';
     try{
-	var head = document.getElementsByTagName("head")[0].childNodes;
+	var head = document.getElementsByTagName('head')[0].childNodes;
 	for(i=0; i<=head.length; i++){
 	    try{
 		//fixme: evaluate all of the head elements as lowercase
-		if (head[i].getAttribute("name")=='Description'){
+		if (head[i].getAttribute('name').toLowerCase()=='description'){
 		    description = encodeURIComponent(
-				  head[i].getAttribute("content"));
+				  head[i].getAttribute('content'));
 		}
-		if (head[i].getAttribute("name")=='Keywords'){
+		if (head[i].getAttribute('name').toLowerCase()=='keywords'){
 		    keywords = encodeURIComponent(
-                               head[i].getAttribute("content"));
+                               head[i].getAttribute('content'));
 		}
 	    }catch(e){
 		//do nothing
@@ -407,18 +407,19 @@ save_link = function(){
 	var head = null;
     }
     try{
-	title = encodeURIComponent(document.getElementsByTagName("title")[0].innerHTML);
+	title = encodeURIComponent(document.getElementsByTagName('title')[0].innerHTML);
     }catch(e){
 	title = encodeURIComponent('No title');
     }
 
-    var save_link_url  = "http://127.0.0.1:8000/save/link/?url=" + 
-        url + "&title=" + title + "&description=" + description +
-        "&keywords=" + keywords;
-
-    return {'url':url,
+    var save_link_url  = 'http://127.0.0.1:8000/save/link/?url=' + 
+        url + '&title=' + title + '&description=' + description +
+        '&keywords=' + keywords;
+    document.location = save_link_url;
+    /*return {'url':url,
 	    'title':title,
 	    'description':description,
 	    'keywords':keywords,
 	    'save_lnk':save_link_url};
-}
+    */
+};

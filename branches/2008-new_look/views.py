@@ -1934,3 +1934,17 @@ def save_link(request):
                 return HttpResponse(str(e))
     else:
         return HttpResponseRedirect("/login_required/") 
+
+def saved_links(request):
+    """
+    show saved links that have not been rcached yet.
+    """
+    if login_check(request):
+        u = User.objects.get(id=request.session['userid'])
+        saved_links = SavedLink.objects.filter(user=u).order_by("-id")
+        return render_to_response("saved_links.html",
+                                  {'user':u,
+                                   'saved_links':saved_links})
+    else:
+        return HttpResponseRedirect("/login_required/") 
+        
