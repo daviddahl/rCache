@@ -5,11 +5,11 @@ import os
 DEBUG = True
 
 SERVER_URL = os.environ['RCACHE_SERVER_URL']
-
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ['RCACHE_EMAIL_USER']
 EMAIL_HOST_PASSWORD = os.environ['RCACHE_EMAIL_HOST_PASSWORD']
-EMAIL_PORT = os.environ['RCACHE_EMAIL_PORT']
-EMAIL_TLS = True
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 TEMPLATE_DEBUG = DEBUG
 #fixme: add admins to env vars

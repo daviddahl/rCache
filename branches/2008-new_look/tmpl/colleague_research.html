@@ -5,16 +5,14 @@
 {% endblock %}
 {% block content %}
 {% include "nav.html" %}
-<div id="global_page_title">
-  <h1>Colleagues</h1>
-</div>
+
 <div id="detail_wrapper">
 <div id="detail_new_entry">
   <div id="colleague_list">
     {% if err %}
     <h1>{% trans "You are not a colleague of" %} {{ colleague.login }}</h1>
     {% else %}
-    <h3>{% trans "Colleague Research:" %} {{ colleague.login }}</h3>
+    <h3>{{ colleague.login }}</h3>
     <h4 class="notice_message">{% trans "Your status as a colleague of" %} {{ colleague.login }} {% trans "is" %} {{ active_txt }}</h4>
     {% endif %}
     {% if initial_state_txt %}

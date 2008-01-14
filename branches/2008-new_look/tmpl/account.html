@@ -25,7 +25,7 @@
    <div class="error_message">{% blocktrans %}ERROR: {{ message }} {% endblocktrans %}</div>
    {% endif %}
    <h4>{% trans "Enter your email address here to apply." %}</h4>
-   <form action="https://collect.rcache.com/account/" method="POST">
+   <form action="/account/" method="POST">
    <label for="id_email"><strong>{% trans "Email Address" %}</strong></label>
    <input id="id_email" type="text" name="email" size="32" maxlength="32" />
    <br />

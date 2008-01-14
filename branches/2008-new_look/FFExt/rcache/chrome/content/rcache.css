@@ -64,3 +64,7 @@
     padding: 0.6em;
     border: 1px solid #AAA;
 }
+#selectedtext{
+    background:white;
+    width:200px;
+}

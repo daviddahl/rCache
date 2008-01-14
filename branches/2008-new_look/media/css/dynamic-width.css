@@ -1,8 +1,8 @@
 body {
     font-family:'Lucida Grande',sans-serif;
     background-color: #555;
-    margin:0px;
-    padding:16px 16px 16px 16px;
+    margin:0;
+    padding:0;
     font-size:0.8em;
 }
 
@@ -15,10 +15,11 @@ body {
 }
 #wrapper-inner {
     border:1px solid #eee;
-    padding:8px;
+    padding:0px;
     margin:0px;
     min-height:500px;
     position:relative;
+    z-index:2000;
 }
 #header {
     height: 4em;
@@ -44,7 +45,8 @@ body {
     margin: 0px;
 }
 .form-wrapper {
-	padding:0px 0px 32px 0px;
+	padding:0px 32px 32px 32px;
+	margin:16px;
 }
 #header_cls{
     padding:0.5em;
@@ -298,6 +300,7 @@ h2 {
 #detail_header{
     background: #FFF;
     line-height: 1.25em;
+    padding: 8px;
 }
 #detail_header h2{
     padding-left: 0;
@@ -305,7 +308,8 @@ h2 {
 #detail_tags{
     padding: 8px;
     background: #FFF;
-    border: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
 }
 #detail_tags span{
     font-style:bold;
@@ -339,7 +343,7 @@ h2 {
     width:100%
 }
 #text_content_boundry {
-    padding: 10px 50px 50px 50px;
+    padding: 0px 16px 16px;
     width: 90%;
     min-height:40%;
     background-color:#FFF;
@@ -561,10 +565,8 @@ h2 {
     border-right:1px solid #eee;
     border-left:1px solid #eee;
     border-top:1px solid #eee;
-    padding: 8px;
+    padding: 0px;
     background-color:#FFF;
-    overflow: auto;
-    max-height: 450px;
 }
 #detail_entry_text_short {
     border: none;
@@ -1178,8 +1180,10 @@ width:100%;
 #keywords{
     font-size: 90%;
     font-family: 'sans-serif';
-    padding:4px;
-    border: 1px solid #eee;
+    padding-left:8px;
+    padding-top:4px;
+    padding-bottom:4px;
+    border-bottom: 1px solid #eee;
     max-height:300px;
     overflow:auto;
 }
@@ -1192,13 +1196,14 @@ padding:2px;
 }
 #related-docs-header{
     padding:8px;
-    border-left:1px solid #eee;
-    border-right:1px solid #eee;
 }
 #related-doc-keywords{
     font-family:serif;
     font-weight: bolder;
     color:#9A8255;
+}
+#related-docs td{
+    padding:4px;
 }
 
 #contact-us{
@@ -1234,6 +1239,7 @@ margin:16px;
 
 #saved-links td{
     font-size:60%;
+    padding:2px;
 }
 
 .saved-links-area{
@@ -1244,4 +1250,14 @@ font-weight: bolder;
 }
 .tdata td{
 font-size: 50%;
+
+}
+#nav-wrap{
+position:fixed;
+z-index:1000;
+background:#fff;
+width:100%;
+border-bottom:1px solid #aaa;
+margin-top:-1px;
+padding-top:4px;
 }

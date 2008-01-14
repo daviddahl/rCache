@@ -6,13 +6,10 @@
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
-  <div id="global_page_title">
-     <h1>{% trans "Manage Colleague" %}</h1>
-  </div>
   <div id="detail_new_entry">
     <div id="colleague_list">   
       <div>
-	<h2>{{ colleague.colleague.login }}</h2>
+	<h2>{{ Colleague.colleague.login }}</h2>
 	{% if updated %}
 	<h3 class="message">{% trans "Colleague Updated" %}</h3>
 	{% endif %}

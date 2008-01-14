@@ -6,15 +6,10 @@
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
-  <div id="global_page_title">
-    <h1>{% trans "Colleagues" %}</h1> 
-<br />
- <a class="button" href="/colleague/new/">{% trans "Create a New Colleague" %}</a>
-<br />
-<br />
-
-  </div>
   <div id="colleague_list">
+    <a class="button" href="/colleague/new/">{% trans "Create a New Colleague" %}</a>
+<br />
+<br />
     <h5>{% trans "You have" %} {{ colleagues_cnt }} {% trans "Colleague" %}{{ colleagues_cnt|pluralize }}</h5>
     <br />
     {% if colleagues %}

@@ -16,9 +16,13 @@
 <link href="/media/css/dynamic-width.css" rel="stylesheet" />
 <link href="/media/css/nav.css" rel="stylesheet" />
 <link href="/media/css/homepage.css" rel="stylesheet" />
+<link href="/media/css/jqModal.css" rel="stylesheet" />
 <!--<script type="text/javascript" src="/jsi18n/rcache/"></script>-->
 <script type="text/javascript" src="/media/js/rcachelib.js"></script>
 <script type="text/javascript" src="/media/js/jquery.min.js"></script>
+<script type="text/javascript" src="/media/js/dimensions.js"></script>
+<script type="text/javascript" src="/media/js/jqModal.js"></script>
+<script type="text/javascript" src="/media/js/jqDnR.js"></script>
 <script>
   var j = jQuery.noConflict();
 </script>
@@ -28,8 +32,9 @@
 {% block body %}
 <body>
 {% endblock body %}
-<a name="top"></a>
 <div id="wrapper">
+  {% block wrapper_nav %}
+  {% endblock wrapper_nav %}
   <div id="wrapper-inner">
     {% block content %}
     <h1>rCache.com</h1>

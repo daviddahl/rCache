@@ -89,7 +89,8 @@ def colleagues(request):
         return render_to_response('colleagues.html',
                                   {'colleagues':c,
                                    'colleagues_cnt':len(c),
-                                   'user':u})
+                                   'user':u,
+                                   'global_page_title':'Colleagues'})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -130,24 +131,28 @@ def colleague_detail(request,coll_id):
                 return render_to_response('colleague_detail.html',
                                           {'user':u,
                                            'colleague':coll,
-                                           'updated':True})
+                                           'updated':True,
+                                           'global_page_title':'Manage Colleague'})
             except Exception,e:
                 m= _("Error: Cannot Update Colleague. %s") % e
                 return render_to_response('colleague_err.html',
                                           {'user':u,
-                                           'message':m})
+                                           'message':m,
+                                           'global_page_title':'Error' })
             
         else:
             try:
                 c = Colleague.objects.filter(id__exact=coll_id,user_id=request.session['userid'])
                 return render_to_response('colleague_detail.html',
                                           {'colleague':c[0],
-                                           'user':u})
+                                           'user':u,
+                                           'global_page_title':'Manage Colleague'})
             except Exception,e:
                 m= _("Error: Cannot fetch Colleague record. Perhaps your Colleague has not accepted the account offer")
                 return render_to_response('colleague_err.html',
                                           {'user':u,
-                                           'message':m})
+                                           'message':m,
+                                           'global_page_title':'Error'})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -166,7 +171,8 @@ def new_colleague(request):
                     return render_to_response('new_colleague.html',
                                               {'user':u,
                                                'message':m,
-                                               'posted':request.POST})
+                                               'posted':request.POST,
+                                               'global_page_title':'New Colleague'})
             #validate posted data...
             valid = validate_new_colleague(request.POST)
             if valid is not None:
@@ -239,16 +245,19 @@ def new_colleague(request):
                                           {'message':m,
                                            'user':u,
                                            'colleagues':c,
-                                           'colleagues_cnt':len(c)})
+                                           'colleagues_cnt':len(c),
+                                           'global_page_title':'Colleague Pending' })
             else:
                 m = _("Please make sure the email address is correct, and you have entered the email in 'Confirm Email'")
                 return render_to_response('new_colleague.html',
                                           {'user':u,
                                            'message':m,
-                                           'posted':request.POST})
+                                           'posted':request.POST,
+                                           'global_page_title':'New Colleague Pending' })
         else:
             return render_to_response('new_colleague.html',
-                                      {'user':u})
+                                      {'user':u,
+                                       'global_page_title':'New Colleague'})
     
     else:
         return HttpResponseRedirect("/login_required/")
@@ -350,7 +359,8 @@ def colleague_research(request,coll_id):
                                    'initial_state_txt':initial_state_txt,
                                    'tags':tgs,
                                    'search_kw':srch,
-                                   'err':None})
+                                   'err':None,
+                                   'global_page_title':'Colleague Research'})
 
         ## m = "You are not listed as a colleague, or they may have just revoked your privileges."
 ##         return render_to_response('colleague_research.html',
@@ -417,8 +427,9 @@ def colleague_research_keywords(request,coll_id):
             if can_search is True:
                 kw = urllib.unquote_plus(request.GET['kw'])
                 e = Entry()
-                entries = e.fulltxt(colleague,kw)
-                
+                #entries = e.fulltxt(colleague,kw)
+                col_user = User.objects.get(pk=coll_id)
+                entries = e.hypersearch(kw,col_user)
                 back_lnk = "/colleague/%s/research/" % coll_id
                 return render_to_response('search_results.html',
                                           {'user':u,
@@ -519,7 +530,9 @@ def colleague_research_detail(request,coll_id,entry_id):
             return render_to_response('colleague_err.html',
                                       {'user':u,
                                        'err':True,
-                                       'message':m})
+                                       'message':m,
+                                       'global_page_title':'Colleague Research Entry',
+                                       'detail_header':True})
         
         if colleague_check_detail(request,coll_id,query_type):
             #so far so good
@@ -556,13 +569,16 @@ def colleague_research_detail(request,coll_id,entry_id):
                                        'colleague':colleague,
                                        'coll_render':True,
                                        'back_lnk':back_lnk,
-                                       'escaped_text_content':escaped_text_content})
+                                       'escaped_text_content':escaped_text_content,
+                                       'global_page_title':'Colleague Research Entry',
+                                       'detail_header':True})
         else:
             m = _("Error fetching entry. Could not determine Query Type.")
             return render_to_response('colleague_err.html',
                                       {'user':u,
                                        'err':True,
-                                       'message':m})
+                                       'message':m,
+                                       'global_page_title':'Error'})
             
     else:
         return HttpResponseRedirect("/login_required/")
@@ -574,7 +590,8 @@ def recent(request):
         #request.session['back_lnk'] = 
         return render_to_response('recent.html',
                                   {'entries':e,
-                                   'user':u})
+                                   'user':u,
+                                   'global_page_title':'Recent Entries'})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -690,7 +707,8 @@ def detail(request,entry_id):
                                        'user':u,
                                        'recent_enhanced':recent_enhanced,
                                        'entry_attrs':entry_attrs,
-                                       'kwords_for_query':kwords_for_query})
+                                       'kwords_for_query':kwords_for_query,
+                                       'detail_header':True})
         except Exception,e:
             #need to log exception
             #send 404!
@@ -762,7 +780,8 @@ def edit_entry(request,entry_id):
                                            'tags':tags_clean,
                                            'entry_tags':entry_tags,
                                            'user':u,
-                                           'message':message})
+                                           'message':message,
+                                           'global_page_title':'Edit Entry'})
             except Exception,e:
                 return HttpResponseRedirect("/error/?e=EDIT_ERROR")
     else:
@@ -877,10 +896,12 @@ def new_entry(request):
                 m=_("Please upload a file or enter some Entry Text.")
                 return render_to_response('new_entry.html',
                                           {'user':u,
-                                           'message':m})
+                                           'message':m,
+                                           'global_page_title':'New Entry'})
         else:            
             return render_to_response('new_entry.html',
-                                      {'user':u})
+                                      {'user':u,
+                                      'global_page_title':'New Entry'})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -897,11 +918,13 @@ def search(request):
                 return render_to_response('search_results.html',
                                           {'user':u,
                                            'params':params,
-                                           'entries':entries})
+                                           'entries':entries,
+                                           'global_page_title':'Search'})
             else:
                 return render_to_response('search.html',
                                           {'user':u,
-                                           'errormsg':True
+                                           'errormsg':True,
+                                           'global_page_title':'Search'
                                            })
         else:
             return render_to_response('search.html',
@@ -940,7 +963,8 @@ def firefox(request):
         u = User.objects.get(id=request.session['userid'])
         
         return render_to_response('firefox.html',
-                                  {'user':u})
+                                  {'user':u,
+                                   'global_page_title':'rCache Collector Firefox Extension'})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -1075,11 +1099,10 @@ def postcache(request):
                     try:
                         hyper_client = HyperClient(url=os.environ['RCACHE_HYPER_URL'])
                         hyper_client.doc_add(entry)
-                        reactor.run()
                     except Exception, e:
                         print unicode(e)
 
-                    return HttpResponse(simplejson.dumps('done'),
+                    return HttpResponse(simplejson.dumps('don'),
                                         mimetype='application/javascript')
                 except Exception,e:
                     print e
@@ -1297,7 +1320,8 @@ def tag(request):
             return render_to_response('tag_results.html',
                                       {'user':u,
                                        'the_tag':tg,
-                                       'entries':entries})
+                                       'entries':entries,
+                                       'global_page_title':'Tag Results'})
         #except Exception,e:
 
         #    return HttpResponseRedirect("/404/")
@@ -1323,7 +1347,8 @@ def tag_list(request):
             tags = t.tag_list(u)
         return render_to_response('tag_list.html',
                                   {'user':u,
-                                   'tags':tags})
+                                   'tags':tags,
+                                   'global_page_title':'Filter by Tags'})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -1368,7 +1393,8 @@ def tag_maint(request):
                                   {'user':u,
                                    'empty_tags':empty_tags,
                                    'tgs':tgs,
-                                   'len_tgs':len_tgs})
+                                   'len_tgs':len_tgs,
+                                   'global_page_title':'Tag Maintenence'})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -1496,7 +1522,8 @@ def domain_list(request):
         domains = e.domain_list(u)
         return render_to_response('domain_list.html',
                                   {'user':u,
-                                   'domains':domains})
+                                   'domains':domains,
+                                   'global_page_title':'Filter by Domains'})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -1567,6 +1594,7 @@ def account_new(request):
 def myaccount(request):
   """Tweak existing account"""
   if login_check(request):
+      gpt = 'My Account'
       u = User.objects.get(id=request.session['userid'])
       if request.POST:
           err = []
@@ -1579,7 +1607,8 @@ def myaccount(request):
                   #passwords do not match
                   err.append(_("Password and Password Confirm do not match."))
                   render_to_response('myaccount.html',{'user':u,
-                                                       'err':err})
+                                                       'err':err,
+                                                       'global_page_title':gpt})
           if request.POST['email']:
               try:
                   if isValidEmail(request.POST['email'],None):
@@ -1597,12 +1626,14 @@ def myaccount(request):
                   pass
               else:
                   u.save()
-              return render_to_response('myaccount.html',{'user':u})
+              return render_to_response('myaccount.html',{'user':u,
+                                                          'global_page_title':gpt})
           else:
               #email required
               pass
       else:
-          return render_to_response('myaccount.html',{'user':u})
+          return render_to_response('myaccount.html',{'user':u,
+                                                      'global_page_title':gpt})
   else:
       return HttpResponseRedirect("/login_required/")
 
@@ -1945,7 +1976,8 @@ def saved_links(request):
         return render_to_response("saved_links.html",
                                   {'user':u,
                                    'SERVER_URL':SERVER_URL,
-                                   'saved_links':saved_links})
+                                   'saved_links':saved_links,
+                                   'global_page_title':'Saved Links'})
     else:
         return HttpResponseRedirect("/login_required/") 
         

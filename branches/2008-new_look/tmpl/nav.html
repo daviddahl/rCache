@@ -1,4 +1,13 @@
 {% load i18n %}
+<script>
+  j(document).ready(function(){
+  var h = j("#nav-wrap").height();
+  var offset = h + 2;
+  var offset = offset + "px";
+  j("#detail_wrapper").css({'margin-top':offset});
+  });
+</script>
+<div id="nav-wrap">
 <div id="nav">
   <ul>
     <li><a href="/colleagues/" title="{% trans 'Manage Colleagues' %}">{% trans "Colleagues" %}</a></li>
@@ -18,3 +27,13 @@
   <li><a href="/myaccount/" title="{% trans "Update Account" %}">{{ user.login }}</a></li>
   <li><a href="/logout/" title="{% trans "Exit rCache" %}">{% trans "Logout" %}</a></li>
 </ul>
+<div id="global_page_title">
+    {% block func_title %}
+    <h1>{{ global_page_title }}</h1>
+    {% endblock %}
+</div>
+{% if detail_header %}
+{% include "detail_header.html" %}
+{% endif %}
+<div id="dia" class="jqmWindow" style="z-index:3000; display:none;"></div>
+</div>

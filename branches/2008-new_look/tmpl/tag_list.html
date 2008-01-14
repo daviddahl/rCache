@@ -4,9 +4,8 @@
 {% trans "rCache.com - Filter Entries" %}
 {% endblock %}
 {% block search_content %}
-<div id="global_page_title">
-  <h1>{% trans "Filter by:" %}</h1>
-    <div id="filter-menu">
+<div class="the_lists">
+ <div id="filter-menu">
       <ul>
 	{% block filter_menu %}
 	<li class="selected">{% trans "Tags" %}</li>
@@ -14,8 +13,6 @@
 	{% endblock %}
       </ul>
     </div>
-</div>
-<div class="the_lists">
 {% block the_list %}
 {% for tag in tags %}
 <a href="/tag/?tg={{ tag.0 }}">{{ tag.0 }}</a> &nbsp;

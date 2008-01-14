@@ -1,10 +1,18 @@
-.home-title, .home-subtitle,#pub-menu li {
+.home-subtitle,#pub-menu li {
 	font-family:'Georgia sans-serif', sans-serif;
 	text-align:center;
 }
 .home-title {
 	font-size:24px;
 	letter-spacing:-2px;
+	text-align:center;
+}
+.home-title li {
+    border-bottom:1px solid #aaa;
+    border-right:1px solid #aaa;
+    border-left:1px solid #aaa;
+    font-family:'Georgia sans-serif', sans-serif;
+    text-align:center;
 }
 .home-title a {
 	text-decoration:none;
@@ -130,7 +138,7 @@ margin:0;
     position:absolute;
     top:0px;
     left:300px;
-    margin:-1px;
+
     padding:-1px;
     font-size:60%;
     font-family:'sans-serif';

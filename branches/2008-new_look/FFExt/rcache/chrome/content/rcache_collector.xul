@@ -21,14 +21,6 @@
 <hbox>
 <vbox id="outer-box" style="max-width:60em;">
 
-<vbox id="rcache-collector-title">
-<hbox id="logo-box">
-<image src="chrome://rcache/content/skin/rcache_logo_blue_100px.png"/>
-<description id="rcache-desc">
-Collector - research tools for humans</description>
-</hbox>
-</vbox>
-
 <hbox id="collect-widget-hbox">
 <vbox id="rcache-collector-widgets">
 <label id="urllabel"
@@ -56,14 +48,8 @@ Collector - research tools for humans</description>
 
 <hbox>
   <vbox>
-    <label id="textlabel" 
-	 value="Captured Text" 
-	 crop="right"/>
-    <hbox>
-    <textbox id="selectedtext"
-	     multiline="true"/>
-    </hbox>
-   
+    <label id="textlabel" value="Captured Text" crop="right"/>
+    <textbox id="selectedtext" multiline="true"/>
   </vbox>
 </hbox>
 <vbox>

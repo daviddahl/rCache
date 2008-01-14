@@ -9,11 +9,9 @@ rCache.com - New Entry
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
-  <div id="global_page_title">
-    <h1>{% trans "Create a new Entry." %}</h1>
+  <br />
     <div>{% trans "Enter URL, Title, Tags, Entry Text and File (Word, PDF, Text)." %} 
 <br />{% trans "For ease of use, install the" %} <a href="/firefox/">{% trans "rCache Firefox Extension" %}</a>.</div>
-  </div>
   {% if message %}
   <div class="error_message">{% trans "ERROR:" %} {{ message }}</div>
   {% endif %}

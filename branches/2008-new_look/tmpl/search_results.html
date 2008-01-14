@@ -9,12 +9,10 @@ rCache.com - Search Results
 {% include "nav.html" %}
 <div id="detail_wrapper">
   <div id="recent_header">
-    <div id="global_page_title">
     {% block func_title %}
     {% if coll_render %}
     <div class="results_title"><h3>Search Results for '<i>{{ the_kw }}</i>' from Colleague <i>{{ coll_login }}'s</i> Research </h3>
       <h4><a href="{{ back_lnk }}" title="{{ coll_login }}'s Research">Back</a></h4>
-    </div>
     {% else %}
     <div class="results_title"><h3>Search Results for '<i>{{ params }}</i>'</h3></div>
     {% endif %}
