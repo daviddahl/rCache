@@ -1,15 +1,18 @@
 {% extends "base.html" %}
+{% block js %}
+{% endblock js %}
 {% block content %}
 {% include "pub-menu.html" %}
-<div class="frontpage-cols">
-  <div class="col-archive">
+<div class="page-cols">
+  <div class="col-left">
     <ul>
       <li class="title"><h1>Archive.</h1></li>
       <li class="body">Collect data from the web, PDFs, Word Documents, and other resources.</li>
-      <li class="body">Our 'rCache Collector' Firefox extension make collecting data easy and fast.</li>
+      <li class="body">Our 'rCache Collector' Firefox extension makes collecting data easy and fast.</li>
+      <li><a href="/collector/"><img src="/media/img/ffext_screen.jpg" border="0"/></a></li>
     </ul>
   </div>
-  <div class="col-index">
+  <div class="col-middle">
     <ul>
       <li class="title"><h1>Index.</h1></li>
       <li class="body">Index your research in a searchable, browseable, secure database.</li>
@@ -18,10 +21,10 @@
       <li class="body">Discover hidden nuggets of data in the depth of your archive through our advanced search tools.</li>
     </ul>
   </div>
-  <div class="col-share">
+  <div class="col-right">
     <ul>
       <li class="title"><h1>Share.</h1></li>
-      <li class="body">You can choose to give your colleagues access to your research data at various levels of custom access.</li>
+      <li class="body">You can choose to give your colleagues access to your research data at various granularities.</li>
       <li class="body">Restrict access via your tags or keywords.</li>
     </ul>
   </div>

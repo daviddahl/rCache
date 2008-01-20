@@ -20,3 +20,17 @@
 .frontpage-cols li {
 	margin:0px 0px 16px 0px;
 }
+.col-index {
+    float:right;
+    max-width:25%;
+    width:25%;
+}
+.col-share {
+    float:right;
+    max-width:25%;
+    width:25%;
+}
+.col-archive {
+    max-width:25%;
+    width:25%;
+}

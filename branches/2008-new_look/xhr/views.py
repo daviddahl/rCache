@@ -1,3 +1,5 @@
+import re
+
 from django.http import Http404,HttpResponse,HttpResponseRedirect
 from django.template import Context, loader
 from django.shortcuts import render_to_response
@@ -25,6 +27,8 @@ def hypersearch(request):
         
         try:
             params = request.POST['search_str']
+            # remove ' AND ' from the end of the query
+            params = re.sub(' AND $','',params)
             #print params
             e = Entry()
             entries = e.hypersearch(params,u)
@@ -70,3 +74,17 @@ def entries_with_link(request,link_id):
     except Exception,e:
         print str(e)
         return JsonResponse({'status':'failure','msg':'No entries found'})
+
+def recentgrid(request):
+    """
+    return html table for ingrid to parse for recent entries
+    """
+    try:
+        u = User.objects.get(id=request.session['userid'])
+        entries = Entry.objects.filter(user=u).order_by('-id')[:20]
+        entry_list = render_to_string("recentgrid.html",
+                                      {'entries':entries})
+        return HttpResponse(entry_list)
+    except Exception, e:
+        print e
+        return JsonResponse('Error: %s' % str(e))

@@ -1,0 +1,41 @@
+.page-cols {
+margin-left:5%;
+}
+
+.page-cols div {
+	float:left;
+	min-width:200px;
+	margin-top:32px;
+	padding-right:32px;
+	padding-left:32px;
+}
+.page-cols .col-archive, .frontpage-cols .col-index {
+	margin-right:48px;
+} 
+.page-cols .title {
+	padding:0px;
+}
+.page-cols .body {
+	line-height:22px;
+}
+.page-cols li {
+	margin:0px 0px 16px 0px;
+}
+.col-left {
+    float:right;
+    max-width:25%;
+    width:25%;
+}
+.col-middle {
+    float:right;
+    max-width:25%;
+    width:25%;
+}
+.col-right {
+    max-width:25%;
+    width:25%;
+}
+.col-agreement{
+margin:32px;
+padding:8px;
+}

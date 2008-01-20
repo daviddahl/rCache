@@ -5,6 +5,8 @@ david dahl
 """
 import hyperestraier as h
 
+from rcache.stopwords import stopwords as sw
+
 class HyperClient(object):
     """
     hyperestraier client to wrap hyperestraier pure python module
@@ -13,7 +15,27 @@ class HyperClient(object):
         self.url = url
         self.init_node()
 
+    def process_stopwords(self,query):
+        """
+        check query for stopwords! throw them out!
+        """
+        # tokenize the query:
+        try:
+            new_query = []
+            q = query.split(" ")
+            for t in q:
+                try:
+                    idx = sw.index(t)
+                except:
+                    new_query.append(t)
+            new_query_str = " ".join(new_query)
+            self.new_query_str = new_query_str
+            return new_query_str
+        except Exception,e:
+            print e
+            return query
 
+        
     def search(self,query,user_id):
         """
         configure connect and query server -
@@ -22,7 +44,9 @@ class HyperClient(object):
         expr = "@author STREQ %s" % user_id
         self.node.set_url(self.url)
         self.cond = h.Condition()
-        self.cond.set_phrase(query)
+        q = self.process_stopwords(query)
+        print q
+        self.cond.set_phrase(q)
         self.cond.add_attr(expr)
         self.results = self.node.search(self.cond, 0)
         return self.results

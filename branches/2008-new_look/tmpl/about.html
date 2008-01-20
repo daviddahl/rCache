@@ -1,12 +1,11 @@
 {% load i18n %}
-{% extends "firefox.html" %}
+{% extends "base.html" %}
 {% block js %}
-{% endblock %}
+{% endblock js%}
 {% block content %}
-<div id="firefox_boundry">
-  {% include "pub-menu.html" %}
-  
-  <div id="about-rcache" class="site-block">
+{% include "pub-menu.html" %}
+<div class="page-cols">
+  <div id="about-rcache" class="col-left">
     <h1>{% trans "About rCache" %}</h1>
     <p>
     {% trans "rCache is that always-there place to store data that you want to refer back to. Bookmarks and saving web page data to your computer's disk are unwieldy and slow processes. Your data is stored on your hard disk, and tends to be unorganized." %}
@@ -16,7 +15,9 @@
     <br />
     {% trans "You can store data that you may want to cite in your research, white paper, article or your own blog posting." %}
     </p>
-    <h1>{% trans "rCache Feature List" %}</h1>
+  </div>
+  <div class="col-middle">
+    <h1>{% trans "rCache Features" %}</h1>
     <p>
     <strong>{% trans "Collect" %}</strong> {% trans "data from web pages, PDFs, Word Documents and other resources." %}
     </p>
@@ -26,7 +27,6 @@
     <p>
     <strong>{% trans "Tagging" %}</strong> {% trans "of Entries makes pinpoint filtering easy." %}
     </p>
-
     <p>
     <strong>{% trans "Filter" %}</strong> {% trans "your data by the Entry's source domain name." %}
     </p>
@@ -39,19 +39,19 @@
     <p>
     <strong>{% trans "Collaborate" %}</strong>: {% trans "Give colleagues access to your research data, with restrictions based on tags or keyword searches." %}
     </p>
-    <p>
-    {% trans "System Requirements: (Online version)" %}
-    <br />
-    {% trans "Windows, Macintosh or Linux OS that can run Firefox 1.5 and later. rCache strives to be a cross-platform system, however, use of Internet Explorer (IE) is not encouraged. We are targeting Firefox users, or those that will use Firefox for data collection. Trying to support multiple broswers may be possible in the future. For the time being, we do not have the resources to code for IE." %}
+
+</div>
+    <div class="col-right">
+    <h1>{% trans "System Requirements" %}</h1>
+    <p>{% trans 'Windows, Macintosh or Linux OS that can run Firefox 1.5 and later. rCache strives to be a cross-platform system, however, use of Internet Explorer (IE) is not encouraged. We are targeting Firefox users, or those that will use Firefox for data collection. Trying to support multiple broswers may be possible in the future. For the time being, we do not have the resources to code for IE.' %}
     </p>
+    <p>
     <a href="http://getfirefox.com/"
 title="Get Firefox - Web browsing redefined."><img
 src="http://www.mozilla.org/products/firefox/buttons/getfirefox_large2.png"
 width="178" height="60" border="0" alt="Get Firefox" target="_new"></a>
-  <br />
-    </p>
-
-  </div>
   
+    </p>
+  </div>
 </div>
 {% endblock %}

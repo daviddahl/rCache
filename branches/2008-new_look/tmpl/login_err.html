@@ -2,25 +2,19 @@
 {% extends "base.html" %}
 {% block js %}
 {% endblock %}
-{% block body %}
-<body>
-{% endblock %}
 {% block content %}
 {% include "pub-menu.html" %}
-<div id="login-screen" class="site-block">
-<h1>{% trans "Login" %}</h1>
+<div id="login-screen" class="page-cols">
+  <p>
+    <h1>{% trans "Login Error" %}</h1>
+    <p>
+      If you have forgotten your password, please click <a href="/accounts/password/">here</a>.
+      
+    </p>
+    <p>
+      Please <a href="/contact/">contact us</a> if you have any other problems logging in or using rCache.
+  </p>
 
-  <div class="message">{% trans "Login Error" %}</div>
-  <form action="/login/" method="POST">
-  <label for="username">{% trans "Username" %} </label>
-  <input type="text" name="login" maxlength="60" size="20"/>
-  <br/>
-  <label for="passwd">{% trans "Password" %} </label>  
-  <input type="password" name="passwd" maxlength="60" size="20"/>
-  <br/>
-  <label for="loginbutton">&nbsp;</label>  
-  <input type="submit" name="loginbutton" value="{% trans "Login" %}"/>
-  </form>
 </div>
 {% endblock %}
 {% block getfirefox %}

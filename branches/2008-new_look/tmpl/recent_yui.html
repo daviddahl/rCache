@@ -1,0 +1,52 @@
+{% load i18n %}
+{% extends "base.html" %}
+{% block title %}
+{% trans "rCache.com - Recent Entries" %}
+{% endblock %}
+{% block js_app %}
+<link type="text/css" rel="stylesheet" href="/media/css/yui-datatable.css">
+<script type="text/javascript" src="/media/js/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/media/js/yui/connection/connection-min.js"></script>
+<script type="text/javascript" src="/media/js/yui/datasource/datasource-beta-min.js"></script>
+<script type="text/javascript" src="/media/js/yui/datatable/datatable-beta-min.js"></script>
+<script type="text/javascript" src="/media/js/recent.js"></script>
+{% endblock %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+  
+<div id="search_results_grid">
+</div>
+<script type="text/javascript">
+// Supply any request parameters that are required load initial data 
+var initialRequest = "offset=1";
+var oConfigs = {
+        caption:"",
+        initialRequest:initialRequest,
+        pageCurrent: 1,
+        rowsPerPage: 20,
+        startRecordIndex: 1,
+        pageLinksLength: 10,
+        rowsPerPageDropdown: [20,50,100],
+        rowSingleSelect:true
+};
+var myDataTable = new YAHOO.widget.DataTable("search_results_grid",
+                                              myColumnSet,
+                                              myDataSource,
+                                              oConfigs);
+
+myDataTable.subscribe("cellClickEvent",myDataTable.onEventSelectRow);
+myDataTable.subscribe("selectEvent",eventSelectRow);
+//myDataTable.select(myDataTable.getRow(0));
+function eventSelectRow(e){
+// gets the row object
+var row = this.getRecordSet().getRecord(e.els[0].recordId);
+window.location="/detail/" + row['rcacheid'] + "/?recent_enhanced";
+}
+
+</script>
+</div>
+{% endblock %}

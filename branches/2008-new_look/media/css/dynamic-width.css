@@ -90,7 +90,7 @@ body {
 }
 
 #footer { 
-    padding:0px;
+    padding:16px;
     margin:8px 0px;
     font-size:9px;
     font-family:Arial,Helvetica,Sans-serif;
@@ -233,7 +233,6 @@ h2 {
 #login_boundry {
     border-width: 0px;
     border: 1px solid #AAA;
-    padding: 1em;
     width:100%;
     min-height:500px;
     background-color:#FFF;
@@ -778,8 +777,6 @@ h2 {
     padding: 0;
     border-top:  1px solid #FFF;
     border-bottom:  1px solid #EEE;
-    border-left:  1px solid #EEE;
-    border-right:  1px solid #EEE;
     width: 100%;
 }
 #recent_grid tr{
@@ -789,13 +786,11 @@ h2 {
     padding: 0.4em;
 }
 #recent_grid td:hover{
-    color: #000 ;
+
 }
 #search_results_grid {
     padding: 0px;
-    max-height:800px;
-    overflow:auto;
-    border:1px solid #eee;
+    overflow:none;
 }
 .bold_header{
     font-weight:bolder;
@@ -981,9 +976,9 @@ h2 {
 }
 
 .the_lists{
-    background: #FFC;
-    padding: 1em;
-    margin: 1em;
+    background: #efefef;
+    padding: 16px;
+    margin: 16px;
     border-bottom: 1px dashed #DDD;
     border-top: 1px dashed #DDD;
     line-height: 1.7em;
@@ -1170,6 +1165,12 @@ h2 {
     padding:0.3em;
 }
 
+.results-keywords{
+    font-size:40%;
+    font-family:'sans-serif';
+    color:#9A8255;
+}
+
 .keywords{
     font-size:0.6em;
     font-family:'sans-serif';
@@ -1250,7 +1251,6 @@ font-weight: bolder;
 }
 .tdata td{
 font-size: 50%;
-
 }
 #nav-wrap{
 position:fixed;
@@ -1261,3 +1261,5 @@ border-bottom:1px solid #aaa;
 margin-top:-1px;
 padding-top:4px;
 }
+
+

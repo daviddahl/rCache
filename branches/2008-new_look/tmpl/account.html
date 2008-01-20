@@ -1,54 +1,59 @@
 {% load i18n %}
-{% extends "firefox.html" %}
+{% extends "base.html" %}
 {% block js %}
-{% endblock %}
+{% endblock js%}
 {% block content %}
-<div id="firefox_boundry">
-    {% include "pub-menu.html" %}
- <div id="get-account" class="site-block">
-   {% block account_title %}
-    <h1>{% trans "Create Account" %}</h1>
-   {% endblock %}
-   {% block account_content%}
-   <p>
-   {% trans "rCache is free and easy to use. We are accepting applications for a Beta Test period. We only have a few slots available, so if you are a serious researcher, and think you will benefit from rCache, apply today." %}
-   <br />
-   <a href="http://getfirefox.com/" target="_new">Firefox</a> {% trans "is highly recommended for rCache use, in fact we have not really tested rCache on other browsers due to a lack of cross-platform extensibility." %} 
-<br />
-{% trans "Take a look at the incredible" %} <a href="http://www.mozilla.com/en-US/firefox/features.html#experience" target="_new">{% trans "features" %}</a> {% trans "of Firefox." %}
-   <br />
-   </p>
-
-   <h1>{% trans "Step 1:" %}</h1>
-   <p>
-   {% if message %}
-   <div class="error_message">{% blocktrans %}ERROR: {{ message }} {% endblocktrans %}</div>
-   {% endif %}
-   <h4>{% trans "Enter your email address here to apply." %}</h4>
-   <form action="/account/" method="POST">
-   <label for="id_email"><strong>{% trans "Email Address" %}</strong></label>
-   <input id="id_email" type="text" name="email" size="32" maxlength="32" />
-   <br />
-   <p>{% trans "*rCache will not disclose your email address to any other entity." %}
-   <br /><br />
-   {% trans "Before using rCache, you have to accept the" %} <a href="/agreement/">{% trans "rCache Site Use Agreement" %}</a> {% trans "and, please read our" %} <a href="/privacy/">{% trans "Privacy Policy" %}</a>.
-
-   </p>
-   <br />
-   <label for="research_type">{% trans "What kind of research are you doing?" %}</label>
-   <textarea id="research_type" name="research_type" cols="30" maxlength="255" rows="1"></textarea>
-   <br />
-   <label for="id_submit">&nbsp;</label>
-   <input id="id_submit" type="submit" value="{% trans "Apply for Account" %}" />
-   </form>
-   <br />
-   </p>
-  
-   {% endblock %}
-
+{% include "pub-menu.html" %}
+<div id="get-account" class="page-cols">
+  <div class="col-left">
+    <h1>{% trans "Get an Account" %}</h1>
+    <p>
+      {% trans "rCache is free and easy to use. If you are a serious researcher, and think you will benefit from rCache, apply today." %}
+    </p>
+    <p>
+      <a href="http://getfirefox.com/" target="_new">Firefox</a> {% trans "is highly recommended for rCache use, in fact we have not really tested rCache on other browsers due to a lack of cross-platform extensibility." %} 
+    <p/>
+    <p>
+      {% trans "Take a look at the incredible" %} <a href="http://www.mozilla.com/en-US/firefox/features.html#experience" target="_new">{% trans "features" %}</a> {% trans "of Firefox." %}
+    </p>
+  </div>
+  <div class="col-middle">
+    <h1>{% trans "Step 1:" %}</h1>
+    <p>
+      {% if message %}
+      <div class="error_message">{% blocktrans %}ERROR: {{ message }} {% endblocktrans %}</div>
+      {% endif %}
+      <h4>{% trans "Enter your email address here to apply." %}</h4>
+    </p>
+    <p>
+      <form action="/account/" method="post">
+	<label for="id_email">{% trans "Email Address" %}</label>
+	<input id="id_email" type="text" name="email" size="32" maxlength="32" />
+	<p>
+	  {% trans "*rCache will not disclose your email address to any other entity." %}
+	</p>
+	<p>
+	  {% trans "Before using rCache, you have to accept the" %} <a href="/agreement/">{% trans "rCache Site Use Agreement" %}</a> {% trans "and, please read our" %} <a href="/privacy/">{% trans "Privacy Policy" %}</a>.
+	  
+	</p>
+	<label for="research_type">{% trans "What kind of research are you doing?" %}</label>
+	<textarea id="research_type" name="research_type" cols="30" maxlength="255" rows="1"></textarea>
+	<label for="id_submit">&nbsp;</label>
+	<input id="id_submit" type="submit" value="{% trans "Apply for Account" %}" />
+      </form>
+      </p>
+  </div>
+  <div class="col-right">
+    <h1>Step 2:</h1>
+    <p>
+    You will receive a response email that you need to respond to in order to activate your account. 
+    <p>
+    This email is usually sent out to you within 1 day of applying for an account. 
+    </p>
+    <p>
+      Thank You for your interest.
+    </p>
+  </div>
  </div>
+{% endblock content %}
 
-</div>
-{% endblock %}
-{% block getfirefox %}
-{% endblock %}

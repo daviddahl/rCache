@@ -1,12 +1,15 @@
 {% load i18n %}
-{% extends "account.html" %}
+{% extends "base.html" %}
+{% block title %}
+{% trans "rCache End User Agreement" %}
+{% endblock %}
 {% block js %}
-{% endblock %}
-{% block account_title %}
+{% endblock js%}
+{% block content %}
+{% include "pub-menu.html" %}
+<div class="col-agreement">
 <h1>{% trans "rCache End User Agreement" %}</h1>
-{% endblock %}
-{% block account_content %}
-<p>
+
 <strong>{% trans "rCache is Copyright 2008, David Dahl, admin at rcache.com." %}</strong>
 <br />
 <pre style="font-size:0.8em">
@@ -36,5 +39,5 @@
 
 {% trans "rCache.com is provided as-is without warranty of any kind. The author will not be liable for damages of any kind arising out of use of this software." %}
 </pre>
-</p>
+</div>
 {% endblock %}

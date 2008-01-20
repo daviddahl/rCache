@@ -29,7 +29,7 @@ rCache.com - Search Results
     </tr>
     {% for e in entries %}
     <tr class="{% cycle tr-dark,tr-light %}">
-      <td>
+      <td class="results-title">
 	{% if coll_render %}
 	<a href="/colleague/{{ coll_id }}/detail/{{ e.0 }}/?search={{ the_kw }}">
 	{% else %}
@@ -41,18 +41,25 @@ rCache.com - Search Results
 	No Title
 	{% endif %}
 	</a></td>
-	<td>
+	<td class="results-snippet">
 	  {{ e.hyper_attrs.snippet }}
 	</td>
       <td><a href="{{ e.entry_url }}" title="{{ e.entry_name }}" target="_new">Go</a></td>
-      <td>{{ e.date_created|timesince }}</td>
+      <td class="results-date">{{ e.date_created|timesince }}</td>
     </tr>
     <tr class="{% cycle tr-dark,tr-light %}">
-      <td colspan="4" class="keywords">
+      <td colspan="1" class="results-keywords">
 	<strong>Keywords:</strong> &nbsp;
 	{% for kword in e.hyper_attrs.keywords %}
 	  {{ kword }}&nbsp;
-	  {% endfor %} </td>
+	  {% endfor %} 
+      </td>
+      <td colspan="3" class="results-tags">
+	<strong>Tags:</strong> &nbsp;
+	{% for tag in e.tag.all %}
+	<a href="/tag/?tg={{ tag }}">{{ tag }}</a>
+	{% endfor%}
+      </td>
     </tr>
     {% endfor %}
   </table>

@@ -1,14 +1,15 @@
 {% load i18n %}
 {% extends "base.html" %}
+{% block js %}
+{% endblock js %}
 {% block body %}
 <body>
 {% endblock %}
 {% block content %}
 <div id="login_boundry">
   {% include "pub-menu.html" %}
-<div class="site-block" id="logout">
+<div class="site-block">
   <h1>{% trans "You are Logged Out." %}</h1>
-<br /> <a href="/login/">{% trans "Login Again?" %}</a>
 </div>
 </div>
 {% endblock %}

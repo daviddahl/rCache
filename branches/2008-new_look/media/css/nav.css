@@ -32,17 +32,31 @@
 	color:#9a8255;
 	padding-right:4px;
 }
-#pub-menu {
-	padding:3px 0px;
-	border-top:1px solid #000;
-    border-bottom:1px solid #000;
+#pub-menu-header{
+position:relative;
+}
 
+#login-form{
+position:absolute;
+right:16px;
+float:right;
+top:0px;
+}
+
+#login-form input{
+font-size:0.6em;
+}
+
+#pub-menu {
+    padding:3px 0px;
+    border-top:1px solid #000;
+    border-bottom:1px solid #000;
 }
 #pub-menu ul {
-	text-align:center;
+    text-align:center;
 }
 #pub-menu li {
-	display:inline;
+    display:inline;
     font-size:14px;
     padding:0px 8px;
 }
@@ -144,4 +158,19 @@ margin:0;
     font-family:'sans-serif';
     color:#000;
     background:#fff;
+}
+#login-list li{
+    display:inline;
+    padding:0;
+    margin:0;
+}
+
+#login-list input{
+    margin:0;
+    padding:0;
+}
+
+#login-list{
+
+    margin-top:55px;
 }

@@ -1,0 +1,11 @@
+<table>
+    <tbody>
+    {% for entry in entries %}
+      <tr>
+	<td>{{ entry.id }}</td>
+	<td>{{ entry.entry_name }}</td>
+	<td>{{ entry.date_created }}</td>
+      </tr>
+    {% endfor %}
+      </tbody>
+    </table>

@@ -33,10 +33,9 @@ td {
 }
 
 h1 {
-	font-family:FreeSans,Arial, Helvetica,Sans,"Lucida Grande",Verdana, Serif;
-    font-size:36px;
+    font-family:FreeSans,Arial, Helvetica,Sans,"Lucida Grande",Verdana, Serif;
+    font-size:32px;
     font-weight:normal;
-    letter-spacing:-2px;
     color:#666;
 }
 h1 a {
@@ -80,15 +79,13 @@ img {
 input{
     /*font-family: monospace;*/
     border: 1px solid #BBB;
-    background-color:#EEE;
-    line-height:150%;
     color: #000;
-    margin:0.5em;
-    font-size:24px;
+    margin:4px;
+    font-size:0.6em;;
 }
 input:hover {
     border: 1px solid #AAA;
-    background-color:#FFF;
+    background-color:#FFC;
     color: #000;
 }
 textarea:focus {
@@ -128,23 +125,17 @@ pre {
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
     line-height:130%;
 }
-label,input,textarea {
-    display: block;
-    float: left;
-    margin:10px 10px;
+input,textarea {
 }
 label {
-    width:100px;
-    padding:3px 0px;
+    padding:0px 0px;
 }
 
 br {
     clear: left;
 }
-input,label,textarea {
-	padding:3px;
-	font-size:14px;
-	font-family:'Lucida Grande', Arial, Verdana, Helvetica, Sans-Serif;
+input,textarea {
+
 }
 h1{
 font-size:24px;

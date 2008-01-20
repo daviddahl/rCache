@@ -588,7 +588,7 @@ def recent(request):
         u = User.objects.get(id=request.session['userid'])
         e = Entry.objects.filter(user=u).order_by('-id')[:50]
         #request.session['back_lnk'] = 
-        return render_to_response('recent.html',
+        return render_to_response('recent_yui.html',
                                   {'entries':e,
                                    'user':u,
                                    'global_page_title':'Recent Entries'})

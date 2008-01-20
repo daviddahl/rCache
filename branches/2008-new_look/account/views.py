@@ -267,7 +267,7 @@ def password(request):
                 m="Please make sure you entered your Login correctly"
                 return render_to_response('password_reset.html',{'message':m})
         else:
-            m="Please enter your rCache Login (Your Login is the email address you signed up with.)"
+            m="Please enter your email address."
             return render_to_response('password_reset.html',{'message':m})
     else:
         return render_to_response('password_reset.html',{})
