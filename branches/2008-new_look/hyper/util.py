@@ -68,9 +68,9 @@ class HyperUtil(object):
                 print str(e)
 
             if not self.db.put_doc(doc,self.db.PDCLEAN):
-                print "put failed"
+                print "### put failed ########################################" 
             else:
-                print "put successful"
+                print "put successful:)"
 
  
     def optimize_and_close(self):
@@ -83,10 +83,10 @@ class HyperUtil(object):
     def open(self):
         """open db and add it to instance"""
         #casket = os.environ['HYPERESTRAIER_DB_PATH']
-        casket = '/var/hyper/casket'
+        #casket = '/var/hyper/casket'
         try:
             db = he.Database()
-            db.open(casket,db.DBREADER | db.DBNOLCK)
+            db.open(self.casket,db.DBREADER | db.DBNOLCK)
             self.db = db
         except Exception, e:
             print unicode(e)
@@ -95,10 +95,10 @@ class HyperUtil(object):
 
     def open_w(self):
         """open db to write"""
-        casket = '/var/hyper/casket'
+        #casket = '/var/hyper/casket'
         try:
             db = he.Database()
-            db.open(casket,db.DBWRITER | db.DBCREAT)
+            db.open(self.casket,db.DBWRITER | db.DBCREAT)
             self.db = db
         except Exception, e:
             print unicode(e)
