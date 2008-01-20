@@ -2,9 +2,7 @@
 import os
 import sys
 import datetime
-
-print sys.path
-
+#print sys.path
 import HyperEstraier as he
 
 from rcache.models import *
@@ -13,7 +11,7 @@ from rcache.models import *
 
 class HyperUtil(object):
 
-    casket = None
+    casket = '/var/hyper/daemon-root/_node/rcache'
     db = None
 
     
@@ -84,9 +82,10 @@ class HyperUtil(object):
         """open db and add it to instance"""
         #casket = os.environ['HYPERESTRAIER_DB_PATH']
         #casket = '/var/hyper/casket'
+        casket = '/var/hyper/daemon-root/_node/rcache'
         try:
             db = he.Database()
-            db.open(self.casket,db.DBREADER | db.DBNOLCK)
+            db.open(casket,db.DBREADER | db.DBNOLCK)
             self.db = db
         except Exception, e:
             print unicode(e)
@@ -96,9 +95,10 @@ class HyperUtil(object):
     def open_w(self):
         """open db to write"""
         #casket = '/var/hyper/casket'
+        casket = '/var/hyper/daemon-root/_node/rcache'
         try:
             db = he.Database()
-            db.open(self.casket,db.DBWRITER | db.DBCREAT)
+            db.open(casket,db.DBWRITER | db.DBCREAT)
             self.db = db
         except Exception, e:
             print unicode(e)
