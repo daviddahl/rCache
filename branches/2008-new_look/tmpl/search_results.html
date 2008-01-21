@@ -14,7 +14,7 @@ rCache.com - Search Results
     <div class="results_title"><h3>Search Results for '<i>{{ the_kw }}</i>' from Colleague <i>{{ coll_login }}'s</i> Research </h3>
       <h4><a href="{{ back_lnk }}" title="{{ coll_login }}'s Research">Back</a></h4>
     {% else %}
-    <div class="results_title"><h3>Search Results for '<i>{{ params }}</i>'</h3></div>
+    <div class="results_title"><h3>{{ search_count }} Entry{{ search_count|pluralize }} found for '<i>{{ params }}</i>'</h3></div>
     {% endif %}
     {% endblock %}
     </div>

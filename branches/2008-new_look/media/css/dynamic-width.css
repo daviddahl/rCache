@@ -145,8 +145,8 @@ body {
 
 
 h2 {
-    color: #111;
-    font-size:1.3em;
+    color: #333;
+    font-size:1.1em;
     padding:0;
     margin:0;
 }
@@ -329,7 +329,7 @@ h2 {
     padding: 1em;
 }
 .entry_detail_id{
-    font-size:90%;
+    font-size:40%;
     padding-left: 16px;
 }
 .tr-light{
@@ -561,9 +561,7 @@ h2 {
     width: 98%;
 }
 #detail_entry_text_long {
-    border-right:1px solid #eee;
-    border-left:1px solid #eee;
-    border-top:1px solid #eee;
+    border:none;
     padding: 0px;
     background-color:#FFF;
 }

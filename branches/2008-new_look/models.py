@@ -163,7 +163,10 @@ class Entry(models.Model):
         search the hyperestraier index via the p2p client
         """
         hyper = h(url=os.environ['RCACHE_HYPER_URL'])
-        res = hyper.search(query,user.id)
+        try:
+            res = hyper.search(query,user.id)
+        except Exception, e:
+            raise #re-raise the SearchError
         lst,dct = hyper.id_lst()
         print "entries found: %s" % str(len(lst))
         #print dct
@@ -175,7 +178,7 @@ class Entry(models.Model):
 
                 id = str(entry.id)
                 the_attrs = dct[id]
-                print the_attrs
+                #print the_attrs
                 entry.set_hyper_attrs(the_attrs)
                 qs.append(entry)
 

@@ -20,20 +20,29 @@ class HyperClient(object):
         check query for stopwords! throw them out!
         """
         # tokenize the query:
-        try:
-            new_query = []
-            q = query.split(" ")
-            for t in q:
-                try:
-                    idx = sw.index(t)
-                except:
-                    new_query.append(t)
-            new_query_str = " ".join(new_query)
-            self.new_query_str = new_query_str
-            return new_query_str
-        except Exception,e:
-            print e
-            return query
+
+        new_query = []
+        remd_stopwords = []
+        query.strip()
+        q = query.split(" ")
+        for t in q:
+            try:
+                idx = sw.index(t)
+                print 'stop word index: %s, %s' % (str(idx),t)
+                remd_stopwords.append(t)
+            except Exception,e:
+                print str(e)
+                new_query.append(t)
+        print "len(new_query): %s" % str(len(new_query))
+        print "new query: %s" % new_query
+        if len(new_query) == 0:                
+            removed_stopwords = " ".join(remd_stopwords)
+            raise SearchError("Your query cannot be processed after the stopwords are removed: '%s'" % removed_stopwords)
+
+        new_query_str = " ".join(new_query)
+        self.new_query_str = new_query_str
+        return new_query_str
+
 
         
     def search(self,query,user_id):
@@ -45,7 +54,7 @@ class HyperClient(object):
         self.node.set_url(self.url)
         self.cond = h.Condition()
         q = self.process_stopwords(query)
-        print q
+        print "new query: %s" % q
         self.cond.set_phrase(q)
         self.cond.add_attr(expr)
         self.results = self.node.search(self.cond, 0)
@@ -61,7 +70,7 @@ class HyperClient(object):
         try:
             for doc in self.results.docs:
                 lst.append(doc.attr('@uri'))
-                print "adding index to dct: %s" % doc.attr('@uri')
+                #print "adding index to dct: %s" % doc.attr('@uri')
                 dct[doc.attr('@uri')] = {'snippet':doc.snippet,
                                          'keywords':self.process_keywords(doc)}
             return lst,dct
@@ -145,3 +154,9 @@ class HyperClient(object):
         self.node = h.Node()
         #self.node.set_auth("rcache", "bigrig")
         self.node.set_url(self.url)
+
+class SearchError(Exception):
+    """
+    raised if query is blank by stopword culling
+    """
+    pass

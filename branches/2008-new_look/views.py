@@ -42,7 +42,7 @@ except:
 from rcache.models import *
 from rcache.forms import *
 from rcache.settings import *
-from rcache.hyper.client import HyperClient
+from rcache.hyper.client import HyperClient, SearchError
 
 search_refer = re.compile("/search/$")
 
@@ -922,23 +922,39 @@ def search(request):
                 params = request.GET['search_str']
                 e = Entry()
                 #entries = e.fulltxt(u,params)
-                entries = e.hypersearch(params,u)
-                return render_to_response('search_results.html',
-                                          {'user':u,
-                                           'params':params,
-                                           'entries':entries,
-                                           'global_page_title':'Search'})
+                try:
+                    entries = e.hypersearch(params,u)
+                
+                    return render_to_response('search_results.html',
+                                              {'user':u,
+                                               'params':params,
+                                               'entries':entries,
+                                               'global_page_title':'Search',
+                                               'search_count':len(entries)})
+                except SearchError, e:
+                    msg = str(e)
+                    return render_to_response('search.html',
+                                              {'user':u,
+                                               'errormsg':True,
+                                               'global_page_title':'Search Error',
+                                               'msg':msg
+                                               })
             else:
                 return render_to_response('search.html',
                                           {'user':u,
                                            'errormsg':True,
+                                           'msg':"Please enter a search term.",
                                            'global_page_title':'Search'
                                            })
         else:
             return render_to_response('search.html',
-                                      {'user':u})
+                                      {'user':u,
+                                       'errormsg':True,
+                                       'msg':"Please enter a search term.",
+                                       'global_page_title':'Search'})
     else:
         return HttpResponseRedirect("/login_required/")
+
 
 def search_xhr(request):
     if login_check(request):

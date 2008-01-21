@@ -32,17 +32,21 @@ def hypersearch(request):
             #print params
             e = Entry()
             entries = e.hypersearch(params,u)
+            
             #print "entries: %s" % entries
             results = []
+            search_count = len(entries)
             for entry in entries:
                 results.append({'title':entry.entry_name,
                                 'date_created':entry.date_created,
                                 'attrs':entry.hyper_attrs,
                                 'id':entry.id})
+                
             res = render_to_string('related_docs.html',
                                    {'results':results,
                                     'length':len(results),
-                                    'keywords':params})
+                                    'keywords':params,
+                                    'search_count':search_count})
             #print "res: ", res
             return JsonResponse({'status':'success',
                                  'msg':res})
