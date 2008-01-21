@@ -1,6 +1,6 @@
 body {
     font-family:'Lucida Grande',sans-serif;
-    background-color: #555;
+    background-color: #efefef;
     margin:0;
     padding:0;
     font-size:0.8em;
@@ -17,7 +17,7 @@ body {
     border:1px solid #eee;
     padding:0px;
     margin:0px;
-    min-height:500px;
+    min-height:700px;
     position:relative;
     z-index:2000;
 }
@@ -41,11 +41,11 @@ body {
 	font-size:11px;
 }
 #detail_wrapper {
-    padding:0px;
+    padding:4px;
     margin: 0px;
 }
 .form-wrapper {
-	padding:0px 32px 32px 32px;
+	padding:0px;
 	margin:16px;
 }
 #header_cls{
@@ -94,7 +94,7 @@ body {
     margin:8px 0px;
     font-size:9px;
     font-family:Arial,Helvetica,Sans-serif;
-    color:#fff;
+    color:#111;
 }
 #footer a { 
 	background-color:#fff;
@@ -1154,7 +1154,7 @@ h2 {
 #tag-menu li{
     list-style: none;
     display:inline;
-    padding: 0.5em;
+    padding: 12px;
 }
 #tg-tbl{
     width:30em;
@@ -1263,3 +1263,22 @@ padding-top:4px;
 }
 
 
+#account_form label{
+width:100px;
+}
+
+/* ALIGNED FIELDSETS */
+.aligned label { display:block; padding:0 1em 3px 0; float:left; width:8em; }
+.aligned label.inline { display:inline; float:none; }
+.colMS .aligned .vLargeTextField, .colMS .aligned .vXMLLargeTextField { width:350px; }
+form .aligned p, form .aligned ul { margin-left:7em; padding-left:30px; }
+form .aligned table p { margin-left:0; padding-left:0; }
+form .aligned p.help { padding-left:38px; }
+.aligned .vCheckboxLabel { float:none !important; display:inline; padding-left:4px; }
+.colM .aligned .vLargeTextField, .colM .aligned .vXMLLargeTextField { width:610px; }
+.checkbox-row p.help { margin-left:0; padding-left:0 !important; }
+
+
+#copyright{
+color: #111;
+}

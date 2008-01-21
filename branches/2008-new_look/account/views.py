@@ -89,7 +89,7 @@ def activation_yes(request,user_id):
 
             send_mail('rCache Account Activation',
                       msg,
-                      'donotreply@rcache.com',
+                      'admin@rcache.com',
                       [user.email,'admin@rcache.com',],
                       fail_silently=True,
                       auth_user=EMAIL_HOST_USER,
@@ -246,7 +246,7 @@ def password(request):
                     
                     send_mail('rCache Password Change',
                               msg,
-                              'donotreply@rcache.com',
+                              'admin@rcache.com',
                               [user[0].email,'admin@rcache.com',],
                               fail_silently=True,
                               auth_user=EMAIL_HOST_USER,

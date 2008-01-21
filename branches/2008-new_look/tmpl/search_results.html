@@ -42,7 +42,7 @@ rCache.com - Search Results
 	{% endif %}
 	</a></td>
 	<td class="results-snippet">
-	  {{ e.hyper_attrs.snippet }}
+	  <strong>Snippet:</strong> &nbsp; {{ e.hyper_attrs.snippet }}
 	</td>
       <td><a href="{{ e.entry_url }}" title="{{ e.entry_name }}" target="_new">Go</a></td>
       <td class="results-date">{{ e.date_created|timesince }}</td>

@@ -10,7 +10,7 @@
 <div id="detail_new_entry">
   <div id="colleague_list">
     {% if err %}
-    <h1>{% trans "You are not a colleague of" %} {{ colleague.login }}</h1>
+    <h3>{% trans "You are not a colleague of" %} {{ colleague.login }}</h3>
     {% else %}
     <h3>{{ colleague.login }}</h3>
     <h4 class="notice_message">{% trans "Your status as a colleague of" %} {{ colleague.login }} {% trans "is" %} {{ active_txt }}</h4>

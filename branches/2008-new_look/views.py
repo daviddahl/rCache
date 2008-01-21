@@ -8,6 +8,8 @@ import copy
 import time
 from urlparse import urlparse
 from cgi import escape
+from codecs import encode, decode
+#import traceback
 
 from django.http import Http404,HttpResponse,HttpResponseRedirect
 from django.template import Context, loader
@@ -873,7 +875,13 @@ def new_entry(request):
                     #    file_txt = process_txt(file_data)
                     else:
                         pass
-                etext = etext + _("\n------Scraped Text------\n") + file_txt
+                try:
+                    file_txt = unicode(file_txt)
+                    print 'file_txt is unicode: %s' % type(file_txt)
+                except Exception, e:
+                    print str(e)
+
+                etext = file_txt
             if etext:    
                 entry = Entry(entry_url=url,
                               entry_name=title,
@@ -1373,7 +1381,8 @@ def tag_editor(request):
         return render_to_response('tag_editor.html',
                                   {'user':u,
                                    'tag_form':tag_form,
-                                   'tags':tags})
+                                   'tags':tags,
+                                   'global_page_title':'Tag Editor'})
     else:
         return HttpResponseRedirect("/login_required/")
 
@@ -1417,7 +1426,8 @@ def tag_edit(request,tag_id):
                                                'tag':tag,
                                                'tag_id':tag_id,
                                                'form':form,
-                                               'msg':msg})
+                                               'msg':msg,
+                                               'global_page_title':'Edit Tag'})
                 else:
                     raise Exception(_("ERROR: Something blew up."))
             except Exception, e:
@@ -1527,6 +1537,7 @@ def domain_list(request):
     else:
         return HttpResponseRedirect("/login_required/")
 
+
 def domain_filter(request):
     """filter entries by domain"""
     if login_check(request):
@@ -1550,11 +1561,13 @@ def domain_filter(request):
     else:
         return HttpResponseRedirect("/login_required/")
 
+
 def account_new(request):
     """Create new account"""
     m = None
+    err = "Undefined Error: sorry this error message is not more detailed, please contact admin@rcache.com for more details."
     if request.POST:
-        if request.POST['email']:
+        if request.POST.has_key('email'):
             try:
                 if email_re.search(request.POST['email']):
                     comp = Company.objects.get(pk=1)
@@ -1562,27 +1575,25 @@ def account_new(request):
                              company=comp,login=request.POST['email'])
                     u.save()
 
-                    m = ""
                     #send email
                     msg = message_new_account % (u.email,
                                                  request.POST['research_type'],)
-                    try:
-                        send_mail(_('rCache Account Application'),
-                                  msg,
-                                  'admin@rcache.com',
-                                  [u.email,'admin@rcache.com',],
-                                  fail_silently=False,auth_user=EMAIL_HOST_USER,
-                                  auth_password=EMAIL_HOST_PASSWORD)
-                    except Exception, e:
-                        err = str(e)
+
+                    send_mail('rCache Account Application',
+                              msg,
+                              'admin@rcache.com',
+                              [u.email,'admin@rcache.com',],
+                              fail_silently=False,
+                              auth_user=EMAIL_HOST_USER,
+                              auth_password=EMAIL_HOST_PASSWORD)
+
                     return render_to_response('account_pending.html',{'message':m})
                 else:
                     m = "Email address is not valid."
-                return render_to_response('account.html',{'message':m})
-                
+                    return render_to_response('account.html',{'message':m})
             except Exception,e:
-                m = _("An error occurred creating an account for %(email)s. Please send an email to admin at rcache dot com, please include this error message: %(err)s")\
-                    % {'email':request.POST['email'],'err':err}
+                print str(e)
+                m = "Account creation problem. Please contact admin@rcache.com for more details. Reference this error. Thank You."
                 return render_to_response('account.html',{'message':m})
         else:
             m = _("Please Enter your email address")

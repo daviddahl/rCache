@@ -14,7 +14,7 @@
 	<h3 class="message">{% trans "Colleague Updated" %}</h3>
 	{% endif %}
 	<br />      
-	<form action="/colleague/{{ colleague.id }}/" method="post">
+	<form action="/colleague/{{ colleague.id }}/" method="post" class="aligned">
 	  <input class="hideme" type="hidden" name="colleague" value="{{ colleague.id }}">
 	  <label for="active" title="{% trans "Active Colleagues have access to your Entries, with the restrictions below." %}">{% trans "Active?" %}</label>
 	  {% if colleague.active %}

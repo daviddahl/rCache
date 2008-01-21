@@ -4,11 +4,7 @@
 {% trans "rCache.com - Tag Editor" %}
 {% endblock %}
 {% block search_content %}
-
-<div id="global_page_title">
-<h1>{% trans "Tag Editor" %}</h1>
-</div>
-<div id="filter-menu" class="message">
+<div id="filter-menu">
   {% if tag_form %}
   <form action="." method="post" class="aligned">
   {{ tag_form.as_ul }}
@@ -29,7 +25,7 @@
     {% for tag in tags %}
     <tr class="{% cycle tr-dark,tr-light %}">
       <td><a href="/filter/tags/edit/{{ tag.id }}/" title="{% trans " Edit tag" %} '{{ tag.tag }}'">{{ tag.tag }}</a></td>
-      <td><a class="button" title="{% trans "Remove tag" %} '{{ tag.tag }}' {% trans "permanantly" %} href="/filter/tags/remove/{{ tag.id }}/">{% trans "Remove" %}</a></td>
+      <td><a class="button" title="{% trans "Remove tag" %} '{{ tag.tag }}' {% trans "permanantly" %}" href="/filter/tags/remove/{{ tag.id }}/">{% trans "Remove" %}</a></td>
     </tr>
     {% endfor %}
     </table>

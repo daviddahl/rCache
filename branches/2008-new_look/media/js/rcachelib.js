@@ -267,7 +267,21 @@ var JsSpiderCallBk = {
 var rcache = new Object();
 var xhr = new Object();
 
+var entry = new Object();
+
+rcache.entry = entry;
+
 rcache.xhr = xhr;
+
+
+rcache.entry.new_entry_submit = function(){
+    // disable the submit button then submit the form
+    var loading = j('<img src="/media/img/indeterminate-progress-bar.gif"/>');
+    j("#progress-bar").children().remove();
+    j("#progress-bar").append(loading);
+    j("#submit").hide();
+    return true;
+}
 
 rcache.xhr.related_add_kword = function(kword){
     // add a keyword to the kwords span
@@ -344,7 +358,7 @@ rcache.xhr.search = function(){
     if (qs){
 	document.location = "/search/?search_str=" + qs;
     } else {
-	alert(gettext("Please enter a search term."));
+	alert("Please enter a search term.");
     }
     
 }

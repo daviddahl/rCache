@@ -152,7 +152,7 @@ class Entry(models.Model):
         row = cursor.fetchone()
         return row[0]
     
-    def __str__(self):
+    def __unicode__(self):
         return self.entry_name
 
     def get_absolute_url(self):

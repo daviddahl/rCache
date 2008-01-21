@@ -1,30 +1,43 @@
 {% load i18n %}
-{% extends "account.html" %}
+{% extends "base.html" %}
 {% block js %}
 {% endblock %}
-{% block account_title %}
-
-<h1>{% trans "Thank You for applying for an rCache account." %}</h1>
+{% block title %}
+{% trans "Thank You for applying for an rCache account." %}
 {% endblock %}
 
-{% block account_content %}
-<p>
-<ul>
-  <li>{% trans "An email has been sent to you confirming your application." %}</li>
-  <li>{% trans "When your account is created, another email will notify you of your new account." %}</li>
-</ul>
-<br />
-<h1>{% trans "Step 2:" %}</h1>
-<p>
-<h4>{% trans "Install rCache Collector for Firefox" %}</h4>
-<strong><a href="/collector/">{% trans "rCache Collector" %}</a></strong> {% trans "is a Firefox Extension or 'Add-on' that makes it easy to select information on a web page and quickly categorize and save that data in your rCache database." %}
-<br />
-<h4>{% trans "Click this link to" %}<a href="/media/rcache.xpi">{% trans "Install rCache Collector" }</a>.</h4>
-<a href="http://getfirefox.com/" target="_new">{% trans "Firefox" %}</a> {% trans "is highly recommended for rCache use, in fact we have not really tested rCache on other browsers due to a lack of cross-platform extensibility. Take a look at the incredible" %} <a href="http://www.mozilla.com/en-US/firefox/features.html#experience" target="_new">{% trans "features" %}</a> {% trans "of Firefox." %}
-<br />
-<br />
-{% trans "Thank you for your interest." %}
-<br />
-{% trans "The rCache team." %}
-</p>
+{% block content %}
+{% include "pub-menu.html" %}
+<div id="account-pending" class="page-cols">
+   <div class="col-left">
+       <h1>{% trans "Thank You for applying for an rCache account." %}</h1>
+       <br />
+       <ul>
+	 <li>{% trans "An email has been sent to you confirming your application." %}</li>
+	 <li>{% trans "When your account is created, another email will notify you of your new account." %}</li>
+       </ul>
+       <br />
+   </div>
+   <div class="col-middle">
+     <h1>{% trans "Step 2:" %}</h1>
+     <p>
+       <h4>{% trans "Install rCache Collector for Firefox" %}</h4>
+       <strong><a href="/collector/">{% trans "rCache Collector" %}</a></strong> {% trans "is a Firefox Extension or 'Add-on' that makes it easy to select information on a web page and quickly categorize and save that data in your rCache database." %}
+       <br />
+       <br />
+       <h4>{% trans "Click this link to " %}<a href="/media/rcache.xpi">{% trans "Install rCache Collector" %}</a>.</h4>
+       <br />
+       <br />
+   </div>
+   <div class="col-right">
+     <a href="http://getfirefox.com/" target="_new"><strong>{% trans "Firefox" %}</strong></a> {% trans "is highly recommended for rCache use, in fact we have not really tested rCache on other browsers due to a lack of cross-platform extensibility. Take a look at the incredible" %} <a href="http://www.mozilla.com/en-US/firefox/features.html#experience" target="_new">{% trans "features" %}</a> {% trans "of Firefox." %}
+       <br />
+       <br />
+       {% trans "Thank you for your interest." %}
+       <br />
+       <br />
+       {% trans "The rCache team." %}
+     </p>
+   </div>
+</div>
 {% endblock %}
