@@ -92,7 +92,7 @@ body {
 #footer { 
     padding:16px;
     margin:8px 0px;
-    font-size:9px;
+    font-size:10px;
     font-family:Arial,Helvetica,Sans-serif;
     color:#111;
 }
@@ -329,7 +329,7 @@ h2 {
     padding: 1em;
 }
 .entry_detail_id{
-    font-size:40%;
+    font-size:12px;
     padding-left: 16px;
 }
 .tr-light{
@@ -1164,13 +1164,13 @@ h2 {
 }
 
 .results-keywords{
-    font-size:40%;
+    font-size:12px;
     font-family:'sans-serif';
     color:#9A8255;
 }
 
 .keywords{
-    font-size:0.6em;
+    font-size:12px;
     font-family:'sans-serif';
 }
 #keywords table{
@@ -1237,7 +1237,7 @@ margin:16px;
 }
 
 #saved-links td{
-    font-size:60%;
+    font-size:12px;
     padding:2px;
 }
 
@@ -1248,7 +1248,7 @@ margin:16px;
 font-weight: bolder;
 }
 .tdata td{
-font-size: 50%;
+font-size: 12px;
 }
 #nav-wrap{
 position:fixed;

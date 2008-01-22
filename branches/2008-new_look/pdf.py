@@ -1,5 +1,8 @@
-import os, sys
+import os
+import sys
 import re
+import codecs
+
 """this program requires xpdf
 Author: David Dahl
 Date: 2/21/2006
@@ -25,11 +28,11 @@ def extractPDFText(pdf_filename):
     
     txtfile = pdf_filename + ".txt"
     txt = getTextFromFile(txtfile)
-    try:
-        encoded = txt.encode("utf8")
-        return encoded
-    except:
-        return txt
+    #try:
+    #    encoded = txt.encode("utf-8")
+    #    return encoded
+    #except:
+    return txt
     
 
 def save_tmp(data):
@@ -41,5 +44,7 @@ def save_tmp(data):
     return temp_file
 
 def getTextFromFile(file):
-    f = open(file,"r")
+    #somefile = codecs.open("somefile.txt", "wb", encoding="utf-8")
+    #f = codecs.open(file,"wb",encoding="utf-8")
+    f = open(file,'r')
     return f.read()

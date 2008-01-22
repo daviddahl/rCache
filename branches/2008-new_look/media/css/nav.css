@@ -154,7 +154,7 @@ margin:0;
     left:300px;
 
     padding:-1px;
-    font-size:60%;
+    font-size:12px;
     font-family:'sans-serif';
     color:#000;
     background:#fff;
@@ -172,5 +172,5 @@ margin:0;
 
 #login-list{
 
-    margin-top:55px;
+    margin-top:8px;
 }

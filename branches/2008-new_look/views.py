@@ -864,13 +864,21 @@ def new_entry(request):
                           {'ttl':title,'file_name':file_name} 
 
                     content_type = request.FILES['the_file']['content-type']
-                    file_txt = _('***Error sccraping document: %(file_name)s ***') %\
+                    file_txt = _('***Error scraping document: %(file_name)s ***') %\
                                {'file_name':file_name}
 
                     if content_type == 'application/msword':
-                        file_txt = process_word(file_data,file_name)
+                        try:
+                            file_txt = process_word(file_data,file_name)
+                        except Exception,e:
+                            print str(e)
+                            file_txt = u"Error: Could not extract text from file"
                     elif content_type == 'application/pdf':
-                        file_txt = process_pdf(file_data,file_name)
+                        try:
+                            file_txt = process_pdf(file_data,file_name)
+                        except Exception,e:
+                            print str(e)
+                            file_txt = u"Error: Could not extract text from file"
                     #elif content_type == 'text/plain':
                     #    file_txt = process_txt(file_data)
                     else:
@@ -1126,7 +1134,7 @@ def postcache(request):
                     except Exception, e:
                         print unicode(e)
 
-                    return HttpResponse(simplejson.dumps('don'),
+                    return HttpResponse(simplejson.dumps('done'),
                                         mimetype='application/javascript')
                 except Exception,e:
                     print e

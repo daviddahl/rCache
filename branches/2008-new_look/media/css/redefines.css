@@ -81,7 +81,7 @@ input{
     border: 1px solid #BBB;
     color: #000;
     margin:4px;
-    font-size:0.6em;;
+    font-size:12px;
 }
 input:hover {
     border: 1px solid #AAA;
