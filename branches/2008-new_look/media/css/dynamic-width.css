@@ -29,10 +29,10 @@ body {
     padding:0.5em;
 }
 #global_page_title {
-    border-bottom: 1px solid #EEE;
-    border-top: 8px solid #EEE;
-    border-right:1px solid #eee;
-    border-left: 1px solid #eee;
+    border-bottom: 1px solid #ddd;
+    border-top: 8px solid #ddd;
+    border-right:1px solid #ddd;
+    border-left: 1px solid #ddd;
     padding:0px 8px;
     margin-bottom:0px;
 }
@@ -1193,6 +1193,10 @@ text-decoration:underline;
 #keywords td{
 padding:2px;
 }
+#related-docs-header a{
+cursor:pointer;
+}
+
 #related-docs-header{
     padding:8px;
 }

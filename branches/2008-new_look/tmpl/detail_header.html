@@ -34,7 +34,7 @@
   <a onclick="rcache.xhr.related_add_kword('{{ kwd }}');">{{ kwd }}</a> &nbsp;
   {% endfor %}
 </div>
-<div id="related-docs-header" title="{% trans "Click on any of the above keywords, then click 'Show Related Documents'" %}"><strong>{% trans "Related Documents:" %}</strong> <span id="related-doc-keywords"></span>  <a href="#" onclick="rcache.xhr.related_docs_custom_kwords()" title="{% trans "Get Related Documents" %}" class="button">{% trans "Get Related Documents" %}</a>
- <a href="#" onclick="rcache.xhr.related_docs_custom_kwords_clear()" title="{% trans "Clear Keywords" %}" class="button">{% trans "Clear Keywords" %}</a>
+<div id="related-docs-header" title="{% trans "Click on any of the above keywords, then click 'Show Related Documents'" %}"><strong>{% trans "Related Documents:" %}</strong> <span id="related-doc-keywords"></span>  <a onclick="rcache.xhr.related_docs_custom_kwords()" title="{% trans "Get Related Documents" %}" class="button">{% trans "Get Related Documents" %}</a>
+ <a onclick="rcache.xhr.related_docs_custom_kwords_clear()" title="{% trans "Clear Keywords" %}" class="button">{% trans "Clear Keywords" %}</a>
 </div>
 <div id="related-docs"></div>

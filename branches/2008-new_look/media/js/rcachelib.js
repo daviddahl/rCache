@@ -276,10 +276,11 @@ rcache.xhr = xhr;
 
 rcache.entry.new_entry_submit = function(){
     // disable the submit button then submit the form
-    var loading = j('<img src="/media/img/indeterminate-progress-bar.gif"/>');
-    j("#progress-bar").children().remove();
-    j("#progress-bar").append(loading);
+    //var loading = j('<img src="/media/img/indeterminate-progress-bar.gif"/>');
+    j("#progress-bar").show();
+    //j("#progress-bar").append(loading);
     j("#submit").hide();
+    //j("#uploader")[0].submit();
     return true;
 }
 
@@ -312,7 +313,7 @@ rcache.xhr.related_docs_custom_kwords = function(){
 	var kwords_arr = kwords_str.split(" ");
 	var kwords = kwords_arr.join(" AND ");
 	
-	j("#related-docs")[0].innerHTML = '<img src="/media/img/loading_ani2.gif" border="0"/>';
+	j("#related-docs")[0].innerHTML = '<img src="/media/img/indeterminate-progress-bar.gif" border="0"/>';
 	j("#related-docs").css({'border':'1px solid #eee','padding':'4px'});
 	rcache.xhr.related_docs(kwords);
     }
