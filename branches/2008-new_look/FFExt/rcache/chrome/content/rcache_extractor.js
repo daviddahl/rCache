@@ -15,7 +15,7 @@ extractor.http = null;
 extractor.currentURL = function(){
     // get current url
     return getBrowser().currentURI.spec;
-}
+};
 
 extractor.onProgress = function(e){
     //
@@ -26,12 +26,12 @@ extractor.onProgress = function(e){
     } catch(e) {
 	alert(e);
     }
-}
+};
     
 extractor.onError = function(e){
     //
     alert(e);
-}
+};
 
 extractor.download = function(url){
 
@@ -84,7 +84,7 @@ extractor.download = function(url){
 	lstbx.disabled = false;
     }
     
-}
+};
 
 
 extractor.window = function(){    
