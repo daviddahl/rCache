@@ -9,53 +9,32 @@ rCache.com - {{ entry.entry_name }}
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
+<div id="nav-wrap">
+	{% if detail_header %}
+	{% include "detail_header.html" %}
+	{% endif %}
+	<div id="dia" class="jqmWindow" style="z-index:3000; display:none;"></div>
+</div>
+
 <a name="top"></a>
 <div id="detail_entry_text_long">
-
+	<h3><span class="entry_detail_id">{% trans "Entry" %} {{ entry.id }} </span> {{ entry.date_created }}</h3>
 <div id="text_content_boundry">
-  <pre>{{ escaped_text_content|urlize }}</pre>
+	{# EDIT NAV #}
+	<ul class="nav-edit">
+		{% if coll_render %}
+		{% else %}
+		<li><a href="/edit/{{ entry.id }}/" title="{% trans "Edit this entry" %}"><img src="/media/img/note_edit.png" height="24" width="24"></a></li>
+		<li><a href="/remove/{{ entry.id }}/" title="{% trans "Remove this entry permanently" %}"><img src="/media/img/cross.png" height="24" width="24"></a></li>
+		{% endif %}
+		<li><a href="#links" title="{% trans "Extracted Links" %}"><img src="/media/img/link.png" height="24" width="24"></a></li>
+		<li><a href="#imgs" title="{% trans "Extracted Images" %}"><img src="/media/img/picture.png" height="24" width="24"></a></li>
+		<!-- <a href="/commentary/{{ entry.id }}/" title="{% trans "New/Edit Commentary" %}" class="button">{% trans "Commentary" %}</a> -->
+	</ul>
+	{# END EDIT NAV #}
+	<h1><a href="{{ entry.entry_url }}" title="Original URL: {{ entry.entry_url }}" target="_new">{{ entry.entry_name }}</a></h1>
+	<pre>{{ escaped_text_content|urlize }}</pre>
 </div>
 </div>
-
-<a name="links"></a>
-<div id="detail_links_header">
-  <ul>
-    <li><strong>{% trans "Extracted Links" %}</strong></li>
-    <li><a href="#top">{% trans "Back to Top" %}</a></li>
-  </ul>
-</div>
-{% if links_len %}
-<div id="detail_links">
-  <table id="link_table" cellspacing="0" cellpadding="0" border="0">
-    {% for link in links %}
-    <tr class="{% cycle tr-light,tr-dark %}">
-      <td class="detail_link_list" id="link-{{ link.id }}">
-	<a class="js-lnk" onclick="rcache.xhr.entries_with_link({{ link.id }});">Entries That Link To...</a> <a href="{{ link.url }}" title="{% trans "a link scraped from this entry's page" %}" target="_new">{{ link.url }}</a>
-          <div id="link-entries-{{ link.id }}"></div>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-</div>
-{% else %}
-<div class="notice_message"><h4>{% trans "No Links Extracted" %}</h4></div>
-{% endif %}
-<a name="imgs"></a>
-<div id="detail_imgs_header">
-  <ul>
-    <li><strong>{% trans "Extracted Images" %}</strong></li>
-    <li><a href="#top">{% trans "Back to Top" %}</a></li>
-  </ul>
-</div>
-{% if imgs_len %}
-<div id="detail_imgs">
-{% for img in imgs %}
-  <img src="{{ img.path }}" title="{% trans "an image scraped from this entry's page" %}"/><br />
-  {% endfor %}
-</div>
-{% else %}
-<div class="notice_message"><h4>{% trans "No Images Extracted" %}</h4></div>
-{% endif %}
-
 </div>
 {% endblock %}

@@ -758,10 +758,9 @@ pre {
     width: 700px;
 }
 #detail_wrapper {
-    border: 1px solid #AAA;
+	border-left:340px solid #000;
     padding: 0px;
     margin:0px;
-    width: 705px;
 }
 #detail_imgs {
     border: 1px solid #DDD;

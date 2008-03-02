@@ -72,3 +72,14 @@
   line-height: 1em;
   font-size: 16px;
 }
+.sIFR-active #text_content_boundry h3 {
+  visibility: hidden;
+  line-height: 1em;
+  font-size: 18px;
+}
+
+.sIFR-active #nav-wrap h4 {
+  visibility: hidden;
+  line-height: 1em;
+  font-size: 18px;
+}

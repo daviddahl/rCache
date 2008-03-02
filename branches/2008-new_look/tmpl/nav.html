@@ -1,39 +1,30 @@
 {% load i18n %}
-<script>
-  $(document).ready(function(){
-  var h = $("#nav-wrap").height();
-  var offset = h + 2;
-  var offset = offset + "px";
-  $("#detail_wrapper").css({'margin-top':offset});
-  });
-</script>
-<div id="nav-wrap">
-<div id="nav">
-  <ul>
-    <li><a href="/colleagues/" title="{% trans 'Manage Colleagues' %}">{% trans "Colleagues" %}</a></li>
-    <li><a href="/saved/links/" title="{% trans "Browse your Saved Links" %}">{% trans "Links" %}</a></li>
-    <li><a href="/filter/" title="{% trans "Filter your data by Tag or Domain" %}">{% trans "Filter" %}</a></li>
-    <li><a href="/recent/">{% trans "Entries" %}</a></li>
-    <li><a href="/new/" title="{% trans "Create new entry or upload document" %}">{% trans "New" %}</a></li>
-  </ul>
+<div id="pub-menu-header">
+	<div class="home-title"><a href="/recent/">rCache</a></div>
+	<div class="home-subtitle">Online Research Tools</div>
+
+	<ul id="user-nav">
+	  <li><a href="/myaccount/" title="{% trans "Update Account" %}">{{ user.login }}</a></li>
+	  <li class="logout"><a href="/logout/" title="{% trans "Exit rCache" %}">{% trans "Logout" %}</a></li>
+	</ul>
+
+	<div id="nav">
+	<ul>
+	<li><a href="/colleagues/" title="{% trans 'Manage Colleagues' %}">{% trans "Colleagues" %}</a></li>
+	<li><a href="/saved/links/" title="{% trans "Browse your Saved Links" %}">{% trans "Links" %}</a></li>
+	<li><a href="/filter/" title="{% trans "Filter your data by Tag or Domain" %}">{% trans "Filter" %}</a></li>
+	<li><a href="/recent/">{% trans "Entries" %}</a></li>
+	<li><a href="/new/" title="{% trans "Create new entry or upload document" %}">{% trans "New" %}</a></li>
+	</ul>
+	<br class="clearit" />
+	</div>
+
 </div>
+<div id="pub-menu"></div>
 
-<ul id="search-nav">
-<li><input style="background:#fdfdfd;margin-top:0px;margin-left:0;margin-right:0;margin-bottom:0;padding:4px;" name="search_query" id="search-inpt" size="40" maxlength="40" value="{% trans "Search..." %}" onclick="rcache.xhr.clear_input(this);" onkeydown="checkSubmission(event);"/><img src="/media/img/system-search.png" border="0" onclick="rcache.xhr.search();" style="margin-top:4px; margin-left:4px; cursor:pointer;" title="{% trans "Search your data" %}"/></li>
-</ul>
-
-<ul id="user-nav">
-  <li class="home-title"><a href="/recent/"><span class="logo-r">r</span>Cache</a></li>
-  <li><a href="/myaccount/" title="{% trans "Update Account" %}">{{ user.login }}</a></li>
-  <li><a href="/logout/" title="{% trans "Exit rCache" %}">{% trans "Logout" %}</a></li>
-</ul>
 <div id="global_page_title">
     {% block func_title %}
     <h1>{{ global_page_title }}</h1>
     {% endblock %}
 </div>
-{% if detail_header %}
-{% include "detail_header.html" %}
-{% endif %}
-<div id="dia" class="jqmWindow" style="z-index:3000; display:none;"></div>
-</div>
+
