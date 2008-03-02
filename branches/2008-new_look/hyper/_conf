@@ -1,0 +1,141 @@
+# binding address of TCP (0.0.0.0 means every address)
+bindaddr: 0.0.0.0
+
+# port number of TCP
+portnum: 1972
+
+# public URL (absolute URL)
+publicurl:
+
+# running mode (1:normal, 2:readonly)
+runmode: 1
+
+# authorization mode (1:none, 2:admin, 3:all)
+authmode: 1
+
+# maximum length of data to receive (in kilobytes)
+recvmax: 1024
+
+# maximum number of connections at the same time
+maxconn: 30
+
+# idle time to start flushing (in seconds)
+idleflush: 20
+
+# idle time to start synchronizing (in seconds)
+idlesync: 300
+
+# timeout of a session (in seconds)
+sessiontimeout: 600
+
+# timeout of search (in seconds)
+searchtimeout: 15
+
+# maximum number of documents to send
+searchmax: 1000
+
+# maximum depth of meta search
+searchdepth: 5
+
+# whether to rate URI for scoring (0:no, 1:yes)
+rateuri: 1
+
+# merge method of meta search (1:score, 2:score and rank, 3:rank)
+mergemethod: 2
+
+# host name of the proxy
+proxyhost:
+
+# port number of the proxy
+proxyport:
+
+# path of the log file (relative path or absolute path)
+logfile: _log
+
+# logging level (1:debug, 2:information, 3:warning, 4:error, 5:none)
+loglevel: 2
+
+# command for backup (absolute path of a command)
+backupcmd:
+
+# scale prediction (1:small, 2:medium, 3:large, 4:huge)
+scalepred: 2
+
+# score expression (1:void, 2:char, 3:int, 4:asis)
+scoreexpr: 2
+
+# attribute indexes (attribute name and data type)
+attrindex: @mdate{{!}}seq
+attrindex: @title{{!}}str
+
+# document root directory (absolute path of a directory to be public)
+docroot:
+
+# index file (name of directory index files)
+indexfile: /var/hyper/daemon-root/casket
+
+# decimal IP addresses of trusted nodes
+trustednode:
+
+# whether to deny all nodes except for trusted nodes (0:no, 1:yes)
+denyuntrusted: 0
+
+# maximum size of the index cache (in megabytes)
+cachesize: 64
+
+# maximum number of cached records for document attributes
+cacheanum: 8192
+
+# maximum number of cached records for document texts
+cachetnum: 1024
+
+# maximum number of cached records for occurrence results
+cachernum: 256
+
+# name of the attribute of the special cache
+specialcache:
+
+# lower limit of cache usage to use the helper
+helpershift: 0.9
+
+# maximum number of expansion of wild cards
+wildmax: 256
+
+# text size limitation of indexing documents (in kilobytes)
+limittextsize: 128
+
+# whole width of the snippet of each shown document
+snipwwidth: 480
+
+# width of strings picked up from the beginning of the text
+sniphwidth: 96
+
+# width of strings picked up around each highlighted word
+snipawidth: 96
+
+# whether to check documents by scanning (0:no, 1:yes)
+scancheck: 1
+
+# number of keywords for similarity search (0 means disabled)
+smlrvnum: 32
+
+# number of documents for delay of keyword extraction
+extdelay: 4096
+
+# e-mail address of the administrator
+adminemail: magnus@hyperestraier.gov
+
+# expressions to replace the URI of each document
+uireplace: ^file:///home/mikio/public_html/{{!}}http://localhost/
+uireplace: /index\.html?${{!}}/
+
+# extra attributes to be shown
+uiextattr: @author|Author
+uiextattr: @mdate|Modification Date
+
+# mode of phrase form (1:usual, 2:simplified, 3:rough, 4:union: 5:intersection)
+uiphraseform: 2
+
+# tuning parameters for similarity search
+uismlrtune: 16 1024 4096
+
