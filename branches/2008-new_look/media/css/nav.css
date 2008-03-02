@@ -1,11 +1,7 @@
 .home-subtitle,#pub-menu li {
 	font-family:'Georgia sans-serif', sans-serif;
-	text-align:center;
 }
 .home-title {
-	font-size:24px;
-	letter-spacing:-2px;
-	text-align:center;
 }
 .home-title li {
     border-bottom:1px solid #aaa;
@@ -15,57 +11,67 @@
     text-align:center;
 }
 .home-title a {
-	text-decoration:none;
-	color:#333;
-	letter-spacing:-2px;
 }
 .home-subtitle {
     font-size:8px;
     text-transform:uppercase;
     letter-spacing:2px;
-    margin-bottom:4px;
     padding-bottom:4px;
 }
-.home-title .logo-r {
-	font-style:italic;
-	font-weight:bold;
-	color:#9a8255;
-	padding-right:4px;
-}
+
+
 #pub-menu-header{
-position:relative;
+	padding:32px 32px 8px 32px;
+	position:relative;
+	background:#3F341D;
+}
+
+.login-wrapper {
+	display:none;
+	position:absolute;
+	right:24px;
+	top:0px;
+	padding:16px 8px 8px 8px;
+	background:#272115;
 }
 
 #login-form{
-position:absolute;
-right:16px;
-float:right;
-top:0px;
 }
 
 #login-form input{
-font-size:10px;
+font-size:12px;
 }
 
 #pub-menu {
     padding:3px 0px;
-    border-top:1px solid #000;
-    border-bottom:1px solid #000;
+	background:#85795F;
+	clear:both;
 }
-#pub-menu ul {
-    text-align:center;
+#pub-menu-header ul {
+    position:absolute;
+    right:24px;
+	bottom:0px;
 }
-#pub-menu li {
-    display:inline;
-    font-size:14px;
-    padding:0px 8px;
+#pub-menu-header li {
+    float:left;
+    font-size:12px;
+    padding:8px 12px;
+	background:#272115;
+	margin-left:4px;
 }
 
-#pub-menu li a {
-    text-decoration: none;
+#pub-menu-header li.login {
+	background:#85795F;
+	cursor:pointer;
 }
-#pub-menu li a:hover {
-    color: #CC6600;
+  
+
+#pub-menu-header li a {
+    text-decoration: none;
+    color:#CFC3A7;
+}
+#pub-menu-header li a:hover {
+    color:#ffffff;
     text-decoration: underline;
 }
 #nav{

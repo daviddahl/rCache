@@ -1,6 +1,6 @@
 body {
-    font-family:'Lucida Grande',sans-serif;
-    background-color: #efefef;
+    font-family:Arial,sans-serif;
+    background-color: #E2DEBF;
     margin:0;
     padding:0;
     font-size:0.8em;
@@ -10,7 +10,6 @@ body {
 #wrapper {
     padding:0px;
     margin:0px;
-    background-color:#fff;
     min-width:800px;
 }
 #wrapper-inner {

@@ -1,7 +1,7 @@
 body {
     font:11px 'trebuchet ms', verdana, sans-serif;
     line-height: 1em;
-    background-color: #CCC;
+    background-color: #CFC3A7 ;
     margin:0;
     padding:0;
     vertical-align : middle;
@@ -25,7 +25,7 @@ td {
     padding: 0px;
     font-size: 11px;
 }
-
+/*
 h1 {
     font-size:16px;
     line-height: 1em;
@@ -34,7 +34,7 @@ h1 {
 h1 a{
     text-decoration:none;
 }
-
+*/
 h3{
     font-weight: 900;
     padding: 3px;

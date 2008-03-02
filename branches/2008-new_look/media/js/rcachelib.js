@@ -276,36 +276,36 @@ rcache.xhr = xhr;
 
 rcache.entry.new_entry_submit = function(){
     // disable the submit button then submit the form
-    //var loading = j('<img src="/media/img/indeterminate-progress-bar.gif"/>');
-    j("#progress-bar").show();
-    //j("#progress-bar").append(loading);
-    j("#submit").hide();
-    //j("#uploader")[0].submit();
+    //var loading = $('<img src="/media/img/indeterminate-progress-bar.gif"/>');
+    $("#progress-bar").show();
+    //$("#progress-bar").append(loading);
+    $("#submit").hide();
+    //$("#uploader")[0].submit();
     return true;
 }
 
 rcache.xhr.related_add_kword = function(kword){
     // add a keyword to the kwords span
-    var existing_kwords = j('#related-doc-keywords')[0].innerHTML;
+    var existing_kwords = $('#related-doc-keywords')[0].innerHTML;
     //alert(existing_kwords);
     if (existing_kwords == ''){
-	j('#related-doc-keywords')[0].innerHTML = existing_kwords + kword + " ";
+	$('#related-doc-keywords')[0].innerHTML = existing_kwords + kword + " ";
     } else {
 	var e_kwords_arr = existing_kwords.split(" ");
 	if (e_kwords_arr.indexOf(kword) >= 0){
 	    //already in array
 	} else {
-	    j('#related-doc-keywords')[0].innerHTML = existing_kwords + kword + " ";
+	    $('#related-doc-keywords')[0].innerHTML = existing_kwords + kword + " ";
 	}
     }
 }
 rcache.xhr.related_docs_custom_kwords_clear = function(){
-    j('#related-doc-keywords')[0].innerHTML = '';
+    $('#related-doc-keywords')[0].innerHTML = '';
 }
 
 rcache.xhr.related_docs_custom_kwords = function(){
     // get the keywords from the span holding them, pass them to 'related_docs'
-    var kwords_str = j('#related-doc-keywords')[0].innerHTML;
+    var kwords_str = $('#related-doc-keywords')[0].innerHTML;
     kwords_str.trim()
     if (kwords_str == ''){
 	alert("Please select one or more keywords.");
@@ -313,8 +313,8 @@ rcache.xhr.related_docs_custom_kwords = function(){
 	var kwords_arr = kwords_str.split(" ");
 	var kwords = kwords_arr.join(" AND ");
 	
-	j("#related-docs")[0].innerHTML = '<img src="/media/img/indeterminate-progress-bar.gif" border="0"/>';
-	j("#related-docs").css({'border':'1px solid #eee','padding':'4px'});
+	$("#related-docs")[0].innerHTML = '<img src="/media/img/indeterminate-progress-bar.gif" border="0"/>';
+	$("#related-docs").css({'border':'1px solid #eee','padding':'4px'});
 	rcache.xhr.related_docs(kwords);
     }
 }
@@ -327,17 +327,17 @@ rcache.xhr.related_docs = function(kwords){
     //query = query + kwords_arr.join(' ');
     var post_data = {'search_str':query};
     var url = "/xhr/search/";
-    j.post(url,post_data,function(data,textStatus){
+    $.post(url,post_data,function(data,textStatus){
 	    res = eval('(' + data  + ')');
 	    if (res.status == 'success'){
-		j("#related-docs").children().remove();
-		j("#related-docs")[0].innerHTML = res.msg;
-		j("#related-docs").css({'border':'1px solid #eee',
+		$("#related-docs").children().remove();
+		$("#related-docs")[0].innerHTML = res.msg;
+		$("#related-docs").css({'border':'1px solid #eee',
 			    'padding':'4px',
 			    'max-height':'200px',
 			    'overflow':'auto'});
-		j("#related-docs > table").css({'width':'100%'});
-		j("#related-docs").show("slow");
+		$("#related-docs > table").css({'width':'100%'});
+		$("#related-docs").show("slow");
 	    } else {
 		alert(res.msg);
 	    }
@@ -352,7 +352,7 @@ rcache.xhr.clear_input = function(inpt){
 
 rcache.xhr.search = function(){
     // perform a search - use base64 encoding on search query
-    var qs = encodeURIComponent(j('#search-inpt')[0].value);
+    var qs = encodeURIComponent($('#search-inpt')[0].value);
     // get input value
     // base64 encode it
     // change location to /search/?q=jhfjdhfldhgfkdhfdjh
@@ -366,13 +366,13 @@ rcache.xhr.search = function(){
 
 rcache.xhr.entries_with_link = function(link_id){
     var url = "/xhr/entries/with/link/" + link_id + "/";
-    j.get(url,function(data){
+    $.get(url,function(data){
 	    var res = eval('(' + data + ')');
 	    if (res.status == 'success'){
-		var entries = j(res.entries);
+		var entries = $(res.entries);
 		//alert(res.entries);
-		j("#link-entries-" + res.link_id).children().remove();
-		j("#link-entries-" + res.link_id).append(entries);
+		$("#link-entries-" + res.link_id).children().remove();
+		$("#link-entries-" + res.link_id).append(entries);
 	    } else {
 		//fixme: install jqModal
 		alert("No other entries contain this link");

@@ -1,20 +1,22 @@
 {% load i18n %}
 <div id="pub-menu-header">
-<div class="home-title"><a href="/"><span class="logo-r">r</span>Cache</a></div>
+<div class="home-title"><a href="/">rCache</a></div>
 <div class="home-subtitle">Online Research Tools</div>
-
-</div>
-
-<div id="pub-menu">
   <ul>
+    <li class="login">Login</li>
     <li><a href="/about/">About</a></li>
     <li><a href="/contact/">Contact</a></li>
     <li><a href="/account/">Get an Account</a></li>
     <li><a href="/collector/" title="The rCache Firefox Extension">rCache Collector</a></li>
     <li><a href="http://rcache.blogspot.com">Blog</a></li>
-    <li>
-      
-      <form id="login-form" action="/login/" method="post">
+  </ul>
+  <br class="clearit" />
+</div>
+
+<div id="pub-menu">
+</div>
+	<div class="login-wrapper">
+    <form id="login-form" action="/login/" method="post">
 	<ul id="login-list">
 	  <li title="Enter your email address">
 	    <input type="text" name="login" maxlength="60" size="15"/>
@@ -26,8 +28,5 @@
 	    <input type="submit" name="loginbutton" value="{% trans "Login" %}"/>
 	  </li>
 	</ul>
-      </form>
-
-    </li>
-  </ul>
-</div>
+    </form>
+    </div>
