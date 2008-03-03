@@ -20,7 +20,7 @@ extractor.currentURL = function(){
 extractor.onProgress = function(e){
     //
     try{
-	var progress = document.getElementById('pdf-dl-progress');
+	var progress = document.getElementById('media-dl-progress');
 	var percentComplete = (e.position / e.totalSize)*100;
 	progress.value = percentComplete;
     } catch(e) {
@@ -37,21 +37,21 @@ extractor.download = function(url){
 
     try{
 	http = new XMLHttpRequest();
-	var dl_desc = document.getElementById('pdf-dl-desc');
+	var dl_desc = document.getElementById('media-dl-desc');
 	dl_desc.setAttribute("value","Downloading: " + url );
 	function readystatechange(e){
 	    if(http.status == 200){
 		if(http.readyState == 4){
 		    //alert("Done");
-		    var lstbx = document.getElementById('pdf-lst');
+		    var lstbx = document.getElementById('media-lst');
 		    lstbx.disabled = false;
-		    var progress = document.getElementById('pdf-dl-progress');
+		    var progress = document.getElementById('media-dl-progress');
 		    progress.value = 0;
 		    var btn = document.getElementById('cache-button');
 		    btn.disabled = false;
 		    var dllst = document.getElementById('downloaded-items');
 		    dllst.appendItem(url);
-		    var dl_desc = document.getElementById('pdf-dl-desc');
+		    var dl_desc = document.getElementById('media-dl-desc');
 		    dl_desc.setAttribute("value","Download Finished" );
 		    this.bCompleted = true;
 		    return http.responseText;
@@ -80,7 +80,7 @@ extractor.download = function(url){
 	dl_desc.setAttribute("value",msg);
     } catch(e){
 	alert(e);
-	var lstbx = document.getElementById('pdf-lst');
+	var lstbx = document.getElementById('media-lst');
 	lstbx.disabled = false;
     }
     
@@ -226,7 +226,7 @@ extractor.reportXUL = function(){
 	    var report_win = this.extractor_win();
 	    //alert(report_win);
 	    var loadFunction = function() {
-		var pdflst = report_win.document.getElementById('pdf-lst');
+		var pdflst = report_win.document.getElementById('media-lst');
 		for (var i = 0; i < matched_links['pdfs'].length; i++){
 		    pdflst.appendItem(matched_links['pdfs'][i].href);	
 		}
@@ -295,10 +295,10 @@ extractor.startDownload = function(){
     if (this.dlCollection == null){
 	this.dlCollection = new Array();
     }
-    var lstbx = document.getElementById('pdf-lst');
+    var lstbx = document.getElementById('media-lst');
     url = lstbx.getSelectedItem(0);
     //alert(url.label);
-    var progress = document.getElementById('pdf-dl-progress');
+    var progress = document.getElementById('media-dl-progress');
     progress.value = 0;
     //lstbx.disabled = true;
     try{

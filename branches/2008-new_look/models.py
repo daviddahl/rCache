@@ -165,28 +165,27 @@ class Entry(models.Model):
         hyper = h(url=os.environ['RCACHE_HYPER_URL'])
         try:
             res = hyper.search(query,user.id)
+
+            lst,dct = hyper.id_lst()
+            print "entries found: %s" % str(len(lst))
+            #print dct
+            if len(lst) > 0:
+                in_str = "id IN (%s)" % ",".join(lst)
+                entries = Entry.objects.filter(user=user).extra(where=[in_str,])
+                qs = []
+                for entry in entries:
+
+                    id = str(entry.id)
+                    the_attrs = dct[id]
+                    #print the_attrs
+                    entry.set_hyper_attrs(the_attrs)
+                    qs.append(entry)
+            else:
+                return []
+            return qs
         except Exception, e:
             raise #re-raise the SearchError
-        lst,dct = hyper.id_lst()
-        print "entries found: %s" % str(len(lst))
-        #print dct
-        if len(lst) > 0:
-            in_str = "id IN (%s)" % ",".join(lst)
-            entries = Entry.objects.filter(user=user).extra(where=[in_str,])
-            qs = []
-            for entry in entries:
-
-                id = str(entry.id)
-                the_attrs = dct[id]
-                #print the_attrs
-                entry.set_hyper_attrs(the_attrs)
-                qs.append(entry)
-
-                #                    print "problem with : %s" % entry.id
-                #                    print str(e)
-        else:
-            return []
-        return qs
+        
 
     def set_hyper_attrs(self,dct):
         """

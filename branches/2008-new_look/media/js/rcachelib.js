@@ -266,7 +266,6 @@ var JsSpiderCallBk = {
 
 var rcache = new Object();
 var xhr = new Object();
-
 var entry = new Object();
 
 rcache.entry = entry;

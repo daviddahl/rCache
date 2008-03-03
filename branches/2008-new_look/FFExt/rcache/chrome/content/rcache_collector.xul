@@ -8,18 +8,13 @@
   <script type="application/x-javascript" 
 	  src="chrome://global/content/XPCNativeWrapper.js"/>
   <script type="application/x-javascript" 
-	  src="chrome://rcache/content/rcache_extractor.js"/>
+	  src="jquery-min.js"/>
   <script type="application/x-javascript" 
-	  src="chrome://rcache/content/rcache_compress.js"/>
+	  src="extractor.js"/>
   <script type="application/x-javascript" 
-	  src="chrome://rcache/content/rclip_compress.js"/>
-  <script type="application/x-javascript" 
-	  src="chrome://rcache/content/jquery-min.js"/>
-  <script>
-    var j = jQuery.noConflict();
-  </script>
+	  src="rcache_compress.js"/>
 <hbox>
-<vbox id="outer-box" style="max-width:60em;">
+<vbox id="outer-box">
 
 <hbox id="collect-widget-hbox">
 <vbox id="rcache-collector-widgets">
@@ -45,12 +40,8 @@
 	   multiline="false"/>
   
 </vbox>
-
 <hbox>
-  <vbox>
-    <label id="textlabel" value="Captured Text" crop="right"/>
-    <textbox id="selectedtext" multiline="true"/>
-  </vbox>
+    <textbox id="selectedtext" multiline="true" style="width:500px;"/>
 </hbox>
 <vbox>
 
@@ -73,11 +64,11 @@
 
       <description id="desc-title">Click URL to Download</description>
       <vbox>
-	<listbox id="pdf-lst" 	       
+	<listbox id="media-lst" 	       
 		 seltype="single"
-		 onselect="extractor.startDownload();">
+		 onselect="extractor.download();">
 	  <listhead>
-	    <listheader label="Available PDFs, Docs, Images"/>
+	    <listheader label="Available PDFs, Docs, Images and other media."/>
 	  </listhead>
 	  
 	  <listcols>
@@ -87,13 +78,13 @@
 	
       </vbox>
       
-      <description id="pdf-dl-desc">Download Status</description>
+      <description id="media-dl-desc">Download Status</description>
       
-      <progressmeter id="pdf-dl-progress" value="0"/>
+      <progressmeter id="media-dl-progress" value="0"/>
 
       <listbox id="downloaded-items" 
 	       seltype="single"
-	       onselect="extractor.showFileDetails();">
+	       onselect="extractor.media_details();">
 	<listhead>
 	  <listheader label="Downloaded Items"/>
 	</listhead>
@@ -116,11 +107,11 @@
   </hbox>
 <hbox id="rcache-controls">
 <button id="cache-button" 
-		onclick="extractor.post_after_confirm();" label="Continue"
+		onclick="extractor.collect();" label="rCache this data"
 		disabled="true"/>
 
 <label id="statusmsg" 
-       value="" 
+       value="***" 
        crop="right"/>
 
 </hbox>

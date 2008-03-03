@@ -8,18 +8,19 @@
   xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js"/>
-<script src="chrome://rcache/content/rcache_compress.js"/>
-<script src="chrome://rcache/content/rclip_compress.js"/>
-<script src="chrome://rcache/content/rcache_extractor.js"/>
+<script src="rcache_compress.js"/>
+<script src="rclip_compress.js"/>
+<script src="jquery.min.js"/>
+<script src="extractor.js"/>
 
 <commandset>
   <command id="cmd_close" oncommand="rcache.close()"/>
   <command id="rcache_old" oncommand="rcache.confirm();"/>
-  <command id="rcache_extract" oncommand="extractor.reportXUL();"/>
+  <command id="rcache_extract" oncommand="extractor.start();"/>
 </commandset>
 
 <keyset>
-    <key id="rcache_key" modifiers="alt" key="R" oncommand="extractor.reportXUL()"/>
+    <key id="rcache_key" modifiers="alt" key="R" oncommand="extractor.start()"/>
     <key id="rcache_key_old" modifiers="alt shift" key="R" oncommand="rcache.confirm()"/>
   </keyset>
   <!--<toolbox id="navigator-toolbox">
@@ -49,7 +50,7 @@
 		  tooltiptext="rcache Collector"
 		  src="chrome://rcache/content/skin/rcache_circle_btn.png"
 		  accesskey="r"
-		  onmousedown="extractor.reportXUL();">
+		  onmousedown="extractor.start();">
     
     <!--<button
 	id="rcache-activate-button"
