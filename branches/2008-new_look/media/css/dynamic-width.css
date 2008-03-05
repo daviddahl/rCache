@@ -96,10 +96,11 @@ br.clearit {
 
 #footer { 
     padding:16px;
-    margin:8px 0px;
+    margin:0px;
     font-size:10px;
     font-family:Arial,Helvetica,Sans-serif;
     color:#111;
+    background:#333;
 }
 #footer a { 
 	background-color:#fff;
@@ -345,13 +346,15 @@ h2 {
     width:100%
 }
 #text_content_boundry {
-    padding:32px;
+    padding:32px 32px 32px 72px;
     min-height:40%;
     overflow: visible;
     line-height:1.5em;
     font-size:1em;
 	border-right:232px solid #D2E2E8;
 	position:relative;
+/*	border-left:16px solid #ccc;
+	background:url(http://source.un1t.net/ae4-img-ui/dark.vgrip3.gif) repeat-y left;*/
 }
 
 #detail_wrapper h3 {
@@ -1200,6 +1203,7 @@ cursor:pointer;
 }
 
 #related-docs-header{
+	background:#D2E2E8;
     padding:16px 0px;
 
 }

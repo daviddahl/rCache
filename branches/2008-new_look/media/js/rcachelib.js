@@ -448,3 +448,9 @@ function UnCryptMailto(s) {
     }
     return r;
 }
+$(document).ready(function(){
+	$(".rounded-top").corner("top round 6px");
+	$(".rounded").corner("8px");
+	$("ul.nav-edit li").corner("tr br round 6px");
+
+});

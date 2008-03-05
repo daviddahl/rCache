@@ -135,9 +135,9 @@ sIFR.replace(bulmerMT, {
     ,tuneHeight:'-8'
     ,tuneWidth:'3'
     ,css: {
-      '.sIFR-root': { 'leading':'-14','font-size':'34','color':'#ffffff','letter-spacing':-1,'background-color':'#1F0F03','margin-left':0,'margin-right':0,'text-transform':'none','display':'block','text-align':'center'},
-        'a' : {'color': '#ffffff','text-decoration': 'none'},
-        'a:hover' : {'color': '#E2DEBF'}
+      '.sIFR-root': { 'leading':'-14','font-size':'34','color':'#5FBAFF','letter-spacing':-1,'background-color':'#1F0F03','margin-left':0,'margin-right':0,'text-transform':'none','display':'block','text-align':'center'},
+        'a' : {'color': '#5FBAFF','text-decoration': 'none'},
+        'a:hover' : {'color': '#5FBAFF'}
     }
 });
 sIFR.replace(bulmerMT, {

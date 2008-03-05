@@ -25,7 +25,9 @@
 <script type="text/javascript" src="/media/js/jquery.min.js"></script>
 <script type="text/javascript" src="/media/js/pub.js"></script>
 {% block js %}
+
 <!--<script type="text/javascript" src="/jsi18n/rcache/"></script>-->
+<script src="/media/js/jquery.corner.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/media/js/rcachelib.js"></script>
 <script type="text/javascript" src="/media/js/dimensions.js"></script>
 <script type="text/javascript" src="/media/js/jqModal.js"></script>
@@ -49,7 +51,7 @@
 <div id="footer">
   {% block getfirefox %}
   {% block copyright %}
-  <span id="copyright">&copy; 2008 rCache.com &nbsp;</span>
+  <span id="copyright">&copy; 2008 rCache.com</span>
   {% endblock copyright %}
   {% include "rcache_version.html" %} <a href="http://getfirefox.com/" title="Get Firefox - The Browser, Reloaded.">{% trans "Get Firefox" %}.</a>
   {% endblock getfirefox %}

@@ -24,11 +24,11 @@ rCache.com - {{ entry.entry_name }}
 	<ul class="nav-edit">
 		{% if coll_render %}
 		{% else %}
-		<li><a href="/edit/{{ entry.id }}/" title="{% trans "Edit this entry" %}"><img src="/media/img/note_edit.png" height="24" width="24"></a></li>
-		<li><a href="/remove/{{ entry.id }}/" title="{% trans "Remove this entry permanently" %}"><img src="/media/img/cross.png" height="24" width="24"></a></li>
+		<li><a href="/edit/{{ entry.id }}/" title="{% trans "Edit this entry" %}"><img src="/media/img/note_edit.png" height="16" width="16"></a></li>
+		<li><a href="/remove/{{ entry.id }}/" title="{% trans "Remove this entry permanently" %}"><img src="/media/img/cross.png" height="16" width="16"></a></li>
 		{% endif %}
-		<li><a href="#links" title="{% trans "Extracted Links" %}"><img src="/media/img/link.png" height="24" width="24"></a></li>
-		<li><a href="#imgs" title="{% trans "Extracted Images" %}"><img src="/media/img/picture.png" height="24" width="24"></a></li>
+		<li><a href="#links" title="{% trans "Extracted Links" %}"><img src="/media/img/link.png" height="16" width="16"></a></li>
+		<li><a href="#imgs" title="{% trans "Extracted Images" %}"><img src="/media/img/picture.png" height="16" width="16"></a></li>
 		<!-- <a href="/commentary/{{ entry.id }}/" title="{% trans "New/Edit Commentary" %}" class="button">{% trans "Commentary" %}</a> -->
 	</ul>
 	{# END EDIT NAV #}

@@ -109,7 +109,7 @@ font-size:12px;
 #nav ul li {
     float:left; 
     font-size:12px;
-    padding:8px 12px;
+    padding:6px 12px 5px 12px;
 	background:#A04D00;
 	margin-left:4px;
 }
@@ -139,6 +139,7 @@ font-size:12px;
 }
 
 #user-nav {
+	font-size:18px;
     position:absolute;
     top:16px;
     right:232px;
@@ -146,13 +147,9 @@ font-size:12px;
 }
 
 #user-nav li {
-    float:left;
-	background:none;
-	margin-left:32px;
-	padding:4px 6px;
 }
-#user-nav .logout {
-	background:#272115;
+#user-nav .logout a {
+	color:#000;
 }
 #search-nav ul{
 padding:0;
@@ -200,12 +197,13 @@ margin:0;
 
 ul.nav-edit {
 	position:absolute;
-	top:16px;
-	right:16px;
+	top:32px;
+	left:0px;
 }
 ul.nav-edit li {
-	float:left;
-	margin-left:16px;
+	margin-bottom:2px;
+	background:#ccc;
+	padding:6px 6px 4px 6px;
 }
 
 ul.nav-edit li a {
