@@ -438,6 +438,63 @@ save_link = function(){
     */
 };
 
+
+var viz = new Object();
+
+rcache.viz = viz;
+
+rcache.viz.setup = function(){
+    $(".viz-tag-box > a").hide();
+};
+
+rcache.viz.mouse_ovr = function(el){
+    // do some animation when mouse over occurs
+    try {
+	$(".viz-expanded").animate({'padding':'4px','font-size':''});
+	$(".viz-expanded").css({'font-size':'','float':'left','background':''});
+	$(".viz-tag-box").removeClass('viz-expanded');
+	
+    } catch(e){
+	// do nothing
+    }
+
+    $(el).animate({'padding':'4px','font-size':'12px'});
+    $(el).css({'font-size':'12px','float':'','background':''});
+    $(el).addClass('viz-expanded');
+};
+
+rcache.viz.mouse_out = function(el){
+    // do some animation when mouse over occurs
+    $(el).animate({'padding':'4px','font-size':''});
+    $(el).css({'font-size':'','float':'left','background':''});
+};
+
+rcache.viz.recent_tagged_with = function(id){
+    // get recently tagged entry titles
+    var the_div = $("#viz-detail-box");
+    var url ='/viz/xhr/recent/tagged/with/' + id +"/";
+    $.get(url,function(data){
+	    var res = eval('(' + data + ')');
+	    if (res.status == 'success'){
+		var entries = $(res.msg);
+		//alert(res.msg);
+		try{
+		    $("._entries").children().remove();
+		    $("._entries").removeClass('_entries');
+		}catch(e){
+		    // blah!
+		    //alert(e);
+		}
+		//the_div.children().remove();
+		the_div.append(entries);
+		the_div.addClass("_entries");
+	    } else {
+		//fixme: install jqModal
+		alert("could not get entries for tag");
+	    }
+	});
+};
+
 function UnCryptMailto(s) {
     var n=0;
     var r="";
@@ -448,6 +505,10 @@ function UnCryptMailto(s) {
     }
     return r;
 }
+
+
+
+
 $(document).ready(function(){
 	$(".rounded-top").corner("top round 6px");
 	$(".rounded").corner("8px");

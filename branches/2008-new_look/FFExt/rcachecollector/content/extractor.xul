@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://rcachecollector/skin/rcache.css" type="text/css"?>
+<?xml-stylesheet href="chrome://rcachecollector/skin/overlay.css" type="text/css"?>
+<window id="rcache-extractor"
+	title="rcache Collector 0.2"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/x-javascript" 
+	  src="chrome://global/content/XPCNativeWrapper.js"/>
+  <script type="application/x-javascript" 
+	  src="extractor.js"/>
+<hbox>
+<vbox id="outer-box">
+
+<hbox id="collect-widget-hbox">
+<vbox id="rcache-collector-widgets">
+<label id="urllabel"
+	 value="URL"
+	 crop="right"/>
+
+  <textbox id="url" flex="1"
+	 multiline="false"/>
+
+  <label id="pgtitlelabel" 
+	 value="Title" 
+	 crop="right"/>
+
+  <textbox id="pagetitle" flex="1"
+	   multiline="false"/>
+
+  <label id="taglabel" 
+	 value="Tags (comma-delimited)" 
+	 crop="right"/>
+
+  <textbox id="tags"
+	   multiline="false"/>
+  
+</vbox>
+<hbox>
+    <textbox id="selectedtext" multiline="true" style="width:500px;"/>
+</hbox>
+<vbox>
+
+</vbox>
+</hbox>
+  <hbox id="top-hbox"><!-- start main hbox -->
+    <vbox id="pdf-box"><!-- start  vbox -->
+
+      <hbox>
+	<listbox id="linkbox"
+		 seltype="multiple">
+	  <listhead>
+	    <listheader label="Captured Links"/>
+	  </listhead>
+	  <listcols>
+	    <listcol flex="1"/>
+	  </listcols>    
+	</listbox>
+      </hbox>
+
+      <description id="desc-title">Click URL to Download</description>
+      <vbox>
+	<listbox id="media-lst" 	       
+		 seltype="single"
+		 onselect="extractor.download();">
+	  <listhead>
+	    <listheader label="Available PDFs, Docs, Images and other media."/>
+	  </listhead>
+	  
+	  <listcols>
+	    <listcol flex="1"/>
+	  </listcols>    
+	</listbox>
+	
+      </vbox>
+      
+      <description id="media-dl-desc">Download Status</description>
+      
+      <progressmeter id="media-dl-progress" value="0"/>
+
+      <listbox id="downloaded-items" 
+	       seltype="single"
+	       onselect="extractor.media_details();">
+	<listhead>
+	  <listheader label="Downloaded Items"/>
+	</listhead>
+	
+	<listcols>
+	  <listcol flex="1"/>
+	</listcols>    
+      </listbox>
+      <hbox id="delete-wrapper">
+	<image id="rcache-remove" src="chrome://rcache/content/skin/delete.png"/>
+	<description id="remove-desc">
+	Remove Download</description>
+      </hbox>
+      <vbox id="ul-progress-box">
+
+      <progressmeter id="pdf-ul-progress" value="0"/>
+      
+      </vbox>
+    </vbox>
+  </hbox>
+<hbox id="rcache-controls">
+<button id="cache-button" 
+		onclick="extractor.collect();" label="rCache this data"
+		disabled="true"/>
+
+<label id="statusmsg" 
+       value="***" 
+       crop="right"/>
+
+</hbox>
+</vbox>
+</hbox>
+</window>

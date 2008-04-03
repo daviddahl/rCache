@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>collector@rcache.com</em:id>
+    <em:name>rCacheCollector</em:name>
+    <em:version>0.2</em:version>
+    <em:creator>David Dahl</em:creator>
+    <em:description>Collector Extension for rCache.com</em:description>
+    <em:homepageURL>http://www.rcache.com/</em:homepageURL>
+    <em:updateURL>http://www.rcache.com/ffext/</em:updateURL>
+    <em:aboutURL>chrome://rcachecollector/content/about.xul</em:aboutURL>
+    <em:optionsURL>chrome://rcachecollector/content/options.xul</em:optionsURL>
+    <em:iconURL>chrome://rcachecollector/content/rcachecollector.png</em:iconURL>
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- firefox -->
+        <em:minVersion>1.5</em:minVersion>
+        <em:maxVersion>3.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+  </Description>
+</RDF>

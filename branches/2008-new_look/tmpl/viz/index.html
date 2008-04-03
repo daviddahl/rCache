@@ -1,0 +1,29 @@
+{% load i18n %}
+{% extends "base.html" %}
+{% block title %}
+{% trans "rCache.com - Viz Experiment" %}
+{% endblock %}
+{% block js_app %}
+<link href="/media/css/viz.css" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+<body>
+{% endblock %}
+{% block content %}
+{% include "nav.html" %}
+<div id="detail_wrapper">
+  
+  <div id="viz-index">
+    <div id="viz-outer-box">
+    {% for tag in tags %}
+    <div  onmouseover="rcache.viz.mouse_ovr(this);" class="viz-tag-box" title="{{ tag.2 }} Entries tagged '{{ tag.1 }}'"><a onclick="rcache.viz.recent_tagged_with({{ tag.0 }});">{{ tag.1 }}</a>
+      <div id="entries-{{ tag.0 }}"></div>
+    </div>
+    {% endfor %}
+     
+    </div>
+   <div id="viz-detail-box"></div>
+  </div>
+
+</div>
+{% endblock %}

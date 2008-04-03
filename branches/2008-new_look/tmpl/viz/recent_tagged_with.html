@@ -1,0 +1,5 @@
+<ul class="recent-tagged-with">
+  {% for entry in entries %}
+  <li><a href="/detail/{{ entry.id }}/">{{ entry.entry_name }}</a></li>
+  {% endfor %}
+</ul>

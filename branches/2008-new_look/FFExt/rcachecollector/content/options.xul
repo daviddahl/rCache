@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://rcachecollector/locale/prefwindow.dtd">
+<prefwindow id="rcachecollectorPreferences" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" title="&prefwindow.title;">
+  <prefpane id="pane1" label="&pane1.title;">
+    <preferences>
+      <preference id="collector_urlpref" name="extensions.rcachecollector.collector_url" type="string"/>
+    </preferences>
+    <label accesskey="&collector_urlpref.accesskey;" control="collector_urlpref">&collector_urlpref.label;</label><textbox id="id_collector_url" preference="collector_url"/>
+  </prefpane>
+</prefwindow>

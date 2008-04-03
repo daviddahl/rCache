@@ -117,3 +117,8 @@ urlpatterns += patterns('rcache.xhr.views',
 
                         (r'^recentgrid/', 'recentgrid'),
                         )
+
+urlpatterns += patterns('rcache.viz.views',
+                        (r'^viz/$', 'index'),
+                        (r'^viz/xhr/recent/tagged/with/(?P<tag_id>\d+)/$', 'recent_tagged_with'),
+                        )

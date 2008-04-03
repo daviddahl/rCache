@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'rcache.account',
     'rcache',
+    'rcache.viz',
 )
 
 ANTIWORD = '/usr/bin/antiword'

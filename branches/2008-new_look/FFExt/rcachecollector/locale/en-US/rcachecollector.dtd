@@ -1,0 +1,5 @@
+<!ENTITY rcachecollector.label "Your localized menuitem">
+<!ENTITY rcachecollectorContext.label "Your Menuitem">
+<!ENTITY rcachecollectorContext.accesskey "Y">
+<!ENTITY rcachecollectorToolbar.label "Your Toolbar Button">
+<!ENTITY rcachecollectorToolbar.tooltip "This is your toolbar button!">

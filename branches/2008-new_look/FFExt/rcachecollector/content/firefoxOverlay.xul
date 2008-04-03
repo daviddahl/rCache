@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://rcachecollector/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://rcachecollector/locale/rcachecollector.dtd">
+<overlay id="rcachecollector-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="overlay.js"/>
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="rcachecollector-strings" src="chrome://rcachecollector/locale/rcachecollector.properties"/>
+  </stringbundleset>
+
+  <menupopup id="menu_ToolsPopup">
+    <menuitem id="rcachecollector-hello" label="&rcachecollector.label;" 
+              oncommand="rcachecollector.onMenuItemCommand(event);"/>
+  </menupopup>
+  <popup id="contentAreaContextMenu">
+    <menuitem id="context-rcachecollector" label="&rcachecollectorContext.label;"
+              accesskey="&rcachecollectorContext.accesskey;"
+              insertafter="context-stop"
+              oncommand="rcachecollector.onMenuItemCommand(event)"/>
+  </popup>
+  <toolbarpalette id="BrowserToolbarPalette">
+  <toolbarbutton id="rcachecollector-toolbar-button"
+    label="&rcachecollectorToolbar.label;"
+    tooltiptext="&rcachecollectorToolbar.tooltip;"
+    oncommand="rcachecollector.onToolbarButtonCommand()"
+    class="toolbarbutton-1 chromeclass-toolbar-additional"/>
+  </toolbarpalette>
+</overlay>

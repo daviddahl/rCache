@@ -106,6 +106,18 @@ class Tag(models.Model):
         rows = cursor.fetchall()
         return rows
 
+    def tag_popularity(self,user_id,limit=100):
+        cursor = connection.cursor()
+        q = """select  et.tag_id,  t.tag, COUNT(*) as cnt
+        from entry_tag et, tag t, entry e
+        where t.id = et.tag_id AND et.entry_id = e.id AND e.user_id = %s
+        group by t.tag order by cnt DESC LIMIT %s
+        """
+        cursor.execute(q,[user_id,limit,])
+        rows = cursor.fetchall()
+        return rows
+
+
     def remove_tag(self,tag_id):
         try:
             cursor = connection.cursor()
@@ -192,6 +204,7 @@ class Entry(models.Model):
         set hyperestraier attrs inside the entry object
         """
         self.hyper_attrs = dct
+        
 
     def fulltxt(self,_user,kw):
         """Fulltext search on Entries sorted by relevence"""
@@ -300,7 +313,12 @@ class TagGroup(models.Model):
 class EntryDictionary(models.Model):
     #need to add all stemmed words here
     #need to look up exisitng dictionary entry b4 adding a new one, perhaps also have an index that ties fk user to stemmed_word??
-    pass
+    word = models.CharField(maxlength=512)
+    entry = models.ForeignKey(Entry)
+    user = models.ForeignKey(User)
+
+    class Admin:
+        pass
 
 class UserEvent(models.Model):
     """keep track of user signup, password change events, other events"""
@@ -396,3 +414,15 @@ class Folio(models.Model):
     
     class Admin:
         list_display = ('folio_name','description','user',)
+
+class Keyword(models.Model):
+    """
+    keywords cache extracted from hyperestraier index
+    """
+    keyword = models.CharField(maxlength=255)
+    entry = models.ForeignKey(Entry)
+    user = models.ForeignKey(User)
+
+    class Admin:
+        pass
+
