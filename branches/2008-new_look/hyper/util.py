@@ -170,6 +170,7 @@ class HyperUtil(object):
         log = open('/tmp/hyper.log','w')
         entries = Entry.objects.all()
         hyper_lst = []
+        print "making hyper entry list"
         for e in entries:
             try:
                 try:
@@ -190,6 +191,7 @@ class HyperUtil(object):
                      'txt':txt
                      }
                 hyper_lst.append(d)
+                print 'Added Entry %s' % e.id
             except Exception, e:
                 print e
                 err = str(e) + "\n"
