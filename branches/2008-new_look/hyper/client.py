@@ -3,9 +3,12 @@ hyperestraier daemon client
 david dahl
 2007-11-19
 """
-import hyperestraier as h
+import datetime
+import hyperestraier
 
 from rcache.stopwords import stopwords as sw
+
+
 
 class HyperClient(object):
     """
@@ -52,7 +55,7 @@ class HyperClient(object):
         """
         expr = "@author STREQ %s" % user_id
         self.node.set_url(self.url)
-        self.cond = h.Condition()
+        self.cond = hyperestraier.Condition()
         q = self.process_stopwords(query)
         print "new query: %s" % q
         self.cond.set_phrase(q)
@@ -83,9 +86,9 @@ class HyperClient(object):
         get all extra attrs for a uri
         """
         expr_author = "@author STREQ %s" % user_id
-        self.node = h.Node()
+        self.node = hyperestraier.Node()
         self.node.set_url(self.url)
-        self.cond = h.Condition()
+        self.cond = hyperestraier.Condition()
         self.cond.add_attr(expr_author)
         expr_uri = "@uri STREQ %s" % uri
         self.cond.add_attr(expr_uri)
@@ -126,7 +129,7 @@ class HyperClient(object):
         """
         Take entry obj, create a new doc and add to the index.
         """
-        doc = h.Document()
+        doc = hyperestraier.Document()
         doc.add_attr("@uri",str(entry.id))
         doc.add_attr("@title",entry.entry_name)
         doc.add_attr("@author",str(entry.user.id))
@@ -151,12 +154,47 @@ class HyperClient(object):
 
 
     def init_node(self):
-        self.node = h.Node()
-        #self.node.set_auth("rcache", "bigrig")
+        self.node = hyperestraier.Node()
+        #self.node.set_auth("rcache", "rcache23")
         self.node.set_url(self.url)
+
+    def rcache_docs(self):
+        """
+        get all rcache Entries - format as hyper dict
+        """
+        entries = Entry.objects.all()
+        hyper_lst = []
+        print "making hyper entry list"
+        for e in entries:
+            try:
+                try:
+                    author = e.user.id
+                except:
+                    author = 1
+                title = e.entry_name
+                uri = e.id
+                try:
+                    cdate = e.date_created.isoformat()
+                except:
+                    cdate = datetime.datetime.now().isoformat()
+                txt = e.text_content
+                d = {'uri':uri,
+                     'title':title,
+                     'author':author,
+                     'cdate':cdate,
+                     'txt':txt
+                     }
+                hyper_lst.append(d)
+                print 'Added Entry %s' % e.id
+            except Exception, e:
+                print e
+                err = str(e) + "\n"
+                continue
+                
 
 class SearchError(Exception):
     """
     raised if query is blank by stopword culling
     """
     pass
+

@@ -7,8 +7,8 @@ from rcache.hyper.client import HyperClient as h
 
 
 class Company(models.Model):
-    company_name = models.CharField(blank=True, maxlength=300)
-    description = models.CharField(blank=True, maxlength=765)
+    company_name = models.CharField(blank=True, max_length=300)
+    description = models.CharField(blank=True, max_length=765)
     date_created = models.DateTimeField(null=True, blank=True)
     def __str__(self):
         return self.company_name
@@ -19,17 +19,17 @@ class Company(models.Model):
         
 class User(models.Model):
     company = models.ForeignKey(Company)
-    first_name = models.CharField(blank=True, maxlength=300)
-    last_name = models.CharField(blank=True, maxlength=300)
-    email = models.CharField(unique=True,maxlength=64)
-    website = models.CharField(blank=True, maxlength=300)
-    blogurl = models.CharField(blank=True, maxlength=300)
-    login = models.CharField(unique=True, maxlength=64)
-    password = models.CharField(maxlength=64)
+    first_name = models.CharField(blank=True, max_length=300)
+    last_name = models.CharField(blank=True, max_length=300)
+    email = models.CharField(unique=True,max_length=64)
+    website = models.CharField(blank=True, max_length=300)
+    blogurl = models.CharField(blank=True, max_length=300)
+    login = models.CharField(unique=True, max_length=64)
+    password = models.CharField(max_length=64)
     date_created = models.DateTimeField(auto_now_add=True)
     last_contact = models.DateTimeField(auto_now_add=True)
     active = models.IntegerField(default=0)
-    user_url = models.CharField(blank=True, maxlength=255)
+    user_url = models.CharField(blank=True, max_length=255)
     
     def __str__(self):
         return "%s : %s %s %s" \
@@ -40,7 +40,7 @@ class User(models.Model):
         list_display = ('email','login','first_name', 'last_name')
     
 class BetaUser(models.Model):
-    email = models.CharField(unique=True, maxlength=300)
+    email = models.CharField(unique=True, max_length=300)
     date_created = models.DateTimeField(null=True, blank=True)
     reason_for_use = models.TextField(blank=True)
     def __str__(self):
@@ -51,7 +51,7 @@ class BetaUser(models.Model):
         list_display = ('email','date_created')
     
 class Tag(models.Model):
-    tag = models.CharField(blank=True, maxlength=300)
+    tag = models.CharField(blank=True, max_length=300)
     user = models.ForeignKey(User)
     tag_count = models.IntegerField(null=True, blank=True)
     
@@ -142,11 +142,11 @@ class Tag(models.Model):
     
 class Entry(models.Model):
     user = models.ForeignKey(User)
-    entry_url = models.CharField(blank=True, maxlength=765)
+    entry_url = models.CharField(blank=True, max_length=765)
     #alter db on turbogears side
-    entry_domain = models.CharField(blank=True, maxlength=200)
-    entry_name = models.CharField(blank=True, maxlength=765)
-    description = models.CharField(blank=True, maxlength=765)
+    entry_domain = models.CharField(blank=True, max_length=200)
+    entry_name = models.CharField(blank=True, max_length=765)
+    description = models.CharField(blank=True, max_length=765)
     text_content = models.TextField(blank=True)
     html_content = models.TextField(blank=True)
     date_created = models.DateTimeField(null=True, blank=True, auto_now_add=True)
@@ -239,12 +239,12 @@ class Entry(models.Model):
         list_display = ('entry_url','user','entry_name','description')  
 
 class EntryUrl(models.Model):
-    url = models.CharField(maxlength=765)
+    url = models.CharField(max_length=765)
     date_created = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     entry = models.ForeignKey(Entry)
     user = models.ForeignKey(User)
     #fixme: add to schema!
-    #link_words = models.CharField(maxlength=765)
+    #link_words = models.CharField(max_length=765)
     
     class Meta:
         db_table = 'entry_url'
@@ -257,8 +257,8 @@ class SavedLink(models.Model):
     a saved link to be read later - populated through bookmarklet
     """
     user = models.ForeignKey(User)
-    url = models.CharField(maxlength=765)
-    title = models.CharField(maxlength=765,default='No Title')
+    url = models.CharField(max_length=765)
+    title = models.CharField(max_length=765,default='No Title')
     comment = models.TextField(blank=True)
     date_saved = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
@@ -278,8 +278,8 @@ class SavedLink(models.Model):
         
 class Url(models.Model):
     user = models.ForeignKey(User)
-    url = models.CharField(blank=True, maxlength=765)
-    tags = models.CharField(blank=True, maxlength=765)
+    url = models.CharField(blank=True, max_length=765)
+    tags = models.CharField(blank=True, max_length=765)
     date_attempted = models.DateTimeField()
     entry = models.ForeignKey(Entry)
     def __str__(self):
@@ -292,7 +292,7 @@ class Url(models.Model):
 
 class Media(models.Model):
     entry = models.ForeignKey(Entry)
-    path = models.CharField(blank=True, maxlength=765)
+    path = models.CharField(blank=True, max_length=765)
     date_created = models.DateTimeField(null=True, blank=True,auto_now_add=True)
     last_access = models.DateTimeField(null=True, blank=True)
     #fixme: need to download and encode - store string here 
@@ -304,7 +304,7 @@ class Media(models.Model):
     
 class TagGroup(models.Model):
     tag = models.ForeignKey(Tag)
-    group_name = models.CharField(blank=True, maxlength=300)
+    group_name = models.CharField(blank=True, max_length=300)
     class Meta:
         db_table = 'tag_group'
     class Admin:
@@ -313,7 +313,7 @@ class TagGroup(models.Model):
 class EntryDictionary(models.Model):
     #need to add all stemmed words here
     #need to look up exisitng dictionary entry b4 adding a new one, perhaps also have an index that ties fk user to stemmed_word??
-    word = models.CharField(maxlength=512)
+    word = models.CharField(max_length=512)
     entry = models.ForeignKey(Entry)
     user = models.ForeignKey(User)
 
@@ -323,9 +323,9 @@ class EntryDictionary(models.Model):
 class UserEvent(models.Model):
     """keep track of user signup, password change events, other events"""
     user = models.ForeignKey(User)
-    hash_key = models.CharField(maxlength=120)
+    hash_key = models.CharField(max_length=120)
     event_date = models.DateTimeField(auto_now_add=True)
-    event_type = models.CharField(maxlength=100)
+    event_type = models.CharField(max_length=100)
     open = models.BooleanField(default=True)
     EVENT_CHOICES = ('Create Account','Accept Account',
                      'Password Change Request',
@@ -361,8 +361,8 @@ class ColleagueGroup(models.Model):
     """A group of Colleagues that a user can address with
     a single message or connection"""
     user = models.ForeignKey(User)
-    group_name = models.CharField(maxlength=100)
-    description = models.CharField(maxlength=255)
+    group_name = models.CharField(max_length=100)
+    description = models.CharField(max_length=255)
     colleague = models.ManyToManyField(Colleague)
 
     class Admin:
@@ -372,7 +372,7 @@ class Commentary(models.Model):
     """Commentary has a one to one relationship with Entry."""
     user = models.ForeignKey(User)
     entry = models.ForeignKey(Entry)
-    title = models.CharField(maxlength=255,blank=True)
+    title = models.CharField(max_length=255,blank=True)
     summary = models.TextField(blank=True)
 
     class Admin:
@@ -408,7 +408,7 @@ class Comment(models.Model):
 class Folio(models.Model):
     """A Folio is a bag of entries that are categorized in a larger scope"""
     user = models.ForeignKey(User)
-    folio_name = models.CharField(maxlength=255)
+    folio_name = models.CharField(max_length=255)
     description = models.TextField(blank=True,null=True)
     #entry = models.ManyToManyField(Entry)
     
@@ -419,10 +419,23 @@ class Keyword(models.Model):
     """
     keywords cache extracted from hyperestraier index
     """
-    keyword = models.CharField(maxlength=255)
+    keyword = models.CharField(max_length=255)
     entry = models.ForeignKey(Entry)
     user = models.ForeignKey(User)
 
     class Admin:
         pass
 
+def load():
+    """
+    load the rcache database into a newly-minted hyperestraier node
+    """
+    hc = h(url='http://127.0.0.1:1972/node/rcache')
+    docs = Entry.objects.all()
+    for doc in docs:
+        try:
+            hc.doc_add(doc)
+            print "loaded entry # %s" % doc.id 
+        except Exception, e:
+            print "Could not load entry into HyperEstraier"
+            print e

@@ -3,7 +3,8 @@ import os
 import sys
 import datetime
 #print sys.path
-import HyperEstraier as he
+#import HyperEstraier as he
+import hyperestraier as he
 
 from rcache.models import *
 
