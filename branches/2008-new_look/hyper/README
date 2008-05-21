@@ -1,0 +1,21 @@
+Hyperestraier setup:
+
+1. Create hyperestraier casket:
+   estmaster init /var/hyper/daemon-root
+
+2. edit _conf:
+   open up the node to anyone
+   change port to 1972
+
+2.5 add rcache node via browser:
+   create rcache node
+   create rcache user
+
+3. run hyperestraier:
+   estmaster start /var/hyper/daemon-root
+
+4. Load hyperestraier:
+   ipython
+   from rcache.models import *
+   load()
+
