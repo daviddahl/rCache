@@ -8,6 +8,7 @@ import copy
 import time
 from urlparse import urlparse
 from cgi import escape
+from codecs import encode, decode
 
 from django.http import Http404,HttpResponse,HttpResponseRedirect
 from django.template import Context, loader
@@ -807,14 +808,25 @@ def new_entry(request):
                     file_txt = '***Error sccraping document: %s ***' % file_name
 
                     if content_type == 'application/msword':
-                        file_txt = process_word(file_data,file_name)
+                        try:
+                            file_txt = process_word(file_data,file_name)
+                        except Exception,e:
+                            file_txt = u"Error: Could not extract text from file"
                     elif content_type == 'application/pdf':
-                        file_txt = process_pdf(file_data,file_name)
+                        try:
+                            file_txt = process_pdf(file_data,file_name)
+                        except Exception, e:
+                            file_txt = u"Error: Could not extract text from file"
                     #elif content_type == 'text/plain':
                     #    file_txt = process_txt(file_data)
                     else:
                         pass
-                etext = etext + "\n------Scraped Text------\n" + file_txt
+                try:
+                    file_txt = unicode(file_txt)
+                    print 'file_txt is unicode: %s' % type(file_txt)
+                except Exception, e:
+                    print str(e)
+                etext = file_txt
             if etext:    
                 entry = Entry(entry_url=url,
                               entry_name=ttl,
