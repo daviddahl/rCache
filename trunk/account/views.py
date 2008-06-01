@@ -91,7 +91,7 @@ def activation_yes(request,user_id):
                       msg,
                       'donotreply@rcache.com',
                       [user.email,'admin@rcache.com',],
-                      fail_silently=True,
+                      fail_silently=False,
                       auth_user=EMAIL_HOST_USER,
                       auth_password=EMAIL_HOST_PASSWORD)
             user.password = "no passwd yet"
@@ -248,7 +248,7 @@ def password(request):
                               msg,
                               'donotreply@rcache.com',
                               [user[0].email,'admin@rcache.com',],
-                              fail_silently=True,
+                              fail_silently=False,
                               auth_user=EMAIL_HOST_USER,
                               auth_password=EMAIL_HOST_PASSWORD)
                     message ="An Email has been sent to you with directions to change your password"
