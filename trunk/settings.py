@@ -2,7 +2,7 @@ import os
 
 # Django settings for rcache project.
 
-DEBUG = False
+DEBUG = True
 
 SERVER_URL = os.environ['RCACHE_SERVER_URL']
 
