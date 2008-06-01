@@ -826,6 +826,7 @@ def new_entry(request):
                     print 'file_txt is unicode: %s' % type(file_txt)
                 except Exception, e:
                     print str(e)
+                    file_txt = "ERROR: Could not encode source text properly."
                 etext = file_txt
             if etext:    
                 entry = Entry(entry_url=url,
