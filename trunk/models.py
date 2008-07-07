@@ -317,12 +317,3 @@ class Comment(models.Model):
     class Admin:
         list_display = ('user','comment',)
 
-class Folio(models.Model):
-    """A Folio is a bag of entries that are categorized in a larger scope"""
-    user = models.ForeignKey(User)
-    folio_name = models.CharField(maxlength=255)
-    description = models.TextField(blank=True,null=True)
-    entry = models.ManyToManyField(Entry)
-    
-    class Admin:
-        list_display = ('folio_name','description','user',)
