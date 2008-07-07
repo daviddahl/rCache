@@ -1091,6 +1091,7 @@ def removeit(request,entry_id):
         return HttpResponseRedirect("/login_required/")
 
 def err_unknown(request):
+    err = 'Unknown Error'
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
         if request.GET.has_key('e'):
