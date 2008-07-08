@@ -1,5 +1,8 @@
 import os, sys
 import re
+import codecs
+
+from django.utils.translation import ugettext_lazy as _
 """this program requires xpdf
 Author: David Dahl
 Date: 2/21/2006
@@ -26,10 +29,14 @@ def extractPDFText(pdf_filename):
     txtfile = pdf_filename + ".txt"
     txt = getTextFromFile(txtfile)
     try:
-        encoded = txt.encode("utf8")
-        return encoded
-    except:
-        return txt
+        utxt = codecs.utf_8_decode(txt,'ignore')
+        return utxt[0]
+        #encoded = txt.encode("utf8")
+        #return encoded
+    except Exception, e:
+        raise
+        print str(e)
+        return unicode("Could not capture text from PDF document: %s" % str(e))
     
 
 def save_tmp(data):
