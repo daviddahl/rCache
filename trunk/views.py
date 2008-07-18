@@ -841,8 +841,10 @@ def new_entry(request):
                 return HttpResponseRedirect(detail_url)
             else:
                 m="Please upload a file or enter some Entry Text."
+                
                 return render_to_response('new_entry.html',
                                           {'user':u,
+                                           'post':request.POST,
                                            'message':m})
         else:            
             return render_to_response('new_entry.html',
