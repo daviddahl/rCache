@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://rcache/content/rcache.css" 
+		 type="text/css"?>
+<overlay id="rcache-browser-overlay" 
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+  <script src="chrome://rcache/content/rcache.js"/>
+  <script src="chrome://rcache/content/json2.js"/>
+  <script src="chrome://rcache/content/jquery-min.js"/>
+
+  <keyset>  
+    <key id="rc-key" 
+	 modifiers="alt" 
+	 key="R" 
+	 oncommand="rc.start();"/>
+  </keyset>
+
+  <statusbar id="status-bar">
+    <statusbarpanel id="rc-panel"
+		    tooltiptext="rCache Collector">
+      <image id="rc-icon" 
+	     src="chrome://rcache/content/database_save.png"
+	     onmousedown="rc.toggle();"/>
+    </statusbarpanel>
+  </statusbar>  
+  
+  <window id="main-window">
+    <vbox id="rc-wrapper-box" 
+	  insertbefore="browser-bottombox"
+	  hidden="true">
+      
+      <toolbox id="rc-toolbox">
+	 
+	<toolbar id="rc-toolbar" 
+		 flex="0.2"
+		 fullscreentoolbar="true">
+	  <toolbarbutton id="rc-icon-btn"
+			 image="chrome://rcache/content/database_save.png"
+			 oncommand="rc.toggle();"
+			 tooltiptext="Hide rCache"/>
+	  <toolbarbutton accesskey="l" 
+			 label="rCache.com"
+			 oncommand="rc.http.load_site();"/>
+	  <toolbarbutton accesskey="r" 
+			 label="Capture Data"
+			 oncommand="rc.post();"/>
+
+	  <progressmeter id="progress" 
+			 style="margin: 12px;" 
+			 mode="undetermined" 
+			 hidden="false"/>
+
+	  <label id="statusmsg" 
+		 value="Status Message" 
+		 crop="right" 
+		 style="min-height:2em; 
+			max-height:2em; 
+			min-width: 20em;
+			max-width: 20em;
+			margin-top:12px;
+			color:#00F;
+			font-size:0.9em;"/>
+	</toolbar>
+      </toolbox>
+     
+	 <!-- START RCACHE COLLECTOR UI -->
+	 
+
+      
+	<tabbox id="rc-tabs" selectedIndex="0">
+	  <tabs>
+	    <tab label="Collector"/>
+	    <tab label="Entries"/>
+	    <tab label="Colleagues"/>
+	  </tabs>
+	  <tabpanels>
+	    <tabpanel>
+	      <!-- ======================================================= -->
+	      <!-- COLLECTOR -->
+	      <!-- ===================================================-->
+	      <hbox id="rc-content" flex="1">
+		<vbox>
+	      	  <label id="urllabel"
+			 value="URL"
+			 crop="right" 
+			 style="min-height:2em; 
+				max-height:2em; 
+				min-width: 20em;
+				max-width: 20em;
+				margin:2px;"/>
+		  
+		  <textbox id="url" flex="1" 
+			   style="min-width: 20em; min-height: 2.0em;
+				  max-width: 20em; max-height: 2.0em; margin:2px;"
+			   multiline="false"/>
+		  
+		  <label id="pgtitlelabel" 
+			 value="Title" 
+			 crop="right" 
+			 style="min-height:2.0em; 
+				max-height:2.5em; 
+				min-width: 20em;
+				max-width: 20em;
+				margin:2px;"/>
+		  
+		  <textbox id="pagetitle" flex="1" 
+			   style="min-width: 20em; min-height: 2.0em;
+				  max-width: 20em; max-height: 2.0em; margin:2px;"
+			   multiline="false"/>
+		  
+		  <label id="taglabel" 
+			 value="Tags (comma-delimited)" 
+			 crop="right" 
+			 style="min-height:2.0em; 
+				max-height:2.0em; 
+				min-width: 20em;
+				max-width: 20em;"/>
+		  <textbox id="tags" flex="1" 
+			   style="min-width: 20em; min-height: 2.0em;
+				  max-width: 20em; max-height: 2.0em; margin:2px;"
+			   multiline="false"/>
+		</vbox>
+		
+		<hbox>
+		  <spacer style="width: 10px;"/>
+		  <vbox>
+		    <spacer style="height: 20px;"/>
+		    <textbox id="selectedtext" flex="1" 
+			     style="min-width: 20em; min-height: 15em;
+				    max-width: 20em; max-height: 15em; margin:2px;"
+		     multiline="true"/>
+		    
+		    
+		  </vbox>
+		</hbox>
+		
+		<vbox>
+		  <listbox id="linkbox" 
+			   style="min-height: 50px; max-height: 50px;
+				  min-width: 200px; max-width: 200px;" 
+			   rows="4"
+			   seltype="multiple">
+		    <listhead>
+		      <listheader label="Captured Links"/>
+		    </listhead>
+		    
+		    <listcols>
+		      <listcol flex="1"/>
+		    </listcols>    
+		  </listbox>
+		  
+		  <listbox id="imgbox" 
+			   style="min-height: 50px; max-height: 50px;
+				  min-width: 200px; max-width: 200px;" 
+			   rows="4"
+			   seltype="multiple">
+		    <listhead>
+		      <listheader label="Captured Image URLs"/>
+		    </listhead>
+		    
+		    <listcols>
+		      <listcol flex="1"/>
+		    </listcols>    
+		  </listbox>
+		  
+		</vbox>
+	      </hbox>
+	      
+	    </tabpanel>
+	    <tabpanel>
+	      Entries Go Here
+	      <!-- tabpanel Second elements go here -->
+	      <!-- ======================================================= -->
+	      <!-- ENTRIES -->
+	      <!-- ===================================================-->
+	    </tabpanel>
+	    <tabpanel>Show Colleagues Here</tabpanel>
+	  </tabpanels>
+	</tabbox>
+	
+	<!-- END RCACHE COLLECTOR UI -->
+    </vbox>
+  </window>
+</overlay>

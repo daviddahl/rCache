@@ -1,4 +1,5 @@
 import os, sys
+from django.utils.translation import ugettext_lazy as _
 
 """this program requires antiword
 Author: David Dahl
@@ -11,7 +12,7 @@ scrape Word Doc, save as tmp file:
 
 """
 from rcache.settings import ANTIWORD
-
+import codecs
 
 def getCommandOutput(command):
     child = os.popen(command)
@@ -27,7 +28,8 @@ def getCommandOutput(command):
 def extractText(word_doc):
     cmd = "%s %s" % (ANTIWORD,word_doc)
     txt = getCommandOutput(cmd)
-    return txt
+    utxt = codecs.utf_8_decode(txt,'ignore')
+    return utxt[0]
     
 
 def save_tmp(data):
@@ -40,4 +42,4 @@ def save_tmp(data):
 
 def getTextFromFile(file):
     f = open(file,"r")
-    return f.read()
+    return unicode(f.read())
