@@ -20,7 +20,7 @@
     <statusbarpanel id="rc-panel"
 		    tooltiptext="rCache Collector">
       <image id="rc-icon" 
-	     src="chrome://rcache/content/database_save.png"
+	     src="chrome://rcache/content/database_go.png"
 	     onmousedown="rc.toggle();"/>
     </statusbarpanel>
   </statusbar>  
@@ -28,7 +28,7 @@
   <window id="main-window">
     <vbox id="rc-wrapper-box" 
 	  insertbefore="browser-bottombox"
-	  hidden="true">
+	  hidden="false">
       
       <toolbox id="rc-toolbox">
 	 
@@ -36,31 +36,16 @@
 		 flex="0.2"
 		 fullscreentoolbar="true">
 	  <toolbarbutton id="rc-icon-btn"
-			 image="chrome://rcache/content/database_save.png"
-			 oncommand="rc.toggle();"
+			 image="chrome://rcache/content/database_lightning.png"
+			 oncommand="rc.collect();"
 			 tooltiptext="Hide rCache"/>
 	  <toolbarbutton accesskey="l" 
 			 label="rCache.com"
 			 oncommand="rc.http.load_site();"/>
-	  <toolbarbutton accesskey="r" 
-			 label="Capture Data"
-			 oncommand="rc.post();"/>
-
-	  <progressmeter id="progress" 
-			 style="margin: 12px;" 
-			 mode="undetermined" 
-			 hidden="false"/>
-
-	  <label id="statusmsg" 
-		 value="Status Message" 
-		 crop="right" 
-		 style="min-height:2em; 
-			max-height:2em; 
-			min-width: 20em;
-			max-width: 20em;
-			margin-top:12px;
-			color:#00F;
-			font-size:0.9em;"/>
+	  <toolbarbutton accesskey="p" 
+			 label="Preferences"
+			 oncommand="rc.prefs();"/>
+	  
 	</toolbar>
       </toolbox>
      
@@ -71,7 +56,7 @@
 	<tabbox id="rc-tabs" selectedIndex="0">
 	  <tabs>
 	    <tab label="Collector"/>
-	    <tab label="Entries"/>
+	    <tab label="Recent Entries"/>
 	    <tab label="Colleagues"/>
 	  </tabs>
 	  <tabpanels>
@@ -81,64 +66,68 @@
 	      <!-- ===================================================-->
 	      <hbox id="rc-content" flex="1">
 		<vbox>
-	      	  <label id="urllabel"
-			 value="URL"
-			 crop="right" 
-			 style="min-height:2em; 
-				max-height:2em; 
-				min-width: 20em;
-				max-width: 20em;
-				margin:2px;"/>
-		  
-		  <textbox id="url" flex="1" 
-			   style="min-width: 20em; min-height: 2.0em;
-				  max-width: 20em; max-height: 2.0em; margin:2px;"
-			   multiline="false"/>
-		  
-		  <label id="pgtitlelabel" 
-			 value="Title" 
-			 crop="right" 
-			 style="min-height:2.0em; 
-				max-height:2.5em; 
-				min-width: 20em;
-				max-width: 20em;
-				margin:2px;"/>
-		  
-		  <textbox id="pagetitle" flex="1" 
-			   style="min-width: 20em; min-height: 2.0em;
-				  max-width: 20em; max-height: 2.0em; margin:2px;"
-			   multiline="false"/>
-		  
-		  <label id="taglabel" 
-			 value="Tags (comma-delimited)" 
-			 crop="right" 
-			 style="min-height:2.0em; 
-				max-height:2.0em; 
-				min-width: 20em;
-				max-width: 20em;"/>
-		  <textbox id="tags" flex="1" 
-			   style="min-width: 20em; min-height: 2.0em;
-				  max-width: 20em; max-height: 2.0em; margin:2px;"
-			   multiline="false"/>
+		  <hbox>
+	      	    <label id="urllabel"
+			   value="URL"
+			   crop="right"
+			   class="rc-input-label"/>
+		    
+		    <textbox id="url" 
+			     class="rc-text-input"
+			     flex="1" 
+			     multiline="false"/>
+		  </hbox>
+		  <hbox>
+		    <label id="pgtitlelabel" 
+			   value="Title" 
+			   crop="right"
+			   class="rc-input-label"/>
+		    
+		    <textbox id="pagetitle" 
+			     class="rc-text-input"
+			     flex="1" 
+			     multiline="false"/>
+		  </hbox>
+		  <hbox>
+		    <label id="taglabel" 
+			   value="Tags"
+			   tooltiptext="Enter tags separated by commas"
+			   crop="right"
+			   class="rc-input-label"/>
+		    <textbox id="tags" 
+			     class="rc-text-input"
+			     flex="1" 
+			     multiline="false"/>
+		  </hbox>
+		  <hbox>
+		    <label id="rc-post-label" 
+			   value=""
+			   class="rc-input-label"/>
+		    <vbox>
+		      <button id="rc-submit" 
+			      label="rCache This"
+			      oncommand="rc.post();"/>
+		      <progressmeter id="progress"
+				     mode="undetermined" 
+				     hidden="true"/>
+		      <label id="statusmsg" 
+			     value="Status Message" 
+			     crop="right"/>
+		      </vbox>
+		  </hbox>
 		</vbox>
 		
 		<hbox>
-		  <spacer style="width: 10px;"/>
+		  <spacer style="width: 8px;"/>
 		  <vbox>
-		    <spacer style="height: 20px;"/>
-		    <textbox id="selectedtext" flex="1" 
-			     style="min-width: 20em; min-height: 15em;
-				    max-width: 20em; max-height: 15em; margin:2px;"
-		     multiline="true"/>
-		    
-		    
+		    <textbox id="selectedtext" 
+			     flex="1" 
+			     multiline="true"/>
 		  </vbox>
 		</hbox>
 		
 		<vbox>
 		  <listbox id="linkbox" 
-			   style="min-height: 50px; max-height: 50px;
-				  min-width: 200px; max-width: 200px;" 
 			   rows="4"
 			   seltype="multiple">
 		    <listhead>
@@ -151,9 +140,7 @@
 		  </listbox>
 		  
 		  <listbox id="imgbox" 
-			   style="min-height: 50px; max-height: 50px;
-				  min-width: 200px; max-width: 200px;" 
-			   rows="4"
+			   rows="6"
 			   seltype="multiple">
 		    <listhead>
 		      <listheader label="Captured Image URLs"/>
@@ -165,17 +152,59 @@
 		  </listbox>
 		  
 		</vbox>
+		<vbox>
+		  <listbox id="mediabox" 
+			   rows="12"
+			   seltype="multiple">
+		    <listhead>
+		      <listheader label="Media Attachments"/>
+		    </listhead>
+		    
+		    <listcols>
+		      <listcol flex="1"/>
+		    </listcols>    
+		  </listbox>
+		</vbox>
 	      </hbox>
 	      
 	    </tabpanel>
 	    <tabpanel>
-	      Entries Go Here
 	      <!-- tabpanel Second elements go here -->
 	      <!-- ======================================================= -->
 	      <!-- ENTRIES -->
 	      <!-- ===================================================-->
+
+	      <vbox>
+		  <listbox id="rc-entries" 
+			   rows="10"
+			   seltype="single">
+		    <listhead>
+		      <listheader label="Title"/>
+		    </listhead>
+		    
+		    <listcols>
+		      <listcol flex="1"/>
+		    </listcols>    
+		  </listbox>
+		</vbox>
+
 	    </tabpanel>
-	    <tabpanel>Show Colleagues Here</tabpanel>
+	    <tabpanel>
+	      <vbox>
+		  <listbox id="rc-colleagues" 
+			   rows="10"
+			   seltype="single">
+		    <listhead>
+		      <listheader label="Colleague Email Address"/>
+		    </listhead>
+		    
+		    <listcols>
+		      <listcol flex="1"/>
+		    </listcols>    
+		  </listbox>
+		</vbox>
+
+	    </tabpanel>
 	  </tabpanels>
 	</tabbox>
 	

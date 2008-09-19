@@ -1,0 +1,36 @@
+#rc-wrapper-box { font-family: helvetica, sans-serif;
+                  font-size: 12px;}
+
+.rc-input-label { margin:2px; 
+                  min-width:32px;
+                  max-width:32px;
+                  font-weight: bold;}
+
+.rc-text-input{ margin:2px;
+                min-width:200px;
+                max-width:200px; }
+
+
+
+#selectedtext{ min-width:300px; }
+
+#linkbox { min-width: 250px;
+           max-width: 250px; }
+
+#imgbox { min-width: 250px;
+          max-width: 250px; }
+
+#rc-entries { min-width:600px; }
+
+#rc-colleagues{ min-width:600px; }
+
+#progress { margin: 16px;
+            min-width: 170px;}
+
+#rc-submit{ margin-top:24px; }
+
+
+#statusmsg{ margin-top:8px;
+            color:#001;
+            font-size:12px;
+            font-weight:bold;}
