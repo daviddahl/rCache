@@ -14,11 +14,14 @@
 
 #selectedtext{ min-width:300px; }
 
-#linkbox { min-width: 250px;
-           max-width: 250px; }
+#linkbox { min-width: 300px;
+           max-width: 300px; }
 
-#imgbox { min-width: 250px;
-          max-width: 250px; }
+#imgbox { min-width: 300px;
+          max-width: 300px; }
+
+#mediabox { min-width: 300px;
+            max-width: 300px; }
 
 #rc-entries { min-width:600px; }
 

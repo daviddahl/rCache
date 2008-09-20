@@ -13,32 +13,37 @@
     <key id="rc-key" 
 	 modifiers="alt" 
 	 key="R" 
-	 oncommand="rc.start();"/>
+	 oncommand="rc.post();"/>
   </keyset>
 
   <statusbar id="status-bar">
     <statusbarpanel id="rc-panel"
 		    tooltiptext="rCache Collector">
       <image id="rc-icon" 
-	     src="chrome://rcache/content/database_go.png"
+	     src="chrome://rcache/content/database_save.png"
 	     onmousedown="rc.toggle();"/>
     </statusbarpanel>
   </statusbar>  
   
   <window id="main-window">
-    <vbox id="rc-wrapper-box" 
-	  insertbefore="browser-bottombox"
-	  hidden="false">
-      
+    <vbox id="rc-wrapper-box"
+	  hidden="true"
+	  insertbefore="browser-bottombox">
+       <splitter id="rc-wrapper-splitter" 
+		collapsed="false"
+		orient="vertical"
+		resizeafter="closest"
+		state=""/>
+    <vbox>
       <toolbox id="rc-toolbox">
 	 
 	<toolbar id="rc-toolbar" 
 		 flex="0.2"
 		 fullscreentoolbar="true">
 	  <toolbarbutton id="rc-icon-btn"
-			 image="chrome://rcache/content/database_lightning.png"
+			 image="chrome://rcache/content/database_save.png"
 			 oncommand="rc.collect();"
-			 tooltiptext="Hide rCache"/>
+			 tooltiptext="Collect Selected Page Data"/>
 	  <toolbarbutton accesskey="l" 
 			 label="rCache.com"
 			 oncommand="rc.http.load_site();"/>
@@ -61,14 +66,14 @@
 	  </tabs>
 	  <tabpanels>
 	    <tabpanel>
-	      <!-- ======================================================= -->
+	      <!-- ===================================================-->
 	      <!-- COLLECTOR -->
 	      <!-- ===================================================-->
 	      <hbox id="rc-content" flex="1">
 		<vbox>
 		  <hbox>
 	      	    <label id="urllabel"
-			   value="URL"
+			   value="Url"
 			   crop="right"
 			   class="rc-input-label"/>
 		    
@@ -104,7 +109,7 @@
 			   value=""
 			   class="rc-input-label"/>
 		    <vbox>
-		      <button id="rc-submit" 
+		      <button id="cache-button" 
 			      label="rCache This"
 			      oncommand="rc.post();"/>
 		      <progressmeter id="progress"
@@ -209,6 +214,7 @@
 	</tabbox>
 	
 	<!-- END RCACHE COLLECTOR UI -->
+    </vbox>
     </vbox>
   </window>
 </overlay>
