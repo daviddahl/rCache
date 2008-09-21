@@ -17,11 +17,23 @@
   </keyset>
 
   <statusbar id="status-bar">
-    <statusbarpanel id="rc-panel"
-		    tooltiptext="rCache Collector">
-      <image id="rc-icon" 
+    <statusbarpanel id="rc-panel-collect">
+      <image id="rc-icon"
 	     src="chrome://rcache/content/database_save.png"
-	     onmousedown="rc.toggle();"/>
+	     onmousedown="rc.toggle('collect');"
+	     tooltiptext="Toggle/rCache Collector"/>
+    </statusbarpanel>
+    <statusbarpanel id="rc-panel-recent">
+      <image id="rc-icon-recent" 
+	     src="chrome://rcache/content/folder_database.png"
+	     onmousedown="rc.toggle('recent');"
+	     tooltiptext="Toggle/rCache Recent Entries"/>
+    </statusbarpanel>
+    <statusbarpanel id="rc-panel-colleagues">
+      <image id="rc-icon-colleagues" 		 
+	     src="chrome://rcache/content/group.png"
+	     onmousedown="rc.toggle('colleagues');"
+	     tooltiptext="Toggle/rCache Colleagues"/>
     </statusbarpanel>
   </statusbar>  
   
@@ -29,40 +41,45 @@
     <vbox id="rc-wrapper-box"
 	  hidden="true"
 	  insertbefore="browser-bottombox">
-       <splitter id="rc-wrapper-splitter" 
-		collapsed="false"
-		orient="vertical"
-		resizeafter="closest"
-		state=""/>
+       <!-- <splitter id="rc-wrapper-splitter"  -->
+       <!-- 		collapsed="false" -->
+       <!-- 		orient="vertical" -->
+       <!-- 		resizeafter="closest" -->
+       <!-- 		state=""/> -->
     <vbox>
-      <toolbox id="rc-toolbox">
+      <!-- <toolbox id="rc-toolbox"> -->
 	 
-	<toolbar id="rc-toolbar" 
-		 flex="0.2"
-		 fullscreentoolbar="true">
-	  <toolbarbutton id="rc-icon-btn"
-			 image="chrome://rcache/content/close.png"
-			 oncommand="rc.toggle();"
-			 tooltiptext="Close rCache"/>
-	  <toolbarbutton accesskey="l" 
-			 label="rCache.com"
-			 oncommand="rc.http.load_site();"/>
-	  <toolbarbutton accesskey="p" 
-			 label="Preferences"
-			 oncommand="rc.prefs();"/>
+      <!-- 	<toolbar id="rc-toolbar"  -->
+      <!-- 		 flex="0.2" -->
+      <!-- 		 fullscreentoolbar="true"> -->
+      <!-- 	  <toolbarbutton id="rc-icon-btn" -->
+      <!-- 			 image="chrome://rcache/content/close.png" -->
+      <!-- 			 oncommand="rc.close();" -->
+      <!-- 			 tooltiptext="Close rCache"/> -->
+      <!-- 	  <toolbarbutton accesskey="l"  -->
+      <!-- 			 label="rCache.com" -->
+      <!-- 			 oncommand="rc.http.load_site();"/> -->
+      <!-- 	  <toolbarbutton accesskey="p"  -->
+      <!-- 			 label="Preferences" -->
+      <!-- 			 oncommand="rc.prefs();"/> -->
 	  
-	</toolbar>
-      </toolbox>
-     
+      <!-- 	</toolbar> -->
+      <!-- </toolbox> -->
 	 <!-- START RCACHE COLLECTOR UI -->
-	 
-
-      
+      <hbox>
+	<vbox id="rc-main-close-btn">
+	  <image src="chrome://rcache/content/close.png" 
+		 onmousedown="rc.close();"/>
+	  <spacer style="height: 8px;"/>
+	   <image src="chrome://rcache/content/table_refresh.png" 
+		 onmousedown="rc.collect();"/>
+	</vbox>
 	<tabbox id="rc-tabs" selectedIndex="0">
 	  <tabs>
 	    <tab label="Collector"/>
 	    <tab label="Recent Entries"/>
 	    <tab label="Colleagues"/>
+	    <tab label="About"/>
 	  </tabs>
 	  <tabpanels>
 	    <tabpanel>
@@ -181,22 +198,34 @@
 
 	      <hbox>
 		<vbox>
-		<button id="rc-entries-reload" 
-			image="chrome://rcache/content/database_refresh.png"
-			tooltiptext="Refresh Entries"
-			oncommand="rc.entries.recent();"/>
+		  <button id="rc-entries-reload" 
+			  image="chrome://rcache/content/database_refresh.png"
+			  tooltiptext="Refresh Entries"
+			  oncommand="rc.entries.recent();"/>
 		</vbox>
 		<tree id="rc-recent-entries" 
 		      flex="1" 
 		      seltype="single"
 		      rows="10">
 		  <treecols>
-		    <treecol id="rc-entry-id" label="Id" flex="1"/>
-		    <treecol id="rc-entry-title" label="Title" flex="1"/>
-		    <treecol id="rc-rcached" label="rCached" flex="1"/>
+		    <treecol id="rc-entry-id" 
+			     label="Id" 
+			     flex="1" 
+			     width="60"/>
+		    <treecol id="rc-entry-title" 
+			     label="Title"
+			     flex="1"
+			     width="420"/>
+		    <treecol id="rc-rcached" 
+			     label="rCached" 
+			     flex="1"
+			     width="120"/>
 		  </treecols>
 		  <treechildren id="rc-recent-tree-children" hidden="false"></treechildren>
 		</tree>
+		<vbox id="rc-entry-details">
+		  <label id="rc-entry-details-lbl"></label>
+		</vbox>
 	      </hbox>
 
 	    </tabpanel>
@@ -216,9 +245,18 @@
 		</vbox>
 
 	    </tabpanel>
+	    <tabpanel>
+	      <vbox>
+		<label>About rCache.</label>
+		<vbox>rCache is a web-based service to help you
+		collect, analyze and share your online and offline
+		research material. </vbox>
+	      </vbox>
+	    </tabpanel>
 	  </tabpanels>
 	</tabbox>
 	
+      </hbox>
 	<!-- END RCACHE COLLECTOR UI -->
     </vbox>
     </vbox>

@@ -1,5 +1,7 @@
 #rc-wrapper-box { font-family: helvetica, sans-serif;
-                  font-size: 12px;}
+                  font-size: 12px;
+                  border-top:1px solid #ccc;
+                  padding-top:2px;}
 
 .rc-input-label { margin:2px; 
                   min-width:32px;
@@ -32,11 +34,14 @@
 
 #rc-submit{ margin-top:24px; }
 
+#rc-main-close-btn { max-width:20px; max-height:20px; margin:4px;}
 
 #statusmsg{ margin-top:8px;
-            color:#001;
+            color:#00C;
             font-size:12px;
             font-weight:bold;}
 
 #rc-recent-entries{ min-width:600px; }
 #rc-entries-reload{ max-width:24px; min-width:32px;}
+#rc-status-btn{ margin-right:4px; }
+

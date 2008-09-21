@@ -13,8 +13,6 @@ Application.console.open();
 
 var rc = {};
 
-//rc.post_url = 'https://collect.rcache.com/postcache/?version=0.2.0';
-
 rc.url = function(url_key){
   if (url_key === 'recent'){
     return 'https://collect.rcache.com/recent_xhr/?version=0.2.0&offset=1';
@@ -37,18 +35,44 @@ rc.log = function(msg){
   }
 };
 
-rc.toggle = function(){
+rc.toggle = function(action){
   // open or close th UI
-
   var rc_ui = document.getElementById('rc-wrapper-box');
-  if (rc_ui.hidden){
-    rc_ui.hidden = false;
-    rc.clean_up();
-    rc.collect();
+  if (action === 'collect'){
+    if (rc_ui.hidden){
+      rc_ui.hidden = false;
+      rc.clean_up();
+      rc.collect();
+    } else {
+      rc_ui.hidden = true;
+    }
   } else {
-    rc_ui.hidden = true;
+     if (rc_ui.hidden){
+      rc_ui.hidden = false;
+     }
   }
+  // select the right tab:
+  var id = 'rc-tabs';
+  var tab_box = document.getElementById(id);
+  if (action === 'colleagues'){
+    tab_box.selectedIndex = 2;
+  }
+  if (action === 'recent'){
+    tab_box.selectedIndex = 1;
+  }
+  if (action === 'collect'){
+    tab_box.selectedIndex = 0;
+  }
+
 };
+
+rc.close = function(){
+  // close the UI
+  var rc_ui = document.getElementById('rc-wrapper-box');
+  rc_ui.hidden = true;
+  rc.document.body.focus();
+};
+
 
 rc.payload = null;
 
@@ -175,7 +199,7 @@ rc.post = function(){
 	  // clean out the rCache form
 	  //rc.clean_up();
 	  // need a 2 second timer here
-	  var timeout = window.setTimeout(rc.toggle, 1200);
+	  var timeout = window.setTimeout(rc.close, 1200);
 	} else if (res === 'login_error'){
 	  document.getElementById('cache-button').disabled = false;
 	  document.getElementById('progress').hidden = true;
@@ -226,6 +250,8 @@ rc.ui.new_install = function(){
 rc.collect = function(){
   // do the page scrape here!
   try{
+    var tab_box = document.getElementById('rc-tabs');
+    tab_box.selectedIndex = 0;
     rc.collector.select();
     rc.collector.make_frag();
     rc.collector.fill_form();
@@ -337,6 +363,9 @@ rc.collector.fill_form = function(){
   for (var j = 0; j < rc.collector.imgs.length; j++){
     imgLst.appendItem(rc.collector.imgs[j]);
   }
+  // focus on tags!
+  var tags = document.getElementById('tags');
+  tags.focus();
   // now activate the 'rCache this' button
 };
 
@@ -364,9 +393,12 @@ rc.entries = {};
 rc.entries.recent = function(){
   // get the recent entry objects from the server
   rc.log("Getting recent entries...");
+
   var url = rc.url('recent');
   rc.log(url);
   $.get(url,function(data){
+    //var prog = document.getElementById('rc-entries-reload-progress');
+    //prog.src = rc.spinner_on;
     try {
       var res = eval('(' + data + ')');
       rc.log("res: " + res.toString());
@@ -377,8 +409,10 @@ rc.entries.recent = function(){
 	rc.log(tree.id);
 	try{
 	  rc.entries.append_nodes(tree,res.entries_db.items);
+	  //prog.src = rc.spinner_off;
 	} catch(e){
 	  rc.log(e);
+	  //prog.src = rc.spinner_off;
 	}
 
       } else {
@@ -386,6 +420,7 @@ rc.entries.recent = function(){
       }
 
     } catch(e){
+      //prog.src = rc.spinner_off;
       rc.log(e);
       throw("Error: " + e);
     }
@@ -393,14 +428,23 @@ rc.entries.recent = function(){
   });
 };
 
-rc.entries.remove_nodes = function(){
-  // remove all nodes!!!
+rc.entries.empty_tree = function() {
+  var tchildren = document.getElementById('rc-recent-tree-children');
+  while(tchildren.hasChildNodes()) {
+    tchildren.removeChild(tchildren.childNodes[0]);
+  }
 };
+
+rc.spinner_on  = "chrome://rcache/content/loading_16.gif";
+rc.spinner_off  = "chrome://rcache/content/notloading_16.png";
 
 rc.entries.append_nodes = function(tree,rows){
   // fill the tree with rows
   rc.log("start append nodes");
   rc.log("rows.length: " + rows.length);
+  // remove all existing children
+  rc.entries.empty_tree();
+
   for (var i=0; i < rows.length; i++) {
     //rc.log(i);
     var titem = document.createElement("treeitem");
@@ -426,18 +470,10 @@ rc.entries.append_nodes = function(tree,rows){
   }
 };
 
+rc.entries.detail = function(id){
+  // get the entry's details from the server
 
-
-
-
-
-
-
-
-
-
-
-
+};
 
 
 
