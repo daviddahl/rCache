@@ -41,9 +41,9 @@
 		 flex="0.2"
 		 fullscreentoolbar="true">
 	  <toolbarbutton id="rc-icon-btn"
-			 image="chrome://rcache/content/database_save.png"
-			 oncommand="rc.collect();"
-			 tooltiptext="Collect Selected Page Data"/>
+			 image="chrome://rcache/content/close.png"
+			 oncommand="rc.toggle();"
+			 tooltiptext="Close rCache"/>
 	  <toolbarbutton accesskey="l" 
 			 label="rCache.com"
 			 oncommand="rc.http.load_site();"/>
@@ -179,19 +179,25 @@
 	      <!-- ENTRIES -->
 	      <!-- ===================================================-->
 
-	      <vbox>
-		  <listbox id="rc-entries" 
-			   rows="10"
-			   seltype="single">
-		    <listhead>
-		      <listheader label="Title"/>
-		    </listhead>
-		    
-		    <listcols>
-		      <listcol flex="1"/>
-		    </listcols>    
-		  </listbox>
+	      <hbox>
+		<vbox>
+		<button id="rc-entries-reload" 
+			image="chrome://rcache/content/database_refresh.png"
+			tooltiptext="Refresh Entries"
+			oncommand="rc.entries.recent();"/>
 		</vbox>
+		<tree id="rc-recent-entries" 
+		      flex="1" 
+		      seltype="single"
+		      rows="10">
+		  <treecols>
+		    <treecol id="rc-entry-id" label="Id" flex="1"/>
+		    <treecol id="rc-entry-title" label="Title" flex="1"/>
+		    <treecol id="rc-rcached" label="rCached" flex="1"/>
+		  </treecols>
+		  <treechildren id="rc-recent-tree-children" hidden="false"></treechildren>
+		</tree>
+	      </hbox>
 
 	    </tabpanel>
 	    <tabpanel>

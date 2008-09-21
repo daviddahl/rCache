@@ -13,7 +13,20 @@ Application.console.open();
 
 var rc = {};
 
-rc.post_url = 'https://collect.rcache.com/postcache/?version=0.2.0';
+//rc.post_url = 'https://collect.rcache.com/postcache/?version=0.2.0';
+
+rc.url = function(url_key){
+  if (url_key === 'recent'){
+    return 'https://collect.rcache.com/recent_xhr/?version=0.2.0&offset=1';
+  } else if (url_key === 'post'){
+    return 'https://collect.rcache.com/postcache/?version=0.2.0';
+  } else if (url_key === 'colleagues'){
+    return 'https://collect.rcache.com/xhr/colleagues/?version=0.2.0';
+  } else {
+    throw("rCache Error: Url is not defined, cannot complete request.");
+  }
+
+};
 
 rc.log = function(msg){
   // log stuff to error console
@@ -152,7 +165,7 @@ rc.post = function(){
     try {
       document.getElementById('cache-button').disabled = true;
       document.getElementById('progress').hidden = false;
-      $.post(rc.post_url,rc.payload,function(data){
+      $.post(rc.url('post'),rc.payload,function(data){
 	var res = eval(data);
 	if (res === 'done'){
 	  // show message, re-initialize rc
@@ -162,10 +175,11 @@ rc.post = function(){
 	  // clean out the rCache form
 	  //rc.clean_up();
 	  // need a 2 second timer here
-	  //window.setInterval(rc.toggle, 1200); // change to setTimeout
+	  var timeout = window.setTimeout(rc.toggle, 1200);
 	} else if (res === 'login_error'){
 	  document.getElementById('cache-button').disabled = false;
 	  document.getElementById('progress').hidden = true;
+	  rc.message("Please Login to rCache");
 	  window.open("https://collect.rcache.com/loginxul/",
 	              "rcache-loginxul",
 		      "menubar=no,location=no,resizable=no,scrollbars=yes,status=yes,width=400,height=210");
@@ -173,7 +187,8 @@ rc.post = function(){
 	  // huh? throw an exception...
 	  document.getElementById('cache-button').disabled = false;
 	  document.getElementById('progress').hidden = true;
-	  alert("rCache: Transmission Error.");
+	  rc.message("Transmission Error");
+	  //alert("rCache: Transmission Error.");
 	}
       });
     } catch(e){
@@ -343,5 +358,90 @@ rc.upload.local_dir = null;
 rc.upload.choose_local_dir = function(){
   // choose a local dir to push pdf's word ect from to rcache.com
 };
+
+rc.entries = {};
+
+rc.entries.recent = function(){
+  // get the recent entry objects from the server
+  rc.log("Getting recent entries...");
+  var url = rc.url('recent');
+  rc.log(url);
+  $.get(url,function(data){
+    try {
+      var res = eval('(' + data + ')');
+      rc.log("res: " + res.toString());
+      if (res.entries_db.totalItems > 0){
+	rc.log("total items: " + res.entries_db.totalItems);
+	rc.log("first entry: " + res.entries_db.items[0].name);
+	var tree = document.getElementById('rc-recent-tree-children');
+	rc.log(tree.id);
+	try{
+	  rc.entries.append_nodes(tree,res.entries_db.items);
+	} catch(e){
+	  rc.log(e);
+	}
+
+      } else {
+	alert("rCache: No entries found");
+      }
+
+    } catch(e){
+      rc.log(e);
+      throw("Error: " + e);
+    }
+
+  });
+};
+
+rc.entries.remove_nodes = function(){
+  // remove all nodes!!!
+};
+
+rc.entries.append_nodes = function(tree,rows){
+  // fill the tree with rows
+  rc.log("start append nodes");
+  rc.log("rows.length: " + rows.length);
+  for (var i=0; i < rows.length; i++) {
+    //rc.log(i);
+    var titem = document.createElement("treeitem");
+    var trow = document.createElement("treerow");
+
+    // columns
+    var id_cell = document.createElement("treecell");
+    var title_cell = document.createElement("treecell");
+    var date_cell = document.createElement("treecell");
+    //
+    id_cell.setAttribute("label",rows[i].rcacheid );
+    title_cell.setAttribute("label",rows[i].name );
+    date_cell.setAttribute("label",rows[i].date );
+    //
+    trow.appendChild(id_cell);
+    trow.appendChild(title_cell);
+    trow.appendChild(date_cell);
+    trow.setAttribute('hidden', false);
+    //
+    titem.appendChild(trow);
+    titem.setAttribute('hidden', false);
+    tree.appendChild(titem);
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 rc.log("rCache Started");
