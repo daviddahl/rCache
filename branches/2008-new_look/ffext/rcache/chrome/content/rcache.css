@@ -12,25 +12,32 @@
                 min-width:200px;
                 max-width:200px; }
 
+#rc-rendered-dom { max-width:300px;
+                   max-height:200px;
+                   min-width:300px;
+                   min-height:200px;}
 
-
-#selectedtext{ min-width:300px; }
+#selectedtext{ min-width:300px;
+               max-width:300px;
+               min-height:200px;
+               max-height:200px;}
 
 #linkbox { min-width: 300px;
            max-width: 300px; }
-
+#linkbox listitem { line-height:8px; }
 #imgbox { min-width: 300px;
-          max-width: 300px; }
+          max-width: 300px;}
 
 #mediabox { min-width: 300px;
-            max-width: 300px; }
+            max-width: 300px;
+            max-height:260px;}
 
 #rc-entries { min-width:600px; }
 
 #rc-colleagues{ min-width:600px; }
 
 #progress { margin: 16px;
-            min-width: 170px;}
+            min-width: 150px;}
 
 #rc-submit{ margin-top:24px; }
 
@@ -42,6 +49,16 @@
             font-weight:bold;}
 
 #rc-recent-entries{ min-width:600px; }
+
 #rc-entries-reload{ max-width:24px; min-width:32px;}
+
 #rc-status-btn{ margin-right:4px; }
 
+.rc-label{ font-weight:bold; }
+
+#cache-button { min-width:150px; margin-top:24px; }
+
+#rc-prefs-btn { max-width:150px; }
+
+#rc-about-rcache{ margin-top:16px;
+                  margin-bottom:16px;}

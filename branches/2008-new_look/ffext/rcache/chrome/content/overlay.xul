@@ -69,10 +69,16 @@
       <hbox>
 	<vbox id="rc-main-close-btn">
 	  <image src="chrome://rcache/content/close.png" 
-		 onmousedown="rc.close();"/>
+		 onmousedown="rc.close();"
+		 tooltiptext="Close rCache Collector"/>
 	  <spacer style="height: 8px;"/>
 	   <image src="chrome://rcache/content/table_refresh.png" 
-		 onmousedown="rc.collect();"/>
+		 onmousedown="rc.collect();"
+		 tooltiptext="Collect the current highlighted page."/>
+	   <spacer style="height: 8px;"/>
+	   <image src="chrome://rcache/content/server_connect.png" 
+		 onmousedown="rc.login();"
+		 tooltiptext="Login to rCache.com"/>
 	</vbox>
 	<tabbox id="rc-tabs" selectedIndex="0">
 	  <tabs>
@@ -126,31 +132,55 @@
 			   value=""
 			   class="rc-input-label"/>
 		    <vbox>
-		      <button id="cache-button" 
-			      label="rCache This"
-			      oncommand="rc.post();"/>
-		      <progressmeter id="progress"
-				     mode="undetermined" 
-				     hidden="true"/>
-		      <label id="statusmsg" 
-			     value="Status Message" 
-			     crop="right"/>
+		      <vbox>
+			<button id="cache-button" 
+				label="rCache it!"
+				oncommand="rc.post();"/>
 		      </vbox>
+		      <vbox>
+			<label id="statusmsg" 
+			       value="Status Message" 
+			       crop="right"/>
+		      </vbox>
+		      <vbox>
+			<progressmeter id="progress"
+				       mode="undetermined" 
+				       hidden="true"/>
+		      </vbox>
+		    </vbox>
 		  </hbox>
 		</vbox>
 		
 		<hbox>
 		  <spacer style="width: 8px;"/>
 		  <vbox>
-		    <textbox id="selectedtext" 
-			     flex="1" 
-			     multiline="true"/>
+		    <tabbox id="rc-selected-text-tabs" 
+			    selectedIndex="0">
+		      <tabs>
+			<tab label="Collected Text"/>
+			<tab label="Page Fragment"/>
+		      </tabs>
+		      <tabpanels>
+			<tabpanel>
+			  <textbox id="selectedtext" 
+				   flex="1" 
+				   multiline="true"/>
+			</tabpanel>
+			<tabpanel>
+			  <vbox id="rc-rendered-dom">
+			    Not Implemented Yet. This will be the DOM
+			    nodes rendered with the style in the
+			    original page.
+			  </vbox>
+			</tabpanel>
+		      </tabpanels>
+		    </tabbox>
 		  </vbox>
 		</hbox>
 		
 		<vbox>
 		  <listbox id="linkbox" 
-			   rows="4"
+			   rows="5"
 			   seltype="multiple">
 		    <listhead>
 		      <listheader label="Captured Links"/>
@@ -160,7 +190,6 @@
 		      <listcol flex="1"/>
 		    </listcols>    
 		  </listbox>
-		  
 		  <listbox id="imgbox" 
 			   rows="6"
 			   seltype="multiple">
@@ -176,7 +205,7 @@
 		</vbox>
 		<vbox>
 		  <listbox id="mediabox" 
-			   rows="12"
+			   rows="14"
 			   seltype="multiple">
 		    <listhead>
 		      <listheader label="Media Attachments"/>
@@ -247,10 +276,18 @@
 	    </tabpanel>
 	    <tabpanel>
 	      <vbox>
-		<label>About rCache.</label>
-		<vbox>rCache is a web-based service to help you
+		<label class="rc-label">About rCache</label>
+		<vbox id="rc-about-rcache">
+		  rCache is a web-based service to help you
 		collect, analyze and share your online and offline
 		research material. </vbox>
+		<vbox>
+		  <hbox>
+		    <!-- <button id="rc-prefs-btn"  -->
+		    <!-- 	    oncommand="rc.prefs();" -->
+		    <!-- 	    label="Preferences"/>  -->
+		  </hbox>
+		</vbox>
 	      </vbox>
 	    </tabpanel>
 	  </tabpanels>

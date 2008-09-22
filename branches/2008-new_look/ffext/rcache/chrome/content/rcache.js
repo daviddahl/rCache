@@ -176,6 +176,12 @@ rc.clean_up = function(){
 
 };
 
+rc.login = function(){
+  window.open("https://collect.rcache.com/loginxul/",
+	              "rcache-loginxul",
+		      "menubar=no,location=no,resizable=no,scrollbars=yes,status=yes,width=400,height=210");
+};
+
 rc.post = function(){
   // POST it to the server!
   try{
@@ -204,9 +210,7 @@ rc.post = function(){
 	  document.getElementById('cache-button').disabled = false;
 	  document.getElementById('progress').hidden = true;
 	  rc.message("Please Login to rCache");
-	  window.open("https://collect.rcache.com/loginxul/",
-	              "rcache-loginxul",
-		      "menubar=no,location=no,resizable=no,scrollbars=yes,status=yes,width=400,height=210");
+	  rc.login();
 	} else {
 	  // huh? throw an exception...
 	  document.getElementById('cache-button').disabled = false;
@@ -294,6 +298,25 @@ rc.collector.title = null;
 rc.collector.url = null;
 rc.collector.selection_obj= null;
 
+rc.collector.dom_nodes = null;
+
+rc.collector.dom_list = [];
+
+rc.collector.make_dom = function(){
+  // take fragment and get all nodes as list
+  try{
+    for (var i = 0; i < rc.collector.dom_nodes.length; i++){
+      rc.collector.dom_list.push(rc.collector.dom_nodes[i]);
+      if (rc.collector.dom_nodes[i].childNodes){
+	rc.collector.make_dom(rc.collector.dom_nodes[i]);
+      }
+    }
+  } catch(e){
+    rc.log(e);
+  }
+
+};
+
 rc.collector.make_frag = function(){
   //make the fragment object!
   try {
@@ -301,6 +324,8 @@ rc.collector.make_frag = function(){
     var sel = rc.collector.selected_obj;
     var rng = sel.getRangeAt(0);
     var frag = rng.cloneContents();
+    rc.collector.dom_nodes = frag;
+    rc.collector.make_dom();
     rc.collector.src = sel.toString();
     var element = rc.document.createElement("div");
     element.id = "rcache-tmp-div";
@@ -448,8 +473,14 @@ rc.entries.append_nodes = function(tree,rows){
   for (var i=0; i < rows.length; i++) {
     //rc.log(i);
     var titem = document.createElement("treeitem");
+    titem.setAttribute('id',rows[i].rcacheid);
     var trow = document.createElement("treerow");
-
+    var detail_func = function(event){
+      var url = 'https://collect.rcache.com/detail/' +
+		  event.target.id + '/';
+      window.open(url);
+    };
+    titem.addEventListener('dblclick',detail_func,true);
     // columns
     var id_cell = document.createElement("treecell");
     var title_cell = document.createElement("treecell");
@@ -475,7 +506,24 @@ rc.entries.detail = function(id){
 
 };
 
+// style extraction and viewing namespace
+rc.style = {};
 
+rc.style.rules = [];
+
+rc.style.get_rules = function(){
+  // get all style rules for a page, save in rc.style.rules
+  for (var i = 0; i < rc.document.styleSheets.length; i++){
+    var sheet = rc.document.styleSheets[i];
+    for (var j = 0; j < sheet.cssRules.length; j++){
+      rc.style.rules.push(sheet.cssRules[j]);
+    }
+  }
+};
+
+rc.style.make_iframe = function(){
+
+};
 
 
 
