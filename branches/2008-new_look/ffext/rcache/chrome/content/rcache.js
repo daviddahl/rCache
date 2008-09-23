@@ -8,18 +8,36 @@ Array.prototype.exists = function(o) {
 
 var utils = {};
 var debug = true;
-
-Application.console.open();
+try {
+  Application.console.open();
+} catch(e){
+  //noop
+}
 
 var rc = {};
 
-rc.url = function(url_key){
+rc.minimal_mode = false;
+
+// todo: show minimal mode UI instead of standard UI
+// minimal mode has only the title, tags, btn and progress elements visible
+
+rc.minimal_ui = function(){
+  // hide rc-wrapper-box, show rc-minimal-status-bar
+};
+
+rc.base_url = 'https://collect.rcache.com';
+
+rc.url = function(url_key,id){
+
   if (url_key === 'recent'){
-    return 'https://collect.rcache.com/recent_xhr/?version=0.2.0&offset=1';
+    return rc.base_url + '/recent_xhr/?version=0.2.0&offset=1';
   } else if (url_key === 'post'){
-    return 'https://collect.rcache.com/postcache/?version=0.2.0';
+    return rc.base_url + '/postcache/?version=0.2.0';
   } else if (url_key === 'colleagues'){
-    return 'https://collect.rcache.com/xhr/colleagues/?version=0.2.0';
+    return rc.base_url + '/xhr/colleagues/?version=0.2.0';
+  } else if (url_key === 'detail'){
+    var u = rc.base_url + '/detail/'+id+'/?format=json&version=0.2.0';
+    return u;
   } else {
     throw("rCache Error: Url is not defined, cannot complete request.");
   }
@@ -177,9 +195,9 @@ rc.clean_up = function(){
 };
 
 rc.login = function(){
-  window.open("https://collect.rcache.com/loginxul/",
-	              "rcache-loginxul",
-		      "menubar=no,location=no,resizable=no,scrollbars=yes,status=yes,width=400,height=210");
+  window.open(rc.base_url + "/loginxul/",
+	      "rcache-loginxul",
+	      "menubar=no,location=no,resizable=no,scrollbars=yes,status=yes,width=400,height=210");
 };
 
 rc.post = function(){
@@ -279,13 +297,24 @@ rc.collector.select = function(){
     rc.log("wndw created");
     rc.target_window = wndw;
     rc.document = document.commandDispatcher.focusedWindow.document;
-    rc.log("doc created: " + rc.document);
+
+    var src_el = rc.document.createElement("div");
+    src_el.appendChild(wndw.getSelection().getRangeAt(0).cloneContents());
+    rc.collector.html = src_el;
+    rc.log("html: " + rc.collector.html);
+
+    try {
+      rc.style.make_iframe();
+    } catch(e){
+      rc.log(e);
+    }
+    //rc.log("doc created: " + rc.document);
     rc.collector.selected_obj = wndw.getSelection();
-    rc.log("window.getSelection() called");
+    //rc.log("window.getSelection() called");
     var selected_text = rc.collector.selected_obj.toString();
     rc.collector.src = selected_text;
-    rc.log("selected text added to rc.collector.src");
-    rc.log(rc.collector.src);
+    //rc.log("selected text added to rc.collector.src");
+    //rc.log(rc.collector.src);
     //return selection;
   } catch (e){
     rc.log(e);
@@ -293,6 +322,7 @@ rc.collector.select = function(){
 
 };
 
+rc.collector.html = null;
 rc.collector.src = null;
 rc.collector.title = null;
 rc.collector.url = null;
@@ -331,8 +361,8 @@ rc.collector.make_frag = function(){
     element.id = "rcache-tmp-div";
     element.appendChild(frag);
     var doc_el = rc.document.getElementById('rcache-tmp-div');
-    rc.log(doc_el);
-    rc.log("src text: " + rc.collector.src);
+    //rc.log(doc_el);
+    //rc.log("src text: " + rc.collector.src);
 
     var linkObjs = element.getElementsByTagName("a");
     for (var i = 0; i < linkObjs.length; i++){
@@ -365,13 +395,13 @@ rc.collector.media = [];
 
 rc.collector.fill_form = function(){
   // fill out the collector form
-  rc.log("starting fill_form function");
+  //rc.log("starting fill_form function");
   var selTex = document.getElementById('selectedtext');
-  rc.log(selTex);
+  //rc.log(selTex);
   //selTex.setAttribute("value",rc.collector.src);
   selTex.value = rc.collector.src;
-  rc.log("txt: " + rc.collector.src);
-  rc.log("selectedtext content: " + selTex.value);
+  //rc.log("txt: " + rc.collector.src);
+  //rc.log("selectedtext content: " + selTex.value);
   var pgTitle = document.getElementById('pagetitle');
   pgTitle.value = rc.collector.title;
 
@@ -388,10 +418,12 @@ rc.collector.fill_form = function(){
   for (var j = 0; j < rc.collector.imgs.length; j++){
     imgLst.appendItem(rc.collector.imgs[j]);
   }
+
   // focus on tags!
   var tags = document.getElementById('tags');
   tags.focus();
   // now activate the 'rCache this' button
+
 };
 
 rc.collector.url_check = function(){
@@ -426,12 +458,12 @@ rc.entries.recent = function(){
     //prog.src = rc.spinner_on;
     try {
       var res = eval('(' + data + ')');
-      rc.log("res: " + res.toString());
+      //rc.log("res: " + res.toString());
       if (res.entries_db.totalItems > 0){
-	rc.log("total items: " + res.entries_db.totalItems);
-	rc.log("first entry: " + res.entries_db.items[0].name);
+	//rc.log("total items: " + res.entries_db.totalItems);
+	//rc.log("first entry: " + res.entries_db.items[0].name);
 	var tree = document.getElementById('rc-recent-tree-children');
-	rc.log(tree.id);
+	//rc.log(tree.id);
 	try{
 	  rc.entries.append_nodes(tree,res.entries_db.items);
 	  //prog.src = rc.spinner_off;
@@ -465,22 +497,35 @@ rc.spinner_off  = "chrome://rcache/content/notloading_16.png";
 
 rc.entries.append_nodes = function(tree,rows){
   // fill the tree with rows
-  rc.log("start append nodes");
-  rc.log("rows.length: " + rows.length);
+  //rc.log("start append nodes");
+  //rc.log("rows.length: " + rows.length);
   // remove all existing children
   rc.entries.empty_tree();
+
+  var detail_func = function(){
+    try{
+      var t = document.getElementById('rc-recent-entries');
+      var si = t.selectedItems;
+      rc.log(t);
+      rc.log(si);
+      rc.log(si[0]);
+      var id = si[0].firstChild.firstChild.getAttribute('label');
+      var url = rc.url('detail',id);
+      window.open(url);
+    } catch(e){
+      rc.log('Error:' + e);
+    }
+  };
+
+  tree.addEventListener('dblclick',detail_func,true);
 
   for (var i=0; i < rows.length; i++) {
     //rc.log(i);
     var titem = document.createElement("treeitem");
     titem.setAttribute('id',rows[i].rcacheid);
     var trow = document.createElement("treerow");
-    var detail_func = function(event){
-      var url = 'https://collect.rcache.com/detail/' +
-		  event.target.id + '/';
-      window.open(url);
-    };
-    titem.addEventListener('dblclick',detail_func,true);
+
+
     // columns
     var id_cell = document.createElement("treecell");
     var title_cell = document.createElement("treecell");
@@ -515,17 +560,41 @@ rc.style.get_rules = function(){
   // get all style rules for a page, save in rc.style.rules
   for (var i = 0; i < rc.document.styleSheets.length; i++){
     var sheet = rc.document.styleSheets[i];
-    for (var j = 0; j < sheet.cssRules.length; j++){
-      rc.style.rules.push(sheet.cssRules[j]);
+    try{
+      for (var j = 0; j < sheet.cssRules.length; j++){
+	rc.style.rules.push(sheet.cssRules[j].cssText);
+      }
+    } catch(e){
+      rc.log(e);
     }
   }
 };
 
-rc.style.make_iframe = function(){
-
+rc.style.fill_iframe = function(){
+  var style_rules = '';
+  for (var i=0; i < rc.style.rules.length;i++){
+    style_rules = style_rules + rc.style.rules[i].toString();
+  }
+  document.getElementById('rc-iframe').contentWindow.document.
+    getElementById('rc-iframe-css').innerHTML = style_rules;
+  document.getElementById('rc-iframe').contentWindow.document.
+    body.appendChild(rc.collector.html);
 };
 
+rc.style.make_iframe = function(){
+  // load iframe via chrome://url
+  document.getElementById('rc-page-frag').
+    addEventListener('click',rc.style.fill_iframe,false);
+  rc.style.get_rules();
+  var frm = document.createElement('iframe');
+  frm.setAttribute('id','rc-iframe');
+  frm.setAttribute('src','chrome://rcache/content/html/selection.html');
+  var vbox = document.getElementById('rc-rendered-dom');
+  vbox.appendChild(frm);
+  var doc = document.getElementById('rc-iframe').contentWindow.document;
+  //rc.log(doc);
+};
 
-
+rc.iframe = null;
 
 rc.log("rCache Started");

@@ -158,7 +158,7 @@
 			    selectedIndex="0">
 		      <tabs>
 			<tab label="Collected Text"/>
-			<tab label="Page Fragment"/>
+			<tab id="rc-page-frag" label="Page Fragment"/>
 		      </tabs>
 		      <tabpanels>
 			<tabpanel>
@@ -168,9 +168,7 @@
 			</tabpanel>
 			<tabpanel>
 			  <vbox id="rc-rendered-dom">
-			    Not Implemented Yet. This will be the DOM
-			    nodes rendered with the style in the
-			    original page.
+			    
 			  </vbox>
 			</tabpanel>
 		      </tabpanels>
@@ -250,7 +248,8 @@
 			     flex="1"
 			     width="120"/>
 		  </treecols>
-		  <treechildren id="rc-recent-tree-children" hidden="false"></treechildren>
+		  <treechildren id="rc-recent-tree-children" 
+				hidden="false"></treechildren>
 		</tree>
 		<vbox id="rc-entry-details">
 		  <label id="rc-entry-details-lbl"></label>
