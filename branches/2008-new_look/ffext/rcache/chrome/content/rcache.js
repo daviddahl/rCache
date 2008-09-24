@@ -1,3 +1,7 @@
+// rCache Collector 0.2.0
+// Firefox extension - companion to rCache.com research tools
+// Copyright, 2007, 2008 David L Dahl
+
 // prototypes
 Array.prototype.exists = function(o) {
   for(var i = 0; i < this.length; i++)
@@ -26,6 +30,7 @@ rc.minimal_ui = function(){
 };
 
 rc.base_url = 'https://collect.rcache.com';
+//rc.base_url = 'http://127.0.0.1:8000';
 
 rc.url = function(url_key,id){
 
@@ -36,7 +41,7 @@ rc.url = function(url_key,id){
   } else if (url_key === 'colleagues'){
     return rc.base_url + '/xhr/colleagues/?version=0.2.0';
   } else if (url_key === 'detail'){
-    var u = rc.base_url + '/detail/'+id+'/?format=json&version=0.2.0';
+    var u = rc.base_url + '/detail/' + id + '/?format=json&version=0.2.0';
     return u;
   } else {
     throw("rCache Error: Url is not defined, cannot complete request.");
@@ -67,6 +72,7 @@ rc.toggle = function(action){
   } else {
      if (rc_ui.hidden){
       rc_ui.hidden = false;
+      rc.clean_up();
      }
   }
   // select the right tab:
@@ -111,6 +117,7 @@ rc.make_post_obj = function(){
     var wintags = document.getElementById('tags').value;
     post.tags = encodeURIComponent(wintags);
     post.links_qs = '';
+    post.html_content = rc.iframe;
     try {
       var lnkBx = document.getElementById('linkbox');
       lnkBx.selectAll();
@@ -152,26 +159,30 @@ rc.message = function(msg){
 
 rc.clean_listbox = function(id){
   var lst_bx = document.getElementById(id);
-  for (var i = 0; i < lst_bx.getRowCount(); i++){
-    lst_bx.removeItemAt(i);
+  while (lst_bx.hasChildNodes()) {
+    lst_bx.removeChild(lst_bx.childNodes[0]);
   }
 };
 
 rc.clean_textboxes = function(){
   // clean all text boxes
-  try{
+  try {
     document.getElementById('url').value = '';
     document.getElementById('pagetitle').value = '';
     document.getElementById('tags').value = '';
     document.getElementById('selectedtext').value = '';
-  } catch(e){
+  } catch(e) {
     rc.log(e);
   }
 };
 
 rc.clean_up = function(){
   // clean up the rc form, ready for a new cache
-  try{
+  try {
+    var src_tabs = document.getElementById('rc-page-frag');
+    src_tabs.selectedIndex = 0;
+    var ifrm = document.getElementById('rc-iframe');
+    ifrm.parentNode.removeChild(ifrm);
     rc.payload = null;
     rc.message("Ready.");
     rc.document = null;
@@ -305,6 +316,7 @@ rc.collector.select = function(){
 
     try {
       rc.style.make_iframe();
+      rc.style.fill_iframe();
     } catch(e){
       rc.log(e);
     }
@@ -350,7 +362,6 @@ rc.collector.make_dom = function(){
 rc.collector.make_frag = function(){
   //make the fragment object!
   try {
-    //var sel = document.commandDispatcher.focusedWindow.getSelection();
     var sel = rc.collector.selected_obj;
     var rng = sel.getRangeAt(0);
     var frag = rng.cloneContents();
@@ -381,7 +392,6 @@ rc.collector.make_frag = function(){
     // set the title and url as well:
     rc.collector.title = rc.document.title;
     rc.collector.url = rc.document.location.href;
-    //sel.removeAllRanges();
 
   } catch(e){
     rc.log(e);
@@ -556,6 +566,8 @@ rc.style = {};
 
 rc.style.rules = [];
 
+rc.style.style_tag_rules = '';
+
 rc.style.get_rules = function(){
   // get all style rules for a page, save in rc.style.rules
   for (var i = 0; i < rc.document.styleSheets.length; i++){
@@ -563,6 +575,11 @@ rc.style.get_rules = function(){
     try{
       for (var j = 0; j < sheet.cssRules.length; j++){
 	rc.style.rules.push(sheet.cssRules[j].cssText);
+      }
+      var style_objs = rc.document.getElementsByTagName('style');
+      for (var k = 0; k < style_objs.length; k++){
+	rc.style.style_tag_rules = rc.style.style_tag_rules +
+	  style_objs[k].innerHTML;
       }
     } catch(e){
       rc.log(e);
@@ -575,10 +592,16 @@ rc.style.fill_iframe = function(){
   for (var i=0; i < rc.style.rules.length;i++){
     style_rules = style_rules + rc.style.rules[i].toString();
   }
+  style_rules = style_rules + rc.style.style_tag_rules;
   document.getElementById('rc-iframe').contentWindow.document.
     getElementById('rc-iframe-css').innerHTML = style_rules;
   document.getElementById('rc-iframe').contentWindow.document.
     body.appendChild(rc.collector.html);
+  // add all html to rc.iframe
+  rc.iframe_inner_html = document.getElementById('rc-iframe').contentWindow.document.documentElement.innerHTML;
+  rc.iframe = rc.doc_html_open +
+    rc.iframe_inner_html +
+    rc.doc_html_close;
 };
 
 rc.style.make_iframe = function(){
@@ -591,10 +614,29 @@ rc.style.make_iframe = function(){
   frm.setAttribute('src','chrome://rcache/content/html/selection.html');
   var vbox = document.getElementById('rc-rendered-dom');
   vbox.appendChild(frm);
-  var doc = document.getElementById('rc-iframe').contentWindow.document;
+  //var doc = document.getElementById('rc-iframe').contentWindow.document;
+  //var src = document.getElementById('rc-iframe').contentWindow.document.documentElement.innerHTML;
+  //rc.log(src);
+  //rc.iframe_inner_html = src;
+  //rc.iframe = rc.iframe_src();
   //rc.log(doc);
 };
 
-rc.iframe = null;
+rc.iframe = '';
+rc.iframe_inner_html = '';
+
+rc.doc_html_open = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"' +
+	  '        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' +
+  '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">';
+
+rc.doc_html_close = '</html>';
+
+rc.iframe_src = function(){
+  // get the entire html document source
+  var src = rc.doc_html_open +
+    rc.iframe_inner_html  +
+    rc.doc_html_close;
+  return src;
+};
 
 rc.log("rCache Started");
