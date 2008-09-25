@@ -614,12 +614,6 @@ rc.style.make_iframe = function(){
   frm.setAttribute('src','chrome://rcache/content/html/selection.html');
   var vbox = document.getElementById('rc-rendered-dom');
   vbox.appendChild(frm);
-  //var doc = document.getElementById('rc-iframe').contentWindow.document;
-  //var src = document.getElementById('rc-iframe').contentWindow.document.documentElement.innerHTML;
-  //rc.log(src);
-  //rc.iframe_inner_html = src;
-  //rc.iframe = rc.iframe_src();
-  //rc.log(doc);
 };
 
 rc.iframe = '';
@@ -638,5 +632,74 @@ rc.iframe_src = function(){
     rc.doc_html_close;
   return src;
 };
+
+rc.media = {};
+
+rc.media.list_urls = function(){
+  // get all media urls that we care about from img src, embed tags
+  // return a list []
+};
+
+rc.media.download_media = function(){
+    // download a media object, store in this.downloaded_media() like so:
+    // downloaded_media['url'] = {'url':url,'mime_type':mime_type,'size':size'}
+    var lstbx = document.getElementById('imgbox');
+    var url = lstbx.getSelectedItem(0);
+    var progress = document.getElementById('media-dl-progress');
+    progress.value = 0;
+    try{
+	var data = this.download(url.label);
+	//var dl_obj = {'data':data,'url':url.label,'mime_type':mime_type};
+	//this.media_catalog.push(dl_obj);
+	//var dl_obj = null;
+    } catch(e){
+	rc.log(e);
+    }
+    
+};
+
+rc.media.download = function(){
+  // do the download!
+  try {
+    var lstbx = document.getElementById('imgbox');
+    var url = lstbx.getSelectedItem(0).label;
+    var dl_desc = document.getElementById('rc-media-dl-desc');
+    dl_desc.setAttribute("value","Downloading: " + url );
+
+    var before = function(){
+      this.onprogress = rc.media.on_progress;
+    };
+
+    var completed = function(data){
+      document.getElementById('rc-media-dl-desc').value = 'Download Complete';
+      rc.media.catalog.push({'data':data.responseText,'url':rc.media.current_url});
+      var mediaLst = document.getElementById('mediabox');
+      mediaLst.appendItem(rc.media.current_url);
+    };
+    rc.media.current_url = url;
+    var o = { 'url':url,
+	      type:'GET',
+	      beforeSend:before,
+	      dataType:'text',
+	      complete:completed };
+    var http = $.ajax(o);
+  } catch (e) {
+    rc.log(e);
+  }
+};
+
+rc.media.on_progress = function(e){
+  try {
+    var progress = document.getElementById('rc-media-dl-progress');
+    var percentComplete = (e.position / e.totalSize)*100;
+    progress.value = percentComplete;
+  } catch(e) {
+    rc.log(e);
+  }
+};    
+
+rc.media.current_url = null;
+
+rc.media.catalog = [];
 
 rc.log("rCache Started");

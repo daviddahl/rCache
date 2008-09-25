@@ -4,6 +4,11 @@
 		 type="text/css"?>
 <overlay id="rcache-browser-overlay" 
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<!-- 
+rCache Collector 0.2.0
+Firefox extension - companion to rCache.com research tools
+Copyright, 2007, 2008 David L Dahl
+-->
   
   <script src="chrome://rcache/content/rcache.js"/>
   <script src="chrome://rcache/content/json2.js"/>
@@ -203,7 +208,7 @@
 		</vbox>
 		<vbox>
 		  <listbox id="mediabox" 
-			   rows="14"
+			   rows="10"
 			   seltype="multiple">
 		    <listhead>
 		      <listheader label="Media Attachments"/>
@@ -213,6 +218,17 @@
 		      <listcol flex="1"/>
 		    </listcols>    
 		  </listbox>
+		  <hbox>
+		    <button id="rc-dl-start"
+			    oncommand="rc.media.download();"
+			    image="chrome://rcache/content/picture_save.png"
+			    tooltiptext="Download selected media item."/>
+		    <label id="rc-media-dl-desc" value=""/>
+		  </hbox>
+		  <progressmeter id="rc-media-dl-progress"
+				 mode="determined" 
+				 hidden="true"
+				 value="0"/>
 		</vbox>
 	      </hbox>
 	      
