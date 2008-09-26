@@ -9,27 +9,28 @@
                   font-weight: bold;}
 
 .rc-text-input{ margin:2px;
-                min-width:200px;
-                max-width:200px; }
+                min-width:300px;
+                max-width:300px; }
 
-#rc-rendered-dom { max-width:300px;
+#rc-rendered-dom { max-width:600px;
                    max-height:200px;
-                   min-width:300px;
+                   min-width:600px;
                    min-height:200px;}
 
-#selectedtext{ min-width:300px;
-               max-width:300px;
+#selectedtext{ min-width:600px;
+               max-width:600px;
                min-height:200px;
                max-height:200px;}
 
-#linkbox { min-width: 300px;
-           max-width: 300px; }
+#linkbox { min-width: 600px;
+           max-width: 600px;
+           height:200px;}
 #linkbox listitem { line-height:8px; }
-#imgbox { min-width: 300px;
-          max-width: 300px;}
+#imgbox { min-width: 600px;
+          max-width: 600px;}
 
-#mediabox { min-width: 300px;
-            max-width: 300px;
+#mediabox { min-width: 600px;
+            max-width: 600px;
             max-height:260px;}
 
 #rc-entries { min-width:600px; }
@@ -48,7 +49,7 @@
             font-size:12px;
             font-weight:bold;}
 
-#rc-recent-entries{ min-width:600px; }
+#rc-recent-entries{ min-width:600px; height:200px; }
 
 #rc-entries-reload{ max-width:24px; min-width:32px;}
 
@@ -63,4 +64,10 @@
 #rc-about-rcache{ margin-top:16px;
                   margin-bottom:16px;}
 
-#rc-iframe{ width:300px; height:200px; }
+#rc-iframe{ width:600px; height:200px; }
+
+#rc-media-dl-desc{ width:120px; }
+
+#rc-media-dl-progress{ width:120px; }
+
+#rc-dl-start { width:24px; height:24px; }

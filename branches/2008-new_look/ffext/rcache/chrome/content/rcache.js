@@ -11,7 +11,9 @@ Array.prototype.exists = function(o) {
 };
 
 var utils = {};
+
 var debug = true;
+
 try {
   Application.console.open();
 } catch(e){

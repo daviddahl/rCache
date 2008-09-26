@@ -162,8 +162,16 @@ Copyright, 2007, 2008 David L Dahl
 		    <tabbox id="rc-selected-text-tabs" 
 			    selectedIndex="0">
 		      <tabs>
-			<tab label="Collected Text"/>
-			<tab id="rc-page-frag" label="Page Fragment"/>
+			<tab id="rc-collected-text"
+			     label="Collected Text"/>
+			<tab id="rc-page-frag" 
+			     label="Page Fragment"/>
+			<tab id="rc-collected-urls" 
+			     label="Urls"/>
+			<tab id="rc-collected-media-urls" 
+			     label="Media Links"/>
+			<tab id="rc-attachments" 
+			     label="Attachments"/>
 		      </tabs>
 		      <tabpanels>
 			<tabpanel>
@@ -172,64 +180,87 @@ Copyright, 2007, 2008 David L Dahl
 				   multiline="true"/>
 			</tabpanel>
 			<tabpanel>
-			  <vbox id="rc-rendered-dom">
-			    
+			  <vbox id="rc-rendered-dom">			    
 			  </vbox>
 			</tabpanel>
+			
+			<tabpanel id="rc-linkbox-tab">
+			  
+			  <vbox>
+			    <listbox id="linkbox" 
+				     rows="6"
+				     seltype="multiple">
+			      <listhead>
+				<listheader label="Captured Links"/>
+			      </listhead>
+			      
+			      <listcols>
+				<listcol flex="1"/>
+			      </listcols>    
+			    </listbox>
+			    
+			    
+			  </vbox>
+
+			</tabpanel>  
+
+			<tabpanel id="rc-imgbox-tab">
+			  
+			  <listbox id="imgbox" 
+				   rows="6"
+				   seltype="multiple">
+			    <listhead>
+			      <listheader label="Captured Image URLs"/>
+			    </listhead>
+			    
+			    <listcols>
+			      <listcol flex="1"/>
+			    </listcols>    
+			  </listbox>
+			  <vbox>
+			    <hbox>
+			      <button id="rc-dl-start"
+				      oncommand="rc.media.download();"
+				      image="chrome://rcache/content/picture_save.png"
+				      tooltiptext="Download selected  media item."/>
+			    </hbox>
+			    <label id="rc-media-dl-desc" value=""/>
+			  <progressmeter id="rc-media-dl-progress"
+					 mode="determined" 
+					 hidden="true"
+					 value="0"/>
+			  </vbox>
+			</tabpanel>  
+
+			<tabpanel id="rc-mediabox-tab">
+
+			  <vbox>
+			    <listbox id="mediabox" 
+				     rows="10"
+				     seltype="multiple">
+			      <listhead>
+				<listheader label="Media Attachments"/>
+			      </listhead>
+			      
+			      <listcols>
+				<listcol flex="1"/>
+			      </listcols>    
+			    </listbox>
+			    
+			  </vbox>
+			</tabpanel>  
+			
+			
+			
+
+
 		      </tabpanels>
 		    </tabbox>
 		  </vbox>
 		</hbox>
 		
-		<vbox>
-		  <listbox id="linkbox" 
-			   rows="5"
-			   seltype="multiple">
-		    <listhead>
-		      <listheader label="Captured Links"/>
-		    </listhead>
-		    
-		    <listcols>
-		      <listcol flex="1"/>
-		    </listcols>    
-		  </listbox>
-		  <listbox id="imgbox" 
-			   rows="6"
-			   seltype="multiple">
-		    <listhead>
-		      <listheader label="Captured Image URLs"/>
-		    </listhead>
-		    
-		    <listcols>
-		      <listcol flex="1"/>
-		    </listcols>    
-		  </listbox>
-		  
-		</vbox>
-		<vbox>
-		  <listbox id="mediabox" 
-			   rows="10"
-			   seltype="multiple">
-		    <listhead>
-		      <listheader label="Media Attachments"/>
-		    </listhead>
-		    
-		    <listcols>
-		      <listcol flex="1"/>
-		    </listcols>    
-		  </listbox>
-		  <hbox>
-		    <button id="rc-dl-start"
-			    oncommand="rc.media.download();"
-			    image="chrome://rcache/content/picture_save.png"
-			    tooltiptext="Download selected media item."/>
-		    <label id="rc-media-dl-desc" value=""/>
-		  </hbox>
-		  <progressmeter id="rc-media-dl-progress"
-				 mode="determined" 
-				 hidden="true"
-				 value="0"/>
-		</vbox>
+	
+		
 	      </hbox>
 	      
 	    </tabpanel>
@@ -249,7 +280,7 @@ Copyright, 2007, 2008 David L Dahl
 		<tree id="rc-recent-entries" 
 		      flex="1" 
 		      seltype="single"
-		      rows="10">
+		      rows="6">
 		  <treecols>
 		    <treecol id="rc-entry-id" 
 			     label="Id" 
