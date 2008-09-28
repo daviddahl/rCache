@@ -87,6 +87,12 @@ rCache.com - Detail
 <div class="notice_message"><h4>No Images Extracted</h4></div>
 {% endif %}
 
+{% if e.html_content %}
+<div id="rc-rendered-source">
+  <h6><a target="_new" href="/detail/context/{{ e.id }}/">Open in new window</a></h6>
+<iframe style="width:98%; height:300px;" id="rc-original-context" src="/detail/context/{{ e.id }}/"/>
+</div>
+{% endif %}
 
 {% endfor %}
 </div>

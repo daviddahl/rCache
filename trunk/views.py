@@ -40,6 +40,7 @@ except:
 from rcache.models import *
 from rcache.forms import *
 from rcache.settings import *
+from rcache.jsonresponse import JsonResponse
 
 search_refer = re.compile("/search/$")
 
@@ -83,13 +84,25 @@ def colleagues(request):
     and edit coll. privs"""
     if login_check(request):
         u = User.objects.get(id=request.session['userid'])
-        c = Colleague.objects.filter(user_id__exact=request.session['userid']).order_by('-id')
-        
+        c = Colleague.objects.filter(user_id__exact=request.session['userid']).order_by('colleague')
+        if request.GET.has_key('version'):
+            cols = []
+            for col in c:
+                print col
+                cols.append({'colleague':str(col),
+                             'id':col.colleague.id})
+            res = {'status':'success','colleagues':cols,'count':len(c)}
+            print res
+            return JsonResponse(res)
+
         return render_to_response('colleagues.html',
                                   {'colleagues':c,
                                    'colleagues_cnt':len(c),
                                    'user':u})
     else:
+        if request.GET.has_key('version'):
+            return JsonResponse({'status':'error',
+                                 'msg':'Not Logged In.'})
         return HttpResponseRedirect("/login_required/")
 
 def colleague_detail(request,coll_id):
@@ -1010,6 +1023,10 @@ def postcache(request):
     if login_check(request):
         if request.POST:
             if request.POST['text_content']:
+                try:
+                    html_content = urllib.unquote_plus(request.POST['html_content'])
+                except:
+                    html_content = ''
                 text_content = urllib.unquote_plus(request.POST['text_content'])
                 entry_name = urllib.unquote_plus(request.POST['entry_name'])
                 description = urllib.unquote_plus(request.POST['description'])
@@ -1027,6 +1044,7 @@ def postcache(request):
                 try:
                     _user = User.objects.get(id=request.session['userid'])
                     entry = Entry(text_content=text_content,
+                                  html_content=html_content,
                                   entry_name=entry_name,
                                   description=description,
                                   entry_url=entry_url,
@@ -1846,3 +1864,23 @@ def smtp_google():
     send_mail(subject, message, from_email, recipient_list,
               fail_silently=False, auth_user=EMAIL_HOST_USER,
               auth_password=EMAIL_HOST_PASSWORD)
+
+def detail_context(request,entry_id):
+    """
+    render the detail html source (for iframe)
+    """
+    if login_check(request):
+        try:
+            u = User.objects.get(id=request.session['userid'])
+            e = Entry.objects.filter(user=u,id__exact=entry_id)[0]
+            return render_to_response("entry_source.html",
+                                      {'entry':e,
+                                       'err':None})
+        except Exception,e:
+            raise
+            print str(e)
+            return render_to_response("entry_source.html",
+                                      {'entry':None,
+                                       'err':None})
+    else:        
+        return HttpResponseRedirect("/login_required/")

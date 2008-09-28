@@ -53,6 +53,8 @@ urlpatterns = patterns('rcache.views',
                        (r'^login_err/$','login_err'),
                        (r'^login_required/$','login_required'),
                        (r'^detail/(?P<entry_id>\d+)/$','detail'),
+                       (r'^detail/context/(?P<entry_id>\d+)/$',
+                        'detail_context'),
                        (r'^remove/(?P<entry_id>\d+)/$','remove_entry'),
                        (r'^removeit/(?P<entry_id>\d+)/$','removeit'),
 

@@ -1344,3 +1344,6 @@ textarea{
     overflow: auto;
     line-height:1.4em;
 }
+
+#rc-original-context{ width:98%;height:300px; }
+#rc-rendered-source{ width:98%; height:300px; }
