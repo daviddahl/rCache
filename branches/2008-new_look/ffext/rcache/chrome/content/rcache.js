@@ -22,6 +22,8 @@ try {
 
 var rc = {};
 
+rc.version = '0.2.0';
+
 rc.minimal_mode = false;
 
 // todo: show minimal mode UI instead of standard UI
@@ -41,7 +43,7 @@ rc.url = function(url_key,id){
   } else if (url_key === 'post'){
     return rc.base_url + '/postcache/?version=0.2.0';
   } else if (url_key === 'colleagues'){
-    return rc.base_url + '/xhr/colleagues/?version=0.2.0';
+    return rc.base_url + '/colleagues/?version=0.2.0';
   } else if (url_key === 'detail'){
     var u = rc.base_url + '/detail/' + id + '/?format=json&version=0.2.0';
     return u;
@@ -299,6 +301,7 @@ rc.collect = function(){
 rc.collector = {};
 
 rc.document = null;
+
 rc.target_window = null;
 
 rc.collector.select = function(){
@@ -337,9 +340,13 @@ rc.collector.select = function(){
 };
 
 rc.collector.html = null;
+
 rc.collector.src = null;
+
 rc.collector.title = null;
+
 rc.collector.url = null;
+
 rc.collector.selection_obj= null;
 
 rc.collector.dom_nodes = null;
@@ -470,28 +477,19 @@ rc.entries.recent = function(){
     //prog.src = rc.spinner_on;
     try {
       var res = eval('(' + data + ')');
-      //rc.log("res: " + res.toString());
       if (res.entries_db.totalItems > 0){
-	//rc.log("total items: " + res.entries_db.totalItems);
-	//rc.log("first entry: " + res.entries_db.items[0].name);
 	var tree = document.getElementById('rc-recent-tree-children');
-	//rc.log(tree.id);
 	try{
 	  rc.entries.append_nodes(tree,res.entries_db.items);
-	  //prog.src = rc.spinner_off;
 	} catch(e){
 	  rc.log(e);
-	  //prog.src = rc.spinner_off;
 	}
-
       } else {
 	alert("rCache: No entries found");
       }
-
     } catch(e){
-      //prog.src = rc.spinner_off;
       rc.log(e);
-      throw("Error: " + e);
+      throw new Error("Error: " + e);
     }
 
   });
@@ -590,20 +588,34 @@ rc.style.get_rules = function(){
 };
 
 rc.style.fill_iframe = function(){
+  // use data URI scheme for iframe source!
   var style_rules = '';
   for (var i=0; i < rc.style.rules.length;i++){
     style_rules = style_rules + rc.style.rules[i].toString();
   }
   style_rules = style_rules + rc.style.style_tag_rules;
-  document.getElementById('rc-iframe').contentWindow.document.
-    getElementById('rc-iframe-css').innerHTML = style_rules;
-  document.getElementById('rc-iframe').contentWindow.document.
-    body.appendChild(rc.collector.html);
-  // add all html to rc.iframe
-  rc.iframe_inner_html = document.getElementById('rc-iframe').contentWindow.document.documentElement.innerHTML;
-  rc.iframe = rc.doc_html_open +
-    rc.iframe_inner_html +
-    rc.doc_html_close;
+  var ifrm_src = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"' +
+  '        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' +
+  '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">' +
+  '<head>' +
+  '<meta http-equiv="cache-control" content="no-cache"/>' +
+  '<meta http-equiv="expires" content="MON, 22 JUL 2002 11:12:01 GMT"/>' +
+  '<meta http-equiv="pragma" content="no-cache"/>' +
+  '<style id="rc-iframe-css">' +
+  style_rules +
+  '</style>' +
+  '<title></title>' +
+  '</head>' +
+  '<body>' +
+  '<div id="rc-iframe-content">' +
+  rc.collector.html.innerHTML +
+  '</div>' +
+  '</body>' +
+  '</html>';
+  var data_uri_start = 'data:text/html,';
+  var src = data_uri_start + ifrm_src;
+  rc.iframe = src;
+  document.getElementById('rc-iframe').setAttribute('src',src);
 };
 
 rc.style.make_iframe = function(){
@@ -613,10 +625,26 @@ rc.style.make_iframe = function(){
   rc.style.get_rules();
   var frm = document.createElement('iframe');
   frm.setAttribute('id','rc-iframe');
-  frm.setAttribute('src','chrome://rcache/content/html/selection.html');
+  frm.setAttribute('src','');
   var vbox = document.getElementById('rc-rendered-dom');
   vbox.appendChild(frm);
 };
+
+rc.iframe_start =
+  '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"' +
+  '        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' +
+  '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">' +
+  '<head>' +
+  '<meta http-equiv="cache-control" content="no-cache"/>' +
+  '<meta http-equiv="expires" content="MON, 22 JUL 2002 11:12:01 GMT"/>' +
+  '<meta http-equiv="pragma" content="no-cache"/>' +
+  '<style id="rc-iframe-css"></style>' +
+  '<title></title>' +
+  '</head>' +
+  '<body>' +
+  '<div id="rc-iframe-content"></div>' +
+  '</body>' +
+  '</html>';
 
 rc.iframe = '';
 rc.iframe_inner_html = '';
@@ -657,7 +685,7 @@ rc.media.download_media = function(){
     } catch(e){
 	rc.log(e);
     }
-    
+
 };
 
 rc.media.download = function(){
@@ -698,10 +726,38 @@ rc.media.on_progress = function(e){
   } catch(e) {
     rc.log(e);
   }
-};    
+};
 
 rc.media.current_url = null;
 
 rc.media.catalog = [];
+
+
+rc.colleagues = {};
+
+rc.colleagues.refresh = function(){
+  // refresh the colleagues list
+  rc.log("Getting recent entries...");
+
+  var url = rc.url('colleagues');
+  rc.log(url);
+  $.get(url,function(data){
+    try {
+
+      rc.log(data);
+      var res = eval('(' + data + ')');
+      rc.log(res);
+      var listbx = document.getElementById('rc-colleagues');
+      rc.clean_listbox('rc-colleagues');
+      rc.log(listbx);
+      for (var i = 0; i < res.colleagues.length; i++){
+	listbx.appendItem(res.colleagues[i].colleague);
+      }
+    } catch(e){
+      rc.log(e);
+      alert(e);
+    }
+  });
+};
 
 rc.log("rCache Started");

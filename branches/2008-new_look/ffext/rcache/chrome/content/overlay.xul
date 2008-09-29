@@ -305,7 +305,14 @@ Copyright, 2007, 2008 David L Dahl
 
 	    </tabpanel>
 	    <tabpanel>
-	      <vbox>
+	      <hbox>
+		<vbox>
+		  <button id="rc-colleagues-reload" 
+			  image="chrome://rcache/content/group_gear.png"
+			  tooltiptext="Refresh Colleagues"
+			  oncommand="rc.colleagues.refresh();"/>
+		</vbox>
+		<vbox>
 		  <listbox id="rc-colleagues" 
 			   rows="10"
 			   seltype="single">
@@ -318,7 +325,7 @@ Copyright, 2007, 2008 David L Dahl
 		    </listcols>    
 		  </listbox>
 		</vbox>
-
+	      </hbox>
 	    </tabpanel>
 	    <tabpanel>
 	      <vbox>
