@@ -670,12 +670,11 @@ def detail(request,entry_id):
                                          'id':e[0].id,
                                          'title':e[0].entry_name,
                                          'msg':'Successful Connection'})
-            except Exception, e:
-                print str(e)
+            except:
                 pass
             
             return render_to_response('detail.html',
-                                      {'entry':e,
+                                      {'entry':e[0],
                                        'escaped_text_content':escaped_text_content,
                                        'imgs':imgs,
                                        'links':links,

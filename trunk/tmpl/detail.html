@@ -8,25 +8,25 @@ rCache.com - Detail
 {% block content %}
 {% include "nav.html" %}
 <div id="detail_wrapper">
-{% for e in entry %}
+
 <div id="detail_header">
   {% if coll_render %}
   <h4>This Entry is from your Colleague {{ colleague.login }}'s Research</h4>
   {% endif %}
   
-  <span class="entry_detail_id">Entry # {{ e.id }}, Saved {{ e.date_created|timesince }} ago {{ e.date_created }}</span>
-<h2><a href="{{ e.entry_url }}" title="Original URL: {{ e.entry_url }}" target="_new">{{ e.entry_name }}</a></h2>
+  <span class="entry_detail_id">Entry # {{ entry.id }}, Saved {{ entry.date_created|timesince }} ago {{ entry.date_created }}</span>
+<h2><a href="{{ entry.entry_url }}" title="Original URL: {{ entry.entry_url }}" target="_new">{{ entry.entry_name }}</a></h2>
 </div>
 <div id="detail_tags">
-  <strong>Tags</strong> &nbsp; 
+  <strong>Tags</strong> &nbsp;  
   {% for tag in tags %}
 <a href="/tag/?tg={{ tag|urlencode }}" title="Filter your research by tag: {{ tag }}">{{ tag }}</a> &nbsp; 
   {% endfor %}
    &nbsp; &nbsp; &nbsp; 
   {% if coll_render %}
   {% else %}
- <a href="/edit/{{ e.id }}/" title="Edit this entry" class="button">Edit</a>
- <a href="/remove/{{ e.id }}/" title="Remove this entry permanently" class="button">Remove</a>
+ <a href="/edit/{{ entry.id }}/" title="Edit this entry" class="button">Edit</a>
+ <a href="/remove/{{ entry.id }}/" title="Remove this entry permanently" class="button">Remove</a>
   {% endif %}
   <a href="#links" title="Extracted Links" class="button">Links</a>
   <a href="#imgs" title="Extracted Images" class="button">Images</a>
@@ -87,13 +87,12 @@ rCache.com - Detail
 <div class="notice_message"><h4>No Images Extracted</h4></div>
 {% endif %}
 
-{% if e.html_content %}
+{% if entry.html_content %}
 <div id="rc-rendered-source">
-  <h6><a target="_new" href="/detail/context/{{ e.id }}/">Open in new window</a></h6>
-<iframe style="width:98%; height:300px;" id="rc-original-context" src="/detail/context/{{ e.id }}/"/>
+  <h6><a target="_new" href="/detail/context/{{ entry.id }}/">Open in new window</a></h6>
+<iframe style="width:98%; height:300px;" id="rc-original-context" src="/detail/context/{{ entry.id }}/"/>
 </div>
 {% endif %}
 
-{% endfor %}
 </div>
 {% endblock %}
