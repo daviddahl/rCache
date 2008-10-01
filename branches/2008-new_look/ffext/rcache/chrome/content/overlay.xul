@@ -8,8 +8,7 @@
 rCache Collector 0.2.0
 Firefox extension - companion to rCache.com research tools
 Copyright, 2007, 2008 David L Dahl
--->
-  
+-->  
   <script src="chrome://rcache/content/rcache.js"/>
   <script src="chrome://rcache/content/json2.js"/>
   <script src="chrome://rcache/content/jquery-min.js"/>
@@ -249,10 +248,6 @@ Copyright, 2007, 2008 David L Dahl
 			    
 			  </vbox>
 			</tabpanel>  
-			
-			
-			
-
 
 		      </tabpanels>
 		    </tabbox>
@@ -265,6 +260,7 @@ Copyright, 2007, 2008 David L Dahl
 	      
 	    </tabpanel>
 	    <tabpanel>
+
 	      <!-- tabpanel Second elements go here -->
 	      <!-- ======================================================= -->
 	      <!-- ENTRIES -->
@@ -277,10 +273,12 @@ Copyright, 2007, 2008 David L Dahl
 			  tooltiptext="Refresh Entries"
 			  oncommand="rc.entries.recent();"/>
 		</vbox>
+
 		<tree id="rc-recent-entries" 
 		      flex="1" 
 		      seltype="single"
-		      rows="6">
+		      rows="6"
+		      onselect="rc.entries.detail();">
 		  <treecols>
 		    <treecol id="rc-entry-id" 
 			     label="Id" 
@@ -296,11 +294,19 @@ Copyright, 2007, 2008 David L Dahl
 			     width="120"/>
 		  </treecols>
 		  <treechildren id="rc-recent-tree-children" 
-				hidden="false"></treechildren>
+				hidden="false">
+		  </treechildren>
 		</tree>
+
 		<vbox id="rc-entry-details">
-		  <label id="rc-entry-details-lbl"></label>
+		  <label id="rc-entry-title"></label>
+		  <label id="rc-entry-tags"></label>
+
+		  <textbox id="rc-entry-text" 
+			   flex="1" 
+			   multiline="true"/>
 		</vbox>
+
 	      </hbox>
 
 	    </tabpanel>

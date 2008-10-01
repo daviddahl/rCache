@@ -71,3 +71,11 @@
 #rc-media-dl-progress{ width:120px; }
 
 #rc-dl-start { width:24px; height:24px; }
+
+#rc-entry-text{ width:350px; height:200px; }
+
+#rc-entry-title { font-weight:bold; 
+                  font-size:13px; 
+                  max-width:350px;
+                  min-width:350px; }
+

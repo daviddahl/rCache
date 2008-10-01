@@ -556,9 +556,24 @@ rc.entries.append_nodes = function(tree,rows){
   }
 };
 
-rc.entries.detail = function(id){
+rc.entries.detail = function(){
   // get the entry's details from the server
-
+  var t = document.getElementById('rc-recent-entries');
+  var idx = 0;
+  var id = t.view.getCellText(t.currentIndex,t.columns.getColumnAt(idx));
+  rc.log(id);
+  // get the details from the server
+  $.get(rc.url('detail',id),function(data){
+      var res = JSON.parse(data);
+      if (res.status === 'success'){
+	document.getElementById('rc-entry-title').value = res.title;
+	document.getElementById('rc-entry-tags').value = res.tags;
+	//rc.log(res.entry_text);
+	document.getElementById('rc-entry-text').value = res.entry_text;
+      } else {
+	rc.log(res.msg)
+      }
+    });
 };
 
 // style extraction and viewing namespace
@@ -620,8 +635,8 @@ rc.style.fill_iframe = function(){
 
 rc.style.make_iframe = function(){
   // load iframe via chrome://url
-  document.getElementById('rc-page-frag').
-    addEventListener('click',rc.style.fill_iframe,false);
+  //document.getElementById('rc-page-frag').
+  //  addEventListener('click',rc.style.fill_iframe,false);
   rc.style.get_rules();
   var frm = document.createElement('iframe');
   frm.setAttribute('id','rc-iframe');
