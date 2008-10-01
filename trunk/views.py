@@ -661,6 +661,19 @@ def detail(request,entry_id):
                 recent_enhanced = True
             else:
                 recent_enhanced = False
+
+            try:
+                if request.GET['format'] == 'json':
+                    return JsonResponse({'status':'success',
+                                         'entry_text':e[0].text_content,
+                                         'tags':tags_clean,
+                                         'id':e[0].id,
+                                         'title':e[0].entry_name,
+                                         'msg':'Successful Connection'})
+            except Exception, e:
+                print str(e)
+                pass
+            
             return render_to_response('detail.html',
                                       {'entry':e,
                                        'escaped_text_content':escaped_text_content,
@@ -680,6 +693,7 @@ def detail(request,entry_id):
             return HttpResponseRedirect("/404/")
     else:
         return HttpResponseRedirect("/login_required/")
+
 
 def entry_validate(POST):
     try:
