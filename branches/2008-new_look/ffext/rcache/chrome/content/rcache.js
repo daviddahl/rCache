@@ -1,6 +1,6 @@
 // rCache Collector 0.2.0
 // Firefox extension - companion to rCache.com research tools
-// Copyright, 2007, 2008 David L Dahl
+// Copyright, 2007, 2008, 2009 David L Dahl
 
 // prototypes
 Array.prototype.exists = function(o) {
@@ -514,11 +514,11 @@ rc.entries.append_nodes = function(tree,rows){
 
   var detail_func = function(){
     try{
-      var t = document.getElementById('rc-recent-entries');
-      var si = t.selectedItems;
-      rc.log(t);
-      rc.log(si);
-      rc.log(si[0]);
+      var rc_recent_entries = document.getElementById('rc-recent-entries');
+      var si = rc_recent_entries.selectedItems;
+      // rc.log(t);
+      // rc.log(si);
+      // rc.log(si[0]);
       var id = si[0].firstChild.firstChild.getAttribute('label');
       var url = rc.url('detail',id);
       window.open(url);
@@ -558,9 +558,9 @@ rc.entries.append_nodes = function(tree,rows){
 
 rc.entries.detail = function(){
   // get the entry's details from the server
-  var t = document.getElementById('rc-recent-entries');
+  var rc_recent = document.getElementById('rc-recent-entries');
   var idx = 0;
-  var id = t.view.getCellText(t.currentIndex,t.columns.getColumnAt(idx));
+  var id = rc_recent.view.getCellText(rc_recent.currentIndex,rc_recent.columns.getColumnAt(idx));
   rc.log(id);
   // get the details from the server
   $.get(rc.url('detail',id),function(data){
@@ -775,4 +775,4 @@ rc.colleagues.refresh = function(){
   });
 };
 
-rc.log("rCache Started");
+// rc.log("rCache Started");
